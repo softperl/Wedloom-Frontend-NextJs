@@ -9,9 +9,34 @@ import OthersLogin from "@/components/othersLoginButton/othersLogin";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { InputField } from "@/components/global/formFields/inputField";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeOff } from "lucide-react";
+
+const formSchema = z.object({
+  email: z.string().email("E-mail is required"),
+  password: z.string().min(6, "Password is required"),
+});
+
+type VendorLoginFormValues = z.infer<typeof formSchema>;
 
 const LoginForm = () => {
   const router = useRouter();
+  const defaultValues: Partial<VendorLoginFormValues> = {
+    email: undefined,
+    password: undefined,
+  };
+
+  const { control, handleSubmit } = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues,
+  });
+
+  const onSubmit = (data: Partial<VendorLoginFormValues>) => {
+    console.log(data);
+  };
 
   // Password Show State
   const [showPass, setShowPass] = useState(false);
@@ -115,7 +140,7 @@ const LoginForm = () => {
                       New Password
                     </label>
                   </div>
-                  <div className="input_div">
+                  <div className="">
                     <input
                       className="w-full py-6 px-[22px] text-sm leading-tight border border-paginationBg-900 focus:outline-none focus:border-textPrimary-900 rounded text-textSecondary-900 font-semibold"
                       id="newpassword"
@@ -148,7 +173,7 @@ const LoginForm = () => {
                       New Password
                     </label>
                   </div>
-                  <div className="input_div">
+                  <div className="">
                     <input
                       className="w-full py-6 px-[22px] text-sm leading-tight border border-paginationBg-900 focus:outline-none focus:border-textPrimary-900 rounded text-textSecondary-900 font-semibold"
                       id="confirmnewpassword"
@@ -202,7 +227,7 @@ const LoginForm = () => {
                       E-mail
                     </label>
                   </div>
-                  <div className="input_div">
+                  <div className="">
                     <input
                       className="w-full py-6 px-[22px] text-sm leading-tight border border-paginationBg-900 focus:outline-none focus:border-textPrimary-900 rounded text-textSecondary-900 font-semibold"
                       id="email"
@@ -236,7 +261,7 @@ const LoginForm = () => {
                         Confirmation Code
                       </label>
                     </div>
-                    <div className="input_div">
+                    <div className="">
                       <input
                         className="w-full py-6 px-[22px] text-sm leading-tight border border-paginationBg-900 focus:outline-none focus:border-textPrimary-900 rounded text-textSecondary-900 font-semibold"
                         id="otp"
@@ -281,64 +306,35 @@ const LoginForm = () => {
           <form className="mt-10 bg-white rounded" onSubmit={submitHandler}>
             {/* Email */}
             <div className="mb-10">
-              <div className="w-full relative">
-                <div className="labels bg-white px-2 absolute left-[15px] top-[-15%]">
-                  <label
-                    className="block text-base font-bold text-textPrimary-900"
-                    htmlFor="email">
-                    E-mail
-                  </label>
-                </div>
-                <div className="input_div">
-                  <input
-                    className="w-full py-6 px-[22px] text-sm leading-tight border border-paginationBg-900 focus:outline-none focus:border-textPrimary-900 rounded text-textSecondary-900 font-semibold"
-                    id="email"
-                    type="email"
-                    value={emailValue}
-                    onChange={(e) => setEmailValue(e.target.value)}
-                    placeholder="example@gmail.com"
-                    required
-                  />
-                  <div className="absolute right-5 top-4">
-                    <span className="text-2xl text-paginationBg-900 cursor-pointer">
-                      @
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <InputField
+                control={control}
+                name={"email"}
+                label={"E-mail"}
+                placeholder="example@gmail.com"
+              />
             </div>
 
             {/* Password */}
             <div className="mb-2">
-              <div className="w-full relative">
-                <div className="labels bg-white px-2 absolute left-[15px] top-[-15%]">
-                  <label
-                    className="block text-base font-bold text-textPrimary-900"
-                    htmlFor="email">
-                    Password
-                  </label>
-                </div>
-                <div className="input_div">
-                  <input
-                    className="w-full py-6 px-[22px] text-sm leading-tight border border-paginationBg-900 focus:outline-none focus:border-textPrimary-900 rounded text-textSecondary-900 font-semibold"
-                    id="password"
-                    value={passwordValue}
-                    onChange={(e) => setPasswordValue(e.target.value)}
-                    type={showPass ? "text" : "password"}
-                    placeholder="1234#$%*"
-                    required
-                  />
-                  <div className="absolute right-5 top-5">
-                    <span>
-                      <i
-                        className={`fa-solid ${
-                          showPass ? "fa-eye-slash" : "fa-eye"
-                        } text-xl text-paginationBg-900 cursor-pointer`}
-                        onClick={() => setShowPass(!showPass)}></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <InputField
+                control={control}
+                name={"password"}
+                label={"Password"}
+                type={showPass ? "text" : "password"}
+                placeholder="1234#$%*"
+                righticon={
+                  <>
+                    {showPass ? (
+                      <EyeOff
+                        className=""
+                        onClick={() => setShowPass(!showPass)}
+                      />
+                    ) : (
+                      <Eye onClick={() => setShowPass(!showPass)} />
+                    )}
+                  </>
+                }
+              />
             </div>
 
             {/* Forget Password */}
@@ -354,7 +350,8 @@ const LoginForm = () => {
             <div className="mb-10 text-center">
               <button
                 className="w-full px-4 py-5 font-bold text-white bg-textPrimary-900 focus:outline-none focus:shadow-outline"
-                type="submit">
+                type="submit"
+                onClick={handleSubmit(onSubmit)}>
                 Continue
               </button>
             </div>

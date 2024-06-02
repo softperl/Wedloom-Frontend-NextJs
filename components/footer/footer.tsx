@@ -37,7 +37,7 @@ const Footer = () => {
               </div>
               <span className="font-bold">Get Latest Blog Alerts</span>
               <div className="email__section flex w-full my-4 justify-center lg:justify-start">
-                <div className="input_div flex w-10/12 border border-paginationBg-900">
+                <div className=" flex w-10/12 border border-paginationBg-900">
                   <input
                     type="text"
                     placeholder="Email"

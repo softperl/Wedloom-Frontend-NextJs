@@ -15,15 +15,45 @@ import MobileSignupLoginBanner from "@/components/signuploginBanner/mobileSignup
 import { useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { InputField } from "@/components/global/formFields/inputField";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const formSchema = z.object({
+  name: z.string(),
+  brandName: z.string(),
+  city: z.string(),
+  vendor: z.string(),
+  email: z.string().email("Email is required"),
+  phoneNumber: z.string(),
+  password: z.string().min(6, "Password is required"),
+});
+
+type SignUpFormValues = z.infer<typeof formSchema>;
 
 const SignupForm = () => {
-  // All Necessary Input Changes
-  const [navigateValue, setNavigateValue] = useState({
-    name: "",
-    brandName: "",
-    email: "",
-    password: "",
+  const defaultValues: Partial<SignUpFormValues> = {
+    email: undefined,
+    password: undefined,
+    phoneNumber: undefined,
+    name: undefined,
+    brandName: undefined,
+    city: undefined,
+    vendor: undefined,
+  };
+
+  const { control, handleSubmit } = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues,
   });
+
+  const onSubmit = (data: Partial<SignUpFormValues>) => {
+    console.log(data);
+    router.push("/vendor-signin");
+  };
 
   // Password Show State
   const [showPass, setShowPass] = useState(false);
@@ -106,12 +136,6 @@ const SignupForm = () => {
   //   Navigation
   const router = useRouter();
 
-  // Form On Submit Handler
-  const submitHandler = (e: any) => {
-    e.preventDefault();
-    router.push("/login");
-  };
-
   // Outside Click Off dropdown
   const ref = useRef<any>();
   const ref2 = useRef<any>();
@@ -145,7 +169,7 @@ const SignupForm = () => {
                 <h3 className="text-textSecondary-900 text-sm">
                   Already have an account?{" "}
                   <span className="text-textPrimary-900 cursor-pointer font-medium">
-                    <Link href="/vendor-login">Sign in </Link>
+                    <Link href="/vendor-signin">Sign in </Link>
                   </span>
                 </h3>
               </div>
@@ -167,65 +191,27 @@ const SignupForm = () => {
               </p>
 
               {/* Form */}
-              <form
-                className="mt-10 bg-white rounded"
-                onSubmit={(e) => submitHandler(e)}>
+              <form className="mt-10 bg-white rounded">
                 {/* Full Name */}
                 <div className="mb-6">
-                  <div className="w-full relative">
-                    <div className="labels bg-white px-2 absolute left-[15px] top-[-15%]">
-                      <label
-                        className="block text-base font-bold text-textPrimary-900"
-                        htmlFor="brand">
-                        Full Name
-                      </label>
-                    </div>
-                    <div className="input_div">
-                      <input
-                        className="w-full py-6 px-[22px] text-sm leading-tight border border-paginationBg-900 focus:outline-none focus:border-textPrimary-900 rounded text-textSecondary-900 font-semibold"
-                        id="brand"
-                        type="text"
-                        placeholder="Your Full Name*"
-                        value={navigateValue.name}
-                        onChange={(e) =>
-                          setNavigateValue({
-                            ...navigateValue,
-                            name: e.target.value,
-                          })
-                        }
-                        required
-                      />
-                    </div>
-                  </div>
+                  <InputField
+                    control={control}
+                    name="name"
+                    label="Full Name"
+                    type="text"
+                    placeholder="Your Full Name*"
+                  />
                 </div>
 
                 {/* Brand Name */}
                 <div className="mb-6">
-                  <div className="w-full relative">
-                    <div className="labels bg-white px-2 absolute left-[15px] top-[-15%]">
-                      <label
-                        className="block text-base font-bold text-textPrimary-900"
-                        htmlFor="brand">
-                        Brand Name
-                      </label>
-                    </div>
-                    <div className="input_div">
-                      <input
-                        className="w-full py-6 px-[22px] text-sm leading-tight border border-paginationBg-900 focus:outline-none focus:border-textPrimary-900 rounded text-textSecondary-900 font-semibold"
-                        id="brand"
-                        type="text"
-                        placeholder="Your Brand Name*"
-                        value={navigateValue.brandName}
-                        onChange={(e) =>
-                          setNavigateValue({
-                            ...navigateValue,
-                            brandName: e.target.value,
-                          })
-                        }
-                        required
-                      />
-                    </div>
-                  </div>
+                  <InputField
+                    control={control}
+                    name="brandName"
+                    label="Brand Name"
+                    type="text"
+                    placeholder="Your Brand Name*"
+                  />
                 </div>
 
                 {/* City Name */}
@@ -251,10 +237,12 @@ const SignupForm = () => {
                         />
                         <div className="absolute right-5 top-6">
                           <span className="text-textPrimary-900 cursor-pointer">
-                            <i
-                              className={`fa-solid ${
-                                cityOpen ? "fa-chevron-up" : "fa-chevron-down"
-                              }`}></i>
+                            <ChevronUp
+                              className={cn(
+                                "duration-300 transition-all",
+                                !cityOpen && "rotate-180"
+                              )}
+                            />
                           </span>
                         </div>
                       </div>
@@ -303,12 +291,12 @@ const SignupForm = () => {
                         />
                         <div className="absolute right-5 top-6">
                           <span className="text-textPrimary-900 cursor-pointer">
-                            <i
-                              className={`fa-solid ${
-                                categoryOpen
-                                  ? "fa-chevron-up"
-                                  : "fa-chevron-down"
-                              }`}></i>
+                            <ChevronUp
+                              className={cn(
+                                "duration-300 transition-all",
+                                !categoryOpen && "rotate-180"
+                              )}
+                            />
                           </span>
                         </div>
                       </div>
@@ -340,104 +328,44 @@ const SignupForm = () => {
 
                 {/* Email */}
                 <div className="mb-6">
-                  <div className="w-full relative">
-                    <div className="labels bg-white px-2 absolute left-[15px] top-[-15%]">
-                      <label
-                        className="block text-base font-bold text-textPrimary-900"
-                        htmlFor="email">
-                        E-mail
-                      </label>
-                    </div>
-                    <div className="input_div">
-                      <input
-                        className="w-full py-6 px-[22px] text-sm leading-tight border border-paginationBg-900 focus:outline-none focus:border-textPrimary-900 rounded text-textSecondary-900 font-semibold"
-                        id="email"
-                        type="email"
-                        placeholder="example@gmail.com*"
-                        value={navigateValue.email}
-                        onChange={(e) =>
-                          setNavigateValue({
-                            ...navigateValue,
-                            email: e.target.value,
-                          })
-                        }
-                        required
-                      />
-                    </div>
-                  </div>
+                  <InputField
+                    control={control}
+                    name={"email"}
+                    label={"E-mail"}
+                    placeholder="example@gmail.com"
+                  />
                 </div>
 
                 {/* Phone Number */}
                 <div className="mb-6">
-                  <div className="w-full relative">
-                    <div className="labels bg-white px-2 absolute left-[15px] top-[-15%]">
-                      <label
-                        className="block text-base font-bold text-textPrimary-900"
-                        htmlFor="number">
-                        Number
-                      </label>
-                    </div>
-                    <div className="input_div">
-                      <input
-                        className="w-full py-6 px-[22px] text-sm leading-tight border border-paginationBg-900 focus:outline-none focus:border-textPrimary-900 rounded text-textSecondary-900 font-semibold"
-                        id="number"
-                        type="number"
-                        placeholder="Your Contact Number"
-                        value={numberValue}
-                        onChange={(e) => setNumberValue(e.target.value)}
-                        required
-                      />
-                    </div>
-                  </div>
+                  <InputField
+                    control={control}
+                    name={"phoneNumber"}
+                    label={"Number"}
+                    placeholder="Your Contact Number"
+                    type="number"
+                  />
                 </div>
 
                 {/* Password */}
                 <div className="mb-6">
-                  <div className="w-full relative">
-                    <div className="labels bg-white px-2 absolute left-[15px] top-[-15%]">
-                      <label
-                        className="block text-base font-bold text-textPrimary-900"
-                        htmlFor="email">
-                        Password
-                      </label>
-                    </div>
-                    <div className="input_div">
-                      <input
-                        className="w-full py-6 px-[22px] text-sm leading-tight border border-paginationBg-900 focus:outline-none focus:border-textPrimary-900 rounded text-textSecondary-900 font-semibold"
-                        id="password"
-                        type={showPass ? "text" : "password"}
-                        placeholder="1234#$%*"
-                        value={navigateValue.password}
-                        onChange={(e) =>
-                          setNavigateValue({
-                            ...navigateValue,
-                            password: e.target.value,
-                          })
-                        }
-                        required
-                      />
-                      <div className="absolute right-5 top-5">
-                        <span>
-                          <i
-                            className={`fa-solid ${
-                              showPass ? "fa-eye-slash" : "fa-eye"
-                            } text-xl text-textPrimary-900 cursor-pointer`}
-                            onClick={() => setShowPass(!showPass)}></i>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                  <InputField
+                    control={control}
+                    name={"password"}
+                    label={"Password"}
+                    type={showPass ? "text" : "password"}
+                    placeholder="1234#$%*"
+                  />
                 </div>
 
                 {/* Buttons */}
                 <div className="mb-6 text-center">
-                  <Link href="/vendor-login">
-                    <button
-                      className="w-full px-4 py-5 font-bold text-white bg-textPrimary-900 focus:outline-none focus:shadow-outline"
-                      type="submit">
-                      Create an account
-                    </button>
-                  </Link>
+                  <button
+                    className="w-full px-4 py-5 font-bold text-white bg-textPrimary-900 focus:outline-none focus:shadow-outline"
+                    type="button"
+                    onClick={handleSubmit(onSubmit)}>
+                    Create an account
+                  </button>
                 </div>
               </form>
 
