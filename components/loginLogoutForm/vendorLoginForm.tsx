@@ -14,6 +14,9 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff } from "lucide-react";
+import { handelError } from "@/lib/utils";
+import { signIn } from "@/lib/api";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   email: z.string().email("E-mail is required"),
@@ -34,8 +37,17 @@ const LoginForm = () => {
     defaultValues,
   });
 
-  const onSubmit = (data: Partial<VendorLoginFormValues>) => {
-    console.log(data);
+  const onSubmit = async (data: Partial<VendorLoginFormValues>) => {
+    try {
+      await signIn({
+        email: data.email,
+        password: data.password,
+      });
+      toast.success("Login Successfully");
+      router.push("/");
+    } catch (error) {
+      handelError(error);
+    }
   };
 
   // Password Show State
@@ -86,7 +98,7 @@ const LoginForm = () => {
   // Submit Handler
   const submitHandler = (e: any) => {
     e.preventDefault();
-    router.push("/");
+    // router.push("/");
   };
 
   return (
@@ -136,7 +148,8 @@ const LoginForm = () => {
                   <div className="labels bg-white px-2 absolute left-[15px] top-[-15%]">
                     <label
                       className="block text-base font-bold text-textPrimary-900"
-                      htmlFor="newpassword">
+                      htmlFor="newpassword"
+                    >
                       New Password
                     </label>
                   </div>
@@ -156,7 +169,8 @@ const LoginForm = () => {
                           className={`fa-solid ${
                             showPass ? "fa-eye-slash" : "fa-eye"
                           } text-xl text-paginationBg-900 cursor-pointer`}
-                          onClick={() => setNewpassText(!newpassText)}></i>
+                          onClick={() => setNewpassText(!newpassText)}
+                        ></i>
                       </span>
                     </div>
                   </div>
@@ -169,7 +183,8 @@ const LoginForm = () => {
                   <div className="labels bg-white px-2 absolute left-[15px] top-[-15%]">
                     <label
                       className="block text-base font-bold text-textPrimary-900"
-                      htmlFor="confirmnewpassword">
+                      htmlFor="confirmnewpassword"
+                    >
                       New Password
                     </label>
                   </div>
@@ -191,7 +206,8 @@ const LoginForm = () => {
                           } text-xl text-paginationBg-900 cursor-pointer`}
                           onClick={() =>
                             setconfirmNewPassText(!confirmNewPassText)
-                          }></i>
+                          }
+                        ></i>
                       </span>
                     </div>
                   </div>
@@ -210,7 +226,8 @@ const LoginForm = () => {
                 <button
                   className="w-full px-4 py-5 font-bold text-white bg-textPrimary-900 focus:outline-none focus:shadow-outline"
                   type="submit"
-                  onClick={backtoLoginPage}>
+                  onClick={backtoLoginPage}
+                >
                   Confirm Password
                 </button>
               </div>
@@ -223,7 +240,8 @@ const LoginForm = () => {
                   <div className="labels bg-white px-2 absolute left-[15px] top-[-15%]">
                     <label
                       className="block text-base font-bold text-textPrimary-900"
-                      htmlFor="email">
+                      htmlFor="email"
+                    >
                       E-mail
                     </label>
                   </div>
@@ -257,7 +275,8 @@ const LoginForm = () => {
                     <div className="labels bg-white px-2 absolute left-[15px] top-[-15%]">
                       <label
                         className="block text-base font-bold text-textPrimary-900"
-                        htmlFor="otp">
+                        htmlFor="otp"
+                      >
                         Confirmation Code
                       </label>
                     </div>
@@ -283,7 +302,8 @@ const LoginForm = () => {
                     className="w-full px-4 py-5 font-bold text-white bg-textPrimary-900 focus:outline-none focus:shadow-outline"
                     type="submit"
                     onClick={hideButton}
-                    disabled={email.length === 0 ? true : false}>
+                    disabled={email.length === 0 ? true : false}
+                  >
                     {otpBox ? "Continue" : "Send Confirmation Code"}
                   </button>
                 </div>
@@ -292,7 +312,8 @@ const LoginForm = () => {
                 <div className="mb-10 text-center">
                   <button
                     className="w-full px-4 py-5 font-bold text-white bg-textPrimary-900 focus:outline-none focus:shadow-outline"
-                    type="submit">
+                    type="submit"
+                  >
                     Set New Password
                   </button>
                 </div>
@@ -341,7 +362,8 @@ const LoginForm = () => {
             <div className="forgot mb-8">
               <span
                 className="text-textPrimary-900 font-semibold text-sm cursor-pointer"
-                onClick={() => setClickedForgot(!clickedForgot)}>
+                onClick={() => setClickedForgot(!clickedForgot)}
+              >
                 Forgot password?
               </span>
             </div>
@@ -351,7 +373,8 @@ const LoginForm = () => {
               <button
                 className="w-full px-4 py-5 font-bold text-white bg-textPrimary-900 focus:outline-none focus:shadow-outline"
                 type="submit"
-                onClick={handleSubmit(onSubmit)}>
+                onClick={handleSubmit(onSubmit)}
+              >
                 Continue
               </button>
             </div>

@@ -20,13 +20,15 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, handelError } from "@/lib/utils";
+import { signIn, signUp } from "@/lib/api";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   name: z.string(),
-  brandName: z.string(),
-  city: z.string(),
-  vendor: z.string(),
+  brand: z.string(),
+  city: z.string().optional(),
+  vendorType: z.string().optional(),
   email: z.string().email("Email is required"),
   phoneNumber: z.string(),
   password: z.string().min(6, "Password is required"),
@@ -40,9 +42,9 @@ const SignupForm = () => {
     password: undefined,
     phoneNumber: undefined,
     name: undefined,
-    brandName: undefined,
+    brand: undefined,
     city: undefined,
-    vendor: undefined,
+    vendorType: undefined,
   };
 
   const { control, handleSubmit } = useForm({
@@ -50,9 +52,23 @@ const SignupForm = () => {
     defaultValues,
   });
 
-  const onSubmit = (data: Partial<SignUpFormValues>) => {
-    console.log(data);
-    router.push("/vendor-signin");
+  const onSubmit = async (data: Partial<SignUpFormValues>) => {
+    try {
+      await signUp({
+        email: data.email,
+        password: data.password,
+        phone: data.phoneNumber,
+        name: data.name,
+        brand: data.brand,
+        city: "Lahor",
+        vendorType: "Photograper",
+        role: "Vendor",
+      });
+      toast.success("Please check your email for verify!");
+      router.push("/signin");
+    } catch (error) {
+      handelError(error);
+    }
   };
 
   // Password Show State
@@ -207,7 +223,7 @@ const SignupForm = () => {
                 <div className="mb-6">
                   <InputField
                     control={control}
-                    name="brandName"
+                    name="brand"
                     label="Brand Name"
                     type="text"
                     placeholder="Your Brand Name*"
@@ -220,7 +236,8 @@ const SignupForm = () => {
                     <div className="labels bg-white px-2 absolute left-[15px] top-[-15%]">
                       <label
                         className="block text-base font-bold text-textPrimary-900"
-                        htmlFor="city">
+                        htmlFor="city"
+                      >
                         Select City
                       </label>
                     </div>
@@ -257,7 +274,8 @@ const SignupForm = () => {
                                 <div
                                   className="bg-white text-black p-2 flex items-center cursor-pointer hover:bg-gray-300 text-sm"
                                   key={opt.key}
-                                  onClick={() => selectCityValue(opt.value)}>
+                                  onClick={() => selectCityValue(opt.value)}
+                                >
                                   {opt.value}
                                 </div>
                               ))}
@@ -274,7 +292,8 @@ const SignupForm = () => {
                     <div className="labels bg-white px-2 absolute left-[15px] top-[-15%]">
                       <label
                         className="block text-base font-bold text-textPrimary-900"
-                        htmlFor="category">
+                        htmlFor="category"
+                      >
                         Vendor Type
                       </label>
                     </div>
@@ -313,9 +332,8 @@ const SignupForm = () => {
                                 <div
                                   className="bg-white text-black p-2 flex items-center cursor-pointer hover:bg-gray-300 text-sm"
                                   key={opt.key}
-                                  onClick={() =>
-                                    selectCategoryValue(opt.value)
-                                  }>
+                                  onClick={() => selectCategoryValue(opt.value)}
+                                >
                                   {opt.value}
                                 </div>
                               ))}
@@ -363,7 +381,8 @@ const SignupForm = () => {
                   <button
                     className="w-full px-4 py-5 font-bold text-white bg-textPrimary-900 focus:outline-none focus:shadow-outline"
                     type="button"
-                    onClick={handleSubmit(onSubmit)}>
+                    onClick={handleSubmit(onSubmit)}
+                  >
                     Create an account
                   </button>
                 </div>
@@ -393,7 +412,8 @@ const SignupForm = () => {
                 // modules={[Pagination, Autoplay]}
                 loop={true}
                 autoplay={true}
-                className="rounded-r-xl h-full">
+                className="rounded-r-xl h-full"
+              >
                 <SwiperSlide className="w-full h-full">
                   <AuthPhotos
                     className="h-[1180px]"
