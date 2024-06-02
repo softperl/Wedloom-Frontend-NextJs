@@ -1,7 +1,8 @@
 "use client";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { Facebook, Share2, Twitter } from "lucide-react";
+import { BiLogoFacebook, BiLogoTwitter } from "react-icons/bi";
+import { FaShareAlt } from "react-icons/fa";
 
 const BlogHeader = () => {
   const pathname = usePathname();
@@ -44,7 +45,7 @@ const BlogHeader = () => {
                   target="_blank"
                   rel="noreferrer">
                   {" "}
-                  <Facebook className="text-xl" />
+                  <BiLogoFacebook className="text-xl" />
                 </a>
               </div>
 
@@ -54,7 +55,7 @@ const BlogHeader = () => {
                   target="_blank"
                   rel="noreferrer">
                   {" "}
-                  <Twitter className="text-xl" />
+                  <BiLogoTwitter className="text-xl" />
                 </a>
               </div>
 
@@ -62,7 +63,7 @@ const BlogHeader = () => {
                 className="px-3 py-1 flex items-center justify-center bg-gray-500 w-max cursor-pointer"
                 onClick={copyLink}>
                 <span>
-                  <Share2 className="text-xl" />
+                  <FaShareAlt className="text-xl" />
                 </span>
               </div>
             </div>

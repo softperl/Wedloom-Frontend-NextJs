@@ -1,7 +1,7 @@
 "use client";
-import { Share2 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import { FaShareAlt } from "react-icons/fa";
 
 const WstoriesCarousel = ({ img, name, summary, date }: any) => {
   const pathname = usePathname();
@@ -82,7 +82,7 @@ const WstoriesCarousel = ({ img, name, summary, date }: any) => {
                   </a>
                 </div>
 
-                <Share2 onClick={() => setShowShare(!showShare)} />
+                <FaShareAlt onClick={() => setShowShare(!showShare)} />
               </div>
             </div>
           </div>

@@ -2,6 +2,9 @@
 import Link from "next/link";
 import React from "react";
 import { useState } from "react";
+import { AiFillHeart, AiFillPinterest, AiOutlineHeart } from "react-icons/ai";
+import { MdOutlineWatch, MdOutlineWatchLater } from "react-icons/md";
+import { PiShare } from "react-icons/pi";
 
 const GalleryBanner = ({
   bannerPhoto,
@@ -34,22 +37,24 @@ const GalleryBanner = ({
                 <a
                   href="https://www.pinterest.com"
                   target="_blank"
-                  rel="noreferrer">
-                  <i className="fa-brands fa-pinterest mr-1"></i>
+                  rel="noreferrer"
+                  className="flex items-center">
+                  <AiFillPinterest className="mr-1 text-2xl" />
                   <span>Pin</span>
                 </a>
               </div>
               <div
-                className="love bg-white px-3 py-1 cursor-pointer"
+                className="love bg-white px-3 py-1 cursor-pointer flex items-center"
                 onClick={() => setFilled(!filled)}>
-                <i
-                  className={`${
-                    filled ? "fa-solid text-red-600" : "fa-regular"
-                  } fa-heart mr-1`}></i>
+                {!filled ? (
+                  <AiOutlineHeart className="mr-1 text-2xl" />
+                ) : (
+                  <AiFillHeart className="mr-1 text-textPrimary-900 text-2xl" />
+                )}
                 <span>{filled ? 1 : 0}</span>
               </div>
-              <div className="share bg-white px-3 py-1 font-semibold cursor-pointer">
-                <i className="fa-regular fa-share-from-square"></i>
+              <div className="share bg-white px-3 py-1 font-semibold cursor-pointer flex items-center justify-center">
+                <PiShare className="text-2xl" />
               </div>
             </div>
           </div>
@@ -60,8 +65,8 @@ const GalleryBanner = ({
         <div className="gB_right w-full lg:w-3/12 h-full lg:bg-white bg-sectionBg-900">
           {/* Heading */}
           <div className="details pb-5 border-b border-paginationBg-900 px-4 pt-4">
-            <div className="history text-dateColor-900 font-medium text-xs lg:text-sm">
-              <i className="fa-regular fa-clock mr-2"></i>
+            <div className="history text-dateColor-900 font-medium text-xs lg:text-sm flex items-center">
+              <MdOutlineWatchLater className="mr-1 text-lg" />
               <span>Uploaded {time} months ago</span>
             </div>
             <div className="heading mt-5">

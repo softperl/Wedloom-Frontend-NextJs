@@ -1,5 +1,5 @@
 import React from "react";
-import BlogCard from "@/components/blogList/BlogCard";
+import BlogCard from "@/components/blogList/blogCard";
 
 const BlogList = () => {
   return (

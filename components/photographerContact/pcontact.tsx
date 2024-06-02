@@ -1,9 +1,10 @@
 "use client";
-import { Mail, Phone } from "lucide-react";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { HiMail } from "react-icons/hi";
+import { IoMdCall } from "react-icons/io";
 
 const Pcontact = () => {
   // All States
@@ -30,7 +31,7 @@ const Pcontact = () => {
             className="text-white lg:text-lg text-sm bg-textPrimary-900 lg:py-3 flex items-center flex-nowrap p-4 rounded-full hover:bg-btnHover-900 duration-200"
             onClick={toggleMenuContact}>
             <div className="flex"></div>
-            <Mail className="mr-2" />
+            <HiMail className="mr-2" />
             Send Message
           </button>
         </div>
@@ -38,7 +39,7 @@ const Pcontact = () => {
           <button
             className="text-white lg:text-lg text-sm bg-greenBG-900 lg:py-3 flex items-center flex-nowrap rounded-full hover:bg-greenHover-900 duration-200 p-4"
             onClick={toggleMessage}>
-            <Phone className="mr-2" />
+            <IoMdCall className="mr-2" />
             View Contact
           </button>
         </div>

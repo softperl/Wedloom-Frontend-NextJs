@@ -1,11 +1,13 @@
+"use client";
 import React from "react";
+import { BiSolidChevronLeft, BiSolidChevronRight } from "react-icons/bi";
 
 const Pagination = () => {
   return (
     <div className="pagination flex items-center lg:justify-center my-8">
       <div className="pagination_content flex lg:gap-2 gap-2 items-center flex-wrap justify-center">
         <div className="left__arrow cursor-pointer">
-          <i className="fa-solid fa-chevron-left text-textPrimary-900 font-bold"></i>
+          <BiSolidChevronLeft className="text-textPrimary-900 font-bold text-2xl" />
         </div>
         <div className="bg-paginationBg-900 py-1 px-4 cursor-pointer">
           <span className="text-textPrimary-900">1</span>
@@ -38,7 +40,7 @@ const Pagination = () => {
           <span className="text-textPrimary-900">62</span>
         </div>
         <div className="cursor-pointer">
-          <i className="fa-solid fa-chevron-right text-textPrimary-900 font-bold"></i>
+          <BiSolidChevronRight className="text-textPrimary-900 font-bold text-2xl" />
         </div>
       </div>
     </div>

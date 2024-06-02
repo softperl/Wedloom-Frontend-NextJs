@@ -2,8 +2,9 @@
 
 import React, { useState } from "react";
 import Data from "@/components/data/blogData";
-import Pagination from "@/components/pagination/Pagination";
+import Pagination from "@/components/pagination/pagination";
 import Link from "next/link";
+import { BiSearch } from "react-icons/bi";
 
 const BlogCard = () => {
   const [blogs, setBlogs] = useState(Data);
@@ -66,7 +67,7 @@ const BlogCard = () => {
           {/* Buttons Div */}
           <div className="btn_div lg:w-9/12 w-full flex gap-2 flex-wrap items-start justify-start">
             <button
-              className={`text-white ${
+              className={`${
                 activeAll
                   ? " bg-textPrimary-900"
                   : "border-textPrimary-900 border text-black"
@@ -79,7 +80,7 @@ const BlogCard = () => {
             </button>
 
             <button
-              className={`text-white ${
+              className={`${
                 active
                   ? " bg-textPrimary-900"
                   : "border-textPrimary-900 border text-black"
@@ -92,7 +93,7 @@ const BlogCard = () => {
             </button>
 
             <button
-              className={`text-white ${
+              className={`${
                 active2
                   ? " bg-textPrimary-900"
                   : "border-textPrimary-900 border text-black"
@@ -105,7 +106,7 @@ const BlogCard = () => {
             </button>
 
             <button
-              className={`text-white ${
+              className={`${
                 active3
                   ? " bg-textPrimary-900"
                   : "border-textPrimary-900 border text-black"
@@ -118,7 +119,7 @@ const BlogCard = () => {
             </button>
 
             <button
-              className={`text-white ${
+              className={`${
                 active4
                   ? " bg-textPrimary-900"
                   : "border-textPrimary-900 border text-black"
@@ -134,7 +135,7 @@ const BlogCard = () => {
           {/* SearchBox */}
           <div className="searchBox lg:w-3/12 w-full mt-4 lg:mt-0 flex items-center">
             <div className="icon w-1/12 text-center">
-              <i className="fa-solid fa-magnifying-glass text-lg cursor-pointer text-textPrimary-900"></i>
+              <BiSearch className="text-textPrimary-900 text-2xl" />
             </div>
             <div className="input_search w-11/12 border-b border-textPrimary-900 pb-1">
               <input

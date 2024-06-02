@@ -8,7 +8,9 @@ import { InputField } from "@/components/global/formFields/inputField";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AtSign, Eye, EyeOff } from "lucide-react";
+import { FiAtSign } from "react-icons/fi";
+import { IoMdEyeOff } from "react-icons/io";
+import { IoEye } from "react-icons/io5";
 
 const formSchema = z.object({
   email: z.string().email("E-mail is required"),
@@ -307,7 +309,7 @@ const LoginForm = () => {
                 control={control}
                 name={"email"}
                 label={"E-mail"}
-                righticon={<AtSign />}
+                righticon={<FiAtSign />}
                 placeholder="example@gmail.com"
               />
             </div>
@@ -323,12 +325,12 @@ const LoginForm = () => {
                 righticon={
                   <>
                     {showPass ? (
-                      <EyeOff
+                      <IoMdEyeOff
                         className=""
                         onClick={() => setShowPass(!showPass)}
                       />
                     ) : (
-                      <Eye onClick={() => setShowPass(!showPass)} />
+                      <IoEye onClick={() => setShowPass(!showPass)} />
                     )}
                   </>
                 }

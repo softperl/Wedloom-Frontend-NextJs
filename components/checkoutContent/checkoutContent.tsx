@@ -1,13 +1,12 @@
-"use-client";
+"use client";
 import React, { useState } from "react";
-import PaymentCard from "@/components/paymentCard/PaymentCard";
-import { numberWithCommas } from "@/lib/utils";
+import PaymentCard from "@/components/paymentCard/paymentCard";
+import { NumberWithCommas } from "@/lib/utils";
 import { useParams, useRouter } from "next/navigation";
 import Path from "@/components/routesPath/path";
 
-const CheckoutContent = () => {
+const CheckoutContent = ({ packageName }: any) => {
   const router = useRouter();
-  const { packageName } = useParams();
   // Price State
   const price = "50000";
   const tax = "4500";
@@ -26,7 +25,7 @@ const CheckoutContent = () => {
   // Function For Navigate HomePage Again
   const navigateHomePage = () => {
     alert(
-      `Payment Successful ${numberWithCommas(
+      `Payment Successful ${NumberWithCommas(
         Number(price) * quantity + Number(tax)
       )}`
     );
@@ -144,7 +143,7 @@ const CheckoutContent = () => {
                     </div>
                     <div className="w-full text-end">
                       <span className="text-lg text-textPrimary-900 font-medium">
-                        Rs. {numberWithCommas(Number(price) * quantity)}
+                        Rs. {NumberWithCommas(Number(price) * quantity)}
                       </span>
                     </div>
                   </div>
@@ -227,7 +226,7 @@ const CheckoutContent = () => {
                   </div>
                   <div className="lg:w-3/12 w-full text-end">
                     <span>
-                      Rs. {numberWithCommas(Number(price) * quantity)}
+                      Rs. {NumberWithCommas(Number(price) * quantity)}
                     </span>
                   </div>
                 </div>
@@ -238,7 +237,7 @@ const CheckoutContent = () => {
                     <p className="text-textPrimary-900">Service Fee</p>
                   </div>
                   <div className="lg:w-3/12 w-full text-end">
-                    <span>Rs. {numberWithCommas(Number(tax))}</span>
+                    <span>Rs. {NumberWithCommas(Number(tax))}</span>
                   </div>
                 </div>
 
@@ -255,7 +254,7 @@ const CheckoutContent = () => {
                   <div className="lg:w-3/12 w-full text-end">
                     <span>
                       Rs.{" "}
-                      {numberWithCommas(Number(price) * quantity + Number(tax))}
+                      {NumberWithCommas(Number(price) * quantity + Number(tax))}
                     </span>
                   </div>
                 </div>

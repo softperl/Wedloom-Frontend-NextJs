@@ -1,7 +1,16 @@
+"use client";
+import MessageSender from "@/components/vendorProfile/messages/messageSender";
 import Link from "next/link";
-import MessageSender from "./MessageSender";
+import { BiSearch } from "react-icons/bi";
+import GetBackMsg from "./getBackMsg";
 
-const MessageContainer = ({ border }: { border?: boolean }) => {
+const MessageContainer = ({
+  border,
+  children,
+}: {
+  border?: boolean;
+  children?: React.ReactNode;
+}) => {
   const senderData = [
     {
       id: 1,
@@ -160,13 +169,14 @@ const MessageContainer = ({ border }: { border?: boolean }) => {
               placeholder="Search....."
               className="w-full bg-transparent placeholder:text-textSecondary-900 border-none outline-none text-sm"
             />
-            <i className="fa-solid fa-magnifying-glass"></i>
+            <BiSearch className="text-xl" />
           </div>
 
           {/* Desktop Message Components */}
           <div className="hidden md:block">
             {senderData.map((data) => (
-              <Link href={`${data.name.split(" ").splice(0, 1)}`}>
+              <Link
+                href={`${"/user/inbox/" + data.name.split(" ").splice(0, 1)}`}>
                 <MessageSender
                   img={data.img}
                   date={data.date}
@@ -195,7 +205,9 @@ const MessageContainer = ({ border }: { border?: boolean }) => {
       </div>
 
       {/* Right Side */}
-      <div className="w-[75%] hidden md:block">{/* <Outlet /> */}</div>
+      <div className="w-[75%] hidden md:block">
+        {children ?? <GetBackMsg />}
+      </div>
     </div>
   );
 };

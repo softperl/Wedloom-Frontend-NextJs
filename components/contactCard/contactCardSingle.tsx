@@ -1,5 +1,6 @@
-import { Mail, MapPin, Phone } from "lucide-react";
-import React from "react";
+import { HiMail } from "react-icons/hi";
+import { IoMdCall } from "react-icons/io";
+import { IoLocationSharp } from "react-icons/io5";
 
 const ContactCardSingle = () => {
   return (
@@ -8,7 +9,7 @@ const ContactCardSingle = () => {
         <div className="card1 group w-full">
           <div className="how_it_works_card_content bg-white group-hover:bg-textPrimary-900 duration-300 shadow-md lg:mt-0 px-4 flex flex-col items-center justify-center py-4 rounded-md">
             <div className="icon text-textPrimary-900 group-hover:text-white lg:text-6xl text-5xl">
-              <Mail className="w-16 h-16" />
+              <HiMail className="text-7xl" />
             </div>
             <div className="title my-3">
               <span className="text-lg text-textSecondary-900 group-hover:text-white font-bold lg:text-xl">
@@ -25,7 +26,7 @@ const ContactCardSingle = () => {
         <div className="card1 group w-full">
           <div className="how_it_works_card_content bg-white group-hover:bg-textPrimary-900 duration-300 shadow-md mt-6 lg:mt-0 px-4 flex flex-col items-center justify-center py-4 rounded-md">
             <div className="icon text-textPrimary-900 group-hover:text-white lg:text-6xl text-5xl">
-              <MapPin className="w-16 h-16" />
+              <IoLocationSharp className="text-7xl" />
             </div>
             <div className="title my-3">
               <span className="text-lg text-textSecondary-900 group-hover:text-white font-bold lg:text-xl">
@@ -42,7 +43,7 @@ const ContactCardSingle = () => {
         <div className="card1 group w-full">
           <div className="how_it_works_card_content bg-white group-hover:bg-textPrimary-900 duration-300 shadow-md mt-6 lg:mt-0 px-4 flex flex-col items-center justify-center py-4 rounded-md">
             <div className="icon text-textPrimary-900 group-hover:text-white lg:text-6xl text-5xl">
-              <Phone className="w-16 h-16" />
+              <IoMdCall className="text-7xl" />
             </div>
             <div className="title my-3">
               <span className="text-lg text-textSecondary-900 group-hover:text-white font-bold lg:text-xl">

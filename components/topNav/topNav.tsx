@@ -3,7 +3,9 @@ import React, { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
 import Popup from "@/components/popups/popup";
-import { Clipboard, Smartphone } from "lucide-react";
+import { BiClipboard } from "react-icons/bi";
+import { MdOutlineSmartphone } from "react-icons/md";
+import { FaRegClipboard } from "react-icons/fa";
 
 const TopNav = () => {
   const [popup, setPopup] = useState(false);
@@ -44,11 +46,11 @@ const TopNav = () => {
         </div>
         <div className="topNav__right flex gap-5 items-center justify-between">
           <div className="topNav__review flex items-center">
-            <Clipboard className="mr-1 w-4 h-4" />
+            <FaRegClipboard className="mr-1" />
             <span className="text-sm">Write a Review</span>
           </div>
           <div className="topNav__download flex items-center">
-            <Smartphone className="mr-1 w-4 h-4" />
+            <MdOutlineSmartphone className="mr-1" />
             <span className="text-sm">Download App</span>
           </div>
         </div>

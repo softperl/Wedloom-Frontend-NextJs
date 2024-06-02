@@ -8,7 +8,8 @@ import PhotoBudgetCard from "@/components/weddingPhotography/photoBudgetCard";
 import Pagination from "@/components/pagination/pagination";
 import WpCardGrid from "@/components/weddingPhotography/wpCardGrid";
 import WpCardList from "@/components/weddingPhotography/wpCardList";
-import { BarChart2, LayoutGrid } from "lucide-react";
+import { BiGridAlt } from "react-icons/bi";
+import { FaBarsStaggered } from "react-icons/fa6";
 
 const WeedingPhotographer = () => {
   // All States
@@ -88,7 +89,7 @@ const WeedingPhotographer = () => {
                         listView ? "text-textPrimary-900" : ""
                       }`}
                       onClick={listViewOn}>
-                      <BarChart2 className="rotate-90" />{" "}
+                      <FaBarsStaggered />{" "}
                       <span className="text-base ml-1">List</span>
                     </div>
                     <div
@@ -96,8 +97,7 @@ const WeedingPhotographer = () => {
                         gridView ? "text-textPrimary-900" : ""
                       }`}
                       onClick={gridViewOn}>
-                      <LayoutGrid />{" "}
-                      <span className="text-base ml-1">Grid</span>
+                      <BiGridAlt /> <span className="text-base ml-1">Grid</span>
                     </div>
                   </div>
                 </div>

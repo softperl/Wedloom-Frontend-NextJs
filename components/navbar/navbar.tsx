@@ -9,7 +9,7 @@ import ShopPop from "./navbarPopups/shopPop";
 import InvitesPop from "./navbarPopups/invitesPop";
 import { AllCitiesPopup } from "@/components/allCitiesPopup/allCitiesPopup";
 import Link from "next/link";
-import { Search } from "lucide-react";
+import { BiSearch } from "react-icons/bi";
 
 const Navbar = () => {
   const [showPop, setShowPop] = useState(false);
@@ -111,7 +111,7 @@ const Navbar = () => {
           <div className="flex gap-6 items-center justify-end w-5/12 relative">
             <div className="bg-headerBG-900 py-1 px-2 rounded-full">
               <Link href="/search">
-                <Search className="w-4 h-4" />
+                <BiSearch />
               </Link>
             </div>
             {/* Signup BUtton Hidden */}

@@ -19,10 +19,10 @@ import { InputField } from "@/components/global/formFields/inputField";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChevronDown, ChevronUp } from "lucide-react";
 import { cn, handelError } from "@/lib/utils";
 import { signIn, signUp } from "@/lib/api";
 import toast from "react-hot-toast";
+import { BiChevronUp } from "react-icons/bi";
 
 const formSchema = z.object({
   name: z.string(),
@@ -236,8 +236,7 @@ const SignupForm = () => {
                     <div className="labels bg-white px-2 absolute left-[15px] top-[-15%]">
                       <label
                         className="block text-base font-bold text-textPrimary-900"
-                        htmlFor="city"
-                      >
+                        htmlFor="city">
                         Select City
                       </label>
                     </div>
@@ -254,7 +253,7 @@ const SignupForm = () => {
                         />
                         <div className="absolute right-5 top-6">
                           <span className="text-textPrimary-900 cursor-pointer">
-                            <ChevronUp
+                            <BiChevronUp
                               className={cn(
                                 "duration-300 transition-all",
                                 !cityOpen && "rotate-180"
@@ -274,8 +273,7 @@ const SignupForm = () => {
                                 <div
                                   className="bg-white text-black p-2 flex items-center cursor-pointer hover:bg-gray-300 text-sm"
                                   key={opt.key}
-                                  onClick={() => selectCityValue(opt.value)}
-                                >
+                                  onClick={() => selectCityValue(opt.value)}>
                                   {opt.value}
                                 </div>
                               ))}
@@ -292,8 +290,7 @@ const SignupForm = () => {
                     <div className="labels bg-white px-2 absolute left-[15px] top-[-15%]">
                       <label
                         className="block text-base font-bold text-textPrimary-900"
-                        htmlFor="category"
-                      >
+                        htmlFor="category">
                         Vendor Type
                       </label>
                     </div>
@@ -310,7 +307,7 @@ const SignupForm = () => {
                         />
                         <div className="absolute right-5 top-6">
                           <span className="text-textPrimary-900 cursor-pointer">
-                            <ChevronUp
+                            <BiChevronUp
                               className={cn(
                                 "duration-300 transition-all",
                                 !categoryOpen && "rotate-180"
@@ -332,8 +329,9 @@ const SignupForm = () => {
                                 <div
                                   className="bg-white text-black p-2 flex items-center cursor-pointer hover:bg-gray-300 text-sm"
                                   key={opt.key}
-                                  onClick={() => selectCategoryValue(opt.value)}
-                                >
+                                  onClick={() =>
+                                    selectCategoryValue(opt.value)
+                                  }>
                                   {opt.value}
                                 </div>
                               ))}
@@ -381,8 +379,7 @@ const SignupForm = () => {
                   <button
                     className="w-full px-4 py-5 font-bold text-white bg-textPrimary-900 focus:outline-none focus:shadow-outline"
                     type="button"
-                    onClick={handleSubmit(onSubmit)}
-                  >
+                    onClick={handleSubmit(onSubmit)}>
                     Create an account
                   </button>
                 </div>
@@ -412,8 +409,7 @@ const SignupForm = () => {
                 // modules={[Pagination, Autoplay]}
                 loop={true}
                 autoplay={true}
-                className="rounded-r-xl h-full"
-              >
+                className="rounded-r-xl h-full">
                 <SwiperSlide className="w-full h-full">
                   <AuthPhotos
                     className="h-[1180px]"

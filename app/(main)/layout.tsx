@@ -11,13 +11,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="bg-sectionBg-900 overflow-x-hidden h-full">
+        <main className="bg-sectionBg-900 overflow-x-hidden h-full">
           <TopNav />
           <Navbar />
           {children}
           <Footer />
           <Copyright />
-        </div>
+        </main>
       </body>
     </html>
   );

@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { useEffect, useState } from "react";
 import MobileVendors from "@/components/mobileVendors";
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { BiChevronDown } from "react-icons/bi";
 
 const Banner = () => {
   // Vendors Option
@@ -115,7 +115,7 @@ const Banner = () => {
                       className="p-3 w-full outline-none border-none text-textSecondary-900 font-medium cursor-pointer"
                     />
                     <div className="input__arrow__container absolute right-3 bottom-3 text-black">
-                      <ChevronDown className="cursor-pointer" />
+                      <BiChevronDown className="cursor-pointer" />
                     </div>
                   </div>
                   {/* Dropdown Open */}
@@ -154,7 +154,7 @@ const Banner = () => {
                       className="p-3 w-full outline-none border-none text-textSecondary-900 font-medium cursor-pointer"
                     />
                     <div className="input__arrow__container absolute right-3 bottom-3 text-black">
-                      <ChevronDown className="cursor-pointer" />
+                      <BiChevronDown className="cursor-pointer" />
                     </div>
                   </div>
                   {cityOpen && (
