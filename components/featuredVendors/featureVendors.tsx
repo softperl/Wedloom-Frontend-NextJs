@@ -1,5 +1,7 @@
+"use client";
 import React from "react";
-// import { Navigation } from "swiper";
+//@ts-ignore
+import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import FvendrosCarousel from "@/components/carousels/fvendrosCarousel";
 import SectionHeader from "@/components/sectionHeader";
@@ -14,7 +16,7 @@ const FeatureVendors = () => {
           <div className="carousel__div w-full flex items-center justify-between">
             <Swiper
               navigation={true}
-              // modules={[Navigation]}
+              modules={[Navigation]}
               slidesPerGroup={1}
               grabCursor={true}
               loop={false}

@@ -1,6 +1,8 @@
+"use client";
 import React from "react";
 import SectionHeader from "@/components/sectionHeader";
-// import { Navigation } from "swiper";
+//@ts-ignore
+import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import WstoriesCarousel from "@/components/carousels/wstoriesCarousel";
 
@@ -14,7 +16,7 @@ const LatestBlogs = ({ heading }: { heading: string }) => {
           <div className="carousel__div w-full flex items-center justify-between">
             <Swiper
               navigation={true}
-              // modules={[Navigation]}
+              modules={[Navigation]}
               slidesPerView={3}
               slidesPerGroup={1}
               grabCursor={true}

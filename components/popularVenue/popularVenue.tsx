@@ -1,7 +1,9 @@
+"use client";
 import React from "react";
 import PvenueCarousel from "@/components/carousels/pvenueCarousel";
 import SectionHeader from "@/components/sectionHeader";
-// import { Navigation } from "swiper";
+//@ts-ignore
+import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const PopularVenue = () => {
@@ -14,7 +16,7 @@ const PopularVenue = () => {
           <div className="hidden lg:block carousel__div w-full">
             <Swiper
               navigation={true}
-              // modules={[Navigation]}
+              modules={[Navigation]}
               slidesPerView={3}
               spaceBetween={30}
               slidesPerGroup={1}

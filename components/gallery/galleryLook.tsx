@@ -1,7 +1,8 @@
+"use client";
 import React from "react";
 import SectionHeader from "@/components/sectionHeader";
-
-// import { Navigation } from "swiper";
+//@ts-ignore
+import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import GLookCarousel from "@/components/carousels/gLookCarousel";
 
@@ -16,7 +17,7 @@ const GalleryLook = () => {
             <div className="carousel__div w-full flex items-center justify-between">
               <Swiper
                 navigation={true}
-                // modules={[Navigation]}
+                modules={[Navigation]}
                 slidesPerView={3}
                 spaceBetween={30}
                 slidesPerGroup={1}
@@ -118,7 +119,7 @@ const GalleryLook = () => {
         <div className="mobile__carousel block lg:hidden py-9">
           <Swiper
             navigation={true}
-            // modules={[Navigation]}
+            modules={[Navigation]}
             slidesPerView={2}
             spaceBetween={30}
             slidesPerGroup={1}

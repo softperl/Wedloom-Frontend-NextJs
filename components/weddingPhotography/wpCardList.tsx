@@ -1,6 +1,7 @@
 "use client";
 import Tippy from "@tippyjs/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const WpCardList = ({
@@ -16,9 +17,10 @@ const WpCardList = ({
   vote2,
   shortdesc,
 }: any) => {
+  const pathname = usePathname();
   return (
     <div className="wpCardList w-full p-3 bg-white rounded-md shadow-sm mb-8">
-      <Link href="profile">
+      <Link href={`${pathname}/profile`}>
         <div className="wpCard__list_content flex flex-wrap items-center">
           {/* Image Div */}
           <div className="wpCardlist__image w-5/12 relative">

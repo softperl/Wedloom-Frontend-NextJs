@@ -1,15 +1,16 @@
 "use client";
 import React, { useState } from "react";
-import Path from "../routesPath/path";
+import Path from "@/components/routesPath/path";
 import Link from "next/link";
 import FilterPopup from "@/components/filterPopup/filterPopup";
-import cardData from "../data/cardData";
+import cardData from "@/components/data/cardData";
 import PhotoBudgetCard from "@/components/weddingPhotography/photoBudgetCard";
 import Pagination from "@/components/pagination/pagination";
 import WpCardGrid from "@/components/weddingPhotography/wpCardGrid";
 import WpCardList from "@/components/weddingPhotography/wpCardList";
+import { BarChart2, LayoutGrid } from "lucide-react";
 
-const WeddingPhotographer = () => {
+const WeedingPhotographer = () => {
   // All States
   const [gridView, setGridView] = useState(true);
   const [listView, setListView] = useState(false);
@@ -87,7 +88,7 @@ const WeddingPhotographer = () => {
                         listView ? "text-textPrimary-900" : ""
                       }`}
                       onClick={listViewOn}>
-                      <i className="fa-solid fa-bars-staggered text-lg"></i>{" "}
+                      <BarChart2 className="rotate-90" />{" "}
                       <span className="text-base ml-1">List</span>
                     </div>
                     <div
@@ -95,7 +96,7 @@ const WeddingPhotographer = () => {
                         gridView ? "text-textPrimary-900" : ""
                       }`}
                       onClick={gridViewOn}>
-                      <i className="fa-solid fa-grip text-lg"></i>{" "}
+                      <LayoutGrid />{" "}
                       <span className="text-base ml-1">Grid</span>
                     </div>
                   </div>
@@ -185,7 +186,7 @@ const WeddingPhotographer = () => {
             {/* Card Container - List View */}
             {listView && (
               <div className="card__view md:flex gap-6">
-                <div className="cardview__cards w-full md:w-9/12">
+                <div className="w-full md:w-9/12">
                   {cardData
                     .filter((card) => card.name.toLowerCase().includes(search))
                     .map((data) => {
@@ -266,4 +267,4 @@ const WeddingPhotographer = () => {
   );
 };
 
-export default WeddingPhotographer;
+export default WeedingPhotographer;

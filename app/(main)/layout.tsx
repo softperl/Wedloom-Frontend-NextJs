@@ -1,3 +1,8 @@
+import Copyright from "@/components/footer/copyright/copyRight";
+import Footer from "@/components/footer/footer";
+import Navbar from "@/components/navbar/navbar";
+import TopNav from "@/components/topNav/topNav";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -5,7 +10,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div className="bg-sectionBg-900 overflow-x-hidden h-full">
+          <TopNav />
+          <Navbar />
+          {children}
+          <Footer />
+          <Copyright />
+        </div>
+      </body>
     </html>
   );
 }

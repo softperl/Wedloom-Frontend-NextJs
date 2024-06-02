@@ -1,6 +1,7 @@
+"use client";
 import React from "react";
-
-// import { Navigation } from "swiper";
+//@ts-ignore
+import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const HowIWCard = () => {
@@ -91,7 +92,7 @@ const HowIWCard = () => {
       <div className="w-full block lg:hidden h-full">
         <Swiper
           navigation={true}
-          // modules={[Navigation]}
+          modules={[Navigation]}
           slidesPerView={1}
           spaceBetween={30}
           slidesPerGroup={1}

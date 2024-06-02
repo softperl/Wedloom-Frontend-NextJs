@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import "./wCategorySingle.css";
+import { ChevronDown } from "lucide-react";
 
 const WcategorySingle = ({
   bgColor,
@@ -29,7 +30,7 @@ const WcategorySingle = ({
               className="category__Heading flex items-center gap-5 lg:text-xl text-base font-semibold cursor-pointer"
               onClick={() => setToggle(!toggle)}>
               <h5>{title}</h5>
-              <i className="fa-sharp fa-solid fa-chevron-down"></i>
+              <ChevronDown className="cursor-pointer" />
             </div>
             <span className="text-sm">{subtitle}</span>
           </div>
