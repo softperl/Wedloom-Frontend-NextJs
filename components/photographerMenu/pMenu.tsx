@@ -10,15 +10,17 @@ const PMenu = () => {
   const ref2 = useRef<any>();
   // All States and References End
 
-  // Fixed on Top Function
-  function setFixed() {
-    if (window.scrollY >= 200) {
-      setMakeFixed(true);
-    } else {
-      setMakeFixed(false);
+  useEffect(() => {
+    // Fixed on Top Function
+    function setFixed() {
+      if (window.scrollY >= 200) {
+        setMakeFixed(true);
+      } else {
+        setMakeFixed(false);
+      }
     }
-  }
-  window.addEventListener("scroll", setFixed);
+    window.addEventListener("scroll", setFixed);
+  }, []);
 
   // UseEffect Function for Handle Popup Open Close
   useEffect(() => {
@@ -27,9 +29,9 @@ const PMenu = () => {
         setShowSubmenu(false);
       }
     };
-    document.addEventListener("click", closePopup);
+    window.addEventListener("click", closePopup);
     return () => {
-      document.removeEventListener("click", closePopup);
+      window.removeEventListener("click", closePopup);
     };
   }, [showSubmenu]);
 

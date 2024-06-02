@@ -1,3 +1,4 @@
+import { Mail, MapPin, Phone } from "lucide-react";
 import React from "react";
 
 const ContactCardSingle = () => {
@@ -7,7 +8,7 @@ const ContactCardSingle = () => {
         <div className="card1 group w-full">
           <div className="how_it_works_card_content bg-white group-hover:bg-textPrimary-900 duration-300 shadow-md lg:mt-0 px-4 flex flex-col items-center justify-center py-4 rounded-md">
             <div className="icon text-textPrimary-900 group-hover:text-white lg:text-6xl text-5xl">
-              <i className="fa-solid fa-envelope"></i>
+              <Mail className="w-16 h-16" />
             </div>
             <div className="title my-3">
               <span className="text-lg text-textSecondary-900 group-hover:text-white font-bold lg:text-xl">
@@ -24,7 +25,7 @@ const ContactCardSingle = () => {
         <div className="card1 group w-full">
           <div className="how_it_works_card_content bg-white group-hover:bg-textPrimary-900 duration-300 shadow-md mt-6 lg:mt-0 px-4 flex flex-col items-center justify-center py-4 rounded-md">
             <div className="icon text-textPrimary-900 group-hover:text-white lg:text-6xl text-5xl">
-              <i className="fa-solid fa-location-dot"></i>
+              <MapPin className="w-16 h-16" />
             </div>
             <div className="title my-3">
               <span className="text-lg text-textSecondary-900 group-hover:text-white font-bold lg:text-xl">
@@ -41,7 +42,7 @@ const ContactCardSingle = () => {
         <div className="card1 group w-full">
           <div className="how_it_works_card_content bg-white group-hover:bg-textPrimary-900 duration-300 shadow-md mt-6 lg:mt-0 px-4 flex flex-col items-center justify-center py-4 rounded-md">
             <div className="icon text-textPrimary-900 group-hover:text-white lg:text-6xl text-5xl">
-              <i className="fa-solid fa-phone"></i>
+              <Phone className="w-16 h-16" />
             </div>
             <div className="title my-3">
               <span className="text-lg text-textSecondary-900 group-hover:text-white font-bold lg:text-xl">

@@ -1,4 +1,5 @@
 "use client";
+import { Mail, Phone } from "lucide-react";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 
@@ -23,20 +24,21 @@ const Pcontact = () => {
 
   return (
     <div className="p_contact bg-white shadow-md">
-      <div className="p_contact_button flex lg:justify-around gap-8 justify-center items-center lg:px-4 py-6 my-4">
+      <div className="p_contact_button flex flex-wrap lg:justify-around gap-8 justify-center items-center lg:px-4 py-6 my-4">
         <div className="send">
           <button
-            className="text-white lg:text-lg text-sm bg-textPrimary-900 lg:py-3 lg:px-12 p-4 rounded-full hover:bg-btnHover-900 duration-200"
+            className="text-white lg:text-lg text-sm bg-textPrimary-900 lg:py-3 flex items-center flex-nowrap p-4 rounded-full hover:bg-btnHover-900 duration-200"
             onClick={toggleMenuContact}>
-            <i className="fa-regular fa-envelope mr-2"></i>
+            <div className="flex"></div>
+            <Mail className="mr-2" />
             Send Message
           </button>
         </div>
         <div className="view">
           <button
-            className="text-white lg:text-lg text-sm bg-greenBG-900 lg:py-3 lg:px-12 rounded-full hover:bg-greenHover-900 duration-200 p-4"
+            className="text-white lg:text-lg text-sm bg-greenBG-900 lg:py-3 flex items-center flex-nowrap rounded-full hover:bg-greenHover-900 duration-200 p-4"
             onClick={toggleMessage}>
-            <i className="fa-solid fa-phone mr-2"></i>
+            <Phone className="mr-2" />
             View Contact
           </button>
         </div>

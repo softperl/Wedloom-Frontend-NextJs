@@ -1,7 +1,9 @@
+"use client";
 import React from "react";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const WpCardGrid = ({
   img,
@@ -14,9 +16,10 @@ const WpCardGrid = ({
   tooltip1,
   tooltip2,
 }: any) => {
+  const pathname = usePathname();
   return (
     <div className="wpCardGrid w-full md:w-4/12 mb-6 px-3 pt-2 pb-4 hover:bg-white hover:shadow-md duration-200 rounded-md">
-      <Link href="profile">
+      <Link href={`${pathname}/profile`}>
         <div className="wpCardGrid__content">
           {/* Image */}
 
