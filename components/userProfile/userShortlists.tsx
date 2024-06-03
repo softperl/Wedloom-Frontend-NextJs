@@ -15,7 +15,7 @@ const UserShortlists = () => {
       <div className="my-4 px-4">
         {/* Card */}
         <ShortListCard
-          image="https://www.thetorrancehotel.co.uk/wp-content/uploads/2020/02/torrance-wedding-suite-feb-hero.jpg"
+          image="/images.jpeg"
           name="Hotel Grand Maple"
           finalize
           price="30,000"

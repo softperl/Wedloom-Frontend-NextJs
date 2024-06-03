@@ -1,4 +1,6 @@
+"use client";
 import { useState } from "react";
+import { BiChevronDown } from "react-icons/bi";
 
 const UserChecklists = () => {
   // Data
@@ -35,7 +37,7 @@ const UserChecklists = () => {
           <h2 className="text-[13px] lg:text-sm text-textSecondary-900 leading-none pb-3 px-2">
             Incomplete
           </h2>
-          <i className="fa-solid fa-chevron-down text-textSecondary-900 text-sm"></i>
+          <BiChevronDown className="text-textSecondary-900 text-2xl" />
         </div>
 
         {incompleted && (
@@ -72,7 +74,7 @@ const UserChecklists = () => {
           <h2 className="text-[13px] lg:text-sm text-textSecondary-900 leading-none pb-3 px-2">
             Completed
           </h2>
-          <i className="fa-solid fa-chevron-down text-textSecondary-900 text-sm"></i>
+          <BiChevronDown className="text-textSecondary-900 text-2xl" />
         </div>
 
         {completed && (
