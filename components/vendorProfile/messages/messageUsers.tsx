@@ -2,15 +2,8 @@
 import MessageSender from "@/components/vendorProfile/messages/messageSender";
 import Link from "next/link";
 import { BiSearch } from "react-icons/bi";
-import GetBackMsg from "./getBackMsg";
 
-const MessageContainer = ({
-  border,
-  children,
-}: {
-  border?: boolean;
-  children?: React.ReactNode;
-}) => {
+const MessageUsers = () => {
   const senderData = [
     {
       id: 1,
@@ -154,14 +147,10 @@ const MessageContainer = ({
     },
   ];
   return (
-    <div
-      className={`${
-        border && "border border-paginationBg-900 border-b-0"
-      } w-full max-h-[75vh] flex`}>
-      {/* Left Side */}
-      <div className="w-full md:w-[35%] lg:w-[25%] h-full border-r-paginationBg-900 border-r">
+    <>
+      <div className="w-full md:w-[35%] lg:w-56 flex-shrink-0 h-full border-r-paginationBg-900 border-r max-h-[75vh] overflow-scroll">
         {/* <MessageSidebar /> */}
-        <div className="max-h-[75vh] overflow-y-scroll">
+        <div className="h-full overflow-y-scroll">
           {/* SearchBar */}
           <div className="w-full flex gap-2 justify-between items-center border-b border-b-paginationBg-900 text-textSecondary-900 h-[60px] px-4">
             <input
@@ -176,12 +165,13 @@ const MessageContainer = ({
           <div className="hidden md:block">
             {senderData.map((data) => (
               <Link
-                href={`${"/user/inbox/" + data.name.split(" ").splice(0, 1)}`}>
+                key={data?.id}
+                href={`${"/user/inbox/" + data?.name.split(" ").splice(0, 1)}`}>
                 <MessageSender
-                  img={data.img}
-                  date={data.date}
-                  name={data.name}
-                  text={data.text}
+                  img={data?.img}
+                  date={data?.date}
+                  name={data?.name}
+                  text={data?.text}
                 />
               </Link>
             ))}
@@ -191,25 +181,21 @@ const MessageContainer = ({
           <div className="block md:hidden">
             {senderData.map((data) => (
               <Link
-                href={`/mobilemessage/${data.name.split(" ").splice(0, 1)}`}>
+                key={data?.id}
+                href={`/mobilemessage/${data?.name.split(" ").splice(0, 1)}`}>
                 <MessageSender
-                  img={data.img}
-                  date={data.date}
-                  name={data.name}
-                  text={data.text}
+                  img={data?.img}
+                  date={data?.date}
+                  name={data?.name}
+                  text={data?.text}
                 />
               </Link>
             ))}
           </div>
         </div>
       </div>
-
-      {/* Right Side */}
-      <div className="w-[75%] hidden md:block">
-        {children ?? <GetBackMsg />}
-      </div>
-    </div>
+    </>
   );
 };
 
-export default MessageContainer;
+export default MessageUsers;
