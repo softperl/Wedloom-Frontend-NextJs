@@ -179,7 +179,7 @@ const VendorProfileContent = ({ children }: { children: React.ReactNode }) => {
           </div>
 
           {/* Right Side */}
-          <div className="bg-white shadow-sm w-full lg:w-[80%] rounded-sm overflow-hidden h-max">
+          <div className="bg-red-500 shadow-sm w-full lg:w-[80%] rounded-sm overflow-hidden h-max">
             {children}
           </div>
         </div>

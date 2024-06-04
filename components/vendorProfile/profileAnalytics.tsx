@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import YearlyAnalytics from "@/components/vendorProfile/yearlyAnalytics";
 import WeeklyAnalytics from "@/components/vendorProfile/weeklyAnalytics";

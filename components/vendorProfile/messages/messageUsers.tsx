@@ -3,7 +3,7 @@ import MessageSender from "@/components/vendorProfile/messages/messageSender";
 import Link from "next/link";
 import { BiSearch } from "react-icons/bi";
 
-const MessageUsers = () => {
+const MessageUsers = ({ vendor }: { vendor?: boolean }) => {
   const senderData = [
     {
       id: 1,
@@ -166,7 +166,9 @@ const MessageUsers = () => {
             {senderData.map((data) => (
               <Link
                 key={data?.id}
-                href={`${"/user/inbox/" + data?.name.split(" ").splice(0, 1)}`}>
+                href={`${
+                  vendor ? "/vendor/profile/inbox" : "/user/inbox"
+                }/${data?.name.split(" ").splice(0, 1)}`}>
                 <MessageSender
                   img={data?.img}
                   date={data?.date}
