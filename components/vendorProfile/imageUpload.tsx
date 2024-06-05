@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import React from "react";
 import { useState } from "react";
+import { FaArrowLeft } from "react-icons/fa6";
 
 const ImageUpload = () => {
   // Image State
@@ -18,10 +18,8 @@ const ImageUpload = () => {
       {/* Heading */}
       <div className="bg-sectionBg-900 px-4 py-3">
         <Link href="/vendor/profile/projects/portfolio">
-          <h2 className="text-textSecondary-900 lg:text-lg cursor-pointer">
-            {" "}
-            <i className="fa-solid fa-arrow-left-long mr-1"></i> Upload Images
-            to Portfolio
+          <h2 className="text-textSecondary-900 lg:text-lg cursor-pointer flex items-center">
+            <FaArrowLeft className="mr-2" /> Upload Images to Portfolio
           </h2>
         </Link>
       </div>

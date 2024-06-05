@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Path from "@/components/routesPath/path";
 import Review from "@/components/submitReview/review";
