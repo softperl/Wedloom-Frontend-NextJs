@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { useState } from "react";
 import { AiFillHeart, AiFillPinterest, AiOutlineHeart } from "react-icons/ai";
+import { FaPinterest, FaShareSquare } from "react-icons/fa";
 import { MdOutlineWatch, MdOutlineWatchLater } from "react-icons/md";
 import { PiShare } from "react-icons/pi";
 
@@ -85,21 +86,22 @@ const GalleryBanner = ({
                     href="https://www.pinterest.com"
                     target="_blank"
                     rel="noreferrer">
-                    <i className="fa-brands fa-pinterest mr-1"></i>
+                    <FaPinterest className="mr-1" />
                     <span>Pin</span>
                   </a>
                 </div>
                 <div
                   className="love bg-white px-3 py-1 cursor-pointer shadow-sm"
                   onClick={() => setFilled(!filled)}>
-                  <i
-                    className={`${
-                      filled ? "fa-solid text-red-600" : "fa-regular"
-                    } fa-heart mr-1`}></i>
+                  {!filled ? (
+                    <AiOutlineHeart className="mr-1 text-2xl" />
+                  ) : (
+                    <AiFillHeart className="mr-1 text-textPrimary-900 text-2xl" />
+                  )}
                   <span>{filled ? 1 : 0}</span>
                 </div>
                 <div className="share bg-white px-3 py-1 font-semibold cursor-pointer shadow-sm">
-                  <i className="fa-regular fa-share-from-square"></i>
+                  <FaShareSquare />
                 </div>
               </div>
             </div>

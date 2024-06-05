@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { NumberWithCommas } from "@/lib/utils";
 import Link from "next/link";
+import { FaPlus } from "react-icons/fa";
 
 const MenuContent = () => {
   // States
@@ -69,7 +70,7 @@ const MenuContent = () => {
               backgroundRepeat: "no-repeat",
             }}>
             <span>
-              <i className="fa-solid fa-plus"></i>
+              <FaPlus className="w-5 h-5" />
               <p>Add new Menu</p>
             </span>
           </div>

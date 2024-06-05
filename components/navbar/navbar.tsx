@@ -10,6 +10,22 @@ import InvitesPop from "./navbarPopups/invitesPop";
 import { AllCitiesPopup } from "@/components/allCitiesPopup/allCitiesPopup";
 import Link from "next/link";
 import { BiSearch } from "react-icons/bi";
+import {
+  FaBars,
+  FaCamera,
+  FaCaretDown,
+  FaChevronDown,
+  FaEnvelope,
+  FaHeadphones,
+  FaStore,
+  FaStreetView,
+  FaTree,
+  FaUserPlus,
+  FaUserTie,
+  FaUtensils,
+} from "react-icons/fa";
+import { FaHand, FaHeartPulse, FaPallet, FaXmark } from "react-icons/fa6";
+import { cn } from "@/lib/utils";
 
 const Navbar = () => {
   const [showPop, setShowPop] = useState(false);
@@ -144,7 +160,7 @@ const Navbar = () => {
                   alt="avatar"
                   className="w-10 h-10 rounded-full object-cover"
                 />
-                <i className="fa-solid fa-caret-down"></i>
+                <FaCaretDown />
               </div>
 
               {/* Popup */}
@@ -218,7 +234,7 @@ const Navbar = () => {
             <div
               className="hamburger cursor-pointer"
               onClick={() => setOpen(!open)}>
-              <i className="fa-solid fa-bars text-3xl"></i>
+              <FaBars className="w-5 h-5" />
             </div>
             <Link href="/">
               <div className="logo">
@@ -231,12 +247,11 @@ const Navbar = () => {
             <div
               className="all-cities text-base cursor-pointer"
               onClick={handleAllCities}>
-              <span>All Cities</span>{" "}
-              <i className="fa-solid fa-caret-down ml-2"></i>
+              <span>All Cities</span> <FaCaretDown className="ml-2" />
             </div>
             <Link href="/login">
               <div className="login_icon text-xl cursor-pointer">
-                <i className="fa-solid fa-user-plus"></i>
+                <FaUserPlus />
               </div>
             </Link>
           </div>
@@ -253,7 +268,7 @@ const Navbar = () => {
             <div
               className="closeIcon absolute top-0 right-4 cursor-pointer"
               onClick={() => setOpen(false)}>
-              <i className="fa-solid fa-xmark text-3xl text-textPrimary-900"></i>
+              <FaXmark className="w-5 h-5 text-textPrimary-900" />
             </div>
 
             <div className="sign_in px-4 border-b border-paginationBg-900 pb-4">
@@ -296,7 +311,7 @@ const Navbar = () => {
                     onClick={() => setVenues(!venues)}>
                     <div className="item_left flex items-center w-full">
                       <div className="w-2/12">
-                        <i className="fa-solid fa-store text-xl text-textPrimary-900"></i>
+                        <FaStore className="w-5 h-5 text-textPrimary-900" />
                       </div>
                       <div className="w-full">
                         <span className="font-semibold text-sm">Venues</span>
@@ -342,7 +357,7 @@ const Navbar = () => {
                     onClick={() => setPhotographs(!photographs)}>
                     <div className="item_left flex items-center justify-between w-full">
                       <div className="w-2/12">
-                        <i className="fa-solid fa-camera text-xl text-textPrimary-900"></i>
+                        <FaCamera className="w-5 h-5 text-textPrimary-900" />
                       </div>
                       <div className="w-full">
                         <span className="font-semibold text-sm">
@@ -390,7 +405,7 @@ const Navbar = () => {
                     onClick={() => setMakeup(!makeup)}>
                     <div className="item_left flex items-center justify-between w-full">
                       <div className="w-2/12">
-                        <i className="fa-solid fa-palette text-2xl text-textPrimary-900"></i>
+                        <FaPallet className="w-7 h-7 text-textPrimary-900" />
                       </div>
                       <div className="w-full">
                         <span className="font-semibold text-sm">Makeup</span>
@@ -436,7 +451,7 @@ const Navbar = () => {
                     onClick={() => setBridal(!bridal)}>
                     <div className="item_left flex items-center justify-between w-full">
                       <div className="w-2/12">
-                        <i className="fa-solid fa-street-view text-xl text-textPrimary-900"></i>
+                        <FaStreetView className="w-5 h-5 text-textPrimary-900" />
                       </div>
                       <div className="w-full">
                         <span className="font-semibold text-sm">
@@ -484,7 +499,7 @@ const Navbar = () => {
                     onClick={() => setGroom(!groom)}>
                     <div className="item_left flex items-center justify-between w-full">
                       <div className="w-2/12">
-                        <i className="fa-solid fa-user-tie text-xl text-textPrimary-900"></i>
+                        <FaUserTie className="w-5 h-5 text-textPrimary-900" />
                       </div>
                       <div className="w-full">
                         <span className="font-semibold text-sm">
@@ -493,10 +508,12 @@ const Navbar = () => {
                       </div>
                     </div>
                     <div className="item_right text-end">
-                      <i
-                        className={`fa-solid fa-chevron-down text-xs ${
-                          groom ? "rotate-180" : ""
-                        }`}></i>
+                      <FaChevronDown
+                        className={cn(
+                          "w-4 h-4 text-textPrimary-900",
+                          groom && "rotate-180"
+                        )}
+                      />
                     </div>
                   </div>
                 </div>
@@ -532,7 +549,7 @@ const Navbar = () => {
                     onClick={() => setMehndi(!mehndi)}>
                     <div className="item_left flex items-center justify-between w-full">
                       <div className="w-2/12">
-                        <i className="fa-regular fa-hand text-xl text-textPrimary-900"></i>
+                        <FaHand className="w-5 h-5 text-textPrimary-900" />
                       </div>
                       <div className="w-full">
                         <span className="font-semibold text-sm">Mehndi</span>
@@ -578,7 +595,7 @@ const Navbar = () => {
                     onClick={() => setDecor(!decor)}>
                     <div className="item_left flex items-center justify-between w-full">
                       <div className="w-2/12">
-                        <i className="fa-solid fa-tree text-xl text-textPrimary-900"></i>
+                        <FaTree className="w-5 h-5 text-textPrimary-900" />
                       </div>
                       <div className="w-full">
                         <span className="font-semibold text-sm">
@@ -626,7 +643,7 @@ const Navbar = () => {
                     onClick={() => setFood(!food)}>
                     <div className="item_left flex items-center justify-between w-full">
                       <div className="w-2/12">
-                        <i className="fa-solid fa-utensils text-xl text-textPrimary-900"></i>
+                        <FaUtensils className="w-5 h-5 text-textPrimary-900" />
                       </div>
                       <div className="w-full">
                         <span className="font-semibold text-sm">Food</span>
@@ -672,7 +689,7 @@ const Navbar = () => {
                     onClick={() => setInvites(!invites)}>
                     <div className="item_left flex items-center justify-between w-full">
                       <div className="w-2/12">
-                        <i className="fa-regular fa-envelope text-textPrimary-900 text-xl"></i>
+                        <FaEnvelope className="w-5 h-5 text-textPrimary-900" />
                       </div>
                       <div className="w-full">
                         <span className="font-semibold text-sm">
@@ -720,7 +737,7 @@ const Navbar = () => {
                     onClick={() => setMusic(!music)}>
                     <div className="item_left flex items-center justify-between w-full">
                       <div className="w-2/12">
-                        <i className="fa-solid fa-headphones text-xl text-textPrimary-900"></i>
+                        <FaHeadphones className="w-5 h-5 text-textPrimary-900" />
                       </div>
                       <div className="w-full">
                         <span className="font-semibold text-sm">
@@ -768,7 +785,7 @@ const Navbar = () => {
                     onClick={() => setJewellery(!jewellery)}>
                     <div className="item_left flex items-center justify-between w-full">
                       <div className="w-2/12">
-                        <i className="fa-regular fa-hand text-xl text-textPrimary-900"></i>
+                        <FaHand className="w-5 h-5 text-textPrimary-900" />
                       </div>
                       <div className="w-full">
                         <span className="font-semibold text-sm">
@@ -816,7 +833,7 @@ const Navbar = () => {
                     onClick={() => setHoneymoon(!honeymoon)}>
                     <div className="item_left flex items-center justify-between w-full">
                       <div className="w-2/12">
-                        <i className="fa-solid fa-heart-pulse text-textPrimary-900 text-xl"></i>
+                        <FaHeartPulse className="w-5 h-5 text-textPrimary-900" />
                       </div>
                       <div className="w-full">
                         <span className="font-semibold text-sm">Honeymoon</span>

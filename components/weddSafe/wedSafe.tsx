@@ -2,6 +2,7 @@
 import React from "react";
 import WedSafeCarousel from "@/components/carousels/wedSafeCarousel";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { FaChevronRight } from "react-icons/fa";
 
 const WedSafe = () => {
   return (
@@ -27,7 +28,7 @@ const WedSafe = () => {
             </div>
             <div className="wed__safe__header__right text-textBlue-900 text-sm font-semibold w-full text-end">
               <a href="*">
-                Learn More <i className="fa-solid fa-chevron-right"></i>
+                Learn More <FaChevronRight />
               </a>
             </div>
           </div>

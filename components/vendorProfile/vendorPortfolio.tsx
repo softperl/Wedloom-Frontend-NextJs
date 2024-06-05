@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { FaPlus } from "react-icons/fa";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 const VendorPortfolio = () => {
   // State
@@ -15,7 +17,7 @@ const VendorPortfolio = () => {
           <Link href="/vendor/profile/projects">
             <h2 className="text-textSecondary-900 lg:text-lg cursor-pointer">
               {" "}
-              <i className="fa-solid fa-arrow-left-long mr-1"></i> Portfolio
+              <FaArrowLeftLong className="w-5 h-5 mr-1" /> Portfolio
             </h2>
           </Link>
         </div>
@@ -70,7 +72,7 @@ const VendorPortfolio = () => {
               backgroundRepeat: "no-repeat",
             }}>
             <span>
-              <i className="fa-solid fa-plus"></i>
+              <FaPlus className="w-5 h-5" />
               <p>Add new image</p>
             </span>
           </div>

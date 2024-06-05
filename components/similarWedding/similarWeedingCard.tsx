@@ -1,5 +1,7 @@
 import Link from "next/link";
 import React from "react";
+import { FaStar } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
 
 const SimilarWeedingCard = ({
   image,
@@ -42,14 +44,14 @@ const SimilarWeedingCard = ({
             {/* Location Box */}
             <Link href="map">
               <div className="location text-sm text-textSecondary-900 my-2">
-                <i className="fa-solid fa-location-dot"></i>{" "}
+                <FaLocationDot className="w-5 h-5" />{" "}
                 <span className="font-medium ml-2">{location}</span>{" "}
               </div>
             </Link>
 
             {/* Reviews */}
             <div className="flex items-center gap-1 mb-2">
-              <i className="fa-solid fa-star text-textPrimary-900"></i>
+              <FaStar className="w-5 h-5 text-textPrimary-900" />
               <span className="font-semibold">4.9</span>{" "}
               <span className="text-sm">({totalReview} review)</span>
             </div>

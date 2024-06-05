@@ -8,6 +8,8 @@ import Path from "@/components/routesPath/path";
 import { About } from "@/components/about/about";
 import Review from "@/components/submitReview/review";
 import Link from "next/link";
+import { FaFlag, FaImage, FaPenNib, FaPhone, FaStar } from "react-icons/fa";
+import { FaLocationDot, FaShareNodes } from "react-icons/fa6";
 
 const SingleProfile = ({ scroll, project, about, review }: any) => {
   const [click, setclick] = useState(false);
@@ -66,7 +68,7 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
                   <div className="rating hidden lg:block">
                     <div className="overall__rating">
                       <span className="bg-textPrimary-900 px-4 py-2 text-white font-semibold">
-                        <i className="fa-solid fa-star mr-2"></i>
+                        <FaStar className="w-5 h-5 mr-2" />
                         5.0
                       </span>
                       <p className="mt-2 font-semibold text-textSecondary-900">
@@ -77,7 +79,7 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
                 </div>
                 {/* Location */}
                 <div className="location text-base text-textSecondary-900 my-4 px-6">
-                  <i className="fa-solid fa-location-dot"></i>{" "}
+                  <FaLocationDot className="w-5 h-5" />{" "}
                   <span className="font-medium ml-2">Lahore, Pakistan</span>{" "}
                   <Link href="map">
                     <span>(View on Map)</span>
@@ -87,7 +89,7 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
                 {/* Contact */}
                 <Link href="/contact">
                   <div className="contact text-textPrimary-900 px-6">
-                    <i className="fa-solid fa-phone"></i>
+                    <FaPhone className="w-5 h-5" />
                     <span className="font-medium ml-2">Contact</span>
                   </div>
                 </Link>
@@ -96,13 +98,13 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
 
                 <div className="listing bg-sectionBg-900 px-8 lg:py-6 py-4 mt-4 text-textBlack-900 flex items-center">
                   <div className="photos w-full border-r-2 cursor-pointer hidden lg:block">
-                    <i className="fa-solid fa-image mr-2"></i>
+                    <FaImage className="w-5 h-5 mr-2" />
                     <span>1055 Photos</span>
                   </div>
                   <div className="review block lg:hidden w-full border-r">
                     <div className="overall__rating">
                       <span className="bg-textPrimary-900 lg:px-4 lg:py-2 px-4 py-1 text-white font-semibold">
-                        <i className="fa-solid fa-star lg:mr-2 mr-1"></i>
+                        <FaStar className="w-5 h-5 mr-1 lg:mr-2" />
                         5.0
                       </span>
                       <p className="lg:mt-2 font-semibold text-textSecondary-900">
@@ -120,11 +122,11 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
                     <span>Shortlist</span>
                   </div>
                   <div className="photos w-full text-center border-r-2 cursor-pointer hidden lg:block">
-                    <i className="fa-solid fa-pen-nib mr-2"></i>
+                    <FaPenNib className="w-5 h-5 mr-2" />
                     <span>Write a Review</span>
                   </div>
                   <div className="photos w-full text-center cursor-pointer">
-                    <i className="fa-solid fa-share-nodes mr-2"></i>
+                    <FaShareNodes className="w-5 h-5 mr-2" />
                     <span>Share</span>
                   </div>
                 </div>
@@ -138,7 +140,7 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
               <div className="report mt-6 text-textPrimary-900 text-center">
                 <Link href="/report">
                   <span>
-                    <i className="fa-solid fa-flag mr-3"></i>
+                    <FaFlag className="w-5 h-5 mr-3" />
                     Report Inaccurate Info
                   </span>
                 </Link>
@@ -189,7 +191,7 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
             <div className="report mt-6 text-textPrimary-900 text-center">
               <Link href="/report">
                 <span>
-                  <i className="fa-solid fa-flag mr-3"></i>
+                  <FaFlag className="w-5 h-5 mr-3" />
                   Report Inaccurate Info
                 </span>
               </Link>

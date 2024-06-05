@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { FaRegStar, FaStar } from "react-icons/fa";
+import { FaStarHalfStroke } from "react-icons/fa6";
 // import Rate from "./Rate";
 //@ts-ignore
 import ReactStars from "react-rating-stars-component";
@@ -12,9 +14,9 @@ const Review = ({ review, heading }: any) => {
     color: "#DDD",
     activeColor: "#e72e77",
     isHalf: true,
-    emptyIcon: <i className="fa-regular fa-star" />,
-    halfIcon: <i className="fa-solid fa-star-half-stroke" />,
-    filledIcon: <i className="fa-solid fa-star" />,
+    emptyIcon: <FaRegStar className="w-5 h-5" />,
+    halfIcon: <FaStarHalfStroke className="w-5 h-5" />,
+    filledIcon: <FaStar className="w-5 h-5" />,
     onChange: (newValue: any) => {
       setStarRate(newValue);
     },
@@ -66,7 +68,7 @@ const Review = ({ review, heading }: any) => {
                   <div className="rating">
                     <div className="overall__rating">
                       <span className="bg-textPrimary-900 px-4 py-2 text-white font-semibold">
-                        <i className="fa-solid fa-star mr-2"></i>
+                        <FaStar className="w-5 h-5 mr-2" />
                         5.0
                       </span>
                       <p className="mt-2 font-semibold text-textSecondary-900">
@@ -86,7 +88,7 @@ const Review = ({ review, heading }: any) => {
                     />
                   </div>
                   <div className="icon w-1/12 flex items-center justify-center">
-                    <span>5</span> <i className="fa-solid fa-star ml-1"></i>
+                    <span>5</span> <FaStar className="w-5 h-5 ml-1" />
                   </div>
                   <div className="progressbar w-full bg-gray-200 rounded-full h-2.5">
                     <div
@@ -107,7 +109,7 @@ const Review = ({ review, heading }: any) => {
                     />
                   </div>
                   <div className="icon w-1/12 flex items-center justify-center">
-                    <span>4</span> <i className="fa-solid fa-star ml-1"></i>
+                    <span>4</span> <FaStar className="w-5 h-5 ml-1" />
                   </div>
                   <div className="progressbar w-full bg-gray-200 rounded-full h-2.5">
                     <div
@@ -128,7 +130,7 @@ const Review = ({ review, heading }: any) => {
                     />
                   </div>
                   <div className="icon w-1/12 flex items-center justify-center">
-                    <span>3</span> <i className="fa-solid fa-star ml-1"></i>
+                    <span>3</span> <FaStar className="w-5 h-5 ml-1" />
                   </div>
                   <div className="progressbar w-full bg-gray-200 rounded-full h-2.5">
                     <div
@@ -149,7 +151,7 @@ const Review = ({ review, heading }: any) => {
                     />
                   </div>
                   <div className="icon w-1/12 flex items-center justify-center">
-                    <span>2</span> <i className="fa-solid fa-star ml-1"></i>
+                    <span>2</span> <FaStar className="w-5 h-5 ml-1" />
                   </div>
                   <div className="progressbar w-full bg-gray-200 rounded-full h-2.5">
                     <div
@@ -170,7 +172,7 @@ const Review = ({ review, heading }: any) => {
                     />
                   </div>
                   <div className="icon w-1/12 flex items-center justify-center">
-                    <span>1</span> <i className="fa-solid fa-star ml-1"></i>
+                    <span>1</span> <FaStar className="w-5 h-5 ml-1" />
                   </div>
                   <div className="progressbar w-full bg-gray-200 rounded-full h-2.5">
                     <div

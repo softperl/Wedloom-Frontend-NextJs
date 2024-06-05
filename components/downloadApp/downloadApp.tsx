@@ -1,5 +1,7 @@
 "use client";
 import React, { useState } from "react";
+import { FaHeart, FaRegLightbulb } from "react-icons/fa";
+import { FaAndroid, FaApple, FaBasketShopping } from "react-icons/fa6";
 
 const DownloadApp = () => {
   const [value, setValue] = useState("+91");
@@ -15,15 +17,15 @@ const DownloadApp = () => {
               </h4>
               <div className="download__list w-full flex items-center gap-6 text-textPrimary-900 font-semibold mt-4 mb-8">
                 <div className="idea">
-                  <i className="fa-regular fa-lightbulb pr-2"></i>
+                  <FaRegLightbulb className="pr-2" />
                   <span>Save Wedding Ideas</span>
                 </div>
                 <div className="idea">
-                  <i className="fa-regular fa-heart pr-2"></i>
+                  <FaHeart className="pr-2" />
                   <span>Shortlist Vendors</span>
                 </div>
                 <div className="idea">
-                  <i className="fa-solid fa-basket-shopping pr-2"></i>
+                  <FaBasketShopping className="pr-2" />
                   <span>Get Free Wedding Checklist</span>
                 </div>
               </div>
@@ -50,8 +52,8 @@ const DownloadApp = () => {
                   Download The App
                 </button>
                 <div className="os_icon text-black text-4xl my-4">
-                  <i className="fa-brands fa-apple"></i>
-                  <i className="fa-brands fa-android ml-4"></i>
+                  <FaApple />
+                  <FaAndroid className="ml-4" />
                 </div>
               </div>
             </div>

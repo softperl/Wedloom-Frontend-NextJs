@@ -1,7 +1,13 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
-import { FaShareAlt } from "react-icons/fa";
+import {
+  FaLinkedin,
+  FaShareNodes,
+  FaSquareFacebook,
+  FaSquareTwitter,
+  FaWhatsapp,
+} from "react-icons/fa6";
 
 const WstoriesCarousel = ({ img, name, summary, date }: any) => {
   const pathname = usePathname();
@@ -52,37 +58,42 @@ const WstoriesCarousel = ({ img, name, summary, date }: any) => {
                     href={`https://www.facebook.com/share.php?u=${pathname}`}
                     target="_blank"
                     rel="noreferrer">
-                    <i
-                      className="fa-brands fa-square-facebook"
-                      style={{ color: "#4267B2" }}></i>
+                    <FaSquareFacebook
+                      className="w-5 h-5"
+                      style={{ color: "#4267B2" }}></FaSquareFacebook>
                   </a>
                   <a
                     href={`https://twitter.com/share?url=${pathname}`}
                     target="_blank"
                     rel="noreferrer">
-                    <i
-                      className="fa-brands fa-square-twitter"
-                      style={{ color: "#1DA1F2" }}></i>
+                    <FaSquareTwitter
+                      className="w-5 h-5"
+                      style={{ color: "#1DA1F2" }}></FaSquareTwitter>
                   </a>
                   <a
                     href={`https://api.whatsapp.com/send?text=${pathname}`}
                     target="_blank"
                     rel="noreferrer">
-                    <i
-                      className="fa-brands fa-whatsapp"
-                      style={{ color: "#25d366" }}></i>
+                    <FaWhatsapp
+                      className="w-5 h-5"
+                      style={{ color: "#25d366" }}></FaWhatsapp>
                   </a>
                   <a
                     href={`https://www.linkedin.com/sharing/share-offsite/?url=${pathname}`}
                     target="_blank"
                     rel="noreferrer">
-                    <i
-                      className="fa-brands fa-linkedin"
-                      style={{ color: "#0077b5" }}></i>
+                    <FaLinkedin
+                      className="w-5 h-5"
+                      style={{ color: "#0077b5" }}></FaLinkedin>
                   </a>
                 </div>
-
-                <FaShareAlt onClick={() => setShowShare(!showShare)} />
+                <button
+                  onClick={() => {
+                    setShowShare(!showShare);
+                    console.log("hi");
+                  }}>
+                  <FaShareNodes />
+                </button>
               </div>
             </div>
           </div>

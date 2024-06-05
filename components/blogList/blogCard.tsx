@@ -70,7 +70,7 @@ const BlogCard = () => {
               className={`${
                 activeAll
                   ? " bg-textPrimary-900"
-                  : "border-textPrimary-900 border text-black"
+                  : "border-textPrimary-900 border text-white"
               } py-2 px-6 font-medium rounded-3xl`}
               onClick={() => {
                 setBlogs(Data);

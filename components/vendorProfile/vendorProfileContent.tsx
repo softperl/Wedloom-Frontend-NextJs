@@ -1,4 +1,18 @@
 import Link from "next/link";
+import {
+  FaChartBar,
+  FaComments,
+  FaDesktop,
+  FaImages,
+  FaPhone,
+  FaVenus,
+} from "react-icons/fa";
+import {
+  FaCircleExclamation,
+  FaFileZipper,
+  FaGear,
+  FaMessage,
+} from "react-icons/fa6";
 
 const VendorProfileContent = ({ children }: { children: React.ReactNode }) => {
   // let activeStyle = {
@@ -27,7 +41,7 @@ const VendorProfileContent = ({ children }: { children: React.ReactNode }) => {
               >
                 <div
                   className={`flex items-center gap-5 cursor-pointer hover:text-[#00aef7] duration-100`}>
-                  <i className="fa-solid fa-circle-exclamation lg:text-lg"></i>
+                  <FaCircleExclamation className="w-5 h-5" />
                   <span className="md:text-sm text-xs font-medium">
                     Profile Informations
                   </span>
@@ -43,7 +57,7 @@ const VendorProfileContent = ({ children }: { children: React.ReactNode }) => {
               >
                 <div
                   className={`flex items-center gap-5 cursor-pointer hover:text-[#00aef7] duration-100`}>
-                  <i className="fa-regular fa-images lg:text-lg"></i>
+                  <FaImages className="w-5 h-5" />
                   <span className="text-xs lg:text-sm font-medium">
                     Projects
                   </span>
@@ -59,7 +73,7 @@ const VendorProfileContent = ({ children }: { children: React.ReactNode }) => {
               >
                 <div
                   className={`flex items-center gap-5  cursor-pointer hover:text-[#00aef7] duration-100`}>
-                  <i className="fa-solid fa-desktop lg:text-lg"></i>
+                  <FaDesktop className="w-5 h-5" />
                   <span className="text-xs md:text-sm font-medium">
                     Membership Plans
                   </span>
@@ -75,7 +89,7 @@ const VendorProfileContent = ({ children }: { children: React.ReactNode }) => {
               >
                 <div
                   className={`flex items-center gap-5  cursor-pointer hover:text-[#00aef7] duration-100`}>
-                  <i className="fa-regular fa-comments lg:text-lg"></i>
+                  <FaComments className="w-5 h-5" />
                   <span className="text-xs md:text-sm font-medium">
                     Reviews
                   </span>
@@ -91,7 +105,7 @@ const VendorProfileContent = ({ children }: { children: React.ReactNode }) => {
               >
                 <div
                   className={`flex items-center gap-5  cursor-pointer hover:text-[#00aef7] duration-100`}>
-                  <i className="fa-solid fa-venus lg:text-lg"></i>
+                  <FaVenus className="w-5 h-5" />
                   <span className="text-xs md:text-sm font-medium ml-2">
                     Banquets
                   </span>
@@ -107,7 +121,7 @@ const VendorProfileContent = ({ children }: { children: React.ReactNode }) => {
               >
                 <div
                   className={`flex items-center gap-5  cursor-pointer hover:text-[#00aef7] duration-100`}>
-                  <i className="fa-regular fa-file-zipper lg:text-lg ml-[2px]"></i>
+                  <FaFileZipper className="w-5 h-5 ml-[2px]" />
                   <span className="text-xs md:text-sm font-medium ml-2">
                     Menu
                   </span>
@@ -123,7 +137,7 @@ const VendorProfileContent = ({ children }: { children: React.ReactNode }) => {
               >
                 <div
                   className={`flex items-center gap-5  cursor-pointer hover:text-[#00aef7] duration-100`}>
-                  <i className="fa-regular fa-chart-bar lg:text-lg"></i>
+                  <FaChartBar className="w-5 h-5" />
                   <span className="text-xs md:text-sm font-medium ml-1">
                     Analytics
                   </span>
@@ -139,7 +153,7 @@ const VendorProfileContent = ({ children }: { children: React.ReactNode }) => {
               >
                 <div
                   className={`flex items-center gap-5  cursor-pointer hover:text-[#00aef7] duration-100`}>
-                  <i className="fa-solid fa-gear lg:text-lg"></i>
+                  <FaGear className="w-5 h-5" />
                   <span className="text-xs md:text-sm font-medium ml-1">
                     Settings
                   </span>
@@ -155,7 +169,7 @@ const VendorProfileContent = ({ children }: { children: React.ReactNode }) => {
               >
                 <div
                   className={`flex items-center gap-5  cursor-pointer hover:text-[#00aef7] duration-100`}>
-                  <i className="fa-regular fa-message lg:text-lg"></i>
+                  <FaMessage className="w-5 h-5" />
                   <span className="text-xs md:text-sm font-medium ml-1">
                     Messages
                   </span>
@@ -170,7 +184,7 @@ const VendorProfileContent = ({ children }: { children: React.ReactNode }) => {
               </h1>
 
               <div className="flex items-center gap-2 text-textSecondary-900 cursor-pointer hover:text-[#00aef7] duration-100">
-                <i className="fa-solid fa-phone lg:text-xl"></i>
+                <FaPhone className="w-5 h-5" />
                 <span className="text-sm lg:text-base font-semibold">
                   0129874-564
                 </span>

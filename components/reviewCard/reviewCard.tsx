@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import ReplyCard from "@/components/reviewCard/replyCard";
+import { FaStar } from "react-icons/fa";
 
 const ReviewCard = ({ image, name }: any) => {
   const [viewLess, setViewLess] = useState(false);
@@ -24,7 +25,7 @@ const ReviewCard = ({ image, name }: any) => {
 
               <div className="overall__rating flex items-center justify-center">
                 <span className="bg-textPrimary-900 p-1 text-white font-semibold">
-                  <i className="fa-solid fa-star mr-2"></i>
+                  <FaStar className="w-5 h-5 mr-2" />
                   5.0
                 </span>
               </div>

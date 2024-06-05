@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { FaCaretRight } from "react-icons/fa";
 
 const PSubMenu = () => {
   return (
@@ -88,7 +89,7 @@ const PSubMenu = () => {
             {/* More Button Start*/}
             <button className="ml-5 mt-1">
               <Link href="/more">
-                More <i className="fa-solid fa-caret-right"></i>
+                More <FaCaretRight className="w-5 h-5 text-textPrimary-900" />
               </Link>
             </button>
 

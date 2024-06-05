@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { FaStar } from "react-icons/fa";
 
 const ShortListCard = ({
   image,
@@ -36,11 +37,12 @@ const ShortListCard = ({
 
         {/* Ratings */}
         <div className="text-xs md:text-sm mt-1">
-          <i className="fa-solid fa-star text-[#FFD700]"></i>
-          <i className="fa-solid fa-star text-[#FFD700]"></i>
-          <i className="fa-solid fa-star text-[#FFD700]"></i>
-          <i className="fa-solid fa-star text-[#FFD700]"></i>
-          <i className="fa-solid fa-star text-[#FFD700]"></i>
+          <FaStar className="w-5 h-5 text-[#FFD700]" />
+          <FaStar className="w-5 h-5 text-[#FFD700]" />
+          <FaStar className="w-5 h-5 text-[#FFD700]" />
+          <FaStar className="w-5 h-5 text-[#FFD700]" />
+          <FaStar className="w-5 h-5 text-[#FFD700]" />
+          <FaStar className="w-5 h-5 text-[#FFD700]" />
           <span className="text-gray-600 ml-1 font-medium">4.9</span>
         </div>
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { FaImage } from "react-icons/fa";
 
 const ProjectAlbumView = () => {
   return (
@@ -18,8 +19,7 @@ const ProjectAlbumView = () => {
               <p>Hindu Wedding</p>
             </div>
             <div className="total absolute right-3 top-2 text-white font-semibold">
-              <i className="fa-solid fa-image"></i>{" "}
-              <span className="ml-2">30</span>
+              <FaImage className="w-5 h-5" /> <span className="ml-2">30</span>
             </div>
           </div>
         </div>
@@ -37,8 +37,7 @@ const ProjectAlbumView = () => {
                 <p>Hindu Wedding</p>
               </div>
               <div className="total absolute right-3 top-2 text-white font-semibold">
-                <i className="fa-solid fa-image"></i>{" "}
-                <span className="ml-2">30</span>
+                <FaImage className="w-5 h-5" /> <span className="ml-2">30</span>
               </div>
             </div>
           </Link>
@@ -57,7 +56,7 @@ const ProjectAlbumView = () => {
                 <p>Hindu Wedding</p>
               </div>
               <div className="total absolute right-3 top-2 text-white font-semibold">
-                <i className="fa-solid fa-image"></i>{" "}
+                <FaImage className="w-5 h-5 " />{" "}
                 <span className="ml-2">30</span>
               </div>
             </div>
@@ -77,8 +76,7 @@ const ProjectAlbumView = () => {
                 <p>Hindu Wedding</p>
               </div>
               <div className="total absolute right-3 top-2 text-white font-semibold">
-                <i className="fa-solid fa-image"></i>{" "}
-                <span className="ml-2">30</span>
+                <FaImage className="w-5 h-5" /> <span className="ml-2">30</span>
               </div>
             </div>
           </Link>

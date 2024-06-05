@@ -2,6 +2,11 @@
 import Link from "next/link";
 import React from "react";
 import { useState } from "react";
+import {
+  FaArrowLeftLong,
+  FaCloudArrowUp,
+  FaSquareXmark,
+} from "react-icons/fa6";
 
 const UploadImagetoMenu = () => {
   // Image State
@@ -20,8 +25,8 @@ const UploadImagetoMenu = () => {
         <Link href="/vendor/profile/menu/">
           <h2 className="text-textSecondary-900 text-lg cursor-pointer">
             {" "}
-            <i className="fa-solid fa-arrow-left-long mr-1"></i> Upload Images
-            to Menu
+            <FaArrowLeftLong className="w-5 h-5 mr-1" />
+            Upload Images to Menu
           </h2>
         </Link>
       </div>
@@ -31,7 +36,7 @@ const UploadImagetoMenu = () => {
         {/* Image Upload */}
         <label htmlFor="file" className="text-textSecondary-900 cursor-pointer">
           <div className="border-2 border-dashed border-paginationBg-900 w-max text-center pt-2 pb-6 px-10">
-            <i className="fa-solid fa-cloud-arrow-up text-3xl"></i>
+            <FaCloudArrowUp className="w-5 h-5" />
             <div className="my-4">
               <p className="text-sm mb-2">Max file size : 16 MB</p>
               <p className="text-sm mb-2">Accepted Formats: jpg, jpeg, png</p>
@@ -76,7 +81,7 @@ const UploadImagetoMenu = () => {
                   <div
                     className="text-textPrimary-900 absolute top-[-10px] -right-[5px] cursor-pointer"
                     onClick={() => removeImage(i)}>
-                    <i className="fa-solid fa-square-xmark"></i>
+                    <FaSquareXmark className="w-5 h-5" />
                   </div>
                 </div>
               );

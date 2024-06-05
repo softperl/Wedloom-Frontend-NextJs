@@ -1,3 +1,5 @@
+import { FaStar } from "react-icons/fa6";
+
 const FvendrosCarousel = ({
   img,
   name,
@@ -21,8 +23,8 @@ const FvendrosCarousel = ({
               alt=""
               className="w-full h-64 group-hover:scale-125 duration-200 rounded-md"
             />
-            <div className="rating text-base bg-textPrimary-900 w-max p-1 font-bold absolute top-2 right-4">
-              <i className="fa-solid fa-star"></i>
+            <div className="rating text-base bg-textPrimary-900 w-max p-1 font-bold absolute top-2 right-4 flex items-center flex-nowrap">
+              <FaStar className="w-5 h-5" />
               <span>{rating}</span>
             </div>
           </div>

@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const VendorPopup = ({ toggle }: any) => {
   const [venues, setVenues] = useState(false);
@@ -28,7 +30,7 @@ const VendorPopup = ({ toggle }: any) => {
             <h1 className="ml-4 text-lg font-bold">Wedding Categories</h1>
           </div>
           <div className="searchBox flex items-center bg-white pl-6 p-2 rounded-full">
-            <i className="fa-solid fa-magnifying-glass mr-4"></i>
+            <FaMagnifyingGlass className="w-5 h-5 mr-4" />
             <input
               type="text"
               placeholder="Search City"
@@ -52,7 +54,7 @@ const VendorPopup = ({ toggle }: any) => {
                   </div>
                 </div>
                 <div className="item_right">
-                  <i className="fa-solid fa-chevron-down text-xs"></i>
+                  <FaChevronDown className="w-4 h-4" />
                 </div>
               </div>
             </div>
@@ -92,7 +94,7 @@ const VendorPopup = ({ toggle }: any) => {
                   </div>
                 </div>
                 <div className="item_right text-end">
-                  <i className="fa-solid fa-chevron-down text-xs"></i>
+                  <FaChevronDown className="w-4 h-4" />
                 </div>
               </div>
             </div>
@@ -132,7 +134,7 @@ const VendorPopup = ({ toggle }: any) => {
                   </div>
                 </div>
                 <div className="item_right text-end">
-                  <i className="fa-solid fa-chevron-down text-xs"></i>
+                  <FaChevronDown className="w-4 h-4" />
                 </div>
               </div>
             </div>
@@ -172,7 +174,7 @@ const VendorPopup = ({ toggle }: any) => {
                   </div>
                 </div>
                 <div className="item_right text-end">
-                  <i className="fa-solid fa-chevron-down text-xs"></i>
+                  <FaChevronDown className="w-4 h-4 text-textPrimary-900" />
                 </div>
               </div>
             </div>
@@ -212,7 +214,7 @@ const VendorPopup = ({ toggle }: any) => {
                   </div>
                 </div>
                 <div className="item_right text-end">
-                  <i className="fa-solid fa-chevron-down text-xs"></i>
+                  <FaChevronDown className="w-4 h-4 text-textPrimary-900" />
                 </div>
               </div>
             </div>
@@ -252,7 +254,7 @@ const VendorPopup = ({ toggle }: any) => {
                   </div>
                 </div>
                 <div className="item_right text-end">
-                  <i className="fa-solid fa-chevron-down text-xs"></i>
+                  <FaChevronDown className="w-4 h-4 text-textPrimary-900" />
                 </div>
               </div>
             </div>
@@ -292,7 +294,7 @@ const VendorPopup = ({ toggle }: any) => {
                   </div>
                 </div>
                 <div className="item_right text-end">
-                  <i className="fa-solid fa-chevron-down text-xs"></i>
+                  <FaChevronDown className="w-4 h-4" />
                 </div>
               </div>
             </div>
@@ -332,7 +334,7 @@ const VendorPopup = ({ toggle }: any) => {
                   </div>
                 </div>
                 <div className="item_right text-end">
-                  <i className="fa-solid fa-chevron-down text-xs"></i>
+                  <FaChevronDown className="w-4 h-4" />
                 </div>
               </div>
             </div>
@@ -372,7 +374,7 @@ const VendorPopup = ({ toggle }: any) => {
                   </div>
                 </div>
                 <div className="item_right text-end">
-                  <i className="fa-solid fa-chevron-down text-xs"></i>
+                  <FaChevronDown className="w-4 h-4" />
                 </div>
               </div>
             </div>
@@ -412,7 +414,7 @@ const VendorPopup = ({ toggle }: any) => {
                   </div>
                 </div>
                 <div className="item_right text-end">
-                  <i className="fa-solid fa-chevron-down text-xs"></i>
+                  <FaChevronDown className="w-4 h-4" />
                 </div>
               </div>
             </div>
@@ -454,7 +456,7 @@ const VendorPopup = ({ toggle }: any) => {
                   </div>
                 </div>
                 <div className="item_right text-end">
-                  <i className="fa-solid fa-chevron-down text-xs"></i>
+                  <FaChevronDown className="w-4 h-4" />
                 </div>
               </div>
             </div>
@@ -494,7 +496,7 @@ const VendorPopup = ({ toggle }: any) => {
                   </div>
                 </div>
                 <div className="item_right text-end">
-                  <i className="fa-solid fa-chevron-down text-xs"></i>
+                  <FaChevronDown className="w-4 h-4" />
                 </div>
               </div>
             </div>

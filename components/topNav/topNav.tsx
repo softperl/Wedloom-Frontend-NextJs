@@ -6,6 +6,7 @@ import Popup from "@/components/popups/popup";
 import { BiClipboard } from "react-icons/bi";
 import { MdOutlineSmartphone } from "react-icons/md";
 import { FaRegClipboard } from "react-icons/fa";
+import { FaCaretDown } from "react-icons/fa6";
 
 const TopNav = () => {
   const [popup, setPopup] = useState(false);
@@ -40,7 +41,7 @@ const TopNav = () => {
               <span className="text-sm">All Cities</span>
             </div>
             <div className="topNav__city__icon flex">
-              <i className="fa-solid fa-caret-down text-sm"></i>
+              <FaCaretDown className="w-4 h-4" />
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 "use client";
 import { topCities } from "@/components/data/cityList";
 import { useState } from "react";
+import { FaCirclePlus, FaCircleXmark } from "react-icons/fa6";
 
 const InformationContent = () => {
   const [formData, setFormData] = useState<any>({
@@ -266,7 +267,7 @@ const InformationContent = () => {
                             <span
                               className="text-textPrimary-900"
                               onClick={() => removeNumberBox(i)}>
-                              <i className="fa-regular fa-circle-xmark text-sm cursor-pointer"></i>
+                              <FaCircleXmark className="w-4 h-4 cursor-pointer" />
                             </span>
                           )}
                         </div>
@@ -279,8 +280,7 @@ const InformationContent = () => {
                         <span
                           className="flex items-center text-xs text-textPrimary-900 font-semibold cursor-pointer"
                           onClick={addNumberBox}>
-                          <i className="fa-solid fa-circle-plus text-sm mr-2"></i>{" "}
-                          ADD MORE
+                          <FaCirclePlus className="w-4 h-4 mr-2" /> ADD MORE
                         </span>
                       )}
                     </div>

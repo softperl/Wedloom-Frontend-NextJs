@@ -1,6 +1,7 @@
 import React from "react";
 import MessageSender from "@/components/vendorProfile/messages/messageSender";
 import Link from "next/link";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const MessageSidebar = () => {
   const senderData = [
@@ -154,7 +155,7 @@ const MessageSidebar = () => {
           placeholder="Search....."
           className="w-full bg-transparent placeholder:text-textSecondary-900 border-none outline-none text-sm"
         />
-        <i className="fa-solid fa-magnifying-glass"></i>
+        <FaMagnifyingGlass className="w-5 h-5" />
       </div>
 
       {/* Message Components */}

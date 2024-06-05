@@ -10,6 +10,7 @@ import {
   popularCities,
   topCities,
 } from "@/components/data/cityList";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const Popup = () => {
   const [value, setValue] = useState("");
@@ -21,7 +22,7 @@ const Popup = () => {
           style={{ border: "1px solid #d7d7d7", color: "#d7d7d7" }}>
           <div className="border__div w-full p-2 bg-white">
             <div className="search__icon w-full flex items-center">
-              <i className="fa-solid fa-magnifying-glass mr-2"></i>
+              <FaMagnifyingGlass className="w-4 h-4 mr-2" />
               <input
                 type="text"
                 placeholder="Search"

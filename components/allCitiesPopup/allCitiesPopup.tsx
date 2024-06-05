@@ -7,6 +7,7 @@ import {
   popularCities,
   topCities,
 } from "@/components/data/cityList";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 export const AllCitiesPopup = ({ toggle }: any) => {
   const [value, setValue] = useState("");
@@ -22,7 +23,7 @@ export const AllCitiesPopup = ({ toggle }: any) => {
             <h1 className="ml-4 text-lg font-bold">Cities</h1>
           </div>
           <div className="searchBox flex items-center bg-white pl-6 p-2 rounded-full">
-            <i className="fa-solid fa-magnifying-glass mr-4"></i>
+            <FaMagnifyingGlass className="mr-4" />
             <input
               type="text"
               placeholder="Search City"

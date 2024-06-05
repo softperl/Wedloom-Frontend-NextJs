@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { FaArrowLeft } from "react-icons/fa6";
+import { FaArrowLeft, FaCloudArrowUp, FaSquareXmark } from "react-icons/fa6";
 
 const ImageUpload = () => {
   // Image State
@@ -29,7 +29,7 @@ const ImageUpload = () => {
         {/* Image Upload */}
         <label htmlFor="file" className="text-textSecondary-900 cursor-pointer">
           <div className="border-2 border-dashed border-paginationBg-900 w-max text-center pt-2 pb-6 px-10">
-            <i className="fa-solid fa-cloud-arrow-up text-3xl"></i>
+            <FaCloudArrowUp className="w-5 h-5" />
             <div className="my-4">
               <p className="text-sm mb-2">Max file size : 16 MB</p>
               <p className="text-sm mb-2">Accepted Formats: jpg, jpeg, png</p>
@@ -73,7 +73,7 @@ const ImageUpload = () => {
                   <div
                     className="text-textPrimary-900 absolute top-[-10px] -right-[5px] cursor-pointer"
                     onClick={() => removeImage(i)}>
-                    <i className="fa-solid fa-square-xmark"></i>
+                    <FaSquareXmark className="w-5 h-5" />
                   </div>
                 </div>
               );

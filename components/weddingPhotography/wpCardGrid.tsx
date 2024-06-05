@@ -4,6 +4,8 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { FaStar } from "react-icons/fa";
+import { FaLocationDot, FaRegStar } from "react-icons/fa6";
 
 const WpCardGrid = ({
   img,
@@ -54,8 +56,8 @@ const WpCardGrid = ({
               </Tippy>
             </div>
 
-            <div className="rating text-base text-white bg-textPrimary-900 w-max p-1 font-bold absolute top-2 right-2">
-              <i className="fa-solid fa-star"></i>
+            <div className="rating text-base text-white bg-textPrimary-900 w-max p-1 font-bold absolute top-2 right-2 flex flex-nowrap items-center">
+              <FaRegStar className="w-4 h-4" />
               <span>5.0</span>
             </div>
           </div>
@@ -71,7 +73,7 @@ const WpCardGrid = ({
             </div>
             {/* Location */}
             <div className="location text-sm text-dateColor-900 my-1">
-              <i className="fa-solid fa-location-dot"></i>{" "}
+              <FaLocationDot className="w-5 h-5" />{" "}
               <span className="font-medium ml-1">{location}</span>
             </div>
 
@@ -95,7 +97,7 @@ const WpCardGrid = ({
             </div>
             {/* Reviews */}
             <div className="flex items-center gap-1 mb-1">
-              <i className="fa-solid fa-star text-textPrimary-900"></i>
+              <FaStar className="w-5 h-5 text-textPrimary-900" />
               <span className="text-xl">{review}</span>{" "}
               <span className="text-sm">({totalReview} reviews)</span>
             </div>

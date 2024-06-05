@@ -9,7 +9,8 @@ import Pagination from "@/components/pagination/pagination";
 import WpCardGrid from "@/components/weddingPhotography/wpCardGrid";
 import WpCardList from "@/components/weddingPhotography/wpCardList";
 import { BiGridAlt } from "react-icons/bi";
-import { FaBarsStaggered } from "react-icons/fa6";
+import { FaBarsStaggered, FaMagnifyingGlass, FaShuffle } from "react-icons/fa6";
+import { FaCaretDown, FaDna } from "react-icons/fa";
 
 const WeedingPhotographer = () => {
   // All States
@@ -58,7 +59,7 @@ const WeedingPhotographer = () => {
               <div className="w-full">
                 <Link href="/">
                   <div className="content__header__middle bg-white flex items-center w-max py-2 px-4 shadow-sm">
-                    <i className="fa-solid fa-dna text-textPrimary-900 mr-4"></i>{" "}
+                    <FaDna className="w-5 h-5 mr-4 text-textPrimary-900" />{" "}
                     <p className="text-base font-medium">
                       Need Help?{" "}
                       <span className="text-textPrimary-900 font-semibold">
@@ -66,15 +67,17 @@ const WeedingPhotographer = () => {
                       </span>{" "}
                       can help out
                     </p>{" "}
-                    <i className="fa-solid fa-caret-down ml-2"></i>
+                    <FaCaretDown className="w-5 h-5 ml-2" />
                   </div>
                 </Link>
               </div>
 
               <div className="w-full">
                 <div className="content__header__right flex items-center gap-4">
-                  <div className="searchBox w-8/12 border rounded-md py-2 px-4 text-dateColor-900">
-                    <i className="fa-solid fa-magnifying-glass mr-4"></i>
+                  <div className="searchBox w-8/12 border rounded-md py-2 px-4 text-dateColor-900 flex items-center flex-nowrap">
+                    <span>
+                      <FaMagnifyingGlass className="w-5 h-5 mr-4" />
+                    </span>
                     <input
                       type="text"
                       placeholder="Search Photographers"
@@ -127,7 +130,7 @@ const WeedingPhotographer = () => {
             <div className="content px-4 pt-4 flex justify-between gap-6">
               <div className="left w-9/12">
                 <div className="searchBox flex items-center pl-6 p-2 rounded-full bg-tagsBackground-900">
-                  <i className="fa-solid fa-magnifying-glass mr-4"></i>
+                  <FaMagnifyingGlass className="w-5 h-5 mr-4" />
                   <input
                     type="text"
                     placeholder="Search Wedding Photogra..."
@@ -139,7 +142,7 @@ const WeedingPhotographer = () => {
               <div
                 className="right w-3/12 flex items-center bg-tagsBackground-900 rounded-full p-2 cursor-pointer justify-center"
                 onClick={() => setShowFilter(!showFilter)}>
-                <i className="fa-solid fa-shuffle"></i>
+                <FaShuffle className="w-5 h-5" />
                 <span className="text-textSecondary-900 ml-2">Filter</span>
               </div>
               {showFilter && <FilterPopup toggleFilter={toggleFilterMenu} />}

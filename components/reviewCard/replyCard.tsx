@@ -1,4 +1,5 @@
 import React from "react";
+import { FaShare } from "react-icons/fa";
 
 const ReplyCard = () => {
   return (
@@ -7,7 +8,7 @@ const ReplyCard = () => {
     ">
       <div className="review__content flex gap-8 items-center">
         <div className="icon text-2xl">
-          <i className="fa-solid fa-share"></i>
+          <FaShare className="w-5 h-5" />
         </div>
         <div className="admin">
           <span className="font-bold">Admin</span>

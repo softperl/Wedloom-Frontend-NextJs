@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import ProjectAlbumView from "@/components/projects/projectAlbumView";
 import ProjectVideo from "@/components/projects/projectVideo";
 import PortfolioView from "@/components/projects/portfolioView";
-import UploadFromImage from "@/components/uploadFromImage/uploadfromImage";
+import UploadFromImage from "@/components/uploadFromImage/uploadFromImage";
 import Link from "next/link";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const ProjectsSample = () => {
   const [portfolio, setPortfolio] = useState(true);
@@ -95,7 +96,7 @@ const ProjectsSample = () => {
               <div className="uploaded__from__searchbox w-max">
                 <Link href="search">
                   <div className="icon border border-dateColor-900 py-1 px-3 cursor-pointer">
-                    <i className="fa-solid fa-magnifying-glass text-textPrimary-900"></i>
+                    <FaMagnifyingGlass className="w-5 h-5 text-textPrimary-900" />
                   </div>
                 </Link>
               </div>
