@@ -1,7 +1,9 @@
 "use client";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
 import { useState } from "react";
+import { FaChevronDown } from "react-icons/fa6";
 
 const VendorSearch = () => {
   // State
@@ -62,11 +64,13 @@ const VendorSearch = () => {
                       onChange={changeInputValue}
                       className="py-3 pr-3 text-xl w-full outline-none border-none text-black cursor-pointer"
                     />
-                    <div className="input__arrow__container absolute right-3 bottom-3 text-black">
-                      <i
-                        className={`fa-solid fa-chevron-down cursor-pointer ${
-                          open ? "rotate-180" : ""
-                        }`}></i>
+                    <div className="input__arrow__container absolute right-3 bottom-5 text-black">
+                      <FaChevronDown
+                        className={cn(
+                          "cursor-pointer transition-all duration-300",
+                          open && "rotate-180"
+                        )}
+                      />
                     </div>
                   </div>
                   {open && (

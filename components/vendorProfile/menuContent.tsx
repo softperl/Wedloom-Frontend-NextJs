@@ -3,6 +3,7 @@ import { useState } from "react";
 import { NumberWithCommas } from "@/lib/utils";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa6";
 
 const MenuContent = () => {
   // States
@@ -70,7 +71,7 @@ const MenuContent = () => {
               backgroundRepeat: "no-repeat",
             }}>
             <span>
-              <FaPlus className="w-5 h-5" />
+              <FaPlus className="w-5 h-5 mx-auto" />
               <p>Add new Menu</p>
             </span>
           </div>
@@ -130,10 +131,11 @@ const MenuContent = () => {
                 </div>
 
                 <div className="w-3/12 text-end">
-                  <span className="text-textSecondary-900">
-                    <i
-                      className="fa-solid fa-trash text-xl cursor-pointer"
-                      onClick={() => deleteBanquetes(i)}></i>
+                  <span className="text-textSecondary-900 flex justify-end">
+                    <FaTrash
+                      onClick={() => deleteBanquetes(i)}
+                      className="cursor-pointer"
+                    />
                   </span>
                 </div>
               </div>

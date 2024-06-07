@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import ReplyCard from "@/components/reviewCard/replyCard";
 import { FaStar } from "react-icons/fa";
+import { FaSquareFacebook, FaTwitter } from "react-icons/fa6";
 
 const ReviewCard = ({ image, name }: any) => {
   const [viewLess, setViewLess] = useState(false);
@@ -24,7 +25,7 @@ const ReviewCard = ({ image, name }: any) => {
               </div>
 
               <div className="overall__rating flex items-center justify-center">
-                <span className="bg-textPrimary-900 p-1 text-white font-semibold">
+                <span className="bg-textPrimary-900 p-1 text-white font-semibold inline-flex">
                   <FaStar className="w-5 h-5 mr-2" />
                   5.0
                 </span>
@@ -34,16 +35,12 @@ const ReviewCard = ({ image, name }: any) => {
               <div className="social_links flex items-center gap-4">
                 <div className="facebook w-8 h-8 border flex items-center justify-center p-1">
                   <a href="https://www.facebook.com">
-                    <i
-                      className="fa-brands fa-square-facebook"
-                      style={{ color: "#4267B2" }}></i>
+                    <FaSquareFacebook className="text-[#4267B2]" />
                   </a>
                 </div>
                 <div className="twitter w-8 h-8 border flex items-center justify-center p-1">
                   <a href="https://www.twitter.com">
-                    <i
-                      className="fa-brands fa-twitter"
-                      style={{ color: "#1DA1F2" }}></i>
+                    <FaTwitter className="text-[#1DA1F2]" />
                   </a>
                 </div>
               </div>

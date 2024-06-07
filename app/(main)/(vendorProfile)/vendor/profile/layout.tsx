@@ -93,11 +93,9 @@ export default function RootLayout({
                 WeddLoom Support
               </h1>
 
-              <div className="flex items-center gap-2 text-textSecondary-900 cursor-pointer hover:text-[#00aef7] duration-100">
-                <MdCall className="w-5 h-5" />
-                <span className="text-sm lg:text-base font-semibold">
-                  0129874-564
-                </span>
+              <div className="flex items-center gap-2 text-textSecondary-900 cursor-pointer hover:text-[#00aef7] duration-100 mt-2">
+                <MdCall className="w-4 h-4" />
+                <span className="text-sm font-semibold">0129874-564</span>
               </div>
             </div>
           </div>

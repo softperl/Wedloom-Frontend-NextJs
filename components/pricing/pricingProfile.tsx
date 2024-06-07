@@ -1,6 +1,8 @@
 "use client";
-import React, { useState } from "react";
 import PackageDetails from "@/components/pricing/packageDetails";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { FaChevronDown } from "react-icons/fa6";
 
 const PricingProfile = () => {
   const [segment, setSegment] = useState(false);
@@ -43,10 +45,12 @@ const PricingProfile = () => {
               {/* Dropdown Button */}
               <div className="w-1/12 text-end">
                 <span className="text-sm text-textSecondary-900">
-                  <i
-                    className={`fa-solid fa-chevron-down text-base lg:text-lg text-textPrimary-900 ${
-                      segment ? "rotate-180" : ""
-                    }`}></i>
+                  <FaChevronDown
+                    className={cn(
+                      "text-textPrimary-900",
+                      segment && "rotate-180"
+                    )}
+                  />
                 </span>
               </div>
             </div>
@@ -76,10 +80,12 @@ const PricingProfile = () => {
 
               <div className="w-1/12 text-end">
                 <span className="text-sm text-textSecondary-900">
-                  <i
-                    className={`fa-solid fa-chevron-down text-base lg:text-lg text-textPrimary-900 ${
-                      segment2 ? "rotate-180" : ""
-                    }`}></i>
+                  <FaChevronDown
+                    className={cn(
+                      "text-textPrimary-900",
+                      segment && "rotate-180"
+                    )}
+                  />
                 </span>
               </div>
             </div>
@@ -112,10 +118,12 @@ const PricingProfile = () => {
 
               <div className="w-1/12 text-end">
                 <span className="text-sm text-textSecondary-900">
-                  <i
-                    className={`fa-solid fa-chevron-down text-base lg:text-lg text-textPrimary-900 ${
-                      segment3 ? "rotate-180" : ""
-                    }`}></i>
+                  <FaChevronDown
+                    className={cn(
+                      "text-textPrimary-900",
+                      segment && "rotate-180"
+                    )}
+                  />
                 </span>
               </div>
             </div>
@@ -150,10 +158,12 @@ const PricingProfile = () => {
 
               <div className="w-1/12 text-end">
                 <span className="text-sm text-textSecondary-900">
-                  <i
-                    className={`fa-solid fa-chevron-down text-base lg:text-lg text-textPrimary-900 ${
-                      segment4 ? "rotate-180" : ""
-                    }`}></i>
+                  <FaChevronDown
+                    className={cn(
+                      "text-textPrimary-900",
+                      segment && "rotate-180"
+                    )}
+                  />
                 </span>
               </div>
             </div>

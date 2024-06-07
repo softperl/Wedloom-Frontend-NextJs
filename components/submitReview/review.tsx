@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaRegStar, FaStar } from "react-icons/fa";
-import { FaStarHalfStroke } from "react-icons/fa6";
+import { FaSquareFacebook, FaStarHalfStroke, FaTwitter } from "react-icons/fa6";
 // import Rate from "./Rate";
 //@ts-ignore
 import ReactStars from "react-rating-stars-component";
@@ -14,9 +14,9 @@ const Review = ({ review, heading }: any) => {
     color: "#DDD",
     activeColor: "#e72e77",
     isHalf: true,
-    emptyIcon: <FaRegStar className="w-5 h-5" />,
-    halfIcon: <FaStarHalfStroke className="w-5 h-5" />,
-    filledIcon: <FaStar className="w-5 h-5" />,
+    emptyIcon: <FaRegStar className="w-8 h-8" />,
+    halfIcon: <FaStarHalfStroke className="w-8 h-8" />,
+    filledIcon: <FaStar className="w-8 h-8" />,
     onChange: (newValue: any) => {
       setStarRate(newValue);
     },
@@ -38,16 +38,12 @@ const Review = ({ review, heading }: any) => {
               <div className="social_links flex items-center gap-4">
                 <div className="facebook w-8 h-8 border flex items-center justify-center p-1">
                   <a href="https://www.facebook.com">
-                    <i
-                      className="fa-brands fa-square-facebook"
-                      style={{ color: "#4267B2" }}></i>
+                    <FaSquareFacebook className="text-[#4267B2]" />
                   </a>
                 </div>
                 <div className="twitter w-8 h-8 border flex items-center justify-center p-1">
                   <a href="https://www.twitter.com">
-                    <i
-                      className="fa-brands fa-twitter"
-                      style={{ color: "#1DA1F2" }}></i>
+                    <FaTwitter className="text-[#1DA1F2]" />
                   </a>
                 </div>
               </div>
@@ -67,7 +63,7 @@ const Review = ({ review, heading }: any) => {
                 <div className="review_box">
                   <div className="rating">
                     <div className="overall__rating">
-                      <span className="bg-textPrimary-900 px-4 py-2 text-white font-semibold">
+                      <span className="inline-flex bg-textPrimary-900 px-4 py-2 text-white font-semibold">
                         <FaStar className="w-5 h-5 mr-2" />
                         5.0
                       </span>

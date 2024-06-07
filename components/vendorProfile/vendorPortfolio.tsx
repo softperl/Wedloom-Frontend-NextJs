@@ -15,9 +15,9 @@ const VendorPortfolio = () => {
         {/* Left */}
         <div>
           <Link href="/vendor/profile/projects">
-            <h2 className="text-textSecondary-900 lg:text-lg cursor-pointer">
+            <h2 className="text-textSecondary-900 lg:text-lg cursor-pointer inline-flex items-center">
               {" "}
-              <FaArrowLeftLong className="w-5 h-5 mr-1" /> Portfolio
+              <FaArrowLeftLong className="w-5 h-5 mr-2" /> Portfolio
             </h2>
           </Link>
         </div>
@@ -72,7 +72,7 @@ const VendorPortfolio = () => {
               backgroundRepeat: "no-repeat",
             }}>
             <span>
-              <FaPlus className="w-5 h-5" />
+              <FaPlus className="w-5 h-5 mx-auto" />
               <p>Add new image</p>
             </span>
           </div>

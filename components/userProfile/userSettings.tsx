@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { FaCheck, FaPen, FaXmark } from "react-icons/fa6";
 
 const UserSettings = () => {
   const [file, setFile] = useState<any>([]);
@@ -94,9 +95,10 @@ const UserSettings = () => {
             </div>
 
             <div className="absolute top-2 right-4">
-              <i
-                className="fa-solid fa-xmark cursor-pointer text-textSecondary-900 text-xl"
-                onClick={() => setShowPop(!showPop)}></i>
+              <FaXmark
+                onClick={() => setShowPop(!showPop)}
+                className="cursor-pointer text-textSecondary-900"
+              />
             </div>
           </div>
         </div>
@@ -147,11 +149,12 @@ const UserSettings = () => {
       {/* Name */}
       <div className="mt-6 w-full flex flex-col justify-center items-center">
         {!editName && (
-          <h5 className="text-sm font-bold text-textSecondary-900">
+          <h5 className="text-sm font-bold text-textSecondary-900 inline-flex items-center">
             {userData.name}{" "}
-            <i
-              className="fa-solid fa-pen ml-2 cursor-pointer"
-              onClick={() => setEditName(!editName)}></i>
+            <FaPen
+              onClick={() => setEditName(!editName)}
+              className="ml-2 cursor-pointer"
+            />
           </h5>
         )}
 
@@ -171,9 +174,10 @@ const UserSettings = () => {
               />
             </div>
             <div className="w-max">
-              <i
-                className="fa-solid fa-check text-xl text-textSecondary-900 cursor-pointer"
-                onClick={() => setEditName(!editName)}></i>
+              <FaCheck
+                onClick={() => setEditName(!editName)}
+                className="text-textSecondary-900 cursor-pointer"
+              />
             </div>
           </div>
         )}

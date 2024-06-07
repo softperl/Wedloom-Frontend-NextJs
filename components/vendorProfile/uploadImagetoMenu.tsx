@@ -23,9 +23,9 @@ const UploadImagetoMenu = () => {
       {/* Heading */}
       <div className="bg-sectionBg-900 px-4 py-3">
         <Link href="/vendor/profile/menu/">
-          <h2 className="text-textSecondary-900 text-lg cursor-pointer">
+          <h2 className="text-textSecondary-900 text-lg cursor-pointer inline-flex items-center">
             {" "}
-            <FaArrowLeftLong className="w-5 h-5 mr-1" />
+            <FaArrowLeftLong className="w-5 h-5 mr-2" />
             Upload Images to Menu
           </h2>
         </Link>
@@ -36,7 +36,7 @@ const UploadImagetoMenu = () => {
         {/* Image Upload */}
         <label htmlFor="file" className="text-textSecondary-900 cursor-pointer">
           <div className="border-2 border-dashed border-paginationBg-900 w-max text-center pt-2 pb-6 px-10">
-            <FaCloudArrowUp className="w-5 h-5" />
+            <FaCloudArrowUp className="w-5 h-5 mx-auto" />
             <div className="my-4">
               <p className="text-sm mb-2">Max file size : 16 MB</p>
               <p className="text-sm mb-2">Accepted Formats: jpg, jpeg, png</p>
@@ -62,7 +62,7 @@ const UploadImagetoMenu = () => {
 
       {/* Preview Box */}
       <div className="mt-16 mb-4 mx-6 w-full flex flex-wrap items-center gap-4">
-        {files.length > 0 &&
+        {files?.length > 0 &&
           Array.from(files)
             .slice(0, 40)
             .map((img, i) => {
@@ -88,7 +88,7 @@ const UploadImagetoMenu = () => {
             })}
         {/* Buttons */}
       </div>
-      {files.length > 0 && (
+      {files?.length > 0 && (
         <div>
           <button
             className={`w-6/12  text-white py-4 text-sm ${

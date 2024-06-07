@@ -4,8 +4,7 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaStar } from "react-icons/fa";
-import { FaLocationDot, FaRegStar } from "react-icons/fa6";
+import { FaLocationDot, FaStar } from "react-icons/fa6";
 
 const WpCardGrid = ({
   img,
@@ -57,7 +56,7 @@ const WpCardGrid = ({
             </div>
 
             <div className="rating text-base text-white bg-textPrimary-900 w-max p-1 font-bold absolute top-2 right-2 flex flex-nowrap items-center">
-              <FaRegStar className="w-4 h-4" />
+              <FaStar className="w-5 h-5" />
               <span>5.0</span>
             </div>
           </div>

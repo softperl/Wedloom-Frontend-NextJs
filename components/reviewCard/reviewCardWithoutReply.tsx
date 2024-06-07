@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { FaShare, FaStar } from "react-icons/fa";
+import { FaSquareFacebook, FaTwitter } from "react-icons/fa6";
 
 const ReviewCardWithoutReply = ({
   image,
@@ -33,7 +34,7 @@ const ReviewCardWithoutReply = ({
               </div>
 
               <div className="overall__rating flex items-center justify-center">
-                <span className="bg-textPrimary-900 p-1 text-white font-semibold lg:text-base text-sm">
+                <span className="bg-textPrimary-900 p-1 text-white font-semibold lg:text-base text-sm inline-flex">
                   <FaStar className="w-5 h-5 mr-2" />
                   5.0
                 </span>
@@ -43,16 +44,12 @@ const ReviewCardWithoutReply = ({
               <div className="social_links flex items-center gap-4">
                 <div className="facebook w-8 h-8 border flex items-center justify-center p-1">
                   <a href="https://www.facebook.com">
-                    <i
-                      className="fa-brands fa-square-facebook"
-                      style={{ color: "#4267B2" }}></i>
+                    <FaSquareFacebook className="text-[#4267B2]" />
                   </a>
                 </div>
                 <div className="twitter w-8 h-8 border flex items-center justify-center p-1">
                   <a href="https://www.twitter.com">
-                    <i
-                      className="fa-brands fa-twitter"
-                      style={{ color: "#1DA1F2" }}></i>
+                    <FaTwitter className="text-[#4267B2]" />
                   </a>
                 </div>
               </div>
@@ -94,16 +91,12 @@ const ReviewCardWithoutReply = ({
               <div className="social_links flex items-center gap-4">
                 <div className="facebook w-8 h-8 border flex items-center justify-center p-1">
                   <a href="https://www.facebook.com">
-                    <i
-                      className="fa-brands fa-square-facebook"
-                      style={{ color: "#4267B2" }}></i>
+                    <FaSquareFacebook className="text-[#4267B2]" />
                   </a>
                 </div>
                 <div className="twitter w-8 h-8 border flex items-center justify-center p-1">
                   <a href="https://www.twitter.com">
-                    <i
-                      className="fa-brands fa-twitter"
-                      style={{ color: "#1DA1F2" }}></i>
+                    <FaTwitter className="text-[#4267B2]" />
                   </a>
                 </div>
               </div>
@@ -125,8 +118,8 @@ const ReviewCardWithoutReply = ({
               rows={5}
               maxLength={500}
               className="w-full bg-transparent outline-none border text-xs lg:text-sm resize-none p-2"></textarea>
-            <button className="text-white bg-textPrimary-900 py-2 px-6 lg:px-0 rounded-md w-max lg:w-[10%] text-xs lg:text-sm">
-              Reply <FaShare className="w-5 h-5" />
+            <button className="text-white bg-textPrimary-900 py-2 px-6 lg:px-0 rounded-md w-max lg:w-[10%] text-xs lg:text-sm inline-flex items-center">
+              Reply <FaShare className="w-4 h-4 ml-2" />
             </button>
           </div>
         </div>

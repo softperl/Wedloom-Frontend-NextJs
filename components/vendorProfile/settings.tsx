@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 const Settings = () => {
   const [showPass, setShowPass] = useState(false);
@@ -70,11 +71,11 @@ const Settings = () => {
                 type={showPass ? "text" : "password"}
                 className="border outline-none border-paginationBg-900 w-full py-1 lg:py-[10px] px-4 text-textSecondary-900 rounded-md font-semibold"
               />
-              <i
-                className={`fa-solid ${
-                  showPass ? "fa-eye-slash" : "fa-eye"
-                } text-xl text-textSecondary-900 cursor-pointer`}
-                onClick={() => setShowPass(!showPass)}></i>
+              <span
+                onClick={() => setShowPass(!showPass)}
+                className="text-textSecondary-900 cursor-pointer text-2xl">
+                {showPass ? <FaEyeSlash /> : <FaEye />}
+              </span>
             </div>
           </div>
 
@@ -92,11 +93,11 @@ const Settings = () => {
                 type={showPass ? "text" : "password"}
                 className="border outline-none border-paginationBg-900 w-full py-1 lg:py-[10px] px-4 text-textSecondary-900 rounded-md font-semibold"
               />
-              <i
-                className={`fa-solid ${
-                  showPass ? "fa-eye-slash" : "fa-eye"
-                } text-xl text-textSecondary-900 cursor-pointer`}
-                onClick={() => setShowPass(!showPass)}></i>
+              <span
+                onClick={() => setShowPass(!showPass)}
+                className="text-textSecondary-900 cursor-pointer text-2xl">
+                {showPass ? <FaEyeSlash /> : <FaEye />}
+              </span>
             </div>
           </div>
 
@@ -114,11 +115,11 @@ const Settings = () => {
                 type={showPass ? "text" : "password"}
                 className="border outline-none border-paginationBg-900 w-full py-1 lg:py-[10px] px-4 text-textSecondary-900 rounded-md font-semibold"
               />
-              <i
-                className={`fa-solid ${
-                  showPass ? "fa-eye-slash" : "fa-eye"
-                } text-xl text-textSecondary-900 cursor-pointer`}
-                onClick={() => setShowPass(!showPass)}></i>
+              <span
+                onClick={() => setShowPass(!showPass)}
+                className="text-textSecondary-900 cursor-pointer text-2xl">
+                {showPass ? <FaEyeSlash /> : <FaEye />}
+              </span>
             </div>
           </div>
         </div>

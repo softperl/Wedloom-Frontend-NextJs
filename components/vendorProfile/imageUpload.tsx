@@ -1,7 +1,11 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { FaArrowLeft, FaCloudArrowUp, FaSquareXmark } from "react-icons/fa6";
+import {
+  FaArrowLeftLong,
+  FaCloudArrowUp,
+  FaSquareXmark,
+} from "react-icons/fa6";
 
 const ImageUpload = () => {
   // Image State
@@ -19,7 +23,8 @@ const ImageUpload = () => {
       <div className="bg-sectionBg-900 px-4 py-3">
         <Link href="/vendor/profile/projects/portfolio">
           <h2 className="text-textSecondary-900 lg:text-lg cursor-pointer flex items-center">
-            <FaArrowLeft className="mr-2" /> Upload Images to Portfolio
+            <FaArrowLeftLong className="w-5 h-5 mr-2" /> Upload Images to
+            Portfolio
           </h2>
         </Link>
       </div>
@@ -29,7 +34,7 @@ const ImageUpload = () => {
         {/* Image Upload */}
         <label htmlFor="file" className="text-textSecondary-900 cursor-pointer">
           <div className="border-2 border-dashed border-paginationBg-900 w-max text-center pt-2 pb-6 px-10">
-            <FaCloudArrowUp className="w-5 h-5" />
+            <FaCloudArrowUp className="w-10 h-10 mx-auto" />
             <div className="my-4">
               <p className="text-sm mb-2">Max file size : 16 MB</p>
               <p className="text-sm mb-2">Accepted Formats: jpg, jpeg, png</p>

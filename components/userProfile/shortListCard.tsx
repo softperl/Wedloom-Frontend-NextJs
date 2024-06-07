@@ -36,7 +36,7 @@ const ShortListCard = ({
         </Link>
 
         {/* Ratings */}
-        <div className="text-xs md:text-sm mt-1">
+        <div className="text-xs md:text-sm mt-1 flex flex-nowrap gap-1">
           <FaStar className="w-5 h-5 text-[#FFD700]" />
           <FaStar className="w-5 h-5 text-[#FFD700]" />
           <FaStar className="w-5 h-5 text-[#FFD700]" />

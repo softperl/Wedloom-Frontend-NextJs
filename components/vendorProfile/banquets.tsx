@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useState } from "react";
+import { FaTrash } from "react-icons/fa6";
 
 const Banquets = () => {
   // States
@@ -126,10 +127,11 @@ const Banquets = () => {
                   </p>
                 </div>
                 <div className="w-[20%] text-end">
-                  <span className="text-textSecondary-900">
-                    <i
-                      className="fa-solid fa-trash text-xl cursor-pointer"
-                      onClick={() => deleteBanquetes(i)}></i>
+                  <span className="text-textSecondary-900 flex justify-end">
+                    <FaTrash
+                      onClick={() => deleteBanquetes(i)}
+                      className="cursor-pointer"
+                    />
                   </span>
                 </div>
               </div>

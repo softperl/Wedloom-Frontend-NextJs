@@ -1,6 +1,9 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import PSubmenu from "@/components/photographerMenu/pSubMenu";
+import { Fa0 } from "react-icons/fa6";
+import { FaCaretDown } from "react-icons/fa";
+import { cn } from "@/lib/utils";
 
 const PMenu = () => {
   // All States and References Start
@@ -45,58 +48,40 @@ const PMenu = () => {
         ref={ref}
         className={`p__menu px-12 bg-white py-4 text-textSecondary-900 font-medium flex items-center justify-between shadow-sm border-b`}>
         <div
-          className="w-full hover:text-textPrimary-900 duration-200 locality cursor-pointer"
+          className="w-full hover:text-textPrimary-900 duration-200 locality cursor-pointer flex flex-nowrap items-center"
           onClick={() => setShowSubmenu(!showSubmenu)}>
           <span>Locality</span>
-          <i
-            className={`ml-2 fa-solid fa-caret-down ${
-              showSubmenu ? "rotate-180" : ""
-            }`}></i>
+          <FaCaretDown className={cn("ml-2", showSubmenu && "rotate-180")} />
         </div>
         <div
-          className="w-full hover:text-textPrimary-900 duration-200 no_of_days cursor-pointer"
+          className="w-full hover:text-textPrimary-900 duration-200 no_of_days cursor-pointer flex flex-nowrap items-center"
           onClick={() => setShowSubmenu(!showSubmenu)}>
           <span>No. of days</span>
-          <i
-            className={`ml-2 fa-solid fa-caret-down ${
-              showSubmenu ? "rotate-180" : ""
-            }`}></i>
+          <FaCaretDown className={cn("ml-2", showSubmenu && "rotate-180")} />
         </div>
         <div
-          className="w-full hover:text-textPrimary-900 duration-200 services cursor-pointer"
+          className="w-full hover:text-textPrimary-900 duration-200 services cursor-pointer flex flex-nowrap items-center"
           onClick={() => setShowSubmenu(!showSubmenu)}>
           <span>Services</span>
-          <i
-            className={`ml-2 fa-solid fa-caret-down ${
-              showSubmenu ? "rotate-180" : ""
-            }`}></i>
+          <FaCaretDown className={cn("ml-2", showSubmenu && "rotate-180")} />
         </div>
         <div
-          className="w-full hover:text-textPrimary-900 duration-200 budget cursor-pointer"
+          className="w-full hover:text-textPrimary-900 duration-200 budget cursor-pointer flex flex-nowrap items-center"
           onClick={() => setShowSubmenu(!showSubmenu)}>
           <span>Budget(Photo+Video)</span>
-          <i
-            className={`ml-2 fa-solid fa-caret-down ${
-              showSubmenu ? "rotate-180" : ""
-            }`}></i>
+          <FaCaretDown className={cn("ml-2", showSubmenu && "rotate-180")} />
         </div>
         <div
-          className="w-full hover:text-textPrimary-900 duration-200 rating cursor-pointer text-center"
+          className="w-full hover:text-textPrimary-900 duration-200 rating cursor-pointer flex flex-nowrap items-center text-center"
           onClick={() => setShowSubmenu(!showSubmenu)}>
           <span>Rating</span>
-          <i
-            className={`ml-2 fa-solid fa-caret-down ${
-              showSubmenu ? "rotate-180" : ""
-            }`}></i>
+          <FaCaretDown className={cn("ml-2", showSubmenu && "rotate-180")} />
         </div>
         <div
-          className="w-full hover:text-textPrimary-900 duration-200 review cursor-pointer text-center"
+          className="w-full hover:text-textPrimary-900 duration-200 review cursor-pointer flex flex-nowrap items-center text-center"
           onClick={() => setShowSubmenu(!showSubmenu)}>
           <span>Review Count</span>
-          <i
-            className={`ml-2 fa-solid fa-caret-down ${
-              showSubmenu ? "rotate-180" : ""
-            }`}></i>
+          <FaCaretDown className={cn("ml-2", showSubmenu && "rotate-180")} />
         </div>
       </div>
 

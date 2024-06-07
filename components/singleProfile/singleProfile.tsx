@@ -9,7 +9,12 @@ import { About } from "@/components/about/about";
 import Review from "@/components/submitReview/review";
 import Link from "next/link";
 import { FaFlag, FaImage, FaPenNib, FaPhone, FaStar } from "react-icons/fa";
-import { FaLocationDot, FaShareNodes } from "react-icons/fa6";
+import {
+  FaHeart,
+  FaLocationDot,
+  FaRegHeart,
+  FaShareNodes,
+} from "react-icons/fa6";
 
 const SingleProfile = ({ scroll, project, about, review }: any) => {
   const [click, setclick] = useState(false);
@@ -67,8 +72,8 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
                   </div>
                   <div className="rating hidden lg:block">
                     <div className="overall__rating">
-                      <span className="bg-textPrimary-900 px-4 py-2 text-white font-semibold">
-                        <FaStar className="w-5 h-5 mr-2" />
+                      <span className="bg-textPrimary-900 px-4 py-2 text-white font-semibold flex items-center flex-nowrap">
+                        <FaStar className="mr-2" />
                         5.0
                       </span>
                       <p className="mt-2 font-semibold text-textSecondary-900">
@@ -78,7 +83,7 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
                   </div>
                 </div>
                 {/* Location */}
-                <div className="location text-base text-textSecondary-900 my-4 px-6">
+                <div className="location text-base text-textSecondary-900 my-4 px-6 flex items-center">
                   <FaLocationDot className="w-5 h-5" />{" "}
                   <span className="font-medium ml-2">Lahore, Pakistan</span>{" "}
                   <Link href="map">
@@ -88,7 +93,7 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
 
                 {/* Contact */}
                 <Link href="/contact">
-                  <div className="contact text-textPrimary-900 px-6">
+                  <div className="contact text-textPrimary-900 px-6 flex items-center">
                     <FaPhone className="w-5 h-5" />
                     <span className="font-medium ml-2">Contact</span>
                   </div>
@@ -97,7 +102,7 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
                 {/* Listing */}
 
                 <div className="listing bg-sectionBg-900 px-8 lg:py-6 py-4 mt-4 text-textBlack-900 flex items-center">
-                  <div className="photos w-full border-r-2 cursor-pointer hidden lg:block">
+                  <div className="photos w-full border-r-2 cursor-pointer hidden lg:flex items-center">
                     <FaImage className="w-5 h-5 mr-2" />
                     <span>1055 Photos</span>
                   </div>
@@ -113,19 +118,21 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
                     </div>
                   </div>
                   <div
-                    className="photos w-full text-center border-r-2 cursor-pointer"
+                    className="photos w-full text-center border-r-2 cursor-pointer lg:flex items-center justify-center"
                     onClick={() => setclick(!click)}>
-                    <i
-                      className={`fa-regular fa-heart mr-2 ${
-                        click ? "text-textPrimary-900 fa-solid fa-heart" : ""
-                      }`}></i>
+                    {click ? (
+                      <FaHeart className="mr-2 text-textPrimary-900" />
+                    ) : (
+                      <FaRegHeart className="mr-2" />
+                    )}
+
                     <span>Shortlist</span>
                   </div>
-                  <div className="photos w-full text-center border-r-2 cursor-pointer hidden lg:block">
+                  <div className="photos w-full text-center border-r-2 cursor-pointer hidden lg:flex items-center justify-center">
                     <FaPenNib className="w-5 h-5 mr-2" />
                     <span>Write a Review</span>
                   </div>
-                  <div className="photos w-full text-center cursor-pointer">
+                  <div className="photos w-full text-center cursor-pointer lg:flex items-center justify-center">
                     <FaShareNodes className="w-5 h-5 mr-2" />
                     <span>Share</span>
                   </div>
@@ -139,8 +146,8 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
               <Pcontact />
               <div className="report mt-6 text-textPrimary-900 text-center">
                 <Link href="/report">
-                  <span>
-                    <FaFlag className="w-5 h-5 mr-3" />
+                  <span className="flex items-center justify-center">
+                    <FaFlag className="w-5 h-5 mr-2" />
                     Report Inaccurate Info
                   </span>
                 </Link>
@@ -190,7 +197,7 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
 
             <div className="report mt-6 text-textPrimary-900 text-center">
               <Link href="/report">
-                <span>
+                <span className="flex items-center justify-center">
                   <FaFlag className="w-5 h-5 mr-3" />
                   Report Inaccurate Info
                 </span>

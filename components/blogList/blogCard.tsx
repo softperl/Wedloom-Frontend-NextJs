@@ -69,8 +69,8 @@ const BlogCard = () => {
             <button
               className={`${
                 activeAll
-                  ? " bg-textPrimary-900"
-                  : "border-textPrimary-900 border text-white"
+                  ? " bg-textPrimary-900 text-white"
+                  : "border-textPrimary-900 border"
               } py-2 px-6 font-medium rounded-3xl`}
               onClick={() => {
                 setBlogs(Data);
@@ -82,7 +82,7 @@ const BlogCard = () => {
             <button
               className={`${
                 active
-                  ? " bg-textPrimary-900"
+                  ? " bg-textPrimary-900 text-white"
                   : "border-textPrimary-900 border text-black"
               } py-2 px-6 font-medium rounded-3xl`}
               onClick={() => {
@@ -95,7 +95,7 @@ const BlogCard = () => {
             <button
               className={`${
                 active2
-                  ? " bg-textPrimary-900"
+                  ? " bg-textPrimary-900 text-white"
                   : "border-textPrimary-900 border text-black"
               } py-2 px-6 font-medium rounded-3xl`}
               onClick={() => {
@@ -108,7 +108,7 @@ const BlogCard = () => {
             <button
               className={`${
                 active3
-                  ? " bg-textPrimary-900"
+                  ? " bg-textPrimary-900 text-white"
                   : "border-textPrimary-900 border text-black"
               } py-2 px-6 font-medium rounded-3xl`}
               onClick={() => {
@@ -121,7 +121,7 @@ const BlogCard = () => {
             <button
               className={`${
                 active4
-                  ? " bg-textPrimary-900"
+                  ? " bg-textPrimary-900 text-white"
                   : "border-textPrimary-900 border text-black"
               } py-2 px-6 font-medium rounded-3xl`}
               onClick={() => {
