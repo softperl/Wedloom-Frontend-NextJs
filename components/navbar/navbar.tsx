@@ -115,7 +115,7 @@ const Navbar = () => {
                   className="flex submenu"
                   onMouseEnter={() => setShowPop(true)}
                   onMouseLeave={() => setShowPop(false)}>
-                  <Link href="/">E-Invites</Link>
+                  <Link href="/wedding-invitations">E-Invites</Link>
                   <img className="w-5 ml-1" src={"/new.png"} alt="new__icon" />
                   {showPop && <InvitesPop />}
                 </li>

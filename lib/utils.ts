@@ -19,3 +19,11 @@ export function handelError(error: any) {
       "Something went wrong"
   );
 }
+
+export const slugify = (title: string): string => {
+  return title
+    .toLowerCase() // Convert to lowercase
+    .trim() // Remove leading and trailing whitespace
+    .replace(/\s+/g, "-") // Replace spaces with hyphens
+    .replace(/-+/g, "-"); // Replace multiple hyphens with a single hyphen
+};
