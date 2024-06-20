@@ -73,7 +73,7 @@ const WeddingInvitation = ({
             </Swiper>
           </div>
         </div>
-      </div>{" "}
+      </div>
     </>
   );
 };

@@ -3,7 +3,7 @@ import WeddingInvitation from "@/components/weddingInvitation/weddingInvitation"
 import Link from "next/link";
 import { FaChevronRight } from "react-icons/fa6";
 
-const data = [
+export const data = [
   {
     id: "783",
     name: "lorem 1",

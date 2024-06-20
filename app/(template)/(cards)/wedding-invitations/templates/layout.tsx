@@ -1,25 +1,39 @@
-import Copyright from "@/components/footer/copyright/copyRight";
-import Footer from "@/components/footer/footer";
+"use client";
+
+import { StickyPages } from "@/components/editor/stickyPages";
 import Navbar from "@/components/navbar/navbar";
 import TopNav from "@/components/topNav/topNav";
+import { useParams, useRouter } from "next/navigation";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const router = useRouter();
+  const params = useParams();
+
   return (
     <html lang="en">
       <body>
         <main className="bg-sectionBg-900 overflow-x-hidden h-full">
           <TopNav />
           <Navbar />
-          {children}
+          <div className="container mx-auto px-5 lg:px-20">
+            <StickyPages />
+            {children}
+          </div>
         </main>
         <div className="sticky bottom-0 bg-sectionBg-900">
           <div className="flex items-center justify-center">
             <div className="bg-white w-[414px] shadow mx-auto flex items-center justify-center py-5">
-              <button className="border bg-textPrimary-900 py-4 px-20 mx-auto text-center text-white font-semibold rounded-md">
+              <button
+                onClick={() =>
+                  router.push(
+                    `/invite/edit-card?cardId=${params.cards[1]}&pageNumber=1`
+                  )
+                }
+                className="border bg-textPrimary-900 py-4 px-20 mx-auto text-center text-white font-semibold rounded-md">
                 Customize the card
               </button>
             </div>

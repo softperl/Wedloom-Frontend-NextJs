@@ -27,3 +27,7 @@ export const slugify = (title: string): string => {
     .replace(/\s+/g, "-") // Replace spaces with hyphens
     .replace(/-+/g, "-"); // Replace multiple hyphens with a single hyphen
 };
+
+export const removeHyphen = (value: string | undefined) => {
+  return value?.replace(/-/g, " ").toLowerCase();
+};
