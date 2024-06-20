@@ -24,7 +24,7 @@ export const CanvasEditor = () => {
     }
   };
 
-  console.log("editor", mainRef);
+  console.log("main ref", mainRef);
   return (
     <div
       style={{
