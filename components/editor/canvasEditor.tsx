@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import useCardEditor from "@/lib/hooks/useCardEditor";
+import { motion } from "framer-motion";
+import React, { useRef, useState } from "react";
 
 export const CanvasEditor = () => {
   const { setEditMode, fontSize, setInputValue } = useCardEditor();
@@ -18,11 +18,11 @@ export const CanvasEditor = () => {
     setEditMode(true);
   };
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (mainRef?.current && !mainRef?.current.contains(event.target as Node)) {
-      setEditMode(false);
-    }
-  };
+  // const handleClickOutside = (event: MouseEvent) => {
+  //   if (mainRef?.current && !mainRef?.current.contains(event.target as Node)) {
+  //     setEditMode(false);
+  //   }
+  // };
 
   console.log("main ref", mainRef);
   return (

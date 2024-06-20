@@ -2,6 +2,7 @@
 
 import { data } from "@/app/(main)/wedding-invitations/page";
 import { ActionFooter } from "@/components/editor/actionFooter";
+import { pages } from "@/components/editor/pagesData";
 import { StickyPagesCustomized } from "@/components/editor/stickyPagesCustomized";
 import { ViewCard } from "@/components/editor/viewCard";
 import { Watermark } from "@/components/editor/watermark";
@@ -10,6 +11,7 @@ import { CardPopup } from "@/components/popups/cardPopup";
 import { PublishPopup } from "@/components/popups/publishPopup";
 import Path from "@/components/routesPath/path";
 import TopNav from "@/components/topNav/topNav";
+import useCardDetails from "@/lib/hooks/useCardDetails";
 import useCardEditor from "@/lib/hooks/useCardEditor";
 import { cn } from "@/lib/utils";
 import Tippy from "@tippyjs/react";
@@ -20,15 +22,8 @@ import {
   useSearchParams,
 } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { BiCheck, BiX } from "react-icons/bi";
 import { FaExpandAlt, FaUndoAlt } from "react-icons/fa";
-import {
-  FaChevronLeft,
-  FaDownload,
-  FaPen,
-  FaRegCopy,
-  FaWhatsapp,
-} from "react-icons/fa6";
+import { FaChevronLeft, FaPen } from "react-icons/fa6";
 import { IoMailOpenOutline } from "react-icons/io5";
 
 interface RootLayoutProps {
@@ -46,31 +41,18 @@ export default function RootLayout({ children }: RootLayoutProps) {
   const pathname = usePathname();
   const params = useParams();
   const searchParams = useSearchParams();
-  const [activeIndex, setActiveIndex] = useState(1);
-  const [activeCard, setActiveCard] = useState<number | null>();
-  const [cardName, setCardName] = useState<string | null>();
   const [afterLastPage, setAfterLastPage] = useState(false);
   const [publishPopUp, setPublishPopUp] = useState(false);
-  const [url, setUrl] = useState<null | string>(null);
+  const { setCustomize } = useCardEditor();
+  const { pageNumber, activeIndex, activeCard, cardName } = useCardDetails(
+    searchParams,
+    params,
+    data
+  );
 
   useEffect(() => {
     setAfterLastPage(false);
-  }, [router, pathname]);
-
-  useEffect(() => {
-    const pageNumberString = searchParams.get("pageNumber");
-    const pageNumber = pageNumberString ? parseInt(pageNumberString) : 1;
-    setActiveIndex(pageNumber);
-
-    const cardNumberString = searchParams.get("cardId");
-    const cardNumber = cardNumberString ? parseInt(cardNumberString) : 1;
-    setActiveCard(cardNumber);
-    data?.filter((item) => {
-      if (item?.id === cardNumber.toString()) {
-        setCardName(item?.name);
-      }
-    });
-  }, [router, pathname, searchParams]);
+  }, [router, pathname, pageNumber]);
 
   const handleMouseDown = () => {
     isDragging.current = true;
@@ -105,22 +87,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
   }, [router, pathname]);
 
   useEffect(() => {
-    // Check if window is defined (client side)
-    if (typeof window !== "undefined") {
-      // Create a URL object with the current URL
-      const url = new URL(window.location.href);
-      setUrl(url?.origin);
-    }
+    setCustomize(true);
   }, []);
 
-  const gvUrl = `${url}/invite/gv/1647813`;
-  const whatsAppText = `We look forward to your presence on our special day ! Find our invitation here ${gvUrl}`;
-
-  const copyLink = () => {
-    navigator.clipboard.writeText(gvUrl);
-    alert("Link Copied");
-  };
-
+  console.log(params);
   return (
     <html lang="en">
       {params?.card[0] === "gv" ? (
@@ -138,35 +108,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <main className="bg-sectionBg-900 overflow-x-hidden h-full">
             <TopNav />
             <Navbar />
+
             <div className="container mx-auto px-5 lg:px-20">
-              {params?.card[0] === "share-card" && (
-                <>
-                  <div className="py-5">
-                    <Path
-                      first="Home"
-                      second="Invitation Cards"
-                      third="Wedding Cards"
-                      fourth={cardName}
-                    />
-                  </div>
-                  <div className="bg-white p-2 flex justify-between items-center relative mx-auto overflow-hidden w-[414px] h-full shadow">
-                    <button
-                      onClick={() => router.back()}
-                      className="inline-flex items-center text-sm p-3 rounded-md border">
-                      <FaChevronLeft className="w-4 h-4 mr-1" />
-                      Share Wedding Card
-                    </button>
-                    <button
-                      onClick={() => {
-                        router.push(`/invite/all-cards`);
-                      }}
-                      className="inline-flex items-center text-sm p-3 rounded-md border">
-                      <IoMailOpenOutline className="w-4 h-4 mr-1" /> Your Cards
-                    </button>
-                  </div>
-                </>
-              )}
-              {params?.card[0] === "edit-card" && <StickyPagesCustomized />}
               {params?.card[0] === "card-view" && (
                 <>
                   <div className="py-5">
@@ -178,12 +121,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
                     />
                   </div>
                   <div className="bg-white p-2 flex justify-between items-center relative mx-auto overflow-hidden w-[414px] h-full shadow">
-                    <button
-                      onClick={() => router.back()}
-                      className="inline-flex items-center text-sm p-3 rounded-md border">
-                      <FaChevronLeft className="w-4 h-4 mr-1" />
+                    <div className="inline-flex items-center text-sm p-3 rounded-md">
+                      <FaChevronLeft
+                        onClick={() => router.back()}
+                        className="w-4 h-4 mr-1 cursor-pointer"
+                      />
                       Preview Card
-                    </button>
+                    </div>
                     <button
                       onClick={() => {
                         setPublishPopUp(true);
@@ -194,10 +138,46 @@ export default function RootLayout({ children }: RootLayoutProps) {
                   </div>
                 </>
               )}
-
+              {params?.card[0] === "edit-card" && (
+                <StickyPagesCustomized pages={pages} />
+              )}
+              {params?.card[0] === "share-card" && (
+                <>
+                  <div className="py-5">
+                    <Path
+                      first="Home"
+                      second="Invitation Cards"
+                      third="Wedding Cards"
+                      fourth={cardName}
+                    />
+                  </div>
+                  <div className="bg-white p-2 flex justify-between items-center relative mx-auto overflow-hidden w-[414px] h-full shadow">
+                    <div className="inline-flex items-center text-sm p-3 rounded-md">
+                      <FaChevronLeft
+                        onClick={() => router.back()}
+                        className="w-4 h-4 mr-1 cursor-pointer"
+                      />
+                      Share Wedding Card
+                    </div>
+                    <button
+                      onClick={() => {
+                        router.push(`/invite/all-cards`);
+                      }}
+                      className="inline-flex items-center text-sm p-3 rounded-md border">
+                      <IoMailOpenOutline className="w-4 h-4 mr-1" /> Your Cards
+                    </button>
+                  </div>
+                </>
+              )}
               {children}
             </div>
           </main>
+          {params?.card[0] === "card-view" && (
+            <>
+              <Watermark />
+              <ActionFooter />
+            </>
+          )}
           {params?.card[0] === "edit-card" && (
             <div className="sticky bottom-0 bg-sectionBg-900">
               <div className="flex items-center justify-between">
@@ -247,7 +227,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                       <button
                         className="border bg-textPrimary-900 p-3 text-center text-white text-sm rounded-md"
                         onClick={() => {
-                          activeIndex === 4
+                          activeIndex === pages.length
                             ? setAfterLastPage(true)
                             : router.push(
                                 `${pathname}?cardId=${activeCard}&pageNumber=${
@@ -307,105 +287,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
                     </div>
                   )}
                 </div>
-              </div>
-            </div>
-          )}
-          {params?.card[0] === "card-view" && (
-            <>
-              <Watermark />
-              <ActionFooter />
-            </>
-          )}
-          {params?.card[0] === "share-card" && (
-            <div className="p-4 border bg-white my-2 max-w-[414px] mx-auto flex flex-col gap-5">
-              <div className="shadow p-4 flex flex-col gap-5 border">
-                <div className="">
-                  <div className="space-y-1">
-                    <h1 className="text-lg font-medium">
-                      Share only
-                      <span className="italic text-red-500 text-sm ml-4">
-                        Free
-                      </span>
-                    </h1>
-                    <div className="flex w-full">
-                      <p className="text-blue-600 text-sm underline line-clamp-1 overflow-hidden">
-                        {gvUrl}
-                      </p>
-                      <FaRegCopy
-                        onClick={copyLink}
-                        className="w-4 h-4 ml-1 text-gray-400 cursor-pointer"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <div className="flex">
-                    <BiCheck className="w-5 h-5 mr-2" />
-                    <p className="text-sm">Share link with Guests</p>
-                  </div>
-                  <div className="flex">
-                    <BiCheck className="w-5 h-5 mr-2" />
-                    <p className="text-sm">
-                      Guests RSVP, map location & comment
-                    </p>
-                  </div>
-                  <div className="flex text-gray-400">
-                    <BiX className="w-5 h-5 mr-2" />
-                    <p className="text-sm">No Downloadable Digital Invite</p>
-                  </div>
-                </div>
-                <button
-                  onClick={() =>
-                    router.push(
-                      `https://api.whatsapp.com/send?text=${whatsAppText}`
-                    )
-                  }
-                  className="w-full border bg-green-600 p-4 text-center text-white text-sm rounded-md inline-flex items-center justify-center">
-                  <FaWhatsapp className="w-4 h-4 mr-1" />
-                  Share
-                </button>
-              </div>
-              <div className="shadow p-4 flex flex-col gap-5 border">
-                <div className="">
-                  <div className="space-y-1">
-                    <h1 className="text-lg font-medium">
-                      Share + Download
-                      <span className="italic text-red-500 text-sm ml-4">
-                        ₹199 only
-                      </span>
-                    </h1>
-                    <div className="flex w-full">
-                      <p className="text-blue-600 text-sm underline line-clamp-1 overflow-hidden">
-                        {gvUrl}
-                      </p>
-                      <FaRegCopy
-                        onClick={copyLink}
-                        className="w-4 h-4 ml-1 text-gray-400 cursor-pointer"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <div className="flex">
-                    <BiCheck className="w-5 h-5 mr-2" />
-                    <p className="text-sm">Share link with Guests</p>
-                  </div>
-                  <div className="flex">
-                    <BiCheck className="w-5 h-5 mr-2" />
-                    <p className="text-sm">
-                      Guests RSVP, map location & comment
-                    </p>
-                  </div>
-                  <div className="flex">
-                    <BiCheck className="w-5 h-5 mr-2" />
-                    <p className="text-sm">
-                      Downloadable card allowed [Non-Animated PDF]
-                    </p>
-                  </div>
-                </div>
-                <button className="w-full border bg-textPrimary-900 p-4 text-center text-white text-sm rounded-md inline-flex items-center justify-center">
-                  <FaDownload className="w-4 h-4 mr-1" /> Download
-                </button>
               </div>
             </div>
           )}

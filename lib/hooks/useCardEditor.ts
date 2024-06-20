@@ -1,6 +1,8 @@
 import { create } from "zustand";
 
 interface StoreProps {
+  customize: boolean;
+  setCustomize: (value: boolean) => void;
   editMode: boolean;
   setEditMode: (value: boolean) => void;
   fontSize: number;
@@ -12,6 +14,8 @@ interface StoreProps {
 }
 
 const useCardEditor = create<StoreProps>((set) => ({
+  customize: false,
+  setCustomize: (value) => set({ customize: value }),
   editMode: false,
   setEditMode: (value) => set({ editMode: value }),
   fontSize: 16,

@@ -1,60 +1,41 @@
 "use client";
 import { data } from "@/app/(main)/wedding-invitations/page";
 import Path from "@/components/routesPath/path";
-import { cn, removeHyphen } from "@/lib/utils";
+import useCardDetails from "@/lib/hooks/useCardDetails";
+import useCardEditor from "@/lib/hooks/useCardEditor";
+import { cn } from "@/lib/utils";
 import {
   useParams,
   usePathname,
   useRouter,
   useSearchParams,
 } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { BiX } from "react-icons/bi";
 
-export const StickyPagesCustomized = () => {
+export const StickyPagesCustomized = ({ pages }: { pages: any }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const params = useParams();
   const searchParams = useSearchParams();
-  const [activeIndex, setActiveIndex] = useState(1);
-  const [activeCard, setActiveCard] = useState<number | null>();
-  const [cardName, setCardName] = useState<string | null>();
+  const { customize } = useCardEditor();
+  const [hide, setHide] = useState<number[]>([]);
 
-  useEffect(() => {
-    const pageNumberString = searchParams.get("pageNumber");
-    const pageNumber = pageNumberString ? parseInt(pageNumberString) : 1;
-    setActiveIndex(pageNumber);
+  const { cardId, activeIndex, activeCard, cardName } = useCardDetails(
+    searchParams,
+    params,
+    data
+  );
 
-    const cardNumberString = searchParams.get("cardId");
-    const cardNumber = cardNumberString ? parseInt(cardNumberString) : 1;
-    setActiveCard(cardNumber);
-    data?.filter((item) => {
-      if (item?.id === cardNumber.toString()) {
-        setCardName(item?.name);
+  const handleRemove = (index: number) => {
+    setHide((prevHide) => {
+      if (prevHide.includes(index)) {
+        return prevHide.filter((i) => i !== index);
+      } else {
+        return [...prevHide, index];
       }
     });
-  }, [router, pathname, searchParams]);
-
-  const pages = [
-    {
-      id: 1,
-      name: "Page",
-      link: "/",
-    },
-    {
-      id: 2,
-      name: "Page",
-      link: "/",
-    },
-    {
-      id: 3,
-      name: "Page",
-      link: "/",
-    },
-    {
-      id: 4,
-      name: "Page",
-      link: "/",
-    },
-  ];
+  };
 
   return (
     <div className="flex flex-col gap-5 py-5">
@@ -71,22 +52,41 @@ export const StickyPagesCustomized = () => {
           {cardName}
         </h1>
         <div className="flex gap-5">
-          {pages?.map((item, i) => {
+          {pages?.map((item: any, i: number) => {
             const number = i + 1;
+            const hideButton = hide.includes(number);
 
             return (
               <button
                 key={i}
                 onClick={() => {
-                  router.push(
-                    `${pathname}?cardId=${activeCard}&pageNumber=${number}`
-                  );
+                  cardId
+                    ? router.push(
+                        `${pathname}?cardId=${activeCard}&pageNumber=${number}`
+                      )
+                    : router.push(`${pathname}?pageNumber=${number}`);
                 }}
                 className={cn(
                   "relative border border-transparent py-2 px-4 rounded-full text-xs shadow",
                   activeIndex === number &&
-                    "border-textPrimary-900 bg-textPrimary-900/20"
+                    "border-textPrimary-900 bg-textPrimary-900/20",
+                  hideButton && "border-transparent bg-transparent",
+                  activeIndex === number && hideButton && "opacity-20"
                 )}>
+                {hideButton ||
+                  (activeIndex === number && hideButton) ||
+                  (customize && (
+                    <BiX
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent the button click from firing
+                        handleRemove(number);
+                      }}
+                      className={cn(
+                        "absolute -top-2 -right-2 p-0.5 w-5 h-5 rounded-full text-white bg-red-500",
+                        hideButton && "bg-gray-500"
+                      )}
+                    />
+                  ))}
                 {item?.name + " " + number}
               </button>
             );
