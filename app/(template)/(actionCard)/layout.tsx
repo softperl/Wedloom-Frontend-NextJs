@@ -1,8 +1,8 @@
 "use client";
 
 import { data } from "@/app/(main)/wedding-invitations/page";
+import { Data } from "@/components/editor/Data";
 import { ActionFooter } from "@/components/editor/actionFooter";
-import { pages } from "@/components/editor/pagesData";
 import { StickyPagesCustomized } from "@/components/editor/stickyPagesCustomized";
 import { ViewCard } from "@/components/editor/viewCard";
 import { Watermark } from "@/components/editor/watermark";
@@ -31,7 +31,7 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  const { editMode, modal, setModal } = useCardEditor();
+  const { editMode, modal, setModal, unHidePage } = useCardEditor();
   const [size, setSize] = useState(false);
   const [progress, setProgress] = useState(0);
   const progressBarRef = useRef<HTMLDivElement>(null);
@@ -90,7 +90,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     setCustomize(true);
   }, []);
 
-  console.log(params);
+  console.log(unHidePage);
   return (
     <html lang="en">
       {params?.card[0] === "gv" ? (
@@ -108,7 +108,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <main className="bg-sectionBg-900 overflow-x-hidden h-full">
             <TopNav />
             <Navbar />
-
             <div className="container mx-auto px-5 lg:px-20">
               {params?.card[0] === "card-view" && (
                 <>
@@ -138,9 +137,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                   </div>
                 </>
               )}
-              {params?.card[0] === "edit-card" && (
-                <StickyPagesCustomized pages={pages} />
-              )}
+              {params?.card[0] === "edit-card" && <StickyPagesCustomized />}
               {params?.card[0] === "share-card" && (
                 <>
                   <div className="py-5">
@@ -179,7 +176,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             </>
           )}
           {params?.card[0] === "edit-card" && (
-            <div className="sticky bottom-0 bg-sectionBg-900">
+            <div className="sticky bottom-0 bg-sectionBg-900 z-20">
               <div className="flex items-center justify-between">
                 <div className="bg-white w-[414px] shadow mx-auto p-5 space-y-4">
                   {!afterLastPage ? (
@@ -188,7 +185,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
                         <div
                           className={cn(
                             "space-y-2 text-center mx-auto flex items-center justify-between flex-col w-12 h-10 cursor-pointer",
-                            !editMode && "text-gray-500 cursor-default"
+                            !editMode && "text-gray-500 cursor-default",
+                            unHidePage !== null &&
+                              "text-gray-500/30 cursor-default"
                           )}
                           onClick={() => {
                             setModal(true);
@@ -201,7 +200,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
                           className={cn(
                             "space-y-2 text-center mx-auto flex items-center flex-col justify-between w-12 h-10 cursor-pointer",
                             !editMode && "text-gray-500 cursor-default",
-                            !size && !editMode && "text-gray-500 cursor-default"
+                            !size &&
+                              !editMode &&
+                              "text-gray-500 cursor-default",
+                            unHidePage !== null &&
+                              "text-gray-500/30 cursor-default"
                           )}
                           onClick={() => {
                             setSize(!size);
@@ -212,7 +215,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
                         <div
                           className={cn(
                             "space-y-2 text-center mx-auto flex items-center flex-col justify-between w-12 h-10 cursor-pointer",
-                            !editMode && "text-gray-500 cursor-default"
+                            !editMode && "text-gray-500 cursor-default",
+                            unHidePage !== null &&
+                              "text-gray-500/30 cursor-default"
                           )}
                           onClick={() => {
                             console.log("undo");
@@ -227,7 +232,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                       <button
                         className="border bg-textPrimary-900 p-3 text-center text-white text-sm rounded-md"
                         onClick={() => {
-                          activeIndex === pages.length
+                          activeIndex === Data.length
                             ? setAfterLastPage(true)
                             : router.push(
                                 `${pathname}?cardId=${activeCard}&pageNumber=${

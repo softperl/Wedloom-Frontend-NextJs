@@ -1,6 +1,5 @@
 "use client";
 
-import { pages } from "@/components/editor/pagesData";
 import { StickyPagesCustomized } from "@/components/editor/stickyPagesCustomized";
 import Navbar from "@/components/navbar/navbar";
 import TopNav from "@/components/topNav/topNav";
@@ -23,7 +22,7 @@ export default function RootLayout({
           <TopNav />
           <Navbar />
           <div className="container mx-auto px-5 lg:px-20">
-            <StickyPagesCustomized pages={pages} />
+            <StickyPagesCustomized />
             {children}
           </div>
         </main>

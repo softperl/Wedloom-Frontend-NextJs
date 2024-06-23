@@ -11,6 +11,11 @@ interface StoreProps {
   setModal: (value: boolean) => void;
   inputValue: string;
   setInputValue: (value: string) => void;
+  hide: number[];
+  handleRemove: (index: number) => void;
+  unhideItem: (index: number) => void;
+  unHidePage: number | null;
+  setUnHidePage: (value: number | null) => void;
 }
 
 const useCardEditor = create<StoreProps>((set) => ({
@@ -24,6 +29,19 @@ const useCardEditor = create<StoreProps>((set) => ({
   setModal: (value) => set({ modal: value }),
   inputValue: "",
   setInputValue: (value) => set({ inputValue: value }),
+  hide: [],
+  handleRemove: (index) =>
+    set((state) => ({
+      hide: state.hide.includes(index)
+        ? state.hide.filter((i) => i !== index)
+        : [...state.hide, index],
+    })),
+  unhideItem: (index) =>
+    set((state) => ({
+      hide: state.hide.filter((i) => i !== index),
+    })),
+  unHidePage: null,
+  setUnHidePage: (value) => set({ unHidePage: value }),
 }));
 
 export default useCardEditor;

@@ -1,6 +1,6 @@
 "use client";
 
-import { CanvasEditor } from "@/components/editor/canvasEditor";
+import { Editor } from "@/components/editor/editor";
 import { ViewCard } from "@/components/editor/viewCard";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -30,7 +30,7 @@ export default function Page() {
   };
   return (
     <>
-      {params?.card[0] === "edit-card" && <CanvasEditor />}
+      {params?.card[0] === "edit-card" && <Editor />}
       {params?.card[0] === "card-view" && <ViewCard />}
       {params?.card[0] === "share-card" && (
         <>

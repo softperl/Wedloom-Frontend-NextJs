@@ -12,30 +12,20 @@ import {
 } from "next/navigation";
 import { useState } from "react";
 import { BiX } from "react-icons/bi";
+import { Data } from "./Data";
 
-export const StickyPagesCustomized = ({ pages }: { pages: any }) => {
+export const StickyPagesCustomized = () => {
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
   const searchParams = useSearchParams();
-  const { customize } = useCardEditor();
-  const [hide, setHide] = useState<number[]>([]);
+  const { customize, hide, handleRemove } = useCardEditor();
 
   const { cardId, activeIndex, activeCard, cardName } = useCardDetails(
     searchParams,
     params,
     data
   );
-
-  const handleRemove = (index: number) => {
-    setHide((prevHide) => {
-      if (prevHide.includes(index)) {
-        return prevHide.filter((i) => i !== index);
-      } else {
-        return [...prevHide, index];
-      }
-    });
-  };
 
   return (
     <div className="flex flex-col gap-5 py-5">
@@ -52,7 +42,7 @@ export const StickyPagesCustomized = ({ pages }: { pages: any }) => {
           {cardName}
         </h1>
         <div className="flex gap-5">
-          {pages?.map((item: any, i: number) => {
+          {Data?.map((item: any, i: number) => {
             const number = i + 1;
             const hideButton = hide.includes(number);
 
@@ -87,7 +77,7 @@ export const StickyPagesCustomized = ({ pages }: { pages: any }) => {
                       )}
                     />
                   ))}
-                {item?.name + " " + number}
+                {"Page" + " " + number}
               </button>
             );
           })}
