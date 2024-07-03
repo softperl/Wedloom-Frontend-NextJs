@@ -168,6 +168,9 @@ input[type="number"] {
   z-index: 999999;
 }
 
+.DraftEditor-root {
+  min-height: 200px
+}
 
 @tailwind base;
 @tailwind components;

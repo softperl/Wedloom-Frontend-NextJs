@@ -2,8 +2,11 @@
 import { topCities } from "@/components/data/cityList";
 import { useState } from "react";
 import { FaCirclePlus, FaCircleXmark } from "react-icons/fa6";
+import { EditorState } from "draft-js";
+import AppReactDraftWysiwyg from "@/libs/styles/AppReactDraftWysiwyg";
 
 const InformationContent = () => {
+  const [value, setValue] = useState(EditorState.createEmpty());
   const [formData, setFormData] = useState<any>({
     name: "Junaid Asghar",
     personName: "",
@@ -405,13 +408,11 @@ const InformationContent = () => {
                     </span>
                   </label>
                 </div>
-                <div className="mt-2 lg:mt-0 lg:w-8/12 border py-1 px-2 pr-0">
-                  <textarea
-                    disabled
-                    id="additionalInfo"
-                    rows={7}
-                    maxLength={250}
-                    className="w-full outline-none border-transparent text-xs resize-none"></textarea>
+                <div className="mt-2 lg:mt-0 lg:w-8/12 border py-1 px-2 h-auto">
+                  <AppReactDraftWysiwyg
+                    editorState={value}
+                    onEditorStateChange={(data) => setValue(data)}
+                  />
                 </div>
               </div>
 

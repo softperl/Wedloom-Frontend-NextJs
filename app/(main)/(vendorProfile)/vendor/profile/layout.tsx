@@ -65,12 +65,9 @@ export default function RootLayout({
   ];
   return (
     <div className="bg-[#efefef]">
-      {/* Content Container Start */}
       <div className="container mx-auto lg:px-20 px-2 lg:py-14 py-4">
-        <div className="w-full h-full flex justify-between flex-col lg:flex-row">
-          {/* Left Side */}
-          <div className="w-full lg:w-[15%]">
-            {/* Toggle Card */}
+        <div className="w-full grid grid-cols-12 gap-4">
+          <div className="col-span-12 lg:col-span-4 xl:col-span-3">
             <div className="px-5 lg:py-6 py-4 flex flex-col gap-6 bg-white shadow-sm w-full rounded-sm">
               {vendorMenu?.map((item: any, i: number) => {
                 return (
@@ -86,27 +83,14 @@ export default function RootLayout({
                 );
               })}
             </div>
-
-            {/* Weddloom Contact */}
-            <div className="bg-white shadow-sm w-full rounded-sm mt-4 px-5 py-3 flex justify-center flex-col items-center gap-1 border-b border-b-paginationBg-900 lg:border-none mb-4 lg:mb-0">
-              <h1 className="text-textPrimary-900 font-semibold">
-                WeddLoom Support
-              </h1>
-
-              <div className="flex items-center gap-2 text-textSecondary-900 cursor-pointer hover:text-[#00aef7] duration-100 mt-2">
-                <MdCall className="w-4 h-4" />
-                <span className="text-sm font-semibold">0129874-564</span>
-              </div>
-            </div>
           </div>
-
-          {/* Right Side */}
-          <div className="bg-white shadow-sm w-full lg:w-[80%] rounded-sm overflow-hidden h-max">
-            {children}
+          <div className="col-span-12 lg:col-span-8 xl:col-span-9">
+            <div className="bg-white shadow-sm w-full rounded-sm overflow-hidden h-max">
+              {children}
+            </div>
           </div>
         </div>
       </div>
-      {/* Content Container End */}
     </div>
   );
 }
