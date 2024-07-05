@@ -378,7 +378,7 @@ const InformationContent = () => {
                     Youtube/Vimeo url
                   </label>
                 </div>
-                <div className="w-full lg:w-8/12 border lg:border-b-0 py-1 lg:px-4 px-2">
+                <div className="w-full lg:w-8/12 border py-1 lg:px-4 px-2">
                   <input
                     id="ytLink"
                     type="text"
@@ -396,8 +396,8 @@ const InformationContent = () => {
               </div>
 
               {/* Additional Information  */}
-              <div className="w-full flex flex-col md:flex-row justify-between lg:items-center mb-1 lg:mb-0">
-                <div className="w-full lg:w-4/12">
+              <div className="w-full my-8">
+                <div className="w-full">
                   <label
                     htmlFor="additionalInfo"
                     className="text-xs lg:text-sm font-bold text-textSecondary-900 flex flex-col">
@@ -408,7 +408,7 @@ const InformationContent = () => {
                     </span>
                   </label>
                 </div>
-                <div className="mt-2 lg:mt-0 lg:w-8/12 border py-1 px-2 h-auto">
+                <div className="mt-2 lg:mt-0 py-1 h-auto">
                   <AppReactDraftWysiwyg
                     editorState={value}
                     onEditorStateChange={(data) => setValue(data)}
@@ -489,7 +489,7 @@ const InformationContent = () => {
               </p>
               <input
                 type="number"
-                className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px]"
+                className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
               />
             </div>
 
@@ -759,7 +759,7 @@ const InformationContent = () => {
               <div className="mt-4">
                 <textarea
                   rows={5}
-                  className="text-xs lg:text-sm outline-none border lg:w-6/12 w-full px-2 py-1"></textarea>
+                  className="text-xs lg:text-sm outline-none border w-full px-2 py-1"></textarea>
               </div>
             </div>
 
@@ -773,7 +773,7 @@ const InformationContent = () => {
               <div className="mt-4">
                 <textarea
                   rows={5}
-                  className="text-xs lg:text-sm outline-none border lg:w-6/12 w-full px-2 py-1"></textarea>
+                  className="text-xs lg:text-sm outline-none border w-full px-2 py-1"></textarea>
               </div>
             </div>
 
@@ -788,7 +788,7 @@ const InformationContent = () => {
               <div className="mt-4">
                 <textarea
                   rows={5}
-                  className="text-xs lg:text-sm outline-none border lg:w-6/12 px-2 py-1 w-full"></textarea>
+                  className="text-xs lg:text-sm outline-none border px-2 py-1 w-full"></textarea>
               </div>
             </div>
 
@@ -813,7 +813,7 @@ const InformationContent = () => {
               <div className="mt-4">
                 <textarea
                   rows={5}
-                  className="text-xs lg:text-sm outline-none border lg:w-6/12 px-2 py-1 w-full"></textarea>
+                  className="text-xs lg:text-sm outline-none border px-2 py-1 w-full"></textarea>
               </div>
             </div>
 
@@ -825,7 +825,7 @@ const InformationContent = () => {
               </p>
               <input
                 type="number"
-                className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px]"
+                className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
               />
             </div>
 
@@ -836,7 +836,7 @@ const InformationContent = () => {
               </p>
               <input
                 type="number"
-                className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px]"
+                className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
               />
             </div>
 
@@ -847,7 +847,7 @@ const InformationContent = () => {
               </p>
               <input
                 type="number"
-                className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px]"
+                className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
               />
             </div>
 
@@ -859,7 +859,7 @@ const InformationContent = () => {
               </p>
               <input
                 type="number"
-                className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px]"
+                className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
               />
             </div>
 
@@ -1278,12 +1278,12 @@ const InformationContent = () => {
               <div className="flex items-center gap-4 lg:gap-16">
                 <input
                   type="number"
-                  className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] text-textSecondary-900"
+                  className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] text-textSecondary-900 flex-1"
                 />
 
                 <div>
                   <input
-                    className="accent-textPrimary-900"
+                    className="accent-textPrimary-900 flex-1"
                     type="radio"
                     id="photodefault"
                     name="onedayvideography"
@@ -1306,7 +1306,7 @@ const InformationContent = () => {
               <div className="flex items-center lg:gap-16 gap-4">
                 <input
                   type="number"
-                  className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] text-textSecondary-900"
+                  className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] text-textSecondary-900 flex-1"
                 />
 
                 <div>
