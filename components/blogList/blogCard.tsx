@@ -6,7 +6,7 @@ import Pagination from "@/components/pagination/pagination";
 import Link from "next/link";
 import { BiSearch } from "react-icons/bi";
 
-const BlogCard = () => {
+const BlogCard = ({ posts, categories }: any) => {
   const [blogs, setBlogs] = useState(Data);
   const [active, setActive] = useState(false);
   const [active2, setActive2] = useState(false);
@@ -75,61 +75,26 @@ const BlogCard = () => {
               onClick={() => {
                 setBlogs(Data);
                 clickedCategoryAll();
-              }}>
+              }}
+            >
               All
             </button>
 
-            <button
-              className={`${
-                active
-                  ? " bg-textPrimary-900 text-white"
-                  : "border-textPrimary-900 border text-black"
-              } py-2 px-6 font-medium rounded-3xl`}
-              onClick={() => {
-                filteredItems("category1");
-                clickedCategory1();
-              }}>
-              Category 1
-            </button>
-
-            <button
-              className={`${
-                active2
-                  ? " bg-textPrimary-900 text-white"
-                  : "border-textPrimary-900 border text-black"
-              } py-2 px-6 font-medium rounded-3xl`}
-              onClick={() => {
-                filteredItems("category2");
-                clickedCategory2();
-              }}>
-              Category 2
-            </button>
-
-            <button
-              className={`${
-                active3
-                  ? " bg-textPrimary-900 text-white"
-                  : "border-textPrimary-900 border text-black"
-              } py-2 px-6 font-medium rounded-3xl`}
-              onClick={() => {
-                filteredItems("category3");
-                clickedCategory3();
-              }}>
-              Category 3
-            </button>
-
-            <button
-              className={`${
-                active4
-                  ? " bg-textPrimary-900 text-white"
-                  : "border-textPrimary-900 border text-black"
-              } py-2 px-6 font-medium rounded-3xl`}
-              onClick={() => {
-                filteredItems("category4");
-                clickedCategory4();
-              }}>
-              Category 4
-            </button>
+            {categories.map((cat: any) => (
+              <button
+                className={`${
+                  active3
+                    ? " bg-textPrimary-900 text-white"
+                    : "border-textPrimary-900 border text-black"
+                } py-2 px-6 font-medium rounded-3xl`}
+                onClick={() => {
+                  filteredItems("category3");
+                  clickedCategory3();
+                }}
+              >
+                {cat.name}
+              </button>
+            ))}
           </div>
 
           {/* SearchBox */}
@@ -150,14 +115,17 @@ const BlogCard = () => {
 
         {/* Blog Cards */}
         <div className="card_div flex flex-wrap justify-between">
-          {blogs
-            .filter((blog) => blog.title.toLocaleLowerCase().includes(query))
-            .map((elem) => {
+          {posts
+            .filter((blog: any) =>
+              blog.title.toLocaleLowerCase().includes(query)
+            )
+            .map((elem: any) => {
               const { id, image, title, desc } = elem;
               return (
                 <div
                   className="lg:w-4/12 md:w-[48%] w-full lg:px-4 py-4"
-                  key={id}>
+                  key={id}
+                >
                   <div className="blog_card_content text-center border border-textPrimary-900 rounded-md">
                     {/* Blog Image */}
                     <div className="image">

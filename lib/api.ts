@@ -40,3 +40,19 @@ export const signIn = (formData: any) => API.post("/auth/login", formData);
 export const signUp = (formData: any) => API.post("/auth/register", formData);
 export const renewAccessToken = (formData: { refreshToken: string }) =>
   API.post("/auth/renew", formData);
+
+//Blogs
+export const getPosts = ({
+  q,
+  page,
+  perPage,
+  sortBy,
+  sortOrder,
+}: {
+  q?: string;
+  page?: number;
+  perPage?: number;
+  sortBy?: string;
+  sortOrder?: string;
+}) => API.get(`/blog/post/get-all?q=${q}&page=${page}&perPage=${perPage}`);
+export const getCategories = () => API.get("/blog/category/get-all");
