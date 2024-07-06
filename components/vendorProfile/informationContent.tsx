@@ -4,8 +4,10 @@ import { useState } from "react";
 import { FaCirclePlus, FaCircleXmark } from "react-icons/fa6";
 import { EditorState } from "draft-js";
 import AppReactDraftWysiwyg from "@/libs/styles/AppReactDraftWysiwyg";
+import { AddressPopup } from "../popups/addressPopup";
 
 const InformationContent = () => {
+  const [locationPopUp, setLocationPopUp] = useState(false);
   const [value, setValue] = useState(EditorState.createEmpty());
   const [formData, setFormData] = useState<any>({
     name: "Junaid Asghar",
@@ -446,7 +448,7 @@ const InformationContent = () => {
               </div>
 
               {/* Address  */}
-              <div className="w-full flex flex-col md:flex-row justify-between lg:items-center">
+              <div className="w-full flex flex-col md:flex-row justify-between lg:items-center mb-1 lg:mb-0">
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="address"
@@ -454,19 +456,15 @@ const InformationContent = () => {
                     Address
                   </label>
                 </div>
-                <div className="w-full lg:w-8/12 border py-1 lg:px-4 px-2">
-                  <input
-                    id="address"
-                    type="text"
-                    value={formData.address}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        address: e.target.value,
-                      })
-                    }
-                    className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md"
-                  />
+                <div className="w-full lg:w-8/12 py-1 lg:px-4 px-2">
+                  <p
+                    onClick={() => setLocationPopUp(true)}
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900 cursor-pointer">
+                    Add a Location
+                  </p>
+                  {locationPopUp && (
+                    <AddressPopup closeModal={() => setLocationPopUp(false)} />
+                  )}
                 </div>
               </div>
             </div>
@@ -799,7 +797,7 @@ const InformationContent = () => {
               </p>
               <input
                 type="number"
-                className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px]"
+                className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
               />
             </div>
 
