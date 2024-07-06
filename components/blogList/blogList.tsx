@@ -32,7 +32,7 @@ const BlogList = () => {
 
   useEffect(() => {
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, q]);
 
   if (loading) {
     return (

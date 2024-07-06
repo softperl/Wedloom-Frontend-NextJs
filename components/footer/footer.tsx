@@ -1,30 +1,20 @@
+"use client";
+import useUi from "@/lib/hooks/useUi";
 import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
+  const { aboutData } = useUi();
   return (
     <section className={`lg:py-14 py-6 bg-white`}>
       <div className="popular_venue container mx-auto md:px-20 px-4 text-textSecondary-900">
         <div className="w-full">
           <div className="footer__top w-full flex-wrap md:flex-nowrap">
             <h5 className="text-base font-bold">
-              Site Name - Your Personal Wedding Planner
+              Site Name -{" "}
+              {aboutData ? aboutData.name : "Your Personal Wedding Planner"}
             </h5>
-            <p className="text-sm my-4">Plan your wedding with Us</p>
-            <span className="text-sm">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque
-              molestiae repellat culpa architecto adipisci voluptatum sed
-              voluptas, ipsa repudiandae! Hic deleniti numquam temporibus sed id
-              eius necessitatibus eaque consectetur, nihil blanditiis minus
-              incidunt repellendus? Recusandae, voluptatem et dolor delectus
-              accusamus eveniet sint ab. Fuga non explicabo hic laboriosam ex
-              vel voluptatem rerum id modi dolor. Distinctio delectus similique
-              repellat adipisci aut eum. Perspiciatis quos esse asperiores unde.
-              Odit voluptates veritatis similique impedit saepe possimus
-              blanditiis sit quae? Repellendus, commodi quaerat. Asperiores
-              saepe commodi autem dolor tempora nisi quasi laudantium at ad
-              temporibus aspernatur neque et a ut, quia possimus animi.
-            </span>
+            <div>{aboutData?.content}</div>
           </div>
 
           {/* Footer Contact */}
@@ -32,8 +22,8 @@ const Footer = () => {
             <div className="footger__contact__left w-full lg:w-6/12 justify-center text-center lg:text-start">
               <p className="font-bold">Contact us to get best deals</p>
               <div className="main__number my-4 text-sm">
-                <span>admin@example.com | info@example.com</span>
-                <p>01240-126812345</p>
+                <span>{aboutData?.email}</span>
+                <p>{aboutData?.phone}</p>
               </div>
               <span className="font-bold">Get Latest Blog Alerts</span>
               <div className="email__section flex w-full my-4 justify-center lg:justify-start">
@@ -65,34 +55,40 @@ const Footer = () => {
                 <a href="*">
                   <i
                     className="fa-brands fa-facebook text-4xl"
-                    style={{ color: "#4267B2" }}></i>
+                    style={{ color: "#4267B2" }}
+                  ></i>
                 </a>
                 <a href="*">
                   <i
                     className="fa-brands fa-twitter text-4xl"
-                    style={{ color: "#1DA1F2" }}></i>
+                    style={{ color: "#1DA1F2" }}
+                  ></i>
                 </a>
                 <a href="*">
                   <i
                     className="fa-brands fa-pinterest text-4xl"
-                    style={{ color: "#E60023" }}></i>
+                    style={{ color: "#E60023" }}
+                  ></i>
                 </a>
                 <a href="*">
                   <i
                     className=" fa-brands fa-instagram text-4xl"
-                    style={{ color: "red" }}></i>
+                    style={{ color: "red" }}
+                  ></i>
                 </a>
                 <a href="*">
                   <i
                     className="fa-brands fa-linkedin text-4xl"
                     style={{
                       color: "#0072b1",
-                    }}></i>
+                    }}
+                  ></i>
                 </a>
                 <a href="*">
                   <i
                     className=" fa-brands fa-youtube text-4xl"
-                    style={{ color: "red" }}></i>
+                    style={{ color: "red" }}
+                  ></i>
                 </a>
               </div>
             </div>

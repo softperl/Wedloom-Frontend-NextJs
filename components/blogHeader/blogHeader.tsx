@@ -4,7 +4,7 @@ import React from "react";
 import { BiLogoFacebook, BiLogoTwitter } from "react-icons/bi";
 import { FaShareAlt } from "react-icons/fa";
 
-const BlogHeader = () => {
+const BlogHeader = ({ post }: any) => {
   const pathname = usePathname();
   const pageLink = encodeURI(pathname);
   const copyLink = () => {
@@ -20,20 +20,21 @@ const BlogHeader = () => {
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-      }}>
+      }}
+    >
       <div className="blog_header_container container mx-auto lg:px-20 h-full">
         <div className="heading flex justify-end lg:flex-row flex-col w-full items-end lg:justify-between h-full text-white pb-8">
           <div className="right w-full">
             <div className="heading">
               <h1 className="text-xl lg:text-4xl font-bold tracking-wider mb-4">
-                12 Amazing New Things To Do To Your Lehenga That Will Make It
-                Super Unique!
+                {post.title}
               </h1>
             </div>
             <div className="date font-semibold text-xs lg:text-base">
               <p>
                 {" "}
-                10 Aug 2022 <span className="px-2">|</span> Junaid Asghar
+                {new Date(post.createdAt).toDateString()}{" "}
+                <span className="px-2">|</span> {post.user?.name}
               </p>
             </div>
           </div>
@@ -43,7 +44,8 @@ const BlogHeader = () => {
                 <a
                   href={`https://www.facebook.com/share.php?u=${pageLink}`}
                   target="_blank"
-                  rel="noreferrer">
+                  rel="noreferrer"
+                >
                   {" "}
                   <BiLogoFacebook className="text-xl" />
                 </a>
@@ -53,7 +55,8 @@ const BlogHeader = () => {
                 <a
                   href={`https://twitter.com/share?url=${pageLink}`}
                   target="_blank"
-                  rel="noreferrer">
+                  rel="noreferrer"
+                >
                   {" "}
                   <BiLogoTwitter className="text-xl" />
                 </a>
@@ -61,7 +64,8 @@ const BlogHeader = () => {
 
               <div
                 className="px-3 py-1 flex items-center justify-center bg-gray-500 w-max cursor-pointer"
-                onClick={copyLink}>
+                onClick={copyLink}
+              >
                 <span>
                   <FaShareAlt className="text-xl" />
                 </span>

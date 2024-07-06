@@ -120,7 +120,7 @@ const BlogCard = ({ posts, categories }: any) => {
               blog.title.toLocaleLowerCase().includes(query)
             )
             .map((elem: any) => {
-              const { id, image, title, desc } = elem;
+              const { id, thumbnail, title, description, slug } = elem;
               return (
                 <div
                   className="lg:w-4/12 md:w-[48%] w-full lg:px-4 py-4"
@@ -129,15 +129,19 @@ const BlogCard = ({ posts, categories }: any) => {
                   <div className="blog_card_content text-center border border-textPrimary-900 rounded-md">
                     {/* Blog Image */}
                     <div className="image">
-                      <img
-                        src={image}
-                        alt="blog_Image"
-                        className="h-64 rounded-md"
-                      />
+                      {thumbnail ? (
+                        <img
+                          src={thumbnail}
+                          alt="blog_Image"
+                          className="h-64 rounded-md"
+                        />
+                      ) : (
+                        <div className="h-64 rounded-md bg-slate-200"></div>
+                      )}
                     </div>
 
                     {/* Blog Header */}
-                    <Link href="/blog-view">
+                    <Link href={`/blog/${slug}`}>
                       <div className="header mt-8 px-4 overflow-hidden h-full max-h-[145px] pb-2">
                         <h1 className="text-textSecondary-900 font-medium font-serif text-2xl lg:text-3xl cursor-pointer capitalize">
                           {title}
@@ -147,15 +151,17 @@ const BlogCard = ({ posts, categories }: any) => {
                       {/* Author Info */}
                       <div className="author_info mt-5 px-4">
                         <p className="text-sm text-textSecondary-900">
-                          <span className="mr-2">By Junaid </span> |{" "}
-                          <span className="mx-2">10 Sep 2022</span>
+                          <span className="mr-2">{elem.user?.name}</span> |{" "}
+                          <span className="mx-2">
+                            {new Date(elem.createdAt).toDateString()}
+                          </span>
                         </p>
                       </div>
 
                       {/* Content Area */}
                       <div className="totalContent cursor-pointer mt-7 text-sm text-dateColor-900 leading-6 pb-4">
                         <div className="content_area h-24 overflow-hidden px-4">
-                          <p>{desc}</p>
+                          <p>{description}</p>
                         </div>
                       </div>
                     </Link>
