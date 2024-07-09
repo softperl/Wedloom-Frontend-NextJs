@@ -10,7 +10,7 @@ import useUi from "@/lib/hooks/useUi";
 export function Providers({ children, ...props }: any) {
   const accessToken = getCookie("accessToken");
   const { setAccessToken, setIsAuthenticating } = useAuth();
-  const { setAboutData } = useUi();
+  const { setAboutData, setSocialLinks, setMenus } = useUi();
   useEffect(() => {
     if (accessToken) {
       setAccessToken(accessToken);
@@ -20,7 +20,9 @@ export function Providers({ children, ...props }: any) {
   }, [accessToken]);
 
   useEffect(() => {
-    setAboutData(props.aboutData);
+    setAboutData(props.siteData?.about);
+    setSocialLinks(props.siteData?.socialLinks);
+    setMenus(props.siteData?.menus);
   }, []);
 
   return (

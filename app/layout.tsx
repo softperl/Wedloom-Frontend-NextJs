@@ -17,24 +17,23 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  let aboutData = null;
+  let siteData = null;
 
   try {
-    const data = await fetchFn(`/site/about`, {
+    const data = await fetchFn(`/site/data`, {
       method: "GET",
       next: {
         revalidate: 0,
       },
     });
-    aboutData = data.about;
-    console.log(aboutData);
+    siteData = data.siteData;
   } catch (error) {
     console.log(error);
   }
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers aboutData={aboutData}>{children}</Providers>
+        <Providers siteData={siteData}>{children}</Providers>
       </body>
     </html>
   );
