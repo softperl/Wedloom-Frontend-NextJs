@@ -21,7 +21,7 @@ export function Providers({ children, ...props }: any) {
 
   useEffect(() => {
     setAboutData(props.siteData?.about);
-    setSocialLinks(props.siteData?.socialLinks);
+    setSocialLinks(props.siteData?.socialLink);
     setMenus(props.siteData?.menus);
   }, []);
 
