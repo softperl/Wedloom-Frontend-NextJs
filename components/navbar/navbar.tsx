@@ -26,6 +26,7 @@ import {
 } from "react-icons/fa";
 import { FaHand, FaHeartPulse, FaPallet, FaXmark } from "react-icons/fa6";
 import { cn } from "@/lib/utils";
+import useUi from "@/lib/hooks/useUi";
 
 const Navbar = () => {
   const [showPop, setShowPop] = useState(false);
@@ -46,6 +47,7 @@ const Navbar = () => {
   const [shop, setShop] = useState(false);
   const [allCities, setAllCities] = useState(false);
   const [profilePopup, setProfilePopup] = useState(false);
+  const { menus } = useUi();
 
   const handleAllCities = () => {
     setAllCities(!allCities);
@@ -69,14 +71,37 @@ const Navbar = () => {
             </div>
             <div className="navbar__links">
               <ul className="flex gap-9 font-bold">
-                <li
-                  className="submenu"
-                  onMouseEnter={() => setShowPop(true)}
-                  onMouseLeave={() => setShowPop(false)}>
-                  <Link href="/">Venuse</Link>
-                  {showPop && <VenuesPop />}
-                </li>
-                <li
+                {menus.map((item: any) => (
+                  <li
+                    key={item.id}
+                    className="submenu"
+                    onMouseEnter={() => setShowPop(true)}
+                    onMouseLeave={() => setShowPop(false)}>
+                    <Link href={item.href}>{item.title}</Link>
+                    {showPop && (
+                      <div className="navbar__popup w-2/4 pr-10 pl-10 pb-10 rounded-md bg-white shadow-md">
+                        <div className="popup__container">
+                          <div className="venuelist flex justify-between mt-5">
+                            <div className="venuelist__items">
+                              <div className="photographer">
+                                {/* First List Item */}
+                                <ul className="mt-1 text-black">
+                                  {item.subMenus?.map((subItem: any) => (
+                                    <li key={subItem.href}>
+                                      <a href={subItem.href}>{subItem.title}</a>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </li>
+                ))}
+
+                {/* <li
                   className="submenu"
                   onMouseEnter={() => setShowPop(true)}
                   onMouseLeave={() => setShowPop(false)}>
@@ -118,7 +143,7 @@ const Navbar = () => {
                   <Link href="/wedding-invitations">E-Invites</Link>
                   <img className="w-5 ml-1" src={"/new.png"} alt="new__icon" />
                   {showPop && <InvitesPop />}
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>

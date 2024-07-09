@@ -2,7 +2,7 @@ import React from "react";
 
 import Link from "next/link";
 
-const VendorsPop = () => {
+const VendorsPop = ({ item }: any) => {
   return (
     <div className="navbar__popup w-2/4 pr-10 pl-10 pb-10 rounded-md bg-white shadow-md">
       <div className="navbar__popup__container">

@@ -5,7 +5,7 @@ import SimilarWedding from "@/components/similarWedding/similarWedding";
 import SingleProfile from "@/components/singleProfile/singleProfile";
 import React, { useRef } from "react";
 
-export default function page() {
+export default function Page() {
   const projectRef = useRef<any>(null);
   const aboutRef = useRef<any>(null);
   const reviewsRef = useRef<any>(null);

@@ -1,14 +1,13 @@
 "use client";
-import React from "react";
 
-import { useState } from "react";
-import Link from "next/link";
 import {
   internationaCities,
   othercities,
   popularCities,
   topCities,
 } from "@/components/data/cityList";
+import Link from "next/link";
+import { useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const Popup = () => {

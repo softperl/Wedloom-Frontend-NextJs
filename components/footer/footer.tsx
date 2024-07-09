@@ -2,9 +2,19 @@
 import useUi from "@/lib/hooks/useUi";
 import Link from "next/link";
 import React from "react";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+  FaPinterest,
+  FaTwitter,
+  FaYoutube,
+} from "react-icons/fa6";
 
 const Footer = () => {
-  const { aboutData } = useUi();
+  const { aboutData, socialLinks, menus } = useUi();
+
+  console.log(socialLinks);
   return (
     <section className={`lg:py-14 py-6 bg-white`}>
       <div className="popular_venue container mx-auto md:px-20 px-4 text-textSecondary-900">
@@ -51,44 +61,31 @@ const Footer = () => {
             {/* Social Links */}
             <div className="footer__contact__middle w-full lg:w-6/12 font-bold">
               <p className="font-bold text-center">Follow us on:</p>
-              <div className="w-full flex items-center justify-center gap-8 mt-4 lg:mt-16">
+              <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-4 lg:mt-16">
+                {/* {socialLinks?.map((item: any, i: number) => {
+                  return (
+                    <a key={i} href={item?.link}>
+                      {item.icon}
+                    </a>
+                  );
+                })} */}
                 <a href="*">
-                  <i
-                    className="fa-brands fa-facebook text-4xl"
-                    style={{ color: "#4267B2" }}
-                  ></i>
+                  <FaFacebook />
                 </a>
                 <a href="*">
-                  <i
-                    className="fa-brands fa-twitter text-4xl"
-                    style={{ color: "#1DA1F2" }}
-                  ></i>
+                  <FaTwitter />
                 </a>
                 <a href="*">
-                  <i
-                    className="fa-brands fa-pinterest text-4xl"
-                    style={{ color: "#E60023" }}
-                  ></i>
+                  <FaPinterest />
                 </a>
                 <a href="*">
-                  <i
-                    className=" fa-brands fa-instagram text-4xl"
-                    style={{ color: "red" }}
-                  ></i>
+                  <FaInstagram />
                 </a>
                 <a href="*">
-                  <i
-                    className="fa-brands fa-linkedin text-4xl"
-                    style={{
-                      color: "#0072b1",
-                    }}
-                  ></i>
+                  <FaLinkedin />
                 </a>
                 <a href="*">
-                  <i
-                    className=" fa-brands fa-youtube text-4xl"
-                    style={{ color: "red" }}
-                  ></i>
+                  <FaYoutube />
                 </a>
               </div>
             </div>
