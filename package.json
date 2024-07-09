@@ -11,6 +11,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.4.2",
     "@tippyjs/react": "^4.2.6",
+    "@types/googlemaps": "^3.43.3",
     "axios": "^1.7.2",
     "clsx": "^2.1.1",
     "cookies-next": "^4.2.1",

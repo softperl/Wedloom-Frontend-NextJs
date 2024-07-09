@@ -459,7 +459,7 @@ const InformationContent = () => {
                 <div className="w-full lg:w-8/12 py-1 lg:px-4 px-2">
                   <p
                     onClick={() => setLocationPopUp(true)}
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900 cursor-pointer">
+                    className="text-xs lg:text-sm font-bold text-textPrimary-900 cursor-pointer">
                     Add a Location
                   </p>
                   {locationPopUp && (

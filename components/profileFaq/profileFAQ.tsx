@@ -1,39 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import ProfileFAQCard from "@/components/profileFaq/profileFAQCard";
+import { FaqPopup } from "../popups/faqPopup";
+import useFaq from "@/lib/hooks/useFaq";
 
 const ProfileFAQ = () => {
+  const { faq } = useFaq();
+  const [faqOpen, setFaqOpen] = useState(false);
   return (
     <section className="container mx-auto lg:px-20 px-2 my-6">
       <div className="faq__container bg-white shadow-md border-b border-paginationBg-900">
         <div className="faq__container__content border-b border-paginationBg-900">
-          <div className="faq__container__heading px-5 py-4 text-lg lg:text-start text-center font-medium text-textBlack-900 border-b border-paginationBg-900">
-            <h5 style={{ fontSize: "22px" }}>FAQ about THE MEMORY CAPTURE</h5>
+          <div className="faq__container__heading px-5 py-4  border-b border-paginationBg-900 flex items-center justify-between">
+            <h5 className="text-lg text-left font-medium text-textBlack-900">
+              FAQ about THE MEMORY CAPTURE
+            </h5>
+            <button
+              onClick={() => setFaqOpen(true)}
+              className="p-2 text-textPrimary-900 border border-textPrimary-900 rounded-md hover:bg-textPrimary-900 hover:text-white duration-300 font-semibold text-sm">
+              Add FAQ
+            </button>
           </div>
         </div>
         {/* Bottom */}
-        <div className="w-full px-5 pt-5 pb-0">
-          <ProfileFAQCard
-            question="How much time does THE MEMORY CAPTURE take to deliver the wedding photos?"
-            answer=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum vel velit excepturi quis tenetur pariatur dolorem sint laboriosam commodi distinctio!"
-          />
-          <ProfileFAQCard
-            question="How many days are included in THE MEMORY CAPTURE's most booked package?"
-            answer=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum vel velit excepturi quis tenetur pariatur dolorem sint laboriosam commodi distinctio!"
-          />
-          <ProfileFAQCard
-            question="How long has THE MEMORY CAPTURE been shooting weddings?"
-            answer=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum vel velit excepturi quis tenetur pariatur dolorem sint laboriosam commodi distinctio!"
-          />
-          <ProfileFAQCard
-            question="What is the value of THE MEMORY CAPTURE's most booked package?"
-            answer=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum vel velit excepturi quis tenetur pariatur dolorem sint laboriosam commodi distinctio!"
-          />
-          <ProfileFAQCard
-            question="How much time does Sufygraphy take to deliver the wedding photos?"
-            answer=" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum vel velit excepturi quis tenetur pariatur dolorem sint laboriosam commodi distinctio!"
-          />
-        </div>
+        {faq?.length > 0 && (
+          <div className="w-full px-5 pt-5 pb-0">
+            {faq?.map((item, i) => {
+              return (
+                <ProfileFAQCard
+                  key={i}
+                  question={item?.question}
+                  answer={item?.answer}
+                  setFaqOpen={setFaqOpen}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
+      {faqOpen && <FaqPopup closeModal={() => setFaqOpen(false)} />}
     </section>
   );
 };

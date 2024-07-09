@@ -19,7 +19,7 @@ const GalleryGrid = () => {
       {/* Grid Gallery Start */}
       <div className="gridItems_images grid grid-cols-2 lg:grid-cols-4 gap-x-2 lg:gap-x-6 lg:gap-y-8 gap-y-4 mt-8">
         {ImageData.map((image) => (
-          <Link href="/gallery">
+          <Link key={image.id} href="/gallery">
             <div className="image lg:h-60 h-48" key={image.id}>
               <img
                 src={image.image}

@@ -105,8 +105,8 @@ const Pcontact = () => {
                 </div>
               </div>
 
-              <div className="fourth_row flex justify-between my-8">
-                <div className="left w-full">
+              <div className="flex flex-col gap-6 my-8">
+                <div className="w-full">
                   <h5 className="text-lg text-textSecondary-900 font-semibold">
                     Function Type
                   </h5>
@@ -142,7 +142,7 @@ const Pcontact = () => {
                   </form>
                 </div>
 
-                <div className="right w-full pl-10 border-l text-start">
+                <div className="w-full text-start">
                   <h5 className="text-lg text-textSecondary-900 font-semibold">
                     Function Time
                   </h5>

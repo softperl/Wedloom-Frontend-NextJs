@@ -31,7 +31,7 @@ const TopNav = () => {
       <div className="topNav__content flex items-center justify-between">
         <div className="topNav__left flex items-center gap-5">
           <div className="topNav__p text-sm font-normal">
-            <p>Pakistans's Favourite Wedding Planning Platform</p>
+            <p>Pakistans&apos;s Favourite Wedding Planning Platform</p>
           </div>
           <div
             ref={ref}

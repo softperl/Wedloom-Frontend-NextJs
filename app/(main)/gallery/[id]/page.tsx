@@ -1,12 +1,15 @@
+"use client";
 import GalleryBanner from "@/components/galleryBanner/galleryBanner";
 import GalleryGrid from "@/components/galleryGrid/galleryGrid";
-import React from "react";
+import { data } from "@/components/projects/portfolioView";
 
-export default function page() {
+export default function Page({ params }: { params: { id: string } }) {
+  const bannarPhoto = data.find((item) => item.id === params.id);
+
   return (
     <>
       <GalleryBanner
-        bannerPhoto="https://images.pexels.com/photos/805367/pexels-photo-805367.jpeg?auto=compress&cs=tinysrgb&w=1600"
+        bannerPhoto={bannarPhoto?.src}
         time="1"
         photographer="Junaid Ashghar"
         album1="https://images.pexels.com/photos/1253370/pexels-photo-1253370.jpeg?auto=compress&cs=tinysrgb&w=1600"

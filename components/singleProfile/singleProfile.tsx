@@ -15,6 +15,7 @@ import {
   FaRegHeart,
   FaShareNodes,
 } from "react-icons/fa6";
+import Image from "next/image";
 
 const SingleProfile = ({ scroll, project, about, review }: any) => {
   const [click, setclick] = useState(false);
@@ -31,10 +32,11 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
             <div className="details">
               {/* Image */}
               <div className="details__img h-96 relative" id="image">
-                <img
+                <Image
                   src="https://images.pexels.com/photos/1707446/pexels-photo-1707446.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                   alt=""
                   className="h-96 w-full rounded-md"
+                  fill
                 />
                 <div className="handpicked">
                   <Tippy
