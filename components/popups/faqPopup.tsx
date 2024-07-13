@@ -1,13 +1,20 @@
 "use client";
 
 import useFaq from "@/lib/hooks/useFaq";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaX } from "react-icons/fa6";
 
 export const FaqPopup = ({ closeModal }: { closeModal: () => void }) => {
-  const { addFaq } = useFaq();
+  const { addFaq, currentFaq, editFaq } = useFaq();
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+
+  useEffect(() => {
+    if (currentFaq) {
+      setQuestion(currentFaq.question);
+      setAnswer(currentFaq.answer);
+    }
+  }, [currentFaq]);
 
   const handleQuestionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuestion(e.target.value);

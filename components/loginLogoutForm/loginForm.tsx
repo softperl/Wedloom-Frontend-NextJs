@@ -97,8 +97,7 @@ const LoginForm = () => {
           </h1>
         ) : (
           <h1 className="lg:text-4xl text-3xl font-bold text-textSecondary-900">
-            Sign <span className="text-textPrimary-900">In</span> / Sign{" "}
-            <span className="text-textPrimary-900">Up</span>
+            Sign <span className="text-textPrimary-900">In</span>
           </h1>
         )}
       </div>
@@ -115,10 +114,11 @@ const LoginForm = () => {
           </p>
         ) : (
           <p className="text-sm text-textSecondary-900 leading-6 lg:text-start text-center">
-            If you are new here then create an account and{" "}
+            If you are new here then create an account and visit{" "}
             <span className="text-textPrimary-900">
-              if you already have an account then you will redirect to your
-              account!
+              <Link href="/signup" className="text-textPrimary-900 text-sm">
+                Signup
+              </Link>
             </span>
           </p>
         )}
@@ -347,7 +347,7 @@ const LoginForm = () => {
             </div>
 
             {/* Buttons */}
-            <div className="mb-10 text-center">
+            <div className="mb-4 text-center">
               <button
                 className="w-full px-4 py-5 font-bold text-white bg-textPrimary-900 focus:outline-none focus:shadow-outline"
                 type="button"
@@ -356,9 +356,14 @@ const LoginForm = () => {
               </button>
             </div>
           </form>
-
+          <div className="bg-white px-2 text-center">
+            <span className="text-sm"> Don&apos;t have an account. </span>
+            <Link href="/signup" className="text-textPrimary-900 text-sm">
+              Signup
+            </Link>
+          </div>
           {/* Login With Others Option */}
-          <div className="others_option mb-8">
+          <div className="others_option my-8">
             <div className="heading text-center mb-10">
               <span className="text-textPrimary-900 bg-white px-2 font-medium">
                 Or continue with

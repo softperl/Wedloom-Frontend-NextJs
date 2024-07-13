@@ -71,7 +71,7 @@ const Navbar = () => {
             </div>
             <div className="navbar__links">
               <ul className="flex gap-9 font-bold">
-                {menus.map((item: any) => (
+                {menus?.map((item: any) => (
                   <li
                     key={item.id}
                     className="submenu"
@@ -88,7 +88,9 @@ const Navbar = () => {
                                 <ul className="mt-1 text-black">
                                   {item.subMenus?.map((subItem: any) => (
                                     <li key={subItem.href}>
-                                      <a href={subItem.href}>{subItem.title}</a>
+                                      <Link href={subItem.href}>
+                                        {subItem.title}
+                                      </Link>
                                     </li>
                                   ))}
                                 </ul>

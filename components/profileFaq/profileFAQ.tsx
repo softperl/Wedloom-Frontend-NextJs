@@ -4,8 +4,10 @@ import { FaqPopup } from "../popups/faqPopup";
 import useFaq from "@/lib/hooks/useFaq";
 
 const ProfileFAQ = () => {
+  const [isFaqOpen, setFaqOpen] = useState(false);
+  const [isEditFaqOpen, setEditFaqOpen] = useState(false);
   const { faq } = useFaq();
-  const [faqOpen, setFaqOpen] = useState(false);
+
   return (
     <section className="container mx-auto lg:px-20 px-2 my-6">
       <div className="faq__container bg-white shadow-md border-b border-paginationBg-900">
@@ -16,7 +18,7 @@ const ProfileFAQ = () => {
             </h5>
             <button
               onClick={() => setFaqOpen(true)}
-              className="p-2 text-textPrimary-900 border border-textPrimary-900 rounded-md hover:bg-textPrimary-900 hover:text-white duration-300 font-semibold text-sm">
+              className="py-2 px-4 text-textPrimary-900 border border-textPrimary-900 hover:bg-textPrimary-900 hover:text-white duration-300 font-semibold text-sm rounded-full">
               Add FAQ
             </button>
           </div>
@@ -37,7 +39,7 @@ const ProfileFAQ = () => {
           </div>
         )}
       </div>
-      {faqOpen && <FaqPopup closeModal={() => setFaqOpen(false)} />}
+      {isFaqOpen && <FaqPopup closeModal={() => setFaqOpen(false)} />}
     </section>
   );
 };

@@ -3,16 +3,24 @@ import useUi from "@/lib/hooks/useUi";
 import Link from "next/link";
 import React from "react";
 import {
+  FaDiscord,
   FaFacebook,
   FaInstagram,
   FaLinkedin,
   FaPinterest,
+  FaQuora,
+  FaReddit,
+  FaTelegram,
+  FaThreads,
+  FaTiktok,
+  FaTumblr,
   FaTwitter,
+  FaWhatsapp,
   FaYoutube,
 } from "react-icons/fa6";
 
 const Footer = () => {
-  const { aboutData, socialLinks, menus } = useUi();
+  const { aboutData, socialLinks } = useUi();
 
   console.log(socialLinks);
   return (
@@ -62,31 +70,74 @@ const Footer = () => {
             <div className="footer__contact__middle w-full lg:w-6/12 font-bold">
               <p className="font-bold text-center">Follow us on:</p>
               <div className="w-full flex flex-wrap items-center justify-center gap-8 mt-4 lg:mt-16">
-                {/* {socialLinks?.map((item: any, i: number) => {
-                  return (
-                    <a key={i} href={item?.link}>
-                      {item.icon}
-                    </a>
-                  );
-                })} */}
-                <a href="*">
-                  <FaFacebook />
+                {socialLinks?.Facebook && (
+                  <a href={socialLinks?.Facebook}>
+                    <FaFacebook className="w-8 h-8 text-[#0765FF]" />
+                  </a>
+                )}
+                {socialLinks?.Twitter && (
+                  <a href={socialLinks?.Twitter}>
+                    <FaTwitter className="w-8 h-8 text-[#2A9EF0]" />
+                  </a>
+                )}
+                <a href={socialLinks?.Pinterest}>
+                  <FaPinterest className="w-8 h-8 text-[#DE0318]" />
                 </a>
-                <a href="*">
-                  <FaTwitter />
-                </a>
-                <a href="*">
-                  <FaPinterest />
-                </a>
-                <a href="*">
-                  <FaInstagram />
-                </a>
-                <a href="*">
-                  <FaLinkedin />
-                </a>
-                <a href="*">
-                  <FaYoutube />
-                </a>
+                {socialLinks?.Instagram && (
+                  <a href="*">
+                    <FaInstagram className="w-8 h-8 text-[#C0307C]" />
+                  </a>
+                )}
+                {socialLinks?.Linkedin && (
+                  <a href={socialLinks?.Linkedin}>
+                    <FaLinkedin className="w-8 h-8 text-[#0162C0]" />
+                  </a>
+                )}
+                {socialLinks?.Facebook && (
+                  <a href={socialLinks?.Facebook}>
+                    <FaYoutube className="w-8 h-8 text-[#ED1A0E]" />
+                  </a>
+                )}
+                {socialLinks?.Quora && (
+                  <a href={socialLinks?.Quora}>
+                    <FaQuora className="w-8 h-8 text-[#B32926]" />
+                  </a>
+                )}
+                {socialLinks?.Reddit && (
+                  <a href={socialLinks?.Reddit}>
+                    <FaReddit className="w-8 h-8 text-[#F74201]" />
+                  </a>
+                )}
+                {socialLinks?.Telegram && (
+                  <a href={socialLinks?.Telegram}>
+                    <FaTelegram className="w-8 h-8 text-[#32A7D9]" />
+                  </a>
+                )}
+                {socialLinks?.Threads && (
+                  <a href={socialLinks?.Threads}>
+                    <FaThreads className="w-8 h-8" />
+                  </a>
+                )}
+                {socialLinks?.TikTok && (
+                  <a href={socialLinks?.TikTok}>
+                    <FaTiktok className="w-8 h-8 text-[#000]" />
+                  </a>
+                )}
+                {socialLinks?.Tumblr && (
+                  <a href={socialLinks?.Tumblr}>
+                    <FaTumblr className="w-8 h-8 text-[#2F4055]" />
+                  </a>
+                )}
+                {socialLinks?.WhatsApp && (
+                  <a href={socialLinks?.WhatsApp}>
+                    <FaWhatsapp className="w-8 h-8 text-[#41E35E]" />
+                  </a>
+                )}
+                {socialLinks?.Discord && (
+                  <a href={socialLinks?.Discord}>
+                    <FaDiscord className="w-8 h-8 text-[#5666E2]" />
+                  </a>
+                )}
               </div>
             </div>
             <div className="footger__contact__right lg:items-center w-full lg:w-5/12 flex flex-col md:justify-start justify-center items-center">

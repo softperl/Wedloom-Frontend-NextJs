@@ -7,6 +7,8 @@ interface Faq {
 
 interface StoreProps {
   faq: Faq[];
+  currentFaq: Faq | null;
+  setCurrentFaq: (faq: Faq | null) => void;
   addFaq: (question: string, answer: string) => void;
   deleteFaq: (question: string) => void;
   editFaq: (question: string, newAnswer: string) => void;
@@ -14,6 +16,8 @@ interface StoreProps {
 
 const useFaq = create<StoreProps>((set) => ({
   faq: [],
+  currentFaq: null,
+  setCurrentFaq: (faq) => set({ currentFaq: faq }),
   addFaq: (question, answer) =>
     set((state) => ({
       faq: [...state.faq, { question, answer }],
