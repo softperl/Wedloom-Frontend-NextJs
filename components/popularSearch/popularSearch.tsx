@@ -4,6 +4,7 @@ import PsearchCarousel from "@/components/carousels/psearchCarousel";
 import SectionHeader from "@/components/sectionHeader";
 //@ts-ignore
 import { Navigation } from "swiper";
+//@ts-ignore
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const PopularSearch = () => {

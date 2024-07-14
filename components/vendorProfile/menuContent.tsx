@@ -151,7 +151,8 @@ const MenuContent = () => {
             <div className="w-full h-max bg-white text-black px-6 py-4 rounded-md">
               <div className="flex justify-center mb-4">
                 <Image
-                  fill
+                  width={500}
+                  height={500}
                   src="https://www.svgrepo.com/show/54204/restaurant.svg"
                   alt=""
                   className="w-14 lg:w-16"

@@ -20,7 +20,13 @@ const MessageSender = ({
       )}>
       {/* Image */}
       <div className="md:w-3/12">
-        <Image fill src={img} alt="avatar" className="w-12 h-12 rounded-full" />
+        <Image
+          width={500}
+          height={500}
+          src={img}
+          alt="avatar"
+          className="w-12 h-12 rounded-full"
+        />
       </div>
 
       {/* Author Info */}

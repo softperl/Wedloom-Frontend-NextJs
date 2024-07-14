@@ -30,7 +30,8 @@ const PortfolioView = () => {
             <div key={i} className="project__sample__image">
               <Link href={`/gallery/${item?.id}`}>
                 <Image
-                  fill
+                  width={500}
+                  height={500}
                   src={item?.src}
                   alt={item?.id}
                   className="h-40 rounded-md cursor-pointer"

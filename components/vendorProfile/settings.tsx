@@ -25,7 +25,8 @@ const Settings = () => {
                 {file?.length === 0 && (
                   <div className="w-full h-full relative flex justify-center items-center">
                     <Image
-                      fill
+                      width={500}
+                      height={500}
                       src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/User_icon-cp.png/1200px-User_icon-cp.png"
                       alt="blank_avatar"
                       className="w-20 lg:w-28 opacity-50"

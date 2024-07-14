@@ -20,7 +20,8 @@ const ShortListCard = ({
       <div className="md:w-[20%] w-full">
         <Link href="/photographer/profile">
           <Image
-            fill
+            width={500}
+            height={500}
             src={image}
             alt="hotel_image"
             className="w-full h-32 md:w-36 md:h-24 rounded-md"

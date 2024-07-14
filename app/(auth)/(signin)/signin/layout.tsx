@@ -2,6 +2,7 @@
 // Import Swiper React components
 import "swiper/css/autoplay";
 import "swiper/css/pagination";
+//@ts-ignore
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // import required modules

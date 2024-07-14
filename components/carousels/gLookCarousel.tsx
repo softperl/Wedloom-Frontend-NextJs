@@ -7,7 +7,8 @@ const GLookCarousel = ({ img, text }: { img: string; text: string }) => {
       <div className="GLookCarousel__content w-full d-flex justify-between items-center bg-white shadow-lg p-2">
         <div className="GLookCarousel__img overflow-hidden">
           <Image
-            fill
+            width={500}
+            height={500}
             src={img}
             alt=""
             className="h-60 hover:scale-125 duration-200 rounded-md"

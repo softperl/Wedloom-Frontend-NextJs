@@ -36,7 +36,13 @@ const WcategorySingle = ({
             <span className="text-sm">{subtitle}</span>
           </div>
           <div className="content__right w-full">
-            <Image fill src={image} alt="" className="w-full h-32" />
+            <Image
+              width={500}
+              height={500}
+              src={image}
+              alt=""
+              className="w-full h-32"
+            />
           </div>
         </div>
         {toggle && (

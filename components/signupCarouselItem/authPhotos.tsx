@@ -12,7 +12,13 @@ const AuthPhotos = ({
   return (
     <div className="w-full">
       <div className="bg-white w-full">
-        <Image fill src={image} alt="banner" className={cn(className)} />
+        <Image
+          width={500}
+          height={500}
+          src={image}
+          alt="banner"
+          className={cn(className)}
+        />
       </div>
     </div>
   );

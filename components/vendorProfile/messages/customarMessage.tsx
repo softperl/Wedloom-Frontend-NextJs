@@ -7,7 +7,8 @@ const CustomarMessage = ({ text, img }: { text: string; img: string }) => {
       {/* Avatar */}
       <div className="w-max lg:w-1/12">
         <Image
-          fill
+          width={500}
+          height={500}
           src={img}
           alt="profile"
           className="lg:w-12 lg:h-12 w-8 h-8 rounded-full object-cover"

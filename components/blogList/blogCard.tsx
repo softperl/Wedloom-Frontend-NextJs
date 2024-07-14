@@ -130,7 +130,8 @@ const BlogCard = ({ posts, categories }: any) => {
                     <div className="image">
                       {thumbnail ? (
                         <Image
-                          fill
+                          width={500}
+                          height={500}
                           src={thumbnail}
                           alt="blog_Image"
                           className="h-64 rounded-md"

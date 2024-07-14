@@ -6,7 +6,8 @@ const BlogExploreCard = ({ image, upperText, downText }: any) => {
     <div className="cards lg:w-full w-9/12">
       <div className="image relative">
         <Image
-          fill
+          width={500}
+          height={500}
           src={image}
           alt={upperText}
           className="brightness-50 w-full lg:h-[425px] h-[350px]"

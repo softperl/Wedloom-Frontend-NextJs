@@ -17,9 +17,10 @@ const PvenueCarousel = ({
   return (
     <div className="popular lg:h-36 h-full mb-4">
       <div className="popular__content flex justify-between gap-6">
-        <div className="image w-full">
+        <div className="image w-full overflow-hidden">
           <Image
-            fill
+            width={500}
+            height={500}
             src={img}
             alt="popular"
             className="h-full w-full rounded-md"

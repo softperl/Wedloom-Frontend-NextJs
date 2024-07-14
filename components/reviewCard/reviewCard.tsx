@@ -15,7 +15,8 @@ const ReviewCard = ({ image, name }: any) => {
             <div className="heading_left flex gap-4 w-full justify-between lg:justify-start lg:w-max">
               <div className="name_image flex items-center gap-4">
                 <Image
-                  fill
+                  width={500}
+                  height={500}
                   src={image}
                   alt="bride_image"
                   className="w-14 h-14 rounded-full"

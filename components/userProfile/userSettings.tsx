@@ -118,7 +118,8 @@ const UserSettings = () => {
                 {file.length === 0 && (
                   <div className="w-full h-full relative flex justify-center items-center">
                     <Image
-                      fill
+                      width={500}
+                      height={500}
                       src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/User_icon-cp.png/1200px-User_icon-cp.png"
                       alt="blank_avatar"
                       className="w-16 lg:w-24 opacity-50"
@@ -128,7 +129,8 @@ const UserSettings = () => {
 
                 {Array.from(file).map((img, i) => (
                   <Image
-                    fill
+                    width={500}
+                    height={500}
                     key={i}
                     //@ts-ignore
                     src={img ? URL.createObjectURL(img) : null}

@@ -307,7 +307,12 @@ const CheckoutContent = ({ packageName }: any) => {
                   We Accept
                 </span>
                 <div className="image">
-                  <Image fill src={"/payment.webp"} alt="payment_img" />
+                  <Image
+                    width={500}
+                    height={500}
+                    src={"/payment.webp"}
+                    alt="payment_img"
+                  />
                 </div>
               </div>
             </div>

@@ -3,6 +3,7 @@
 import React from "react";
 import BlogExploreCard from "@/components/blogExplore/BlogExploreCard";
 // import { Navigation } from "swiper";
+//@ts-ignore
 import { Swiper, SwiperSlide } from "swiper/react";
 import ExploreHeading from "@/components/exploreHeading";
 

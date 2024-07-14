@@ -87,7 +87,7 @@ const YearlyMembershipCard = ({
       {/* Popular Card */}
       <div className="w-full lg:w-4/12 shadow-lg">
         <div>
-          <Image fill src={"/popular.svg"} alt="" />
+          <Image width={500} height={500} src={"/popular.svg"} alt="" />
         </div>
         {/* Header Part */}
         <div className="px-4 text-center pb-[42px]">

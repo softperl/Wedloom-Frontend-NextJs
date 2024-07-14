@@ -1,4 +1,5 @@
 "use client";
+//@ts-ignore
 import Tippy from "@tippyjs/react";
 import React, { useState } from "react";
 import Pcontact from "@/components/photographerContact/pcontact";
@@ -33,10 +34,11 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
               {/* Image */}
               <div className="details__img h-96 relative" id="image">
                 <Image
+                  width={500}
+                  height={500}
                   src="https://images.pexels.com/photos/1707446/pexels-photo-1707446.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                   alt=""
                   className="h-96 w-full rounded-md"
-                  fill
                 />
                 <div className="handpicked">
                   <Tippy
@@ -44,7 +46,8 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
                     content={<div className="w-64">Tooltip</div>}
                     placement={"right"}>
                     <Image
-                      fill
+                      width={500}
+                      height={500}
                       src={"/handpicked.png"}
                       alt="handpic tooltip"
                       className="w-32 absolute lg:top-0 top-2 left-0"
@@ -66,7 +69,8 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
                       <div className="blue_badge">
                         <span>
                           <Image
-                            fill
+                            width={500}
+                            height={500}
                             src={"/blue.webp"}
                             alt=""
                             className="w-5"

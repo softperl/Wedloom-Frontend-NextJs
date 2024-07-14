@@ -20,7 +20,8 @@ const FvendrosCarousel = ({
         <div className="wrapper w-full rounded-md">
           <div className="FvendrosCarousel__img w-full overflow-hidden relative">
             <Image
-              fill
+              width={500}
+              height={500}
               src={img}
               alt=""
               className="w-full h-64 group-hover:scale-125 duration-200 rounded-md"

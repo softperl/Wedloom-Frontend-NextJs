@@ -41,6 +41,8 @@ const PhotoBudgetCard = ({
               <Link href="/budgetphotographer/id">
                 <div className="budgetFriendly__image">
                   <Image
+                    width={500}
+                    height={500}
                     src={image1 || ""}
                     alt="budgetFriendlt__Image"
                     className={`w-16 h-16 ${
@@ -58,6 +60,8 @@ const PhotoBudgetCard = ({
               <Link href="/budgetphotographer/id">
                 <div className="valueformoney__image">
                   <Image
+                    width={500}
+                    height={500}
                     src={image2 || ""}
                     alt="budgetFriendlt__Image"
                     className={`w-16 h-16 ${
@@ -79,6 +83,8 @@ const PhotoBudgetCard = ({
               <Link href="/budgetphotographer/id">
                 <div className="budgetFriendly__image">
                   <Image
+                    width={500}
+                    height={500}
                     src={image3 || ""}
                     alt="budgetFriendlt__Image"
                     className={`w-16 h-16 ${
@@ -97,6 +103,8 @@ const PhotoBudgetCard = ({
               <Link href="/budgetphotographer/id">
                 <div className="budgetFriendly__image">
                   <Image
+                    width={500}
+                    height={500}
                     fill
                     src={image4 || ""}
                     alt="budgetFriendlt__Image"

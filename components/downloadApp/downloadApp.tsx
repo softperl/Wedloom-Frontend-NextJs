@@ -36,7 +36,13 @@ const DownloadApp = () => {
                 </p>
                 <div className="donwload__input flex items-center md:justify-start justify-center gap-3 my-8">
                   <div className="flag border-b-2">
-                    <Image fill src="./india.png" alt="flag" className="w-6" />
+                    <Image
+                      width={500}
+                      height={500}
+                      src="./india.png"
+                      alt="flag"
+                      className="w-6"
+                    />
                   </div>
                   <div className="input__fields border-b-2">
                     <input

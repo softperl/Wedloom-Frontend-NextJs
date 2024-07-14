@@ -1,6 +1,7 @@
 import React from "react";
 import SimilarWeedingCard from "@/components/similarWedding/similarWeedingCard";
 // import { Navigation } from "swiper";
+//@ts-ignore
 import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
 
@@ -23,7 +24,7 @@ const SimilarWedding = () => {
               </Link>
             </div>
           </div>
-          {/* Bottom or Blogs */}.{" "}
+          {/* Bottom or Blogs */}
           <div className="hidden lg:block">
             <div className="similar_wedding_content_bottom flex pt-4 pb-8">
               <SimilarWeedingCard

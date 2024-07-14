@@ -23,7 +23,8 @@ const GalleryGrid = () => {
           <Link key={image.id} href="/gallery">
             <div className="image lg:h-60 h-48" key={image.id}>
               <Image
-                fill
+                width={500}
+                height={500}
                 src={image.image}
                 alt="galleryItemImage"
                 className="w-full h-full rounded-md"

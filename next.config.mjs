@@ -7,6 +7,13 @@ const nextConfig = {
       "pickaface.net",
       "image.wedmegood.com",
       "logodix.com",
+      "imgs.search.brave.com",
+      "images.wedmegood.com",
+      "eliaskordelakos.com",
+      "www.thetorrancehotel.co.uk",
+      "static.wixstatic.com",
+      "encrypted-tbn0.gstatic.com",
+      "upload.wikimedia.org",
     ],
   },
 };

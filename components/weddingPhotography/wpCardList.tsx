@@ -55,7 +55,13 @@ const WpCardList = ({
                 <h5 className="text-xl font-bold text-textSecondary-900">
                   {name}
                 </h5>
-                <Image fill src={"/blue.webp"} alt="" className="w-5 h-5" />
+                <Image
+                  width={500}
+                  height={500}
+                  src={"/blue.webp"}
+                  alt=""
+                  className="w-5 h-5"
+                />
               </div>
 
               {/* Reviews */}

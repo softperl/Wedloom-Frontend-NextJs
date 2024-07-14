@@ -2,6 +2,7 @@
 import React from "react";
 //@ts-ignore
 import { Navigation } from "swiper";
+//@ts-ignore
 import { Swiper, SwiperSlide } from "swiper/react";
 import FvendrosCarousel from "@/components/carousels/fvendrosCarousel";
 import SectionHeader from "@/components/sectionHeader";

@@ -1,11 +1,10 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { useState } from "react";
 import { AiFillHeart, AiFillPinterest, AiOutlineHeart } from "react-icons/ai";
 import { FaPinterest, FaShareSquare } from "react-icons/fa";
-import { MdOutlineWatch, MdOutlineWatchLater } from "react-icons/md";
+import { MdOutlineWatchLater } from "react-icons/md";
 import { PiShare } from "react-icons/pi";
 
 const GalleryBanner = ({
@@ -27,7 +26,8 @@ const GalleryBanner = ({
 
         <div className="gB_left w-full lg:w-9/12 h-full relative">
           <Image
-            fill
+            width={500}
+            height={500}
             src={bannerPhoto}
             alt="galleryBanner"
             className="w-full h-full"
@@ -119,7 +119,8 @@ const GalleryBanner = ({
             <div className="image_div flex gap-2 mt-4">
               <div className="image1 w-full h-24">
                 <Image
-                  fill
+                  width={500}
+                  height={500}
                   src={album1}
                   alt=""
                   className="h-full w-full rounded-md"
@@ -127,7 +128,8 @@ const GalleryBanner = ({
               </div>
               <div className="image2 w-full h-24">
                 <Image
-                  fill
+                  width={500}
+                  height={500}
                   src={album2}
                   alt=""
                   className="h-full w-full rounded-md"
@@ -135,7 +137,8 @@ const GalleryBanner = ({
               </div>
               <div className="image3 w-full h-24">
                 <Image
-                  fill
+                  width={500}
+                  height={500}
                   src={album3}
                   alt=""
                   className="h-full w-full rounded-md"
@@ -144,6 +147,8 @@ const GalleryBanner = ({
               <div className="image4 w-full h-24 relative">
                 <Link href="/album">
                   <Image
+                    width={500}
+                    height={500}
                     src={album4}
                     alt=""
                     className="h-full w-full rounded-md"

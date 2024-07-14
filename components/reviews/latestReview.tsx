@@ -20,7 +20,8 @@ const LatestReview = ({
       <div className="latest__review_card flex flex-wrap lg:flex-nowrap">
         <div className="review__image lg:w-1/12 w-full flex justify-center mb-4 lg:mb-0">
           <Image
-            fill
+            width={500}
+            height={500}
             src={avatar}
             alt="userImage"
             className="w-10 h-10 lg:h-20 lg:w-20 rounded-full ring-4 ring-textPrimary-900"

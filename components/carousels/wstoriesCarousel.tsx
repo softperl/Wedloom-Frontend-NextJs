@@ -16,14 +16,15 @@ const WstoriesCarousel = ({ img, name, summary, date }: any) => {
   const [showShare, setShowShare] = useState(false);
 
   return (
-    <div className="bg-white shadow-md group">
+    <div className="bg-white shadow-md group h-full">
       <div className="wStoriesCarousel__content w-full">
         <div className="wrapper w-full rounded-md">
           <div
             onClick={() => router.push("/blog")}
             className="wStoriesCarousel__img w-full overflow-hidden">
             <Image
-              fill
+              width={500}
+              height={500}
               src={img}
               alt=""
               className="w-full h-56 group-hover:scale-125 duration-200 rounded-lg"

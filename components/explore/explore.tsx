@@ -5,7 +5,7 @@ const Explore = () => {
   return (
     <section className="md:py-14">
       <div className="container mx-auto md:px-20 px-4">
-        <Image fill src="/Bridaloutfit.webp" alt="" />
+        <Image width={500} height={500} src="/Bridaloutfit.webp" alt="" />
       </div>
     </section>
   );

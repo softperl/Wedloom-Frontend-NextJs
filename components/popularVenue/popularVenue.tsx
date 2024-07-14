@@ -4,6 +4,7 @@ import PvenueCarousel from "@/components/carousels/pvenueCarousel";
 import SectionHeader from "@/components/sectionHeader";
 //@ts-ignore
 import { Navigation } from "swiper";
+//@ts-ignore
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const PopularVenue = () => {

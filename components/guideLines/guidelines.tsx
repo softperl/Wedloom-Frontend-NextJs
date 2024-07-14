@@ -26,13 +26,15 @@ const Guidelines = () => {
           {/* Images */}
           <div className="flex gap-8">
             <Image
-              fill
+              width={500}
+              height={500}
               src={"/photo_horizontal.webp"}
               alt=""
               className="w-64 max-h-64"
             />
             <Image
-              fill
+              width={500}
+              height={500}
               src={"/photo_vertical.webp"}
               alt=""
               className="w-64 h-72"

@@ -10,7 +10,8 @@ const ProjectAlbumView = () => {
         <div className="project__sample_album">
           <div className="image relative">
             <Image
-              fill
+              width={500}
+              height={500}
               src="https://images.pexels.com/photos/2102765/pexels-photo-2102765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               alt=""
               className="w-full h-56 brightness-50"
@@ -29,7 +30,8 @@ const ProjectAlbumView = () => {
           <Link href="albumview">
             <div className="image relative">
               <Image
-                fill
+                width={500}
+                height={500}
                 src="https://images.pexels.com/photos/2377658/pexels-photo-2377658.jpeg?auto=compress&cs=tinysrgb&w=1600"
                 alt=""
                 className="w-full h-56 brightness-50"
@@ -49,7 +51,8 @@ const ProjectAlbumView = () => {
           <Link href="albumview">
             <div className="image relative">
               <Image
-                fill
+                width={500}
+                height={500}
                 src="https://images.pexels.com/photos/2421190/pexels-photo-2421190.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 alt=""
                 className="w-full h-56 brightness-50"
@@ -70,7 +73,8 @@ const ProjectAlbumView = () => {
           <Link href="albumview">
             <div className="image relative">
               <Image
-                fill
+                width={500}
+                height={500}
                 src="https://images.pexels.com/photos/2124728/pexels-photo-2124728.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 alt=""
                 className="w-full h-56 brightness-50"

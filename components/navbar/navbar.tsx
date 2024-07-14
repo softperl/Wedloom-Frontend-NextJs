@@ -184,7 +184,8 @@ const Navbar = () => {
                 className="flex items-center gap-2 cursor-pointer"
                 onClick={() => setProfilePopup(!profilePopup)}>
                 <Image
-                  fill
+                  width={500}
+                  height={500}
                   src={avatar}
                   alt="avatar"
                   className="w-10 h-10 rounded-full object-cover"
@@ -201,7 +202,8 @@ const Navbar = () => {
                       {/* Image */}
                       <div className="w-4/12">
                         <Image
-                          fill
+                          width={500}
+                          height={500}
                           src={avatar}
                           alt="avatar"
                           className="w-10 h-10 rounded-full object-cover"
@@ -306,12 +308,14 @@ const Navbar = () => {
                 <div className="flex gap-2 items-center justify-between">
                   {/* Image */}
                   <div className="w-4/12">
-                    <Image
-                      fill
-                      src="https://pickaface.net/gallery/avatar/unr_handsomeboy_180407_1616_z233f.png"
-                      alt="avatar"
-                      className="w-10 h-10 rounded-full object-cover"
-                    />
+                    <div className="relative w-10 h-10">
+                      <Image
+                        fill
+                        src="https://pickaface.net/gallery/avatar/unr_handsomeboy_180407_1616_z233f.png"
+                        alt="avatar"
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
+                    </div>
                   </div>
 
                   <div className="w-full">

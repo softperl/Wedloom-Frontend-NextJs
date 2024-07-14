@@ -7,7 +7,8 @@ const PsearchCarousel = ({ img, text }: { img: string; text: string }) => {
       <div className="psearchCarousel__content w-full d-flex justify-between items-center">
         <div className="pSearch__img overflow-hidden">
           <Image
-            fill
+            width={500}
+            height={500}
             src={img}
             alt=""
             className="lg:w-full hover:scale-125 duration-200 rounded-lg"

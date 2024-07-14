@@ -24,7 +24,8 @@ const UserLoveCard = ({
         {/* Image */}
         <div className="m-2 lg:m-4">
           <Image
-            fill
+            width={500}
+            height={500}
             src={image}
             alt=""
             className="h-[300px] lg:h-[500px] w-full lg:w-6/12 object-cover rounded-md mx-auto"
@@ -34,7 +35,8 @@ const UserLoveCard = ({
         {/* Author */}
         <div className="mx-4 mt-6 mb-4 flex items-center gap-4">
           <Image
-            fill
+            width={500}
+            height={500}
             src={authorimg}
             alt="avatar"
             className="w-10 h-10 object-cover rounded-full"

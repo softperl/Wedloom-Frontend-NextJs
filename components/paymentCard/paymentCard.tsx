@@ -65,7 +65,7 @@ const PaymentCard = () => {
           </div>
         </form>
         <div className="w-full">
-          <Image fill src={"/payment.webp"} alt="" />
+          <Image width={500} height={500} src={"/payment.webp"} alt="" />
         </div>
       </div>
 

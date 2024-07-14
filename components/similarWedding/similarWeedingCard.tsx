@@ -23,7 +23,8 @@ const SimilarWeedingCard = ({
         <div className="wrapper w-full rounded-md">
           <div className="FvendrosCarousel__img w-full overflow-hidden relative">
             <Image
-              fill
+              width={500}
+              height={500}
               src={image}
               alt=""
               className="w-full h-40 group-hover:scale-125 duration-200 rounded-md"
@@ -36,7 +37,8 @@ const SimilarWeedingCard = ({
                 <p className="text-base font-bold">{name}</p>
                 <span>
                   <Image
-                    fill
+                    width={500}
+                    height={500}
                     src="https://imgs.search.brave.com/dU95yB3CF6HwwAiOFaBuXbHOiC_wnFzcAEHhdMB6UpM/rs:fit:800:800:1/g:ce/aHR0cHM6Ly9mcmVl/cG5naW1nLmNvbS9k/b3dubG9hZC9zb2Np/YWxfbWVkaWEvNzQy/NjktdmVyaWZpZWQt/aW5zdGFncmFtLWlj/b25zLW1lZGlhLXN5/bWJvbC1jb21wdXRl/ci1zb2NpYWwucG5n"
                     alt=""
                     className="w-6"

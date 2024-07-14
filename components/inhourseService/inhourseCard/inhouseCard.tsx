@@ -7,7 +7,8 @@ const InhouseCard = ({ image, title, subtitle }: any) => {
       <div className="inhouseCard__container text-center">
         <div className="image w-full overflow-hidden">
           <Image
-            fill
+            width={500}
+            height={500}
             src={image}
             alt=""
             className="h-52 w-full group-hover:scale-125 duration-200 rounded-lg"

@@ -143,12 +143,13 @@ const Footer = () => {
             </div>
             <div className="footger__contact__right lg:items-center w-full lg:w-5/12 flex flex-col md:justify-start justify-center items-center">
               <p className="font-bold mb-4">Get The (Site Name) App</p>
-              <div className="playstore__image">
+              <div className="">
                 <Image
-                  fill
+                  width={100}
+                  height={100}
                   src="https://logodix.com/logo/2004164.png"
                   alt=""
-                  className="w-44 cursor-pointer"
+                  className="w-44 h-28 cursor-pointer object-contain"
                 />
               </div>
             </div>

@@ -14,7 +14,13 @@ const WeeddingContentCard = ({
     <div className="text-center flex flex-col justify-center items-center">
       {/* Image */}
       <div>
-        <Image fill src={img} alt="mail_icon" className="w-12 lg:w-14" />
+        <Image
+          width={500}
+          height={500}
+          src={img}
+          alt="mail_icon"
+          className="w-12 lg:w-14"
+        />
       </div>
       {/* Title */}
       <div className="my-3">
