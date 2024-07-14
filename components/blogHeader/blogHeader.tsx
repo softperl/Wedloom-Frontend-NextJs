@@ -1,4 +1,5 @@
 "use client";
+
 import { usePathname } from "next/navigation";
 import React from "react";
 import { BiLogoFacebook, BiLogoTwitter } from "react-icons/bi";
@@ -20,8 +21,7 @@ const BlogHeader = ({ post }: any) => {
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-      }}
-    >
+      }}>
       <div className="blog_header_container container mx-auto lg:px-20 h-full">
         <div className="heading flex justify-end lg:flex-row flex-col w-full items-end lg:justify-between h-full text-white pb-8">
           <div className="right w-full">
@@ -44,8 +44,7 @@ const BlogHeader = ({ post }: any) => {
                 <a
                   href={`https://www.facebook.com/share.php?u=${pageLink}`}
                   target="_blank"
-                  rel="noreferrer"
-                >
+                  rel="noreferrer">
                   {" "}
                   <BiLogoFacebook className="text-xl" />
                 </a>
@@ -55,8 +54,7 @@ const BlogHeader = ({ post }: any) => {
                 <a
                   href={`https://twitter.com/share?url=${pageLink}`}
                   target="_blank"
-                  rel="noreferrer"
-                >
+                  rel="noreferrer">
                   {" "}
                   <BiLogoTwitter className="text-xl" />
                 </a>
@@ -64,8 +62,7 @@ const BlogHeader = ({ post }: any) => {
 
               <div
                 className="px-3 py-1 flex items-center justify-center bg-gray-500 w-max cursor-pointer"
-                onClick={copyLink}
-              >
+                onClick={copyLink}>
                 <span>
                   <FaShareAlt className="text-xl" />
                 </span>
