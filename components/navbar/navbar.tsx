@@ -27,6 +27,7 @@ import {
 import { FaHand, FaHeartPulse, FaPallet, FaXmark } from "react-icons/fa6";
 import { cn } from "@/lib/utils";
 import useUi from "@/lib/hooks/useUi";
+import Image from "next/image";
 
 const Navbar = () => {
   const [showPop, setShowPop] = useState(false);
@@ -182,7 +183,8 @@ const Navbar = () => {
               <div
                 className="flex items-center gap-2 cursor-pointer"
                 onClick={() => setProfilePopup(!profilePopup)}>
-                <img
+                <Image
+                  fill
                   src={avatar}
                   alt="avatar"
                   className="w-10 h-10 rounded-full object-cover"
@@ -198,7 +200,8 @@ const Navbar = () => {
                     <div className="bg-carouselBG-900 p-2 flex gap-2 items-center justify-between">
                       {/* Image */}
                       <div className="w-4/12">
-                        <img
+                        <Image
+                          fill
                           src={avatar}
                           alt="avatar"
                           className="w-10 h-10 rounded-full object-cover"
@@ -303,7 +306,8 @@ const Navbar = () => {
                 <div className="flex gap-2 items-center justify-between">
                   {/* Image */}
                   <div className="w-4/12">
-                    <img
+                    <Image
+                      fill
                       src="https://pickaface.net/gallery/avatar/unr_handsomeboy_180407_1616_z233f.png"
                       alt="avatar"
                       className="w-10 h-10 rounded-full object-cover"

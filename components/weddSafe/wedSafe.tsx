@@ -3,6 +3,7 @@ import React from "react";
 import WedSafeCarousel from "@/components/carousels/wedSafeCarousel";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FaChevronRight } from "react-icons/fa";
+import Image from "next/image";
 
 const WedSafe = () => {
   return (
@@ -13,7 +14,8 @@ const WedSafe = () => {
           <div className="wed__safe__header flex justify-between items-center my-3">
             <div className="wed__safe__header__left w-full">
               <div className="sheild__image flex items-center mb-2">
-                <img
+                <Image
+                  fill
                   className="md:w-8 w-4"
                   src="./wedsafe_icon.webp"
                   alt="shield__icon"

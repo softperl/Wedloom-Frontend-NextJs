@@ -5,6 +5,7 @@ import Data from "@/components/data/blogData";
 import Pagination from "@/components/pagination/pagination";
 import Link from "next/link";
 import { BiSearch } from "react-icons/bi";
+import Image from "next/image";
 
 const BlogCard = ({ posts, categories }: any) => {
   const [blogs, setBlogs] = useState(Data);
@@ -75,13 +76,13 @@ const BlogCard = ({ posts, categories }: any) => {
               onClick={() => {
                 setBlogs(Data);
                 clickedCategoryAll();
-              }}
-            >
+              }}>
               All
             </button>
 
-            {categories.map((cat: any) => (
+            {categories.map((cat: any, i: number) => (
               <button
+                key={i}
                 className={`${
                   active3
                     ? " bg-textPrimary-900 text-white"
@@ -90,8 +91,7 @@ const BlogCard = ({ posts, categories }: any) => {
                 onClick={() => {
                   filteredItems("category3");
                   clickedCategory3();
-                }}
-              >
+                }}>
                 {cat.name}
               </button>
             ))}
@@ -124,13 +124,13 @@ const BlogCard = ({ posts, categories }: any) => {
               return (
                 <div
                   className="lg:w-4/12 md:w-[48%] w-full lg:px-4 py-4"
-                  key={id}
-                >
+                  key={id}>
                   <div className="blog_card_content text-center border border-textPrimary-900 rounded-md">
                     {/* Blog Image */}
                     <div className="image">
                       {thumbnail ? (
-                        <img
+                        <Image
+                          fill
                           src={thumbnail}
                           alt="blog_Image"
                           className="h-64 rounded-md"

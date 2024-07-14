@@ -4,6 +4,7 @@ import { NumberWithCommas } from "@/lib/utils";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa6";
+import Image from "next/image";
 
 const MenuContent = () => {
   // States
@@ -149,7 +150,8 @@ const MenuContent = () => {
           <div className="flex lg:items-start items-end gap-2 w-full px-4 lg:w-[40%] flex-col-reverse">
             <div className="w-full h-max bg-white text-black px-6 py-4 rounded-md">
               <div className="flex justify-center mb-4">
-                <img
+                <Image
+                  fill
                   src="https://www.svgrepo.com/show/54204/restaurant.svg"
                   alt=""
                   className="w-14 lg:w-16"

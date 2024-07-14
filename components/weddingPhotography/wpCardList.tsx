@@ -1,5 +1,6 @@
 "use client";
 import Tippy from "@tippyjs/react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -26,7 +27,8 @@ const WpCardList = ({
         <div className="wpCard__list_content flex flex-wrap items-center">
           {/* Image Div */}
           <div className="wpCardlist__image w-5/12 relative">
-            <img
+            <Image
+              fill
               src={image}
               alt="photographer_image"
               className="h-60 w-full rounded-md"
@@ -36,7 +38,8 @@ const WpCardList = ({
                 theme="tomato"
                 content={<div className="w-64">{tooltip1}</div>}
                 placement={"right"}>
-                <img
+                <Image
+                  fill
                   src={"/handpicked.png"}
                   alt="handpic tooltip"
                   className="w-28 absolute top-0 left-0"
@@ -52,7 +55,7 @@ const WpCardList = ({
                 <h5 className="text-xl font-bold text-textSecondary-900">
                   {name}
                 </h5>
-                <img src={"/blue.webp"} alt="" className="w-5 h-5" />
+                <Image fill src={"/blue.webp"} alt="" className="w-5 h-5" />
               </div>
 
               {/* Reviews */}

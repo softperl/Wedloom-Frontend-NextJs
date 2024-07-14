@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React from "react";
 import { useState } from "react";
 import { FaTrash } from "react-icons/fa6";
@@ -146,7 +147,7 @@ const Banquets = () => {
             {/* Content */}
             <div className="w-full lg:max-w-[400px] h-max bg-white text-black px-6 py-4 rounded-md">
               <div className="flex justify-center mb-4">
-                <img
+                <Image
                   src="https://www.svgrepo.com/show/16895/wedding-cake.svg"
                   alt=""
                   className="w-14 lg:w-16"

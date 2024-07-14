@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const UserLoveCard = ({
@@ -22,7 +23,8 @@ const UserLoveCard = ({
       <div className="m-2 lg:m-8 border border-paginationBg-900 rounded-sm">
         {/* Image */}
         <div className="m-2 lg:m-4">
-          <img
+          <Image
+            fill
             src={image}
             alt=""
             className="h-[300px] lg:h-[500px] w-full lg:w-6/12 object-cover rounded-md mx-auto"
@@ -31,7 +33,8 @@ const UserLoveCard = ({
 
         {/* Author */}
         <div className="mx-4 mt-6 mb-4 flex items-center gap-4">
-          <img
+          <Image
+            fill
             src={authorimg}
             alt="avatar"
             className="w-10 h-10 object-cover rounded-full"

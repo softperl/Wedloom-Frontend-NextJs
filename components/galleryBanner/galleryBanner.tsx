@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useState } from "react";
@@ -25,7 +26,8 @@ const GalleryBanner = ({
         {/* Left */}
 
         <div className="gB_left w-full lg:w-9/12 h-full relative">
-          <img
+          <Image
+            fill
             src={bannerPhoto}
             alt="galleryBanner"
             className="w-full h-full"
@@ -116,17 +118,32 @@ const GalleryBanner = ({
             </div>
             <div className="image_div flex gap-2 mt-4">
               <div className="image1 w-full h-24">
-                <img src={album1} alt="" className="h-full w-full rounded-md" />
+                <Image
+                  fill
+                  src={album1}
+                  alt=""
+                  className="h-full w-full rounded-md"
+                />
               </div>
               <div className="image2 w-full h-24">
-                <img src={album2} alt="" className="h-full w-full rounded-md" />
+                <Image
+                  fill
+                  src={album2}
+                  alt=""
+                  className="h-full w-full rounded-md"
+                />
               </div>
               <div className="image3 w-full h-24">
-                <img src={album3} alt="" className="h-full w-full rounded-md" />
+                <Image
+                  fill
+                  src={album3}
+                  alt=""
+                  className="h-full w-full rounded-md"
+                />
               </div>
               <div className="image4 w-full h-24 relative">
                 <Link href="/album">
-                  <img
+                  <Image
                     src={album4}
                     alt=""
                     className="h-full w-full rounded-md"

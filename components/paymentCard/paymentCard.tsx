@@ -2,6 +2,7 @@
 import { useState } from "react";
 import CardPaymentBox from "@/components/paymentCard/cardPaymentBox";
 import LocalPaymentBoxCard from "@/components/paymentCard/localPaymentBoxCard";
+import Image from "next/image";
 
 const PaymentCard = () => {
   // State
@@ -64,7 +65,7 @@ const PaymentCard = () => {
           </div>
         </form>
         <div className="w-full">
-          <img src={"/payment.webp"} alt="" />
+          <Image fill src={"/payment.webp"} alt="" />
         </div>
       </div>
 

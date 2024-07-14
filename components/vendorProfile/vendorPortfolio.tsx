@@ -53,8 +53,9 @@ const VendorPortfolio = () => {
                 }`}
                 htmlFor="certified">
                 I certify that the work uploaded is my own / is the copyright of
-                our firm. I understand that any work found to be someone else's
-                would be removed immediately, and action could be taken.
+                our firm. I understand that any work found to be someone
+                else&apos;s would be removed immediately, and action could be
+                taken.
               </label>
             </div>
           </div>

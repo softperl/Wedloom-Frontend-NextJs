@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const WeeddingContentCard = ({
@@ -13,7 +14,7 @@ const WeeddingContentCard = ({
     <div className="text-center flex flex-col justify-center items-center">
       {/* Image */}
       <div>
-        <img src={img} alt="mail_icon" className="w-12 lg:w-14" />
+        <Image fill src={img} alt="mail_icon" className="w-12 lg:w-14" />
       </div>
       {/* Title */}
       <div className="my-3">

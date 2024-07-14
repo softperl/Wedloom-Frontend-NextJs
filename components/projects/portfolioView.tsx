@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -28,7 +29,8 @@ const PortfolioView = () => {
           return (
             <div key={i} className="project__sample__image">
               <Link href={`/gallery/${item?.id}`}>
-                <img
+                <Image
+                  fill
                   src={item?.src}
                   alt={item?.id}
                   className="h-40 rounded-md cursor-pointer"

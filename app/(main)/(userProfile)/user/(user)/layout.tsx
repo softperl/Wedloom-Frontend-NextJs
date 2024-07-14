@@ -1,4 +1,5 @@
 import UserRightCard from "@/components/userProfile/userRightCard";
+import Image from "next/image";
 import Link from "next/link";
 import { MdCall } from "react-icons/md";
 
@@ -16,7 +17,8 @@ export default function RootLayout({
 url("https://onehorizonproductions.com/wp-content/uploads/2022/03/Alfisha-Fahad-habib-Day-2-3-One-Horizon-Productions-52.jpg")`,
         }}>
         {/* Black Overlay */}
-        <img
+        <Image
+          fill
           src="https://images.wedmegood.com/images/image_gradient.png"
           alt=""
           className="w-full h-full absolute inset-0 filter blur-sm"

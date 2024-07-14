@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const CustomarMessage = ({ text, img }: { text: string; img: string }) => {
@@ -5,7 +6,8 @@ const CustomarMessage = ({ text, img }: { text: string; img: string }) => {
     <div className="mt-4 flex gap-2 md:gap-0">
       {/* Avatar */}
       <div className="w-max lg:w-1/12">
-        <img
+        <Image
+          fill
           src={img}
           alt="profile"
           className="lg:w-12 lg:h-12 w-8 h-8 rounded-full object-cover"

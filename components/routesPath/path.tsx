@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 const Path = ({ first, second, third, fourth, fifth }: any) => {

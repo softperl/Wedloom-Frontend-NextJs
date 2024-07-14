@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -18,7 +19,8 @@ const LatestReview = ({
     <div className="latest__review bg-white shadow-lg lg:shadow-md p-8 mb-8">
       <div className="latest__review_card flex flex-wrap lg:flex-nowrap">
         <div className="review__image lg:w-1/12 w-full flex justify-center mb-4 lg:mb-0">
-          <img
+          <Image
+            fill
             src={avatar}
             alt="userImage"
             className="w-10 h-10 lg:h-20 lg:w-20 rounded-full ring-4 ring-textPrimary-900"

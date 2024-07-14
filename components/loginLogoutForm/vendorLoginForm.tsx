@@ -386,7 +386,7 @@ const LoginForm = () => {
       <div className="w-full">
         <div className="content flex justify-center items-center gap-2">
           <span className="text-textSecondary-900 font-medium">
-            Don't have an business account?
+            Don&apos;t have an business account?
           </span>
           <Link href="/vendor-signup">
             <span className="text-textPrimary-900 font-medium">Sign Up</span>

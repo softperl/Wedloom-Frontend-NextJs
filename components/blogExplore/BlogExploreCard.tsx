@@ -1,10 +1,12 @@
+import Image from "next/image";
 import React from "react";
 
 const BlogExploreCard = ({ image, upperText, downText }: any) => {
   return (
     <div className="cards lg:w-full w-9/12">
       <div className="image relative">
-        <img
+        <Image
+          fill
           src={image}
           alt={upperText}
           className="brightness-50 w-full lg:h-[425px] h-[350px]"

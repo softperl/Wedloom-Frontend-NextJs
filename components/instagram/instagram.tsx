@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 const Instagram = () => {
@@ -7,8 +8,7 @@ const Instagram = () => {
         className="instagram py-16 flex justify-center text-center text-white"
         style={{
           backgroundImage: `radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),url('./bg-instagram.webp')`,
-        }}
-      >
+        }}>
         <div className="instagram_content">
           <h1 className="text-3xl font-bold">More Inspiration on Instagram</h1>
           <p className="text-3xl font-bold my-4">@siteName</p>

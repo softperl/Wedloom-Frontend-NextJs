@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const Guidelines = () => {
   return (
     <div className="px-[50px] py-4">
@@ -14,7 +16,7 @@ const Guidelines = () => {
 
       {/* Don't */}
       <div className="mt-4">
-        <h5 className="text-textSecondary-900 font-semibold">Don't</h5>
+        <h5 className="text-textSecondary-900 font-semibold">Don&apos;t</h5>
         {/* Dont Content */}
         <div className="pl-8 my-2 flex flex-col gap-4">
           <li className="text-textSecondary-900 text-sm font-medium">
@@ -23,12 +25,18 @@ const Guidelines = () => {
           </li>
           {/* Images */}
           <div className="flex gap-8">
-            <img
+            <Image
+              fill
               src={"/photo_horizontal.webp"}
               alt=""
               className="w-64 max-h-64"
             />
-            <img src={"/photo_vertical.webp"} alt="" className="w-64 h-72" />
+            <Image
+              fill
+              src={"/photo_vertical.webp"}
+              alt=""
+              className="w-64 h-72"
+            />
           </div>
 
           <li className="text-textSecondary-900 text-sm font-medium">
@@ -47,7 +55,7 @@ const Guidelines = () => {
 
       {/* Do's */}
       <div className="mt-8">
-        <h5 className="text-textSecondary-900 font-semibold">Do's</h5>
+        <h5 className="text-textSecondary-900 font-semibold">Do&apos;s</h5>
         {/* Dont Content */}
         <div className="pl-8 my-2 flex flex-col gap-4">
           <li className="text-textSecondary-900 text-sm font-medium">

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const PvenueCarousel = ({
@@ -17,7 +18,12 @@ const PvenueCarousel = ({
     <div className="popular lg:h-36 h-full mb-4">
       <div className="popular__content flex justify-between gap-6">
         <div className="image w-full">
-          <img src={img} alt="popular" className="h-full w-full rounded-md" />
+          <Image
+            fill
+            src={img}
+            alt="popular"
+            className="h-full w-full rounded-md"
+          />
         </div>
         <div className="popular__content w-full flex flex-col">
           <h5 className="text-textSecondary-900 font-bold">{name}</h5>

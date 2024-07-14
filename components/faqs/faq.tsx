@@ -15,10 +15,10 @@ const Faq = () => {
               Best Photographers in Lahore
             </h4>
             <p className="lg:text-base text-sm leading-7">
-              Well Lahorekars! if you're having a Lahore Wedding (Whatever you
-              wanna call it) and you are looking for wedding photographers, you
-              will be spoilt for choice, trust us on this!. Lahore, the city of
-              dreams and aspirations is a host to so many talented wedding
+              Well Lahorekars! if you&apos;re having a Lahore Wedding (Whatever
+              you wanna call it) and you are looking for wedding photographers,
+              you will be spoilt for choice, trust us on this!. Lahore, the city
+              of dreams and aspirations is a host to so many talented wedding
               photography professionals - be it freelancers, studio or candid
               specialists or amazing cinematographers in Bombay. To make it easy
               for you, (Site Name) has put together the best wedding photography
@@ -180,9 +180,10 @@ const Faq = () => {
                     Cinematography-{" "}
                   </strong>{" "}
                   The concept is akin to a mini Bollywood movie where the couple
-                  is the main lead. There's music, dance and heartfelt messages
-                  for the bride and groom. Cinematography is the epitome of
-                  perfect wedding videography and we couldn't agree more!
+                  is the main lead. There&apos;s music, dance and heartfelt
+                  messages for the bride and groom. Cinematography is the
+                  epitome of perfect wedding videography and we couldn&apos;t
+                  agree more!
                 </p>
               </li>
               <li className="mb-2">
@@ -203,8 +204,8 @@ const Faq = () => {
                     Studio photography-{" "}
                   </strong>{" "}
                   As the name suggests, these wedding pictures are clicked in
-                  the artist's studio with lighting, camera equipment, white
-                  backgrounds etc.
+                  the artist&apos;s studio with lighting, camera equipment,
+                  white backgrounds etc.
                 </p>
               </li>
               <li className="mb-2">

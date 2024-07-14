@@ -43,7 +43,8 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
                     theme="tomato"
                     content={<div className="w-64">Tooltip</div>}
                     placement={"right"}>
-                    <img
+                    <Image
+                      fill
                       src={"/handpicked.png"}
                       alt="handpic tooltip"
                       className="w-32 absolute lg:top-0 top-2 left-0"
@@ -64,7 +65,12 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
 
                       <div className="blue_badge">
                         <span>
-                          <img src={"/blue.webp"} alt="" className="w-5" />
+                          <Image
+                            fill
+                            src={"/blue.webp"}
+                            alt=""
+                            className="w-5"
+                          />
                         </span>
                       </div>
                     </div>

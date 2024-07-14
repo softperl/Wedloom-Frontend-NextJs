@@ -163,6 +163,7 @@ const MessageSidebar = () => {
         {senderData?.map((data) => {
           return (
             <Link
+              key={data?.id}
               href={`${data?.name?.toLowerCase()?.split(" ")?.splice(0, 1)}`}>
               <MessageSender
                 img={data?.img}

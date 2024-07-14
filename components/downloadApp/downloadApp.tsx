@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React, { useState } from "react";
 import { FaHeart, FaRegLightbulb } from "react-icons/fa";
 import { FaAndroid, FaApple, FaBasketShopping } from "react-icons/fa6";
@@ -35,7 +36,7 @@ const DownloadApp = () => {
                 </p>
                 <div className="donwload__input flex items-center md:justify-start justify-center gap-3 my-8">
                   <div className="flag border-b-2">
-                    <img src="./india.png" alt="flag" className="w-6" />
+                    <Image fill src="./india.png" alt="flag" className="w-6" />
                   </div>
                   <div className="input__fields border-b-2">
                     <input
@@ -60,7 +61,8 @@ const DownloadApp = () => {
           </div>
           <div className="download__right w-full md:w-6/12 flex md:justify-end justify-center">
             <div className="download__right__img">
-              <img
+              <Image
+                fill
                 src="https://image.wedmegood.com/resized/500X/images/banner/download_app.jpg"
                 alt="download_Image"
                 className="w-44"

@@ -1,7 +1,9 @@
+import Image from "next/image";
+
 const GetBackMsg = () => {
   return (
     <div className="flex flex-col justify-center items-center h-[75vh]">
-      <img src={"/messageIcon.png"} alt="" className="w-44" />
+      <Image fill src={"/messageIcon.png"} alt="" className="w-44" />
       <h1 className="text-textSecondary-900 text-2xl font-bold py-2">
         Pick up where you left off
       </h1>

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import "./wCategorySingle.css";
 import { BiChevronDown } from "react-icons/bi";
+import Image from "next/image";
 
 const WcategorySingle = ({
   bgColor,
@@ -35,7 +36,7 @@ const WcategorySingle = ({
             <span className="text-sm">{subtitle}</span>
           </div>
           <div className="content__right w-full">
-            <img src={image} alt="" className="w-full h-32" />
+            <Image fill src={image} alt="" className="w-full h-32" />
           </div>
         </div>
         {toggle && (

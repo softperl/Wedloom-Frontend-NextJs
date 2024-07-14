@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -39,8 +40,8 @@ const PhotoBudgetCard = ({
             <div className="budget__friendly w-full flex flex-col items-center justify-center mb-4 flex-wrap">
               <Link href="/budgetphotographer/id">
                 <div className="budgetFriendly__image">
-                  <img
-                    src={image1}
+                  <Image
+                    src={image1 || ""}
                     alt="budgetFriendlt__Image"
                     className={`w-16 h-16 ${
                       circle ? "rounded-full" : "rounded-lg"
@@ -56,8 +57,8 @@ const PhotoBudgetCard = ({
             <div className="valueformoney w-full flex text-center flex-col items-center justify-center mb-4">
               <Link href="/budgetphotographer/id">
                 <div className="valueformoney__image">
-                  <img
-                    src={image2}
+                  <Image
+                    src={image2 || ""}
                     alt="budgetFriendlt__Image"
                     className={`w-16 h-16 ${
                       circle ? "rounded-full" : "rounded-lg"
@@ -77,8 +78,8 @@ const PhotoBudgetCard = ({
             <div className="budget__friendly w-full flex text-center flex-col items-center justify-center mb-4">
               <Link href="/budgetphotographer/id">
                 <div className="budgetFriendly__image">
-                  <img
-                    src={image3}
+                  <Image
+                    src={image3 || ""}
                     alt="budgetFriendlt__Image"
                     className={`w-16 h-16 ${
                       circle ? "rounded-full" : "rounded-lg"
@@ -95,8 +96,9 @@ const PhotoBudgetCard = ({
             <div className="luxury__pack w-full text-center flex flex-col items-center justify-center mb-4">
               <Link href="/budgetphotographer/id">
                 <div className="budgetFriendly__image">
-                  <img
-                    src={image4}
+                  <Image
+                    fill
+                    src={image4 || ""}
                     alt="budgetFriendlt__Image"
                     className={`w-16 h-16 ${
                       circle ? "rounded-full" : "rounded-lg"

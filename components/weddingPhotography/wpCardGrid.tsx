@@ -5,6 +5,7 @@ import "tippy.js/dist/tippy.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaLocationDot, FaStar } from "react-icons/fa6";
+import Image from "next/image";
 
 const WpCardGrid = ({
   img,
@@ -25,7 +26,8 @@ const WpCardGrid = ({
           {/* Image */}
 
           <div className="image relative">
-            <img
+            <Image
+              fill
               src={img}
               alt="weeding__photographer"
               className="w-full h-56 rounded-md"
@@ -35,7 +37,8 @@ const WpCardGrid = ({
                 theme="tomato"
                 content={<div className="w-64">{tooltip1}</div>}
                 placement={"right"}>
-                <img
+                <Image
+                  fill
                   src={"/handpicked.png"}
                   alt="handpic tooltip"
                   className="w-28 absolute top-0 left-0"
@@ -47,7 +50,8 @@ const WpCardGrid = ({
                 theme="tomato"
                 content={<div className="w-64">{tooltip2}</div>}
                 placement={"right"}>
-                <img
+                <Image
+                  fill
                   src={"/tooltip.png"}
                   alt="handpic tooltip"
                   className="w-6 absolute bottom-4 right-2"
@@ -68,7 +72,7 @@ const WpCardGrid = ({
               <h5 className="text-lg font-bold text-textSecondary-900">
                 {name}
               </h5>
-              <img src={"/blue.webp"} alt="" className="w-5 h-5" />
+              <Image fill src={"/blue.webp"} alt="" className="w-5 h-5" />
             </div>
             {/* Location */}
             <div className="location text-sm text-dateColor-900 my-1">

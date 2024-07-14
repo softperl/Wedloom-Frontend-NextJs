@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import React from "react";
 
 const AuthPhotos = ({
@@ -11,7 +12,7 @@ const AuthPhotos = ({
   return (
     <div className="w-full">
       <div className="bg-white w-full">
-        <img src={image} alt="banner" className={cn(className)} />
+        <Image fill src={image} alt="banner" className={cn(className)} />
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 export default async function page() {
   let privacy = null;
 
+  console.log(privacy);
   try {
     const data = await fetchFn(`/site/privacy`, {
       method: "GET",
@@ -14,5 +15,10 @@ export default async function page() {
     console.log(error);
     notFound();
   }
-  return <></>;
+  return (
+    <>
+      <h1>{privacy?.title}</h1>
+      <p>{privacy?.content}</p>
+    </>
+  );
 }

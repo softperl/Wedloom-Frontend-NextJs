@@ -50,7 +50,7 @@ const VendorSearch = () => {
               <div className="vendor__container w-full justify-center flex items-center">
                 {/* Text */}
                 <div className="text w-max mr-5">
-                  <span className="text-xl">I'm Looking For</span>
+                  <span className="text-xl">I&apos;m Looking For</span>
                 </div>
                 {/* Input Dropdown */}
                 <div className="vendor__container__wrapper relative w-3/12 border-b border-textPrimary-900">

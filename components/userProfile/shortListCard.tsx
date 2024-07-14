@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaStar } from "react-icons/fa";
@@ -18,7 +19,8 @@ const ShortListCard = ({
       {/* Left Imagee */}
       <div className="md:w-[20%] w-full">
         <Link href="/photographer/profile">
-          <img
+          <Image
+            fill
             src={image}
             alt="hotel_image"
             className="w-full h-32 md:w-36 md:h-24 rounded-md"

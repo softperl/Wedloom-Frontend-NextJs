@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import ExploreHeading from "@/components/exploreHeading";
 import Link from "next/link";

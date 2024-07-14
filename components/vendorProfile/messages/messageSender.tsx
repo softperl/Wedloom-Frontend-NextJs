@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import React from "react";
 
 const MessageSender = ({
@@ -19,7 +20,7 @@ const MessageSender = ({
       )}>
       {/* Image */}
       <div className="md:w-3/12">
-        <img src={img} alt="avatar" className="w-12 h-12 rounded-full" />
+        <Image fill src={img} alt="avatar" className="w-12 h-12 rounded-full" />
       </div>
 
       {/* Author Info */}

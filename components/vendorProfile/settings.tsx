@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
@@ -23,7 +24,8 @@ const Settings = () => {
               <div className="lg:w-48 lg:h-48 w-32 h-32 rounded-full bg-slate-100 border-paginationBg-900 border overflow-hidden">
                 {file?.length === 0 && (
                   <div className="w-full h-full relative flex justify-center items-center">
-                    <img
+                    <Image
+                      fill
                       src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/User_icon-cp.png/1200px-User_icon-cp.png"
                       alt="blank_avatar"
                       className="w-20 lg:w-28 opacity-50"
@@ -32,7 +34,8 @@ const Settings = () => {
                 )}
 
                 {Array.from(file).map((img: any, i: number) => (
-                  <img
+                  <Image
+                    fill
                     key={i}
                     //@ts-ignore
                     src={img ? URL.createObjectURL(img) : null}

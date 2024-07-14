@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import { useState } from "react";
 import { FaShare, FaStar } from "react-icons/fa";
@@ -18,7 +19,8 @@ const ReviewCardWithoutReply = ({
           <div className="review_card_heading flex justify-between items-center">
             <div className="heading_left flex gap-4 w-full justify-between lg:justify-start lg:w-max">
               <div className="name_image flex items-center gap-4">
-                <img
+                <Image
+                  fill
                   src={image}
                   alt="bride_image"
                   className="w-12 lg:w-14 h-12 lg:h-14 rounded-full"

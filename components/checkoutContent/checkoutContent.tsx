@@ -4,6 +4,7 @@ import PaymentCard from "@/components/paymentCard/paymentCard";
 import { NumberWithCommas } from "@/lib/utils";
 import { useParams, useRouter } from "next/navigation";
 import Path from "@/components/routesPath/path";
+import Image from "next/image";
 
 const CheckoutContent = ({ packageName }: any) => {
   const router = useRouter();
@@ -66,7 +67,8 @@ const CheckoutContent = ({ packageName }: any) => {
               <>
                 <div className="left_main_content">
                   <div className="photographer_details flex justify-center">
-                    <img
+                    <Image
+                      fill
                       src="https://images.pexels.com/photos/1707446/pexels-photo-1707446.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                       alt=""
                       className="w-full md:h-[350px] h-[200px]"
@@ -78,7 +80,12 @@ const CheckoutContent = ({ packageName }: any) => {
                       <h2 className="text-textSecondary-900 text-xl font-semibold">
                         THE MEMORY CAPTURE
                       </h2>
-                      <img src={"/blue.webp"} alt="" className="w-5 h-5" />
+                      <Image
+                        fill
+                        src={"/blue.webp"}
+                        alt=""
+                        className="w-5 h-5"
+                      />
                     </div>
                     <div className="subtitle mt-4">
                       <p className="capitalize text-textPrimary-900 font-semibold">
@@ -289,7 +296,7 @@ const CheckoutContent = ({ packageName }: any) => {
 
                 {/* Charge */}
                 <div className="w-full text-center mt-4 mb-2 text-sm font-medium text-textPrimary-900">
-                  <p>You won't charged yet</p>
+                  <p>You won&apos;t charged yet</p>
                 </div>
               </div>
             </div>
@@ -300,7 +307,7 @@ const CheckoutContent = ({ packageName }: any) => {
                   We Accept
                 </span>
                 <div className="image">
-                  <img src={"/payment.webp"} alt="payment_img" />
+                  <Image fill src={"/payment.webp"} alt="payment_img" />
                 </div>
               </div>
             </div>

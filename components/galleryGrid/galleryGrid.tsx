@@ -5,6 +5,7 @@ import ImageData from "@/components/data/imageData";
 // Paginatio Components Import
 import Pagination from "@/components/pagination/pagination";
 import Link from "next/link";
+import Image from "next/image";
 
 const GalleryGrid = () => {
   return (
@@ -21,7 +22,8 @@ const GalleryGrid = () => {
         {ImageData.map((image) => (
           <Link key={image.id} href="/gallery">
             <div className="image lg:h-60 h-48" key={image.id}>
-              <img
+              <Image
+                fill
                 src={image.image}
                 alt="galleryItemImage"
                 className="w-full h-full rounded-md"

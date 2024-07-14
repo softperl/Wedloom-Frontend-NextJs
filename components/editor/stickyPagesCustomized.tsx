@@ -1,5 +1,4 @@
 "use client";
-import { data } from "@/app/(main)/wedding-invitations/page";
 import Path from "@/components/routesPath/path";
 import useCardDetails from "@/lib/hooks/useCardDetails";
 import useCardEditor from "@/lib/hooks/useCardEditor";
@@ -13,6 +12,79 @@ import {
 import { useState } from "react";
 import { BiX } from "react-icons/bi";
 import { Data } from "./Data";
+
+const data = [
+  {
+    id: "783",
+    name: "lorem 1",
+    img: "/poster.webp",
+  },
+  {
+    id: "9340",
+    name: "lorem 2",
+    img: "/poster2.webp",
+  },
+  {
+    id: "263",
+    name: "lorem 3",
+    img: "/poster3.webp",
+  },
+  {
+    id: "2443",
+    name: "lorem 2",
+    img: "/poster2.webp",
+  },
+  {
+    id: "827",
+    name: "lorem 1",
+    img: "/poster.webp",
+  },
+  {
+    id: "933",
+    name: "lorem 2",
+    img: "/poster2.webp",
+  },
+  {
+    id: "357",
+    name: "lorem 3",
+    img: "/poster3.webp",
+  },
+  {
+    id: "123",
+    name: "lorem 1",
+    img: "/poster.webp",
+  },
+  {
+    id: "432",
+    name: "lorem 2",
+    img: "/poster2.webp",
+  },
+  {
+    id: "367",
+    name: "lorem 3",
+    img: "/poster3.webp",
+  },
+  {
+    id: "335",
+    name: "lorem 2",
+    img: "/poster2.webp",
+  },
+  {
+    id: "889",
+    name: "lorem 1",
+    img: "/poster.webp",
+  },
+  {
+    id: "0093",
+    name: "lorem 2",
+    img: "/poster2.webp",
+  },
+  {
+    id: "8646",
+    name: "lorem 3",
+    img: "/poster3.webp",
+  },
+];
 
 export const StickyPagesCustomized = () => {
   const router = useRouter();

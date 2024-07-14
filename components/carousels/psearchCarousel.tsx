@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const PsearchCarousel = ({ img, text }: { img: string; text: string }) => {
@@ -5,7 +6,8 @@ const PsearchCarousel = ({ img, text }: { img: string; text: string }) => {
     <div className="w-full">
       <div className="psearchCarousel__content w-full d-flex justify-between items-center">
         <div className="pSearch__img overflow-hidden">
-          <img
+          <Image
+            fill
             src={img}
             alt=""
             className="lg:w-full hover:scale-125 duration-200 rounded-lg"

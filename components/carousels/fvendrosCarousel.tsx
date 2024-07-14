@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FaStar } from "react-icons/fa6";
 
 const FvendrosCarousel = ({
@@ -18,7 +19,8 @@ const FvendrosCarousel = ({
       <div className="FvendrosCarousel__content w-full">
         <div className="wrapper w-full rounded-md">
           <div className="FvendrosCarousel__img w-full overflow-hidden relative">
-            <img
+            <Image
+              fill
               src={img}
               alt=""
               className="w-full h-64 group-hover:scale-125 duration-200 rounded-md"

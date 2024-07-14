@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const InhouseCard = ({ image, title, subtitle }: any) => {
@@ -5,7 +6,8 @@ const InhouseCard = ({ image, title, subtitle }: any) => {
     <div className="inhouseCard bg-white p-4 md:w-6/12 w-full rounded-lg shadow-xl group">
       <div className="inhouseCard__container text-center">
         <div className="image w-full overflow-hidden">
-          <img
+          <Image
+            fill
             src={image}
             alt=""
             className="h-52 w-full group-hover:scale-125 duration-200 rounded-lg"

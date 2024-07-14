@@ -1,3 +1,5 @@
+"use client";
+import Image from "next/image";
 import React from "react";
 
 const BlogBody = () => {
@@ -59,7 +61,8 @@ const BlogBody = () => {
           {/* Image Div */}
 
           <div className="w-full">
-            <img
+            <Image
+              fill
               src="https://images.pexels.com/photos/2857306/pexels-photo-2857306.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               alt=""
               className="h-96"
@@ -129,8 +132,7 @@ const BlogBody = () => {
                 title="32Stitches & CHENDA, Harley Bird - Freedom [NCS Release]"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+                allowFullScreen></iframe>
             </div>
             <div className="project__video w-full">
               <iframe
@@ -139,8 +141,7 @@ const BlogBody = () => {
                 title="32Stitches & CHENDA, Harley Bird - Freedom [NCS Release]"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+                allowFullScreen></iframe>
             </div>
           </div>
 

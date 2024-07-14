@@ -1,5 +1,6 @@
 "use client";
 import useUi from "@/lib/hooks/useUi";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import {
@@ -143,7 +144,8 @@ const Footer = () => {
             <div className="footger__contact__right lg:items-center w-full lg:w-5/12 flex flex-col md:justify-start justify-center items-center">
               <p className="font-bold mb-4">Get The (Site Name) App</p>
               <div className="playstore__image">
-                <img
+                <Image
+                  fill
                   src="https://logodix.com/logo/2004164.png"
                   alt=""
                   className="w-44 cursor-pointer"

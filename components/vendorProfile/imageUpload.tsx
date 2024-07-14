@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import {
@@ -68,7 +69,8 @@ const ImageUpload = () => {
                 <div
                   key={i}
                   className="w-20 h-20 border-paginationBg-900 border p-1 relative">
-                  <img
+                  <Image
+                    fill
                     src={`${img ? URL.createObjectURL(img) : null}`}
                     alt="images"
                     className="w-full h-full"

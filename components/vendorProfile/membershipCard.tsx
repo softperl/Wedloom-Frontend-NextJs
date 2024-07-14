@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const YearlyMembershipCard = ({
   amount,
   amount2,
@@ -85,7 +87,7 @@ const YearlyMembershipCard = ({
       {/* Popular Card */}
       <div className="w-full lg:w-4/12 shadow-lg">
         <div>
-          <img src={"/popular.svg"} alt="" />
+          <Image fill src={"/popular.svg"} alt="" />
         </div>
         {/* Header Part */}
         <div className="px-4 text-center pb-[42px]">

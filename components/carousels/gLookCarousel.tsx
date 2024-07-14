@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const GLookCarousel = ({ img, text }: { img: string; text: string }) => {
@@ -5,7 +6,8 @@ const GLookCarousel = ({ img, text }: { img: string; text: string }) => {
     <div className="w-full">
       <div className="GLookCarousel__content w-full d-flex justify-between items-center bg-white shadow-lg p-2">
         <div className="GLookCarousel__img overflow-hidden">
-          <img
+          <Image
+            fill
             src={img}
             alt=""
             className="h-60 hover:scale-125 duration-200 rounded-md"

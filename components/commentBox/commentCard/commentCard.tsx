@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const CommentCard = ({ image, author, comments, date }: any) => {
@@ -5,7 +6,8 @@ const CommentCard = ({ image, author, comments, date }: any) => {
     <div className="latest__review bg-white shadow-lg lg:shadow-md px-4 py-2 mb-8">
       <div className="latest__review_card flex flex-wrap lg:flex-nowrap items-center">
         <div className="review__image lg:w-1/12 w-full flex justify-center mb-4 lg:mb-0">
-          <img
+          <Image
+            fill
             src={image}
             alt="userImage"
             className="w-10 h-10 lg:h-12 lg:w-12 rounded-full"

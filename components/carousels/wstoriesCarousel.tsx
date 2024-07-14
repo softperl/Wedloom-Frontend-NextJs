@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import {
@@ -21,7 +22,8 @@ const WstoriesCarousel = ({ img, name, summary, date }: any) => {
           <div
             onClick={() => router.push("/blog")}
             className="wStoriesCarousel__img w-full overflow-hidden">
-            <img
+            <Image
+              fill
               src={img}
               alt=""
               className="w-full h-56 group-hover:scale-125 duration-200 rounded-lg"

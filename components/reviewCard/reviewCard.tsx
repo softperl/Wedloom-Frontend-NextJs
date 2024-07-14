@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ReplyCard from "@/components/reviewCard/replyCard";
 import { FaStar } from "react-icons/fa";
 import { FaSquareFacebook, FaTwitter } from "react-icons/fa6";
+import Image from "next/image";
 
 const ReviewCard = ({ image, name }: any) => {
   const [viewLess, setViewLess] = useState(false);
@@ -13,7 +14,8 @@ const ReviewCard = ({ image, name }: any) => {
           <div className="review_card_heading flex justify-between items-center">
             <div className="heading_left flex gap-4 w-full justify-between lg:justify-start lg:w-max">
               <div className="name_image flex items-center gap-4">
-                <img
+                <Image
+                  fill
                   src={image}
                   alt="bride_image"
                   className="w-14 h-14 rounded-full"
