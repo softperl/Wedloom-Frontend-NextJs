@@ -1,8 +1,12 @@
+"use client";
+
 import { HiMail } from "react-icons/hi";
 import { IoMdCall } from "react-icons/io";
 import { IoLocationSharp } from "react-icons/io5";
+import useUi from "@/lib/hooks/useUi";
 
 const ContactCardSingle = () => {
+  const { contactInfo } = useUi();
   return (
     <div className="how_it_works_card w-full cursor-pointer">
       <div className="single_card_container lg:flex lg:gap-8">
@@ -18,7 +22,7 @@ const ContactCardSingle = () => {
             </div>
             <div className="step_details text-center">
               <p className="lg:text-lg text-base text-textSecondary-900 font-medium group-hover:text-white">
-                test@example.com
+                {contactInfo?.email}
               </p>
             </div>
           </div>
@@ -35,7 +39,7 @@ const ContactCardSingle = () => {
             </div>
             <div className="step_details text-center">
               <p className="lg:text-lg text-base text-textSecondary-900 font-medium group-hover:text-white">
-                1200, Karachi Pakistan
+                {contactInfo?.location}
               </p>
             </div>
           </div>
@@ -52,7 +56,7 @@ const ContactCardSingle = () => {
             </div>
             <div className="step_details text-center">
               <p className="lg:text-lg text-base text-textSecondary-900 font-medium group-hover:text-white">
-                +00000000
+                {contactInfo?.phone}
               </p>
             </div>
           </div>

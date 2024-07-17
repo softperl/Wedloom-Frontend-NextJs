@@ -10,7 +10,15 @@ import useUi from "@/lib/hooks/useUi";
 export function Providers({ children, ...props }: any) {
   const accessToken = getCookie("accessToken");
   const { setAccessToken, setIsAuthenticating } = useAuth();
-  const { setAboutData, setSocialLinks, setMenus } = useUi();
+  const {
+    setAboutData,
+    setSocialLinks,
+    setMenus,
+    setCities,
+    setVendorCategories,
+    setContactInfo,
+    setMap,
+  } = useUi();
   useEffect(() => {
     if (accessToken) {
       setAccessToken(accessToken);
@@ -23,6 +31,10 @@ export function Providers({ children, ...props }: any) {
     setAboutData(props.siteData?.about);
     setSocialLinks(props.siteData?.socialLink);
     setMenus(props.siteData?.menus);
+    setCities(props.siteData?.cities);
+    setVendorCategories(props.siteData?.vendorCategories);
+    setContactInfo(props.siteData?.contactInfo);
+    setMap(props.siteData?.map);
   }, []);
 
   return (

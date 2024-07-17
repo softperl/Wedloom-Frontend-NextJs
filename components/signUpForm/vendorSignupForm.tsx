@@ -23,6 +23,7 @@ import { cn, handelError } from "@/lib/utils";
 import { signIn, signUp } from "@/lib/api";
 import toast from "react-hot-toast";
 import { BiChevronUp } from "react-icons/bi";
+import useUi from "@/lib/hooks/useUi";
 
 const formSchema = z.object({
   name: z.string(),
@@ -37,6 +38,7 @@ const formSchema = z.object({
 type VendorSignUpFormValues = z.infer<typeof formSchema>;
 
 const VendorSignupForm = () => {
+  const { cities, vendorCategories } = useUi();
   const defaultValues: Partial<VendorSignUpFormValues> = {
     email: undefined,
     password: undefined,
@@ -60,7 +62,7 @@ const VendorSignupForm = () => {
         phone: data.phoneNumber,
         name: data.name,
         brand: data.brand,
-        city: "Lahor",
+        city: "",
         vendorType: "Photograper",
         role: "Vendor",
       });
@@ -265,16 +267,16 @@ const VendorSignupForm = () => {
                       {cityOpen && (
                         <div className="dropdown border border-t-0 border-textPrimary-900 box-border absolute w-full z-30">
                           <div className="max-h-[200px] overflow-scroll">
-                            {options
-                              .filter((item) =>
-                                item.value.toLocaleLowerCase().includes(value)
+                            {cities
+                              .filter((item: any) =>
+                                item?.name?.toLocaleLowerCase().includes(value)
                               )
-                              .map((opt) => (
+                              .map((opt: any) => (
                                 <div
                                   className="bg-white text-black p-2 flex items-center cursor-pointer hover:bg-gray-300 text-sm"
-                                  key={opt.key}
-                                  onClick={() => selectCityValue(opt.value)}>
-                                  {opt.value}
+                                  key={opt?.id}
+                                  onClick={() => selectCityValue(opt?.name)}>
+                                  {opt?.name}
                                 </div>
                               ))}
                           </div>
@@ -319,20 +321,20 @@ const VendorSignupForm = () => {
                       {categoryOpen && (
                         <div className="dropdown border border-t-0 border-textPrimary-900 box-border absolute w-full z-30">
                           <div className="max-h-[200px] overflow-scroll">
-                            {category
-                              .filter((item) =>
-                                item.value
+                            {vendorCategories
+                              ?.filter((item: any) =>
+                                item?.name
                                   .toLocaleLowerCase()
                                   .includes(categoryValue)
                               )
-                              .map((opt) => (
+                              ?.map((opt: any) => (
                                 <div
                                   className="bg-white text-black p-2 flex items-center cursor-pointer hover:bg-gray-300 text-sm"
-                                  key={opt.key}
+                                  key={opt?.id}
                                   onClick={() =>
-                                    selectCategoryValue(opt.value)
+                                    selectCategoryValue(opt?.name)
                                   }>
-                                  {opt.value}
+                                  {opt?.name}
                                 </div>
                               ))}
                           </div>

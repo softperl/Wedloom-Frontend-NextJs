@@ -57,7 +57,9 @@ const TopNav = () => {
         </div>
       </div>
 
-      <div ref={ref2}>{popup && <Popup />}</div>
+      <div ref={ref2} className="absolute z-10">
+        {popup && <Popup />}
+      </div>
     </div>
   );
 };

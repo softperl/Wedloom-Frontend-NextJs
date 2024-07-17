@@ -77,16 +77,6 @@ const LoginForm = () => {
     }
   };
 
-  // Input Values
-  const [emailValue, setEmailValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
-
-  // Submit Handler
-  const submitHandler = (e: any) => {
-    e.preventDefault();
-    router.push("/");
-  };
-
   return (
     <div className="w-full h-full lg:w-6/12 bg-white lg:shadow-lg shadow-sm p-5 lg:px-16 rounded-l-xl">
       {/* Welcome Text */}

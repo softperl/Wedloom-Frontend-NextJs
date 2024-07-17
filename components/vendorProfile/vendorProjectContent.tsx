@@ -1,44 +1,54 @@
 "use client";
-import Link from "next/link";
-import React from "react";
+
+import { useState } from "react";
+import Albums from "../projectsTabs/albums";
+import Projects from "../projectsTabs/projects";
+import Videos from "../projectsTabs/videos";
+
+const tabs: any = {
+  1: Projects,
+  2: Albums,
+  3: Videos,
+};
 
 const VendorProjectContent = () => {
+  const [activeTab, setActiveTab] = useState(1);
+  const Tab = tabs[activeTab];
   return (
     <div>
       {/* Heading */}
-      <div className="bg-sectionBg-900 px-4 py-3">
+      {/* <div className="bg-sectionBg-900 px-4 py-3">
         <h2 className="text-textSecondary-900 lg:text-lg">Projects</h2>
+      </div> */}
+
+      {/* tabs */}
+      <div className="flex items-center gap-5 mx-4 my-3 border-b pb-3">
+        <button
+          className={`${
+            activeTab === 1 && "bg-textPrimary-900 text-white"
+          } inline-block py-2 px-5 border border-textPrimary-900 rounded-md transition-all hover:bg-textPrimary-900 hover:text-white`}
+          onClick={() => setActiveTab(1)}>
+          Projects
+        </button>
+        <button
+          className={`${
+            activeTab === 2 && "bg-textPrimary-900 text-white"
+          } inline-block py-2 px-5 border border-textPrimary-900 rounded-md transition-all hover:bg-textPrimary-900 hover:text-white`}
+          onClick={() => setActiveTab(2)}>
+          Albums
+        </button>
+        <button
+          className={`${
+            activeTab === 3 && "bg-textPrimary-900 text-white"
+          } inline-block py-2 px-5 border border-textPrimary-900 rounded-md transition-all hover:bg-textPrimary-900 hover:text-white`}
+          onClick={() => setActiveTab(3)}>
+          Videos
+        </button>
       </div>
 
       {/* Content */}
-      <div className="mt-8 px-4 pb-8">
-        {/* Image */}
-
-        {/* Links */}
-        <Link href="/vendor/profile/projects/portfolio">
-          <div
-            className="lg:w-72 w-full h-56 flex justify-center items-center cursor-pointer rounded-md"
-            style={{
-              background:
-                "radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url('https://img.freepik.com/free-photo/abstract-blur-wedding-hall_74190-5229.jpg?w=1380&t=st=1670178252~exp=1670178852~hmac=c1f6d7158f8e07a88aafb0278bf8ddab3cb1da46714147cc1983a74b8ff52247')",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}>
-            <span className="text-xl lg:text-2xl text-white font-medium">
-              Portfolio
-            </span>
-          </div>
-        </Link>
-
-        {/* Links */}
-        <div className="mt-6">
-          <Link href="/imageupload/guideline">
-            <span className="text-sm font-medium text-textPrimary-900 cursor-pointer">
-              View image upload guidelines
-            </span>
-          </Link>
-        </div>
+      <div className="mt-5 px-4 pb-8">
+        <Tab />
       </div>
     </div>
   );

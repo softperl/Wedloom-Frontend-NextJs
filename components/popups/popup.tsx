@@ -13,7 +13,7 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 const Popup = () => {
   const [value, setValue] = useState("");
   return (
-    <div className="popup w-2/4 pt-8 pr-16 pl-16 pb-16 rounded-md bg-white shadow-2xl">
+    <div className="w-full pt-8 pr-16 pl-16 pb-16 rounded-md bg-white shadow-2xl">
       <div className="popup__container">
         <div
           className="searchbox p-1"
