@@ -81,9 +81,11 @@ const Footer = () => {
                     <FaTwitter className="w-8 h-8 text-[#2A9EF0]" />
                   </a>
                 )}
-                <a href={socialLinks?.Pinterest}>
-                  <FaPinterest className="w-8 h-8 text-[#DE0318]" />
-                </a>
+                {socialLinks?.Pinterest && (
+                  <a href={socialLinks?.Pinterest}>
+                    <FaPinterest className="w-8 h-8 text-[#DE0318]" />
+                  </a>
+                )}
                 {socialLinks?.Instagram && (
                   <a href="*">
                     <FaInstagram className="w-8 h-8 text-[#C0307C]" />

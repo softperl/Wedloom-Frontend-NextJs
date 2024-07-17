@@ -6,11 +6,13 @@ import {
   popularCities,
   topCities,
 } from "@/components/data/cityList";
+import useUi from "@/lib/hooks/useUi";
 import Link from "next/link";
 import { useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const Popup = () => {
+  const { cities } = useUi();
   const [value, setValue] = useState("");
   return (
     <div className="w-full pt-8 pr-16 pl-16 pb-16 rounded-md bg-white shadow-2xl">
@@ -31,63 +33,71 @@ const Popup = () => {
             </div>
           </div>
         </div>
-        <div className="city__list flex justify-between mt-5">
-          <div className="top__cities">
-            <span className="top__cities__title text-textPrimary-900 font-semibold">
+        <div className="flex gap-2 mt-5 w-full">
+          <div className="w-40 flex flex-col">
+            <span className="text-textPrimary-900 font-semibold">
               Top Cities
             </span>
             <ul className="mt-1">
-              {topCities
-                .filter((item: any) => item.name.toLowerCase().includes(value))
-                .map((city: any) => (
-                  <li key={city.id}>
-                    <Link href={`search/${city.path}`}>{city.name}</Link>
+              {cities
+                .filter((item: any) =>
+                  item?.name.toLowerCase()?.includes(value)
+                )
+                ?.map((city: any) => (
+                  <li key={city.id} className="text-black">
+                    <Link href={`search`}>{city?.name}</Link>
                   </li>
                 ))}
             </ul>
           </div>
-          <div className="popular__cities">
-            <span className="popular__cities__title text-textPrimary-900 font-semibold">
+          <div className="w-40 flex flex-col">
+            <span className="text-textPrimary-900 font-semibold">
               Popular Cities
             </span>
             <ul className="mt-1">
-              {popularCities
-                .filter((item: any) => item.name.toLowerCase().includes(value))
-                .map((city: any) => (
-                  <li key={city.id}>
-                    <Link href={`search/${city.path}`}>{city.name}</Link>
+              {cities
+                .filter((item: any) =>
+                  item?.name.toLowerCase()?.includes(value)
+                )
+                ?.map((city: any) => (
+                  <li key={city.id} className="text-black">
+                    <Link href={`search`}>{city?.name}</Link>
                   </li>
                 ))}
             </ul>
           </div>
-          <div className="other__cities">
-            <span className="other__cities__title text-textPrimary-900 font-semibold">
+          <div className="w-40 flex flex-col">
+            <span className="text-textPrimary-900 font-semibold">
               Other Cities
             </span>
             <ul className="mt-1">
-              {othercities
-                .filter((item: any) => item.name.toLowerCase().includes(value))
-                .map((city: any) => (
-                  <li key={city.id}>
-                    <Link href={`search/${city.path}`}>{city.name}</Link>
+              {cities
+                .filter((item: any) =>
+                  item?.name.toLowerCase()?.includes(value)
+                )
+                ?.map((city: any) => (
+                  <li key={city.id} className="text-black">
+                    <Link href={`search`}>{city?.name}</Link>
                   </li>
                 ))}
             </ul>
           </div>
-          <div className="international__cities">
-            <span className="international__cities__title text-textPrimary-900 font-semibold">
+          {/* <div className="w-40 flex flex-col">
+            <span className="text-textPrimary-900 font-semibold">
               International Cities
             </span>
             <ul className="mt-1">
-              {internationaCities
-                .filter((item: any) => item.name.toLowerCase().includes(value))
-                .map((city: any) => (
-                  <li key={city.id}>
-                    <Link href={`search/${city.path}`}>{city.name}</Link>
+              {cities
+                .filter((item: any) =>
+                  item?.name.toLowerCase()?.includes(value)
+                )
+                ?.map((city: any) => (
+                  <li key={city.id} className="text-black">
+                    <Link href={`search`}>{city?.name}</Link>
                   </li>
                 ))}
             </ul>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

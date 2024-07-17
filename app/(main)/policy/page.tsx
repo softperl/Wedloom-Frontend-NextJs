@@ -16,9 +16,15 @@ export default async function page() {
     notFound();
   }
   return (
-    <>
-      <h1>{privacy?.title}</h1>
-      <p>{privacy?.content}</p>
-    </>
+    <main className="">
+      <div className="px-2 md:px-12 py-5">
+        <div className="flex flex-col gap-5">
+          <h1 className="text-center mx-auto text-2xl font-normal text-textPrimary-900">
+            {privacy?.title}
+          </h1>
+          <p className="text-sm font-light leading-loose">{privacy?.content}</p>
+        </div>
+      </div>
+    </main>
   );
 }

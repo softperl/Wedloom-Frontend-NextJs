@@ -87,46 +87,12 @@ const VendorSignupForm = () => {
   const [categoryOpen, setCategoryOpen] = useState(false);
   const [categoryValue, setCategoryValue] = useState("");
 
-  // Options for City List
-  const options = [
-    { key: 1, value: "Islamabad" },
-    { key: 2, value: "Karachi" },
-    { key: 3, value: "Bahawalpur" },
-    { key: 4, value: "Sialkot" },
-    { key: 5, value: "Sargodha" },
-    { key: 6, value: "Quetta" },
-    { key: 7, value: "Peshawar" },
-    { key: 8, value: "Hyderabad" },
-    { key: 9, value: "Gujranwala" },
-    { key: 10, value: "Multan" },
-    { key: 11, value: "Rawalpindi" },
-    { key: 12, value: "Faisalabad" },
-    { key: 13, value: "Lahore" },
-  ];
-
-  //   Options For Vendor Select List
-  const category = [
-    { key: 1, value: "Venues" },
-    { key: 2, value: "Photographer" },
-    { key: 3, value: "Bridal Makeup" },
-    { key: 4, value: "Bridal Wear" },
-    { key: 5, value: "Groom Wear" },
-    { key: 6, value: "Decorators" },
-    { key: 7, value: "Wedding Planner" },
-    { key: 8, value: "Invitation" },
-    { key: 9, value: "Cinema/Video" },
-    { key: 10, value: "Mehndi Artist" },
-    { key: 11, value: "Caterins Services" },
-    { key: 12, value: "Cakes" },
-    { key: 13, value: "DJ's" },
-    { key: 14, value: "Wedding Planning" },
-    { key: 15, value: "Wedding Categories" },
-    { key: 16, value: "Accesories" },
-    { key: 17, value: "Favours" },
-  ];
-
   // Toggle State Function
   const clickedCity = () => {
+    if (value) {
+      setValue("");
+      setCityOpen(!cityOpen);
+    }
     setCityOpen(!cityOpen);
     setCategoryOpen(false);
   };
@@ -268,17 +234,19 @@ const VendorSignupForm = () => {
                         <div className="dropdown border border-t-0 border-textPrimary-900 box-border absolute w-full z-30">
                           <div className="max-h-[200px] overflow-scroll">
                             {cities
-                              .filter((item: any) =>
+                              ?.filter((item: any) =>
                                 item?.name?.toLocaleLowerCase().includes(value)
                               )
-                              .map((opt: any) => (
-                                <div
-                                  className="bg-white text-black p-2 flex items-center cursor-pointer hover:bg-gray-300 text-sm"
-                                  key={opt?.id}
-                                  onClick={() => selectCityValue(opt?.name)}>
-                                  {opt?.name}
-                                </div>
-                              ))}
+                              ?.map((opt: any) => {
+                                return (
+                                  <div
+                                    className="bg-white text-black p-2 flex items-center cursor-pointer hover:bg-gray-300 text-sm"
+                                    key={opt?.id}
+                                    onClick={() => selectCityValue(opt?.name)}>
+                                    {opt?.name}
+                                  </div>
+                                );
+                              })}
                           </div>
                         </div>
                       )}
