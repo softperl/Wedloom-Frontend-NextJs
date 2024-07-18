@@ -1,12 +1,16 @@
 "use client";
 import { topCities } from "@/components/data/cityList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCirclePlus, FaCircleXmark } from "react-icons/fa6";
 import { EditorState } from "draft-js";
 import AppReactDraftWysiwyg from "@/libs/styles/AppReactDraftWysiwyg";
 import { AddressPopup } from "../popups/addressPopup";
+import { getQuestions } from "@/lib/api";
 
 const InformationContent = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [questions, setQuestions] = useState([]);
+
   const [locationPopUp, setLocationPopUp] = useState(false);
   const [value, setValue] = useState(EditorState.createEmpty());
   const [formData, setFormData] = useState<any>({
@@ -44,6 +48,30 @@ const InformationContent = () => {
     list[index][name] = value;
     setNumberBox(list);
   };
+  const handleChange = (field: any, event: any) => {
+    const value =
+      field.inputType === "File" ? event.target.files[0] : event.target.value;
+    setFormData({
+      ...formData,
+      [field.label]: value,
+    });
+  };
+  const fetchData = async () => {
+    try {
+      const { data } = await getQuestions();
+      setQuestions(data.questions);
+      console.log(data.questions);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <div className="w-full">
@@ -109,7 +137,8 @@ const InformationContent = () => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="loginid"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
+                  >
                     Login email ID
                   </label>
                 </div>
@@ -129,7 +158,8 @@ const InformationContent = () => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="brand"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
+                  >
                     Brand Name*
                   </label>
                 </div>
@@ -154,7 +184,8 @@ const InformationContent = () => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="category"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
+                  >
                     Category Name*
                   </label>
                 </div>
@@ -174,7 +205,8 @@ const InformationContent = () => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="contactname"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
+                  >
                     Contact person name{" "}
                   </label>
                 </div>
@@ -200,7 +232,8 @@ const InformationContent = () => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="additionalmail"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
+                  >
                     Additional email ID
                   </label>
                 </div>
@@ -226,7 +259,8 @@ const InformationContent = () => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="contactnumber"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
+                  >
                     Contact number*
                   </label>
                 </div>
@@ -239,7 +273,8 @@ const InformationContent = () => {
                       {numberBox.map((singleNumberBox, i) => (
                         <div
                           key={i}
-                          className="w-full flex justify-between items-center gap-3 mb-2 lg:mb-0">
+                          className="w-full flex justify-between items-center gap-3 mb-2 lg:mb-0"
+                        >
                           <div className="w-full flex lg:flex-nowrap flex-wrap border border-t-0">
                             {/* Country */}
                             <div className="bg-[#efefef] w-full lg:w-2/12 flex justify-center items-center">
@@ -271,7 +306,8 @@ const InformationContent = () => {
                           {numberBox.length >= 2 && (
                             <span
                               className="text-textPrimary-900"
-                              onClick={() => removeNumberBox(i)}>
+                              onClick={() => removeNumberBox(i)}
+                            >
                               <FaCircleXmark className="w-4 h-4 cursor-pointer" />
                             </span>
                           )}
@@ -284,7 +320,8 @@ const InformationContent = () => {
                       {numberBox.length < 5 && (
                         <span
                           className="flex items-center text-xs text-textPrimary-900 font-semibold cursor-pointer"
-                          onClick={addNumberBox}>
+                          onClick={addNumberBox}
+                        >
                           <FaCirclePlus className="w-4 h-4 mr-2" /> ADD MORE
                         </span>
                       )}
@@ -301,7 +338,8 @@ const InformationContent = () => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="websiteLink"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
+                  >
                     Website link
                   </label>
                 </div>
@@ -326,7 +364,8 @@ const InformationContent = () => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="facebook"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
+                  >
                     Facebook url
                   </label>
                 </div>
@@ -351,7 +390,8 @@ const InformationContent = () => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="instagram"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
+                  >
                     Instagram url
                   </label>
                 </div>
@@ -376,7 +416,8 @@ const InformationContent = () => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="ytLink"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
+                  >
                     Youtube/Vimeo url
                   </label>
                 </div>
@@ -402,7 +443,8 @@ const InformationContent = () => {
                 <div className="w-full">
                   <label
                     htmlFor="additionalInfo"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900 flex flex-col">
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900 flex flex-col"
+                  >
                     <span>Additional Information</span>
                     <span className="text-[10px]">
                       (To update your description, please send a mail to
@@ -423,7 +465,8 @@ const InformationContent = () => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="city"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
+                  >
                     City*(Choose your base city here)
                   </label>
                 </div>
@@ -437,7 +480,8 @@ const InformationContent = () => {
                         ...formData,
                         city: e.target.value,
                       })
-                    }>
+                    }
+                  >
                     {topCities.map((city) => (
                       <option value={city.name} key={city.id}>
                         {city.name}
@@ -452,14 +496,16 @@ const InformationContent = () => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="address"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
+                  >
                     Address
                   </label>
                 </div>
                 <div className="w-full lg:w-8/12 py-1 lg:px-4 px-2">
                   <p
                     onClick={() => setLocationPopUp(true)}
-                    className="text-xs lg:text-sm font-bold text-textPrimary-900 cursor-pointer">
+                    className="text-xs lg:text-sm font-bold text-textPrimary-900 cursor-pointer"
+                  >
                     Add a Location
                   </p>
                   {locationPopUp && (
@@ -480,16 +526,53 @@ const InformationContent = () => {
           {/* Additional Details Boxes */}
           <div className="w-full mt-2 mb-8 lg:px-8 px-2">
             {/* Booked Package */}
-            <div className="border-b pt-4 pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                What is the value of your most booked package? (or your avg
-                booking price Eg: 300,000){" "}
-              </p>
-              <input
-                type="number"
-                className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
-              />
-            </div>
+
+            {questions.map((q: any, index) => (
+              <div key={index}>
+                <label>{q.label}</label>
+                {q.inputType === "Text" && (
+                  <input
+                    className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
+                    type="text"
+                    onChange={(e) => handleChange(q, e)}
+                  />
+                )}
+                {q.inputType === "Number" && (
+                  <input
+                    className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
+                    type="number"
+                    onChange={(e) => handleChange(q, e)}
+                  />
+                )}
+                {q.inputType === "Date" && (
+                  <input type="date" onChange={(e) => handleChange(q, e)} />
+                )}
+                {q.inputType === "Radio" &&
+                  q.options.map((option: any, idx: number) => (
+                    <div key={idx}>
+                      <input
+                        type="radio"
+                        name={q.label}
+                        value={option}
+                        onChange={(e) => handleChange(q, e)}
+                      />
+                      <label>{option}</label>
+                    </div>
+                  ))}
+                {q.inputType === "Select" && (
+                  <select onChange={(e) => {}}>
+                    {q.options.map((option: any, idx: number) => (
+                      <option key={idx} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                )}
+                {q.inputType === "File" && (
+                  <input type="file" onChange={(e) => handleChange(q, e)} />
+                )}
+              </div>
+            ))}
 
             {/* The above package includes services for how many days?  */}
             <div className="border-b py-2 lg:pt-4 lg:pb-6">
@@ -509,7 +592,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="one_day">
+                    htmlFor="one_day"
+                  >
                     1 Day
                   </label>
                 </div>
@@ -524,7 +608,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="two_days">
+                    htmlFor="two_days"
+                  >
                     2 Days
                   </label>
                 </div>
@@ -539,7 +624,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="three_days">
+                    htmlFor="three_days"
+                  >
                     3 Days
                   </label>
                 </div>
@@ -554,7 +640,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="four_days">
+                    htmlFor="four_days"
+                  >
                     4 Days
                   </label>
                 </div>
@@ -579,7 +666,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="photo">
+                    htmlFor="photo"
+                  >
                     Photo
                   </label>
                 </div>
@@ -594,7 +682,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="photovideo">
+                    htmlFor="photovideo"
+                  >
                     Photo + Video
                   </label>
                 </div>
@@ -609,7 +698,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="photovideoprewedding">
+                    htmlFor="photovideoprewedding"
+                  >
                     Photo + Video + Pre Wedding
                   </label>
                 </div>
@@ -636,7 +726,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="partial">
+                    htmlFor="partial"
+                  >
                     Partial Refund Offered
                   </label>
                 </div>
@@ -651,7 +742,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="norefund">
+                    htmlFor="norefund"
+                  >
                     No Refund Offered
                   </label>
                 </div>
@@ -666,7 +758,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="dateadjust">
+                    htmlFor="dateadjust"
+                  >
                     No Refund Offered However Date Adjustment Can Be Done
                   </label>
                 </div>
@@ -681,7 +774,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="fullrefund">
+                    htmlFor="fullrefund"
+                  >
                     Full Refund Offered
                   </label>
                 </div>
@@ -708,7 +802,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="vendorpartial">
+                    htmlFor="vendorpartial"
+                  >
                     Partial Refund Offered
                   </label>
                 </div>
@@ -723,7 +818,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="vendornorefund">
+                    htmlFor="vendornorefund"
+                  >
                     No Refund Offered
                   </label>
                 </div>
@@ -738,7 +834,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="vendorfullrefund">
+                    htmlFor="vendorfullrefund"
+                  >
                     Full Refund Offered
                   </label>
                 </div>
@@ -757,7 +854,8 @@ const InformationContent = () => {
               <div className="mt-4">
                 <textarea
                   rows={5}
-                  className="text-xs lg:text-sm outline-none border w-full px-2 py-1"></textarea>
+                  className="text-xs lg:text-sm outline-none border w-full px-2 py-1"
+                ></textarea>
               </div>
             </div>
 
@@ -771,7 +869,8 @@ const InformationContent = () => {
               <div className="mt-4">
                 <textarea
                   rows={5}
-                  className="text-xs lg:text-sm outline-none border w-full px-2 py-1"></textarea>
+                  className="text-xs lg:text-sm outline-none border w-full px-2 py-1"
+                ></textarea>
               </div>
             </div>
 
@@ -786,7 +885,8 @@ const InformationContent = () => {
               <div className="mt-4">
                 <textarea
                   rows={5}
-                  className="text-xs lg:text-sm outline-none border px-2 py-1 w-full"></textarea>
+                  className="text-xs lg:text-sm outline-none border px-2 py-1 w-full"
+                ></textarea>
               </div>
             </div>
 
@@ -811,7 +911,8 @@ const InformationContent = () => {
               <div className="mt-4">
                 <textarea
                   rows={5}
-                  className="text-xs lg:text-sm outline-none border px-2 py-1 w-full"></textarea>
+                  className="text-xs lg:text-sm outline-none border px-2 py-1 w-full"
+                ></textarea>
               </div>
             </div>
 
@@ -885,7 +986,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Candid Photography">
+                    htmlFor="Candid Photography"
+                  >
                     Candid Photography
                   </label>
                 </div>
@@ -906,7 +1008,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Wedding Films">
+                    htmlFor="Wedding Films"
+                  >
                     Wedding Films
                   </label>
                 </div>
@@ -927,7 +1030,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Traditional Photography">
+                    htmlFor="Traditional Photography"
+                  >
                     Traditional Photography
                   </label>
                 </div>
@@ -948,7 +1052,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Pre-Wedding Shoots">
+                    htmlFor="Pre-Wedding Shoots"
+                  >
                     Pre-Wedding Shoots
                   </label>
                 </div>
@@ -969,7 +1074,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Albums">
+                    htmlFor="Albums"
+                  >
                     Albums
                   </label>
                 </div>
@@ -990,7 +1096,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Maternity Shoots">
+                    htmlFor="Maternity Shoots"
+                  >
                     Maternity Shoots
                   </label>
                 </div>
@@ -1011,7 +1118,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Fashion Shoots">
+                    htmlFor="Fashion Shoots"
+                  >
                     Fashion Shoots
                   </label>
                 </div>
@@ -1032,7 +1140,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Pre wedding Films">
+                    htmlFor="Pre wedding Films"
+                  >
                     Pre wedding Films
                   </label>
                 </div>
@@ -1053,7 +1162,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="traditional">
+                    htmlFor="traditional"
+                  >
                     Traditional Videography
                   </label>
                 </div>
@@ -1078,7 +1188,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Candid">
+                    htmlFor="Candid"
+                  >
                     Candid Specialist
                   </label>
                 </div>
@@ -1093,7 +1204,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="traditioncandid">
+                    htmlFor="traditioncandid"
+                  >
                     Traditional + Candid Specialist
                   </label>
                 </div>
@@ -1119,7 +1231,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="<300">
+                    htmlFor="<300"
+                  >
                     &#60;300
                   </label>
                 </div>
@@ -1134,7 +1247,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="300-500">
+                    htmlFor="300-500"
+                  >
                     300 - 500
                   </label>
                 </div>
@@ -1149,7 +1263,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="500-700 ">
+                    htmlFor="500-700 "
+                  >
                     500-700
                   </label>
                 </div>
@@ -1164,7 +1279,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor=">700">
+                    htmlFor=">700"
+                  >
                     &#62;700
                   </label>
                 </div>
@@ -1189,7 +1305,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor=" Upto 25% Advance">
+                    htmlFor=" Upto 25% Advance"
+                  >
                     Upto 25% Advance
                   </label>
                 </div>
@@ -1204,7 +1321,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Approx 50% Advance while booking">
+                    htmlFor="Approx 50% Advance while booking"
+                  >
                     Approx 50% Advance while booking
                   </label>
                 </div>
@@ -1219,7 +1337,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="100% Advance while booking">
+                    htmlFor="100% Advance while booking"
+                  >
                     100% Advance while booking
                   </label>
                 </div>
@@ -1245,7 +1364,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Cost of Stay & Travel borne by Client">
+                    htmlFor="Cost of Stay & Travel borne by Client"
+                  >
                     Cost of Stay & Travel borne by Client
                   </label>
                 </div>
@@ -1260,7 +1380,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Cost of Stay borne by Client, Travel borne by Us">
+                    htmlFor="Cost of Stay borne by Client, Travel borne by Us"
+                  >
                     Cost of Stay borne by Client, Travel borne by Us
                   </label>
                 </div>
@@ -1288,7 +1409,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="photodefault">
+                    htmlFor="photodefault"
+                  >
                     Set as default
                   </label>
                 </div>
@@ -1316,7 +1438,8 @@ const InformationContent = () => {
                   />
                   <label
                     className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="videodefault">
+                    htmlFor="videodefault"
+                  >
                     Set as default
                   </label>
                 </div>
@@ -1328,7 +1451,8 @@ const InformationContent = () => {
           <div className="w-full pb-8 px-8 text-end">
             <button
               type="submit"
-              className="w-4/12 py-[6px] bg-textPrimary-900 text-[15px] text-white">
+              className="w-4/12 py-[6px] bg-textPrimary-900 text-[15px] text-white"
+            >
               SAVE
             </button>
           </div>

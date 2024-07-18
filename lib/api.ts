@@ -56,3 +56,6 @@ export const getPosts = ({
   sortOrder?: string;
 }) => API.get(`/blog/post/get-all?q=${q}&page=${page}&perPage=${perPage}`);
 export const getCategories = () => API.get("/blog/category/get-all");
+
+//Questions
+export const getQuestions = () => API.get("/question/get-all");
