@@ -39,6 +39,16 @@ type VendorSignUpFormValues = z.infer<typeof formSchema>;
 
 const VendorSignupForm = () => {
   const { cities, vendorCategories } = useUi();
+  const [citiesValue, setCitiesValue] = useState("");
+  const [openVendor, setOpenVendor] = useState(false);
+  const [vendorInput, setVendorInput] = useState("");
+  const [vendorInputShow, setVendorInputShow] = useState("");
+  const [vendorsValue, setVendorsValue] = useState("");
+  const [openCity, setOpenCity] = useState(false);
+  const [citiesInput, setCitiesInput] = useState("");
+  const [citiesInputShow, setCitiesInputShow] = useState("");
+  const [showPass, setShowPass] = useState(false);
+
   const defaultValues: Partial<VendorSignUpFormValues> = {
     email: undefined,
     password: undefined,
@@ -49,21 +59,22 @@ const VendorSignupForm = () => {
     vendorType: undefined,
   };
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, setValue } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues,
   });
 
   const onSubmit = async (data: Partial<VendorSignUpFormValues>) => {
     try {
+      console.log({ data });
       await signUp({
         email: data.email,
         password: data.password,
         phone: data.phoneNumber,
         name: data.name,
         brand: data.brand,
-        city: "",
-        vendorType: "Photograper",
+        city: data.city,
+        vendorType: data.vendorType,
         role: "Vendor",
       });
       toast.success("Please check your email for verify!");
@@ -73,49 +84,27 @@ const VendorSignupForm = () => {
     }
   };
 
-  // Password Show State
-  const [showPass, setShowPass] = useState(false);
-
-  //   Number Input Initial Value
-  const [numberValue, setNumberValue] = useState("+92");
-
-  // Dropdown City Open States
-  const [cityOpen, setCityOpen] = useState(false);
-  const [value, setValue] = useState("");
-
-  // Dropdown City Open States
-  const [categoryOpen, setCategoryOpen] = useState(false);
-  const [categoryValue, setCategoryValue] = useState("");
-
-  // Toggle State Function
-  const clickedCity = () => {
-    if (value) {
-      setValue("");
-      setCityOpen(!cityOpen);
+  const VendorDropdown = () => {
+    if (openVendor === true) {
+      setVendorInput("");
     }
-    setCityOpen(!cityOpen);
-    setCategoryOpen(false);
+    const value = vendorInput !== vendorsValue ? vendorsValue : vendorInput;
+    setVendorInputShow(value);
   };
+  useEffect(() => {
+    VendorDropdown();
+  }, [openVendor]);
 
-  const clickedVendor = () => {
-    setCategoryOpen(!categoryOpen);
-    setCityOpen(false);
+  const CitiesDropdown = () => {
+    if (openCity === true) {
+      setCitiesInput("");
+    }
+    const value = citiesInput !== citiesValue ? citiesValue : citiesInput;
+    setCitiesInputShow(value);
   };
-
-  const changeCategoryValue = (e: any) => {
-    setCategoryValue(e.target.value);
-  };
-
-  //   Input Value Change
-  const selectCityValue = (option: any) => {
-    setValue(option);
-    setCityOpen(!cityOpen);
-  };
-
-  const selectCategoryValue = (option: any) => {
-    setCategoryValue(option);
-    setCategoryOpen(!categoryOpen);
-  };
+  useEffect(() => {
+    CitiesDropdown();
+  }, [openCity]);
 
   //   Navigation
   const router = useRouter();
@@ -127,15 +116,15 @@ const VendorSignupForm = () => {
   useEffect(() => {
     const closePopup = (e: any) => {
       if (!ref.current.contains(e.target) && !ref2.current.contains(e.target)) {
-        setCityOpen(false);
-        setCategoryOpen(false);
+        setOpenVendor(false);
+        setOpenCity(false);
       }
     };
     document.addEventListener("click", closePopup);
     return () => {
       document.removeEventListener("click", closePopup);
     };
-  }, [cityOpen, categoryOpen]);
+  }, [openVendor, openCity]);
 
   return (
     <div className="contact_form">
@@ -209,40 +198,46 @@ const VendorSignupForm = () => {
                       </label>
                     </div>
                     <div className="input_container">
-                      <div onClick={clickedCity}>
+                      <div onClick={() => setOpenCity(!openCity)}>
                         <input
                           className="w-full py-6 px-[22px] text-sm leading-tight border border-paginationBg-900 focus:outline-none focus:border-textPrimary-900 rounded text-textSecondary-900 font-semibold cursor-pointer"
                           id="brand"
                           type="text"
-                          value={value}
+                          value={openCity ? citiesInput : citiesInputShow}
+                          onChange={(e) => setCitiesInput(e.target.value)}
                           placeholder="Select Your City"
                           required
-                          onChange={(e) => setValue(e.target.value)}
                         />
                         <div className="absolute right-5 top-6">
                           <span className="text-textPrimary-900 cursor-pointer">
                             <BiChevronUp
                               className={cn(
                                 "duration-300 transition-all",
-                                !cityOpen && "rotate-180"
+                                !openCity && "rotate-180"
                               )}
                             />
                           </span>
                         </div>
                       </div>
-                      {cityOpen && (
+                      {openCity && (
                         <div className="dropdown border border-t-0 border-textPrimary-900 box-border absolute w-full z-30">
                           <div className="max-h-[200px] overflow-scroll">
                             {cities
                               ?.filter((item: any) =>
-                                item?.name?.toLocaleLowerCase().includes(value)
+                                item?.name
+                                  ?.toLocaleLowerCase()
+                                  .includes(citiesInput)
                               )
                               ?.map((opt: any) => {
                                 return (
                                   <div
                                     className="bg-white text-black p-2 flex items-center cursor-pointer hover:bg-gray-300 text-sm"
                                     key={opt?.id}
-                                    onClick={() => selectCityValue(opt?.name)}>
+                                    onClick={() => {
+                                      setCitiesInput(opt?.name);
+                                      setCitiesValue(opt?.name);
+                                      setValue("city", opt?.name);
+                                    }}>
                                     {opt?.name}
                                   </div>
                                 );
@@ -265,43 +260,45 @@ const VendorSignupForm = () => {
                       </label>
                     </div>
                     <div className="input_container">
-                      <div onClick={clickedVendor}>
+                      <div onClick={() => setOpenVendor(!openVendor)}>
                         <input
                           className="w-full py-6 px-[22px] text-sm leading-tight border border-paginationBg-900 focus:outline-none focus:border-textPrimary-900 rounded text-textSecondary-900 font-semibold cursor-pointer"
                           id="brand"
                           type="text"
                           placeholder="Select Vendor Type*"
-                          value={categoryValue}
+                          value={openVendor ? vendorInput : vendorInputShow}
+                          onChange={(e) => setVendorInput(e.target.value)}
                           required
-                          onChange={changeCategoryValue}
                         />
                         <div className="absolute right-5 top-6">
                           <span className="text-textPrimary-900 cursor-pointer">
                             <BiChevronUp
                               className={cn(
                                 "duration-300 transition-all",
-                                !categoryOpen && "rotate-180"
+                                !openVendor && "rotate-180"
                               )}
                             />
                           </span>
                         </div>
                       </div>
-                      {categoryOpen && (
+                      {openVendor && (
                         <div className="dropdown border border-t-0 border-textPrimary-900 box-border absolute w-full z-30">
                           <div className="max-h-[200px] overflow-scroll">
                             {vendorCategories
                               ?.filter((item: any) =>
                                 item?.name
                                   .toLocaleLowerCase()
-                                  .includes(categoryValue)
+                                  .includes(vendorInput)
                               )
                               ?.map((opt: any) => (
                                 <div
                                   className="bg-white text-black p-2 flex items-center cursor-pointer hover:bg-gray-300 text-sm"
                                   key={opt?.id}
-                                  onClick={() =>
-                                    selectCategoryValue(opt?.name)
-                                  }>
+                                  onClick={() => {
+                                    setVendorInput(opt?.name);
+                                    setVendorsValue(opt?.name);
+                                    setValue("vendorType", opt?.name);
+                                  }}>
                                   {opt?.name}
                                 </div>
                               ))}

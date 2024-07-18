@@ -1,4 +1,7 @@
+"use client";
+
 import UserRightCard from "@/components/userProfile/userRightCard";
+import useUi from "@/lib/hooks/useUi";
 import Image from "next/image";
 import Link from "next/link";
 import { MdCall } from "react-icons/md";
@@ -8,6 +11,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { vendorCategories } = useUi();
   return (
     <>
       <div
@@ -189,43 +193,18 @@ url("https://onehorizonproductions.com/wp-content/uploads/2022/03/Alfisha-Fahad-
 
             {/* Right Side */}
             <div className="bg-white shadow-sm w-full lg:w-[20%] rounded-sm overflow-hidden h-[60vh] overflow-y-scroll">
-              <UserRightCard
-                bg="https://cdn0.weddingwire.in/article/9086/3_2/960/jpg/16809-creative-wedding-photography-avinash-dhoundhiyal-photography-lead-image.jpeg"
-                text="Vendor"
-                link="photographer"
-                margin={true}
-              />
-              <UserRightCard
-                bg="https://images.squarespace-cdn.com/content/v1/578537f5cd0f68f8a7411561/1563066377271-DST1DID3B4RHI35Q9X97/Phoenix+Wedding+Photographer"
-                text="Photographer"
-                link="photographer"
-                margin={true}
-              />
-              <UserRightCard
-                bg="https://www.sandeepshokeen.com/blog/wp-content/uploads/2019/11/1T1A7165-1200x800.jpg"
-                text="Makeup"
-                link="photographer"
-                margin={true}
-              />
-              <UserRightCard
-                bg="https://www.universestudio.in/wp-content/uploads/2022/07/Best-Wedding-Photographers-in-Varanasi-India-Universe-Studio-16.jpg"
-                text="Bridal Wear"
-                margin={true}
-              />
-              <UserRightCard
-                bg="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRU-Zd0pU1fWoQirOfbuOnOKS0meXUxE9Bwbw&usqp=CAU"
-                text="Groom Wear"
-                margin={true}
-              />
-              <UserRightCard
-                bg="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3LiBwmhJ9mjPxDSYPo-sJzkD5gKNMlCUqm7mIcM_rf4Zi9YIl_jo-OtzNQggVLpghDic&usqp=CAU"
-                text="Photography"
-                margin={true}
-              />
-              <UserRightCard
-                bg="https://wishnwed-blog-media.s3.ap-southeast-1.amazonaws.com/wordpress/uploads/2020/09/167419287_1095648420909697_597662823693753092_n-1024x697.jpg"
-                text="Dressups"
-              />
+              {}
+              {vendorCategories?.map((item: any, i: number) => {
+                return (
+                  <UserRightCard
+                    key={i}
+                    bg="https://cdn0.weddingwire.in/article/9086/3_2/960/jpg/16809-creative-wedding-photography-avinash-dhoundhiyal-photography-lead-image.jpeg"
+                    text={item?.name}
+                    link={item?.name?.toLowerCase()}
+                    margin={vendorCategories?.length - 1 === i ? false : true}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>

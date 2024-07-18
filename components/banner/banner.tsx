@@ -1,89 +1,61 @@
 "use client";
-import { useRef } from "react";
-import { useEffect, useState } from "react";
+
 import MobileVendors from "@/components/mobileVendors";
+import useUi from "@/lib/hooks/useUi";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
 
 const Banner = () => {
-  // Vendors Option
-  const vendorsList = [
-    { key: 1, value: "Venues" },
-    { key: 2, value: "Photographer" },
-    { key: 3, value: "Bridal Makeup" },
-    { key: 4, value: "Bridal Wear" },
-    { key: 5, value: "Groom Wear" },
-    { key: 6, value: "Decorators" },
-    { key: 7, value: "Wedding Planner" },
-    { key: 8, value: "Invitation" },
-    { key: 9, value: "Cinema/Video" },
-    { key: 10, value: "Mehndi Artist" },
-    { key: 11, value: "Caterins Services" },
-    { key: 12, value: "Cakes" },
-    { key: 13, value: "DJ's" },
-    { key: 14, value: "Wedding Planning" },
-    { key: 15, value: "Wedding Categories" },
-    { key: 16, value: "Accesories" },
-    { key: 17, value: "Favours" },
-  ];
+  const { vendorCategories, cities } = useUi();
+  const [citiesValue, setCitiesValue] = useState("");
+  const [openVendor, setOpenVendor] = useState(false);
+  const [vendorInput, setVendorInput] = useState("");
+  const [vendorInputShow, setVendorInputShow] = useState("");
+  const [vendorsValue, setVendorsValue] = useState("");
+  const [openCity, setOpenCity] = useState(false);
+  const [citiesInput, setCitiesInput] = useState("");
+  const [citiesInputShow, setCitiesInputShow] = useState("");
 
-  // City List
-  const cityOptions = [
-    { key: 1, value: "Islamabad" },
-    { key: 2, value: "Karachi" },
-    { key: 3, value: "Bahawalpur" },
-    { key: 4, value: "Sialkot" },
-    { key: 5, value: "Sargodha" },
-    { key: 6, value: "Quetta" },
-    { key: 7, value: "Peshawar" },
-    { key: 8, value: "Hyderabad" },
-    { key: 9, value: "Gujranwala" },
-    { key: 10, value: "Multan" },
-    { key: 11, value: "Rawalpindi" },
-    { key: 12, value: "Faisalabad" },
-    { key: 13, value: "Lahore" },
-  ];
-
-  const [open, setOpen] = useState(false);
-  const [cityOpen, setCityOpen] = useState(false);
-  const [selected, setSelected] = useState("");
-  const [selectCity, setSelectCity] = useState("");
-
-  const selectInputValue = (e: any) => {
-    setSelected(e.target.value);
+  const VendorDropdown = () => {
+    if (openVendor === true) {
+      setVendorInput("");
+    }
+    const value = vendorInput !== vendorsValue ? vendorsValue : vendorInput;
+    setVendorInputShow(value);
   };
+  useEffect(() => {
+    VendorDropdown();
+  }, [openVendor]);
 
-  const selectCityValue = (e: any) => {
-    setSelectCity(e.target.value);
+  const CitiesDropdown = () => {
+    if (openCity === true) {
+      setCitiesInput("");
+    }
+    const value = citiesInput !== citiesValue ? citiesValue : citiesInput;
+    setCitiesInputShow(value);
   };
-
-  const selectValueOpen = (option: any) => {
-    setSelected(option);
-    setOpen(!open);
-  };
-
-  const selectCityValueOption = (option: any) => {
-    setSelectCity(option);
-    setCityOpen(!cityOpen);
-  };
+  useEffect(() => {
+    CitiesDropdown();
+  }, [openCity]);
 
   // Close Dropdown When Click
-
   const ref = useRef<any>();
   const ref2 = useRef<any>();
 
   useEffect(() => {
     const closePopup = (e: any) => {
       if (!ref.current.contains(e.target) && !ref2.current.contains(e.target)) {
-        setOpen(false);
-        setCityOpen(false);
+        setOpenVendor(false);
+        setOpenCity(false);
       }
     };
     document.addEventListener("click", closePopup);
     return () => {
       document.removeEventListener("click", closePopup);
     };
-  }, [open, cityOpen]);
+  }, [openVendor, openCity]);
 
   return (
     // Banner Start
@@ -106,32 +78,41 @@ const Banner = () => {
                 <div className="vendor__container__wrapper relative w-full border-r">
                   <div
                     className="input__container"
-                    onClick={() => setOpen(!open)}>
+                    onClick={() => setOpenVendor(!openVendor)}>
                     <input
-                      type="text"
-                      placeholder="Select Vendor"
-                      value={selected}
-                      onChange={selectInputValue}
                       className="p-3 w-full outline-none border-none text-textSecondary-900 font-medium cursor-pointer"
+                      type="text"
+                      value={openVendor ? vendorInput : vendorInputShow}
+                      onChange={(e) => setVendorInput(e.target.value)}
+                      placeholder="Select Vendor"
+                      required
                     />
-                    <div className="input__arrow__container absolute right-3 bottom-3 text-black">
-                      <BiChevronDown className="cursor-pointer" />
+                    <div className="input__arrow__container absolute right-4 bottom-4 text-black">
+                      <BiChevronDown
+                        className={cn(
+                          "cursor-pointer transition-all duration-300",
+                          openVendor && "rotate-180"
+                        )}
+                      />
                     </div>
                   </div>
                   {/* Dropdown Open */}
-                  {open && (
+                  {openVendor && (
                     <div className="dropdown border-t-2 box-border absolute w-full">
                       <div className="max-h-[200px] overflow-scroll border border-t-0">
-                        {vendorsList
-                          .filter((v) =>
-                            v.value.toLocaleLowerCase().includes(selected)
+                        {vendorCategories
+                          ?.filter((v: any) =>
+                            v?.name?.toLocaleLowerCase()?.includes(vendorInput)
                           )
-                          .map((opt) => (
+                          ?.map((opt: any) => (
                             <div
                               className="bg-white text-black p-2 flex items-center cursor-pointer hover:bg-gray-300 text-sm"
-                              key={opt.key}
-                              onClick={() => selectValueOpen(opt.value)}>
-                              {opt.value}
+                              key={opt?.name}
+                              onClick={() => {
+                                setVendorInput(opt?.name);
+                                setVendorsValue(opt?.name);
+                              }}>
+                              {opt?.name}
                             </div>
                           ))}
                       </div>
@@ -145,31 +126,41 @@ const Banner = () => {
                 <div className="city__container__wrapper relative w-full border-r-2">
                   <div
                     className="input__container"
-                    onClick={() => setCityOpen(!cityOpen)}>
+                    onClick={() => setOpenCity(!openCity)}>
                     <input
-                      type="text"
-                      placeholder="Select City"
-                      value={selectCity}
-                      onChange={selectCityValue}
                       className="p-3 w-full outline-none border-none text-textSecondary-900 font-medium cursor-pointer"
+                      type="text"
+                      value={openCity ? citiesInput : citiesInputShow}
+                      onChange={(e) => setCitiesInput(e.target.value)}
+                      required
+                      placeholder="Select City"
                     />
-                    <div className="input__arrow__container absolute right-3 bottom-3 text-black">
-                      <BiChevronDown className="cursor-pointer" />
+                    <div className="input__arrow__container absolute right-4 bottom-4 text-black">
+                      <BiChevronDown
+                        className={cn(
+                          "cursor-pointer transition-all duration-300",
+                          openCity && "rotate-180"
+                        )}
+                      />
                     </div>
                   </div>
-                  {cityOpen && (
-                    <div className="dropdown border-t-2 box-border absolute w-full border-l-2 z">
+                  {/* Dropdown Open */}
+                  {openCity && (
+                    <div className="dropdown border-t-2 box-border absolute w-full">
                       <div className="max-h-[200px] overflow-scroll border border-t-0">
-                        {cityOptions
-                          .filter((city) =>
-                            city.value.toLocaleLowerCase().includes(selectCity)
+                        {cities
+                          ?.filter((v: any) =>
+                            v?.name?.toLocaleLowerCase()?.includes(citiesInput)
                           )
-                          .map((opt) => (
+                          ?.map((opt: any) => (
                             <div
                               className="bg-white text-black p-2 flex items-center cursor-pointer hover:bg-gray-300 text-sm"
-                              key={opt.key}
-                              onClick={() => selectCityValueOption(opt.value)}>
-                              {opt.value}
+                              key={opt?.name}
+                              onClick={() => {
+                                setCitiesInput(opt?.name);
+                                setCitiesValue(opt?.name);
+                              }}>
+                              {opt?.name}
                             </div>
                           ))}
                       </div>

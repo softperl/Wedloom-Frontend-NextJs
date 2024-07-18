@@ -40,7 +40,7 @@ const Popup = () => {
             </span>
             <ul className="mt-1">
               {cities
-                .filter((item: any) =>
+                ?.filter((item: any) =>
                   item?.name.toLowerCase()?.includes(value)
                 )
                 ?.map((city: any) => (
@@ -56,7 +56,7 @@ const Popup = () => {
             </span>
             <ul className="mt-1">
               {cities
-                .filter((item: any) =>
+                ?.filter((item: any) =>
                   item?.name.toLowerCase()?.includes(value)
                 )
                 ?.map((city: any) => (
@@ -72,7 +72,7 @@ const Popup = () => {
             </span>
             <ul className="mt-1">
               {cities
-                .filter((item: any) =>
+                ?.filter((item: any) =>
                   item?.name.toLowerCase()?.includes(value)
                 )
                 ?.map((city: any) => (
@@ -88,7 +88,7 @@ const Popup = () => {
             </span>
             <ul className="mt-1">
               {cities
-                .filter((item: any) =>
+                ?.filter((item: any) =>
                   item?.name.toLowerCase()?.includes(value)
                 )
                 ?.map((city: any) => (
