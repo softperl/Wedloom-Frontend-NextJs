@@ -85,7 +85,7 @@ const WpCardGrid = ({
               />
             </div>
             {/* Location */}
-            <div className="location text-sm text-dateColor-900 my-1">
+            <div className="location text-sm text-dateColor-900 my-1 flex items-center flex-nowrap">
               <FaLocationDot className="w-5 h-5" />{" "}
               <span className="font-medium ml-1">{location}</span>
             </div>

@@ -17,9 +17,41 @@ import {
   FaShareNodes,
 } from "react-icons/fa6";
 import Image from "next/image";
+import BenquestSection from "./benquestSection";
 
 const SingleProfile = ({ scroll, project, about, review }: any) => {
   const [click, setclick] = useState(false);
+  const banquets = [
+    {
+      name: "Indoor",
+      fixedCapacity: "200",
+      floatingCapacity: "350",
+      des: "banquet hall",
+      src: "https://images.wedmegood.com/images/indoor.svg",
+    },
+    {
+      name: "Indoor & Outdoor",
+      fixedCapacity: "150",
+      floatingCapacity: "600",
+      des: "lawn",
+      src: "https://images.wedmegood.com/images/indoor&outdoor.png",
+    },
+    {
+      name: "Indoor",
+      fixedCapacity: "200",
+      floatingCapacity: "350",
+      des: "banquet hall",
+      src: "https://image.wedmegood.com/resized/80X/uploads/project/284109/1711429635_1711429027936.jpg?crop=6,27,1395,785",
+      href: "/",
+    },
+    {
+      name: "Poolside",
+      fixedCapacity: "100",
+      floatingCapacity: "250",
+      des: "poolside",
+      src: "https://images.wedmegood.com/images/poolside.svg",
+    },
+  ];
   return (
     <section className="lg:pt-4">
       <div className="single__profile container mx-auto lg:px-20">
@@ -186,6 +218,17 @@ const SingleProfile = ({ scroll, project, about, review }: any) => {
                 </div>
               </div>
             </div>
+
+            {/* Projects Start Section*/}
+            {/* {vendor?.vendorType?.name === "Venue" && ( */}
+            <>
+              <div className="projects bg-white shadow-md mt-6">
+                <div className="project__card">
+                  <BenquestSection banquets={banquets} />
+                </div>
+              </div>
+            </>
+            {/* )} */}
 
             {/* Projects Start Section*/}
             <div className="projects bg-white shadow-md mt-6" ref={project}>

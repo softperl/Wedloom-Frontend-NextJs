@@ -23,7 +23,6 @@ import {
 const Footer = () => {
   const { aboutData, socialLinks } = useUi();
 
-  console.log(socialLinks);
   return (
     <section className={`lg:py-14 py-6 bg-white`}>
       <div className="popular_venue container mx-auto md:px-20 px-4 text-textSecondary-900">

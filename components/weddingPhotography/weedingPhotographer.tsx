@@ -47,7 +47,7 @@ const WeedingPhotographer = () => {
           <div className="hidden xl:block">
             <div className="wphotographer__content__header mt-4 mb-12 flex justify-between items-center">
               <div className="w-full">
-                <h5 className="text-2xl font-semibold">
+                <h5 className="text-xl font-semibold">
                   Wedding Photographers in Karachi
                 </h5>
                 <span className="text-sm">

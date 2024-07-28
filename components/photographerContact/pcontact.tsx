@@ -23,6 +23,29 @@ const Pcontact = () => {
     setMessage(true);
   };
 
+  const functionType = [
+    {
+      name: "Mehndi",
+    },
+    {
+      name: "Barat",
+    },
+    {
+      name: "Walima",
+    },
+    {
+      name: "Engagement",
+    },
+    {
+      name: "Nikkah",
+    },
+    {
+      name: "Party",
+    },
+    {
+      name: "Other",
+    },
+  ];
   return (
     <div className="p_contact bg-white shadow-md">
       <div className="p_contact_button flex flex-wrap lg:justify-around gap-8 justify-center items-center lg:px-4 py-6 my-4">
@@ -110,35 +133,22 @@ const Pcontact = () => {
                   <h5 className="text-lg text-textSecondary-900 font-semibold">
                     Function Type
                   </h5>
-                  <form className="flex items-center gap-4 lg:gap-6 mt-4 flex-wrap lg:flex-nowrap">
-                    <div>
-                      <input
-                        type="radio"
-                        id="prewedding"
-                        name="wedding"
-                        value="Pre Wedding"
-                        className="scale-150 accent-textPrimary-900"
-                      />
-                      <label
-                        className="pl-2 font-medium text-textSecondary-900"
-                        htmlFor="prewedding">
-                        Pre Wedding
-                      </label>
-                    </div>
-                    <div>
-                      <input
-                        type="radio"
-                        id="wedding"
-                        name="wedding"
-                        value="Wedding"
-                        className="scale-150 accent-textPrimary-900"
-                      />
-                      <label
-                        className="pl-2 font-medium text-textSecondary-900"
-                        htmlFor="wedding">
-                        Wedding
-                      </label>
-                    </div>
+                  <form className="flex items-center gap-4 lg:gap-6 mt-4 flex-wrap">
+                    {functionType?.map((item, i) => {
+                      return (
+                        <label key={i}>
+                          <input
+                            type="radio"
+                            name="functionType"
+                            value={item?.name}
+                            className="scale-150 accent-textPrimary-900"
+                          />
+                          <span className="pl-2 font-medium text-textSecondary-900">
+                            {item?.name}
+                          </span>
+                        </label>
+                      );
+                    })}
                   </form>
                 </div>
 
