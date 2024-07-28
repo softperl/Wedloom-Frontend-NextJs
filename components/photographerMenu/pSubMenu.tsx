@@ -1,8 +1,13 @@
+"use client";
+
+import useUi from "@/lib/hooks/useUi";
 import Link from "next/link";
 import React from "react";
 import { FaCaretRight } from "react-icons/fa";
 
 const PSubMenu = () => {
+  const { cities } = useUi();
+
   return (
     <div className="pSub_menu bg-white py-4 text-textSecondary-900 px-12 shadow-sm">
       <div className="pSubment__content flex justify-between">
@@ -21,68 +26,19 @@ const PSubMenu = () => {
           <div>
             {/* Form Start*/}
             <form className="flex flex-col gap-y-1">
-              <div>
-                <input
-                  className="accent-textPrimary-900 scale-110"
-                  type="checkbox"
-                  id="karachi"
-                  name="karachi"
-                  value="Karachi"
-                />
-                <label className="pl-2" htmlFor="karachi">
-                  Karachi
-                </label>
-              </div>
-
-              <div>
-                <input
-                  className="accent-textPrimary-900 scale-110"
-                  type="checkbox"
-                  id="islamabad"
-                  name="islamabad"
-                  value="Islamabad"
-                />
-                <label className="pl-2" htmlFor="islamabad">
-                  Islamabad
-                </label>
-              </div>
-              <div>
-                <input
-                  className="accent-textPrimary-900 scale-110"
-                  type="checkbox"
-                  id="Multan"
-                  name="Multan"
-                  value="Lahore"
-                />
-                <label className="pl-2" htmlFor="Multan">
-                  Lahore
-                </label>
-              </div>
-
-              <div>
-                <input
-                  className="accent-textPrimary-900 scale-110"
-                  type="checkbox"
-                  id="sukkur"
-                  name="sukkur"
-                  value="Sukkur"
-                />
-                <label className="pl-2" htmlFor="sukkur">
-                  Sukkur
-                </label>
-              </div>
-              <div>
-                <input
-                  className="accent-textPrimary-900 scale-110"
-                  type="checkbox"
-                  id="Okara"
-                  name="Okara"
-                  value="Okara"
-                />
-                <label className="pl-2" htmlFor="Okara">
-                  Okara
-                </label>
-              </div>
+              {cities?.map((item: any, i: number) => {
+                return (
+                  <label key={i}>
+                    <input
+                      className="accent-textPrimary-900 scale-110"
+                      type="checkbox"
+                      name={item?.name}
+                      value={item?.name}
+                    />
+                    <span className="pl-2">{item?.name}</span>
+                  </label>
+                );
+              })}
             </form>
             {/* Form End */}
 

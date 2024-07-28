@@ -105,7 +105,6 @@ const PhotoBudgetCard = ({
                   <Image
                     width={500}
                     height={500}
-                    fill
                     src={image4 || ""}
                     alt="budgetFriendlt__Image"
                     className={`w-16 h-16 ${

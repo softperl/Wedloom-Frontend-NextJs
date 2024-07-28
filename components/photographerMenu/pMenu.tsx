@@ -28,7 +28,10 @@ const PMenu = () => {
   // UseEffect Function for Handle Popup Open Close
   useEffect(() => {
     const closePopup = (e: any) => {
-      if (!ref.current.contains(e.target) && !ref2.current.contains(e.target)) {
+      if (
+        !ref?.current?.contains!(e.target) &&
+        !ref2?.current?.contains!(e.target)
+      ) {
         setShowSubmenu(false);
       }
     };
@@ -86,7 +89,11 @@ const PMenu = () => {
       </div>
 
       {/* Submenu Items Components */}
-      <div ref={ref2}>{showSubmenu && <PSubmenu />}</div>
+      {showSubmenu && (
+        <div ref={ref2}>
+          <PSubmenu />
+        </div>
+      )}
     </div>
   );
   // Content End

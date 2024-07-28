@@ -28,7 +28,8 @@ const WpCardList = ({
           {/* Image Div */}
           <div className="wpCardlist__image w-5/12 relative">
             <Image
-              fill
+              width={500}
+              height={500}
               src={image}
               alt="photographer_image"
               className="h-60 w-full rounded-md"
@@ -39,7 +40,8 @@ const WpCardList = ({
                 content={<div className="w-64">{tooltip1}</div>}
                 placement={"right"}>
                 <Image
-                  fill
+                  width={500}
+                  height={500}
                   src={"/handpicked.png"}
                   alt="handpic tooltip"
                   className="w-28 absolute top-0 left-0"
@@ -59,7 +61,7 @@ const WpCardList = ({
                   width={500}
                   height={500}
                   src={"/blue.webp"}
-                  alt=""
+                  alt="photo"
                   className="w-5 h-5"
                 />
               </div>
@@ -73,7 +75,7 @@ const WpCardList = ({
             </div>
 
             {/* Location */}
-            <div className="location text-sm text-dateColor-900 my-1">
+            <div className="location text-sm text-dateColor-900 my-1 flex items-center">
               <FaLocationDot className="w-5 h-5" />{" "}
               <span className="font-medium ml-1">{location}</span>
             </div>
