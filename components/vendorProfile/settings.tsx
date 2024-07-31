@@ -5,7 +5,7 @@ import useAuth from "@/lib/hooks/useAuth";
 import { handelError } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
@@ -29,6 +29,7 @@ const Settings = () => {
         oldPassword,
         newPassword,
       });
+
       setAccessToken(data?.accessToken);
       setOldPassword("");
       setNewPassword("");

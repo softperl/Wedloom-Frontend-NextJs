@@ -71,7 +71,7 @@ const WeddingSetupBanner = () => {
             {/* Wedding Title */}
             <div>
               <p className="text-xs md:text-sm text-textSecondary-900 font-bold">
-                WEDDING TITLE
+                EVENT TITLE
               </p>
               <input
                 type="text"
@@ -95,7 +95,7 @@ const WeddingSetupBanner = () => {
             {/* Wedding Date */}
             <div className="my-4">
               <p className="text-xs md:text-sm text-textSecondary-900 font-bold">
-                WEDDING DATE
+                EVENT DATE
               </p>
               <div className="border-b">
                 <ReactDatePicker
@@ -111,7 +111,7 @@ const WeddingSetupBanner = () => {
             {/* Buttons */}
             <div className="text-center mt-5 mb-1">
               <button className="w-[95%] py-4 text-xs md:text-sm font-semibold rounded-md text-white bg-textPrimary-900">
-                CREATE WEDDING
+                CREATE EVENT
               </button>
             </div>
           </div>

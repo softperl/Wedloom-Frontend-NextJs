@@ -14,6 +14,7 @@ import { IoEye } from "react-icons/io5";
 import { signIn } from "@/lib/api";
 import { handelError } from "@/lib/utils";
 import useAuth from "@/lib/hooks/useAuth";
+import { setCookie } from "cookies-next";
 
 const formSchema = z.object({
   email: z.string().email("E-mail is required"),
@@ -42,6 +43,7 @@ const LoginForm = () => {
         email: values?.email,
         password: values?.password,
       });
+      setCookie("refreshToken", data?.refreshToken);
       setAccessToken(data.accessToken);
       // window.location.reload();
       router.push("/");
