@@ -1,9 +1,11 @@
 "use client";
+import useAuth from "@/lib/hooks/useAuth";
 import Image from "next/image";
 import React, { useState } from "react";
 import { FaCheck, FaPen, FaXmark } from "react-icons/fa6";
 
 const UserSettings = () => {
+  const { user } = useAuth();
   const [file, setFile] = useState<any>([]);
   const [editName, setEditName] = useState(false);
   const [male, setMale] = useState(false);

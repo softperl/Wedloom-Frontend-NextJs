@@ -7,16 +7,19 @@ import AppReactDraftWysiwyg from "@/libs/styles/AppReactDraftWysiwyg";
 import { AddressPopup } from "../popups/addressPopup";
 import { getQuestions } from "@/lib/api";
 import useUi from "@/lib/hooks/useUi";
+import useAuth from "@/lib/hooks/useAuth";
 
 const InformationContent = () => {
   const { cities } = useUi();
+  const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [questions, setQuestions] = useState([]);
+  console.log(questions);
 
   const [locationPopUp, setLocationPopUp] = useState(false);
   const [value, setValue] = useState(EditorState.createEmpty());
   const [formData, setFormData] = useState<any>({
-    name: "Junaid Asghar",
+    name: "",
     personName: "",
     additionalMail: "",
     contactNumber: "",
@@ -512,884 +515,113 @@ const InformationContent = () => {
           <div className="w-full mt-2 mb-8 lg:px-8 px-2">
             {/* Booked Package */}
 
-            {questions?.map((q: any, index: number) => (
-              <div key={index}>
-                <label>{q?.label}</label>
-                {q?.inputType === "Text" && (
-                  <input
-                    className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
-                    type="text"
-                    onChange={(e) => handleChange(q, e)}
-                  />
-                )}
-                {q?.inputType === "Number" && (
-                  <input
-                    className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
-                    type="number"
-                    onChange={(e) => handleChange(q, e)}
-                  />
-                )}
-                {q?.inputType === "Date" && (
-                  <input type="date" onChange={(e) => handleChange(q, e)} />
-                )}
-                {q?.inputType === "Radio" &&
-                  q?.options?.map((option: any, idx: number) => (
-                    <div key={idx}>
-                      <input
-                        type="radio"
-                        name={q?.label}
-                        value={option}
-                        onChange={(e) => handleChange(q, e)}
-                      />
-                      <label>{option}</label>
+            {questions?.map((q: any, index: number) => {
+              const d = [
+                {
+                  option: "sjsjj",
+                },
+                {
+                  option: "yriiwr",
+                },
+                {
+                  option: "lroem",
+                },
+              ];
+
+              return (
+                <div key={index} className="border-b py-2 lg:pt-4 lg:pb-6">
+                  <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
+                    {q?.label}
+                  </p>
+                  {q?.inputType === "Radio" && (
+                    <div className="mt-2 pl-4">
+                      {q?.others?.map((item: any, i: number) => {
+                        return (
+                          <div key={i}>
+                            <input
+                              className="accent-textPrimary-900"
+                              type="radio"
+                              id={item}
+                              name={item}
+                              value={item}
+                            />
+                            <label
+                              className="pl-2 text-xs lg:text-sm text-textSecondary-900"
+                              htmlFor="one_day">
+                              {item}
+                            </label>
+                          </div>
+                        );
+                      })}
                     </div>
-                  ))}
-                {q?.inputType === "Select" && (
-                  <select onChange={(e) => {}}>
-                    {q?.options?.map((option: any, idx: number) => (
-                      <option key={idx} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                )}
-                {q?.inputType === "File" && (
-                  <input type="file" onChange={(e) => handleChange(q, e)} />
-                )}
-              </div>
-            ))}
-
-            {/* The above package includes services for how many days?  */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                The above package includes services for how many days?
-              </p>
-
-              {/* Radio Buttons */}
-              <div className="mt-2 pl-4">
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="one_day"
-                    name="days"
-                    value="1 Day"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="one_day">
-                    1 Day
-                  </label>
+                  )}
+                  {q?.inputType === "Textarea" && (
+                    <div className="mt-4">
+                      <textarea
+                        rows={5}
+                        className="text-xs lg:text-sm outline-none border w-full px-2 py-1"></textarea>
+                    </div>
+                  )}
+                  {q?.inputType === "Checkbox" && (
+                    <div className="mt-2 pl-4">
+                      {q?.others?.map((item: any, i: number) => {
+                        return (
+                          <div className="mb-1" key={i}>
+                            <input
+                              className="accent-textPrimary-900"
+                              type="checkbox"
+                              id={item}
+                              checked={formData.candid}
+                              value={formData.candid}
+                              onChange={(e) =>
+                                setFormData({
+                                  ...formData,
+                                  candid: e.target.checked,
+                                })
+                              }
+                            />
+                            <label
+                              className="pl-2 text-xs lg:text-sm text-textSecondary-900"
+                              htmlFor={item}>
+                              {item}
+                            </label>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                  {q?.inputType === "Text" && (
+                    <input
+                      className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
+                      type="text"
+                      onChange={(e) => handleChange(q, e)}
+                    />
+                  )}
+                  {q?.inputType === "Number" && (
+                    <input
+                      className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
+                      type="number"
+                      onChange={(e) => handleChange(q, e)}
+                    />
+                  )}
+                  {q?.inputType === "Date" && (
+                    <input type="date" onChange={(e) => handleChange(q, e)} />
+                  )}
+                  {q?.inputType === "Select" && (
+                    <select onChange={(e) => {}} className="text-sm mt-2">
+                      {q?.others?.map((option: any, idx: number) => (
+                        <option key={idx} value={option} className="text-sm">
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                  {q?.inputType === "File" && (
+                    <input type="file" onChange={(e) => handleChange(q, e)} />
+                  )}
                 </div>
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="two_days"
-                    name="days"
-                    value="2 Days"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="two_days">
-                    2 Days
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="three_days"
-                    name="days"
-                    value="3 Days"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="three_days">
-                    3 Days
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="four_days"
-                    name="days"
-                    value="4 Days"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="four_days">
-                    4 Days
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            {/* The above package includes which services?  */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                The above package includes which services?
-              </p>
-
-              {/* Radio Buttons */}
-              <div className="mt-2 pl-4">
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="photo"
-                    name="category"
-                    value="Photo"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="photo">
-                    Photo
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="photovideo"
-                    name="category"
-                    value="Photo + Video"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="photovideo">
-                    Photo + Video
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="photovideoprewedding"
-                    name="category"
-                    value="Photo + Video + Pre Wedding"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="photovideoprewedding">
-                    Photo + Video + Pre Wedding
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            {/* Please describe your cancellation policy ( if a user initiates cancellation) including whether you provide refunds of booking amounts , and terms for doing so.   */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                Please describe your cancellation policy ( if a user initiates
-                cancellation) including whether you provide refunds of booking
-                amounts , and terms for doing so.
-              </p>
-
-              {/* Radio Buttons */}
-              <div className="mt-2 pl-4">
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="partial"
-                    name="cancellation"
-                    value="Partial Refund Offered"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="partial">
-                    Partial Refund Offered
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="norefund"
-                    name="cancellation"
-                    value="No Refund Offered "
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="norefund">
-                    No Refund Offered
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="dateadjust"
-                    name="cancellation"
-                    value="No Refund Offered However Date Adjustment Can Be Done "
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="dateadjust">
-                    No Refund Offered However Date Adjustment Can Be Done
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="fullrefund"
-                    name="cancellation"
-                    value="Full Refund Offered"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="fullrefund">
-                    Full Refund Offered
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            {/* Please describe your cancellation policy (if you initiate a cancellation) including whether you provide refunds of booking amounts and terms for doing so.   */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                Please describe your cancellation policy (if you initiate a
-                cancellation) including whether you provide refunds of booking
-                amounts and terms for doing so.
-              </p>
-
-              {/* Radio Buttons */}
-              <div className="mt-2 pl-4">
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="vendorpartial"
-                    name="vendorcancel"
-                    value="Partial Refund Offered"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="vendorpartial">
-                    Partial Refund Offered
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="vendornorefund"
-                    name="vendorcancel"
-                    value="No Refund Offered "
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="vendornorefund">
-                    No Refund Offered
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="vendorfullrefund"
-                    name="vendorcancel"
-                    value="Full Refund Offered"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="vendorfullrefund">
-                    Full Refund Offered
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            {/* What are the terms & conditions of your cancellation policy? ( please describe in detail - eg No refunds within a month of the wedding day or 50% amount refundable)   */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                What are the terms & conditions of your cancellation policy? (
-                please describe in detail - eg No refunds within a month of the
-                wedding day or 50% amount refundable)
-              </p>
-
-              {/* TextArea */}
-              <div className="mt-4">
-                <textarea
-                  rows={5}
-                  className="text-xs lg:text-sm outline-none border w-full px-2 py-1"></textarea>
-              </div>
-            </div>
-
-            {/* Please mention any awards you have received ?    */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                Please mention any awards you have received ?
-              </p>
-
-              {/* TextArea */}
-              <div className="mt-4">
-                <textarea
-                  rows={5}
-                  className="text-xs lg:text-sm outline-none border w-full px-2 py-1"></textarea>
-              </div>
-            </div>
-
-            {/* Describe your photography in three words (eg: fun, vibrant and natural)     */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                Describe your photography in three words (eg: fun, vibrant and
-                natural)
-              </p>
-
-              {/* TextArea */}
-              <div className="mt-4">
-                <textarea
-                  rows={5}
-                  className="text-xs lg:text-sm outline-none border px-2 py-1 w-full"></textarea>
-              </div>
-            </div>
-
-            {/* How many cities have you covered weddings in till date?  */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                How many cities have you covered weddings in till date?
-              </p>
-              <input
-                type="number"
-                className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
-              />
-            </div>
-
-            {/* We love wedding photography because      */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                We love wedding photography because
-              </p>
-
-              {/* TextArea */}
-              <div className="mt-4">
-                <textarea
-                  rows={5}
-                  className="text-xs lg:text-sm outline-none border px-2 py-1 w-full"></textarea>
-              </div>
-            </div>
-
-            {/* Price for covering a small event like an engagement or roka (Assume under 50 pax and 4 hours of shoot photo and video)   */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                Price for covering a small event like an engagement or roka
-                (Assume under 50 pax and 4 hours of shoot photo and video)
-              </p>
-              <input
-                type="number"
-                className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
-              />
-            </div>
-
-            {/* How many weeks in advance should a booking be made?    */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                How many weeks in advance should a booking be made?
-              </p>
-              <input
-                type="number"
-                className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
-              />
-            </div>
-
-            {/* Which Year you started shooting weddings?    */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                Which Year you started shooting weddings?
-              </p>
-              <input
-                type="number"
-                className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
-              />
-            </div>
-
-            {/* How many weeks do you take to deliver the photos (Please respond such as 6 weeks, 7 weeks etc)     */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                How many weeks do you take to deliver the photos (Please respond
-                such as 6 weeks, 7 weeks etc)
-              </p>
-              <input
-                type="number"
-                className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
-              />
-            </div>
-
-            {/* Which services do you offer?    */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                Which services do you offer?
-              </p>
-
-              {/* Checkboxes */}
-              <div className="mt-2 pl-4">
-                <div className="mb-1">
-                  <input
-                    className="accent-textPrimary-900"
-                    type="checkbox"
-                    id="Candid Photography"
-                    checked={formData.candid}
-                    value={formData.candid}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        candid: e.target.checked,
-                      })
-                    }
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Candid Photography">
-                    Candid Photography
-                  </label>
-                </div>
-
-                <div className="mb-1">
-                  <input
-                    className="accent-textPrimary-900"
-                    type="checkbox"
-                    id="Wedding Films"
-                    checked={formData.wedding}
-                    value={formData.wedding}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        wedding: e.target.checked,
-                      })
-                    }
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Wedding Films">
-                    Wedding Films
-                  </label>
-                </div>
-
-                <div className="mb-1">
-                  <input
-                    className="accent-textPrimary-900"
-                    type="checkbox"
-                    id="Traditional Photography"
-                    checked={formData.traditional}
-                    value={formData.traditional}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        traditional: e.target.checked,
-                      })
-                    }
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Traditional Photography">
-                    Traditional Photography
-                  </label>
-                </div>
-
-                <div className="mb-1">
-                  <input
-                    className="accent-textPrimary-900"
-                    type="checkbox"
-                    id="Pre-Wedding Shoots"
-                    checked={formData.prewedding}
-                    value={formData.prewedding}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        prewedding: e.target.checked,
-                      })
-                    }
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Pre-Wedding Shoots">
-                    Pre-Wedding Shoots
-                  </label>
-                </div>
-
-                <div className="mb-1">
-                  <input
-                    className="accent-textPrimary-900"
-                    type="checkbox"
-                    id="Albums"
-                    checked={formData.album}
-                    value={formData.album}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        album: e.target.checked,
-                      })
-                    }
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Albums">
-                    Albums
-                  </label>
-                </div>
-
-                <div className="mb-1">
-                  <input
-                    className="accent-textPrimary-900"
-                    type="checkbox"
-                    id="Maternity Shoots"
-                    checked={formData.maternity}
-                    value={formData.maternity}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        maternity: e.target.checked,
-                      })
-                    }
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Maternity Shoots">
-                    Maternity Shoots
-                  </label>
-                </div>
-
-                <div className="mb-1">
-                  <input
-                    className="accent-textPrimary-900"
-                    type="checkbox"
-                    id="Fashion Shoots"
-                    checked={formData.fashion}
-                    value={formData.fashion}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        fashion: e.target.checked,
-                      })
-                    }
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Fashion Shoots">
-                    Fashion Shoots
-                  </label>
-                </div>
-
-                <div className="mb-1">
-                  <input
-                    className="accent-textPrimary-900"
-                    type="checkbox"
-                    id="Pre wedding Films"
-                    checked={formData.preweddingflims}
-                    value={formData.preweddingflims}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        preweddingflims: e.target.checked,
-                      })
-                    }
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Pre wedding Films">
-                    Pre wedding Films
-                  </label>
-                </div>
-
-                <div className="mb-1">
-                  <input
-                    className="accent-textPrimary-900"
-                    type="checkbox"
-                    id="traditional"
-                    checked={formData.videography}
-                    value={formData.videography}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        videography: e.target.checked,
-                      })
-                    }
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="traditional">
-                    Traditional Videography
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            {/* What is your speciality?    */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                What is your speciality?
-              </p>
-
-              {/* Radio Buttons */}
-              <div className="mt-2 pl-4">
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="Candid"
-                    name="speciality"
-                    value="Candid Specialist"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Candid">
-                    Candid Specialist
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="traditioncandid"
-                    name="speciality"
-                    value="Traditional + Candid Specialist"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="traditioncandid">
-                    Traditional + Candid Specialist
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            {/* How many processed (edited) pictures are delivered to the client?     */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                How many processed (edited) pictures are delivered to the
-                client?
-              </p>
-
-              {/* Radio Buttons */}
-              <div className="mt-2 pl-4">
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="<300"
-                    name="deliver"
-                    value="<300"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="<300">
-                    &#60;300
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="300-500"
-                    name="deliver"
-                    value="300-500"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="300-500">
-                    300 - 500
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="500-700 "
-                    name="deliver"
-                    value="500-700 "
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="500-700 ">
-                    500-700
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id=">700"
-                    name="deliver"
-                    value=">700"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor=">700">
-                    &#62;700
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            {/* What are your payment terms? */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                What are your payment terms?
-              </p>
-
-              {/* Radio Buttons */}
-              <div className="mt-2 pl-4">
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id=" Upto 25% Advance"
-                    name="paymentterms"
-                    value=" Upto 25% Advance"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor=" Upto 25% Advance">
-                    Upto 25% Advance
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="Approx 50% Advance while booking"
-                    name="paymentterms"
-                    value="Approx 50% Advance while booking"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Approx 50% Advance while booking">
-                    Approx 50% Advance while booking
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="100% Advance while booking"
-                    name="paymentterms"
-                    value="100% Advance while booking"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="100% Advance while booking">
-                    100% Advance while booking
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            {/* Who bears cost of travel and lodging when travelling to a different city?  */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                Who bears cost of travel and lodging when travelling to a
-                different city?
-              </p>
-
-              {/* Radio Buttons */}
-              <div className="mt-2 pl-4">
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="Cost of Stay & Travel borne by Client"
-                    name="costbears"
-                    value="Cost of Stay & Travel borne by Client"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Cost of Stay & Travel borne by Client">
-                    Cost of Stay & Travel borne by Client
-                  </label>
-                </div>
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="Cost of Stay borne by Client, Travel borne by Us"
-                    name="costbears"
-                    value="Cost of Stay borne by Client, Travel borne by Us"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="Cost of Stay borne by Client, Travel borne by Us">
-                    Cost of Stay borne by Client, Travel borne by Us
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            {/* Candid Photography and Traditional Photography one day package for wedding day (Assume 300 pax)  */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                Candid Photography and Traditional Photography one day package
-                for wedding day (Assume 300 pax)
-              </p>
-              <div className="flex items-center gap-4 lg:gap-16">
-                <input
-                  type="number"
-                  className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] text-textSecondary-900 flex-1"
-                />
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900 flex-1"
-                    type="radio"
-                    id="photodefault"
-                    name="onedayvideography"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="photodefault">
-                    Set as default
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            {/* Candid Photography, Traditional Photography and Cinematic Video one day package (Assume 300 pax wedding day)   */}
-            <div className="border-b py-2 lg:pt-4 lg:pb-6">
-              <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                Candid Photography, Traditional Photography and Cinematic Video
-                one day package (Assume 300 pax wedding day)
-              </p>
-              <div className="flex items-center lg:gap-16 gap-4">
-                <input
-                  type="number"
-                  className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] text-textSecondary-900 flex-1"
-                />
-
-                <div>
-                  <input
-                    className="accent-textPrimary-900"
-                    type="radio"
-                    id="videodefault"
-                    name="onedayvideography"
-                  />
-                  <label
-                    className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                    htmlFor="videodefault">
-                    Set as default
-                  </label>
-                </div>
-              </div>
-            </div>
+              );
+            })}
           </div>
 
           {/* Save Button */}

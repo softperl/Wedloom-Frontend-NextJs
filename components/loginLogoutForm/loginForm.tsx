@@ -11,6 +11,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FiAtSign } from "react-icons/fi";
 import { IoMdEyeOff } from "react-icons/io";
 import { IoEye } from "react-icons/io5";
+import { signIn } from "@/lib/api";
+import { handelError } from "@/lib/utils";
+import useAuth from "@/lib/hooks/useAuth";
 
 const formSchema = z.object({
   email: z.string().email("E-mail is required"),
@@ -20,6 +23,7 @@ const formSchema = z.object({
 type LoginFormValues = z.infer<typeof formSchema>;
 
 const LoginForm = () => {
+  const { setAccessToken } = useAuth();
   const router = useRouter();
 
   const defaultValues: Partial<LoginFormValues> = {
@@ -32,8 +36,18 @@ const LoginForm = () => {
     defaultValues,
   });
 
-  const onSubmit = (data: Partial<LoginFormValues>) => {
-    console.log(data);
+  const onSubmit = async (values: Partial<LoginFormValues>) => {
+    try {
+      const { data } = await signIn({
+        email: values?.email,
+        password: values?.password,
+      });
+      setAccessToken(data.accessToken);
+      // window.location.reload();
+      router.push("/");
+    } catch (error) {
+      handelError(error);
+    }
   };
 
   // Password Show State

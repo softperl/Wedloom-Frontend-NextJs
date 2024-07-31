@@ -68,7 +68,8 @@ const CheckoutContent = ({ packageName }: any) => {
                 <div className="left_main_content">
                   <div className="photographer_details flex justify-center">
                     <Image
-                      fill
+                      width={500}
+                      height={500}
                       src="https://images.pexels.com/photos/1707446/pexels-photo-1707446.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                       alt=""
                       className="w-full md:h-[350px] h-[200px]"
@@ -81,7 +82,8 @@ const CheckoutContent = ({ packageName }: any) => {
                         THE MEMORY CAPTURE
                       </h2>
                       <Image
-                        fill
+                        width={500}
+                        height={500}
                         src={"/blue.webp"}
                         alt=""
                         className="w-5 h-5"

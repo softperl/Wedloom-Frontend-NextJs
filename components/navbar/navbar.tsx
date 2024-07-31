@@ -28,8 +28,10 @@ import { FaHand, FaHeartPulse, FaPallet, FaXmark } from "react-icons/fa6";
 import { cn } from "@/lib/utils";
 import useUi from "@/lib/hooks/useUi";
 import Image from "next/image";
+import useAuth from "@/lib/hooks/useAuth";
 
 const Navbar = () => {
+  const { user, logout } = useAuth();
   const [showPop, setShowPop] = useState(false);
   const [open, setOpen] = useState(false);
   const [venues, setVenues] = useState(false);
@@ -169,92 +171,96 @@ const Navbar = () => {
             </div> */}
 
             {/* Login Button */}
-            <div className="login__btn">
-              <Link href="/signin">
-                <button className="bg-headerBG-900 py-1 px-10 rounded-full font-semibold">
-                  Login
-                </button>
-              </Link>
-            </div>
+            {!user && (
+              <div className="login__btn">
+                <Link href="/signin">
+                  <button className="bg-headerBG-900 py-1 px-10 rounded-full font-semibold">
+                    Login
+                  </button>
+                </Link>
+              </div>
+            )}
 
             {/* Profile Tab */}
-            <div className="flex justify-center items-center relative">
-              {/* Avatar */}
-              <div
-                className="flex items-center gap-2 cursor-pointer"
-                onClick={() => setProfilePopup(!profilePopup)}>
-                <Image
-                  width={500}
-                  height={500}
-                  src={avatar}
-                  alt="avatar"
-                  className="w-10 h-10 rounded-full object-cover"
-                />
-                <FaCaretDown />
-              </div>
+            {user && (
+              <div className="flex justify-center items-center relative">
+                {/* Avatar */}
+                <div
+                  className="flex items-center gap-2 cursor-pointer"
+                  onClick={() => setProfilePopup(!profilePopup)}>
+                  <Image
+                    width={500}
+                    height={500}
+                    src={avatar}
+                    alt="avatar"
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
+                  <FaCaretDown />
+                </div>
 
-              {/* Popup */}
-              {profilePopup && (
-                <div className="bg-white text-black w-[200px] absolute top-[125%] right-0 z-[1000] shadow-sm border border-paginationBg-900 border-t-0">
-                  {/* Profile */}
-                  <Link href="/user/profile">
-                    <div className="bg-carouselBG-900 p-2 flex gap-2 items-center justify-between">
-                      {/* Image */}
-                      <div className="w-4/12">
-                        <Image
-                          width={500}
-                          height={500}
-                          src={avatar}
-                          alt="avatar"
-                          className="w-10 h-10 rounded-full object-cover"
-                        />
+                {/* Popup */}
+                {profilePopup && (
+                  <div className="bg-white text-black w-[200px] absolute top-[125%] right-0 z-[1000] shadow-sm border border-paginationBg-900 border-t-0">
+                    {/* Profile */}
+                    <Link href="/user/profile">
+                      <div className="bg-carouselBG-900 p-2 flex gap-2 items-center justify-between">
+                        {/* Image */}
+                        <div className="w-4/12">
+                          <Image
+                            width={500}
+                            height={500}
+                            src={avatar}
+                            alt="avatar"
+                            className="w-10 h-10 rounded-full object-cover"
+                          />
+                        </div>
+
+                        <div className="w-full">
+                          <span className="text-sm text-textSecondary-900 font-medium">
+                            {user?.name}
+                          </span>
+                          <p className="text-xs text-textPrimary-900 font-medium">
+                            Profile
+                          </p>
+                        </div>
                       </div>
+                    </Link>
 
-                      <div className="w-full">
-                        <span className="text-sm text-textSecondary-900 font-medium">
-                          Junaid Asghar
-                        </span>
-                        <p className="text-xs text-textPrimary-900 font-medium">
-                          Profile
-                        </p>
+                    {/* Others Item */}
+                    <div className="py-2">
+                      <div className="px-4 mb-2">
+                        <Link href="/setup-wedding">
+                          <span className="text-textSecondary-900 font-medium text-sm hover:font-semibold">
+                            Setup Your Wedding
+                          </span>
+                        </Link>
                       </div>
-                    </div>
-                  </Link>
-
-                  {/* Others Item */}
-                  <div className="py-2">
-                    <div className="px-4 mb-2">
-                      <Link href="/setup-wedding">
-                        <span className="text-textSecondary-900 font-medium text-sm hover:font-semibold">
-                          Setup Your Wedding
-                        </span>
-                      </Link>
-                    </div>
-                    <div className="px-4 mb-2">
-                      <Link href="/user/inbox">
-                        <span className="text-textSecondary-900 font-medium text-sm hover:font-semibold">
-                          Inbox
-                        </span>
-                      </Link>
-                    </div>
-                    <div className="px-4 mb-2">
-                      <Link href="/user/profile/settings">
-                        <span className="text-textSecondary-900 font-medium text-sm hover:font-semibold">
-                          Settings
-                        </span>
-                      </Link>
-                    </div>
-                    <div className="px-4 mb-2">
-                      <Link href="/">
-                        <span className="text-textSecondary-900 font-medium text-sm hover:font-semibold">
+                      <div className="px-4 mb-2">
+                        <Link href="/user/inbox">
+                          <span className="text-textSecondary-900 font-medium text-sm hover:font-semibold">
+                            Inbox
+                          </span>
+                        </Link>
+                      </div>
+                      <div className="px-4 mb-2">
+                        <Link href="/user/profile/settings">
+                          <span className="text-textSecondary-900 font-medium text-sm hover:font-semibold">
+                            Settings
+                          </span>
+                        </Link>
+                      </div>
+                      <div className="px-4 mb-2">
+                        <span
+                          onClick={logout}
+                          className="text-textSecondary-900 font-medium text-sm hover:font-semibold cursor-pointer">
                           Logout
                         </span>
-                      </Link>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -320,7 +326,7 @@ const Navbar = () => {
 
                   <div className="w-full">
                     <span className="text-sm text-textSecondary-900 font-medium">
-                      Junaid Asghar
+                      {user?.name}
                     </span>
                     <p className="text-xs text-textPrimary-900 font-medium">
                       Profile

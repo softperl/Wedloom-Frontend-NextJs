@@ -1,16 +1,44 @@
 "use client";
+
+import { changePasswordVendor } from "@/lib/api";
+import useAuth from "@/lib/hooks/useAuth";
+import { handelError } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 const Settings = () => {
+  const { setAccessToken } = useAuth();
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [file, setFile] = useState<any>([]);
   const router = useRouter();
 
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    if (newPassword !== confirmPassword) {
+      toast.error("New passwords do not match");
+      return;
+    }
+    try {
+      const { data } = await changePasswordVendor({
+        oldPassword,
+        newPassword,
+      });
+      setAccessToken(data?.accessToken);
+      setOldPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+    } catch (error) {
+      handelError(error);
+    }
+  };
   return (
-    <div className="py-10">
+    <form onSubmit={handleSubmit} className="py-10">
       <div className="w-full h-full flex flex-col lg:flex-row justify-between">
         {/* Avatar Option */}
         <div className="w-full lg:w-6/12 text-center my-6">
@@ -73,6 +101,8 @@ const Settings = () => {
               <input
                 id="old"
                 type={showPass ? "text" : "password"}
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
                 className="border outline-none border-paginationBg-900 w-full py-1 lg:py-[10px] px-4 text-textSecondary-900 rounded-md font-semibold"
               />
               <span
@@ -95,6 +125,8 @@ const Settings = () => {
               <input
                 id="new"
                 type={showPass ? "text" : "password"}
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
                 className="border outline-none border-paginationBg-900 w-full py-1 lg:py-[10px] px-4 text-textSecondary-900 rounded-md font-semibold"
               />
               <span
@@ -117,6 +149,8 @@ const Settings = () => {
               <input
                 id="confirm"
                 type={showPass ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 className="border outline-none border-paginationBg-900 w-full py-1 lg:py-[10px] px-4 text-textSecondary-900 rounded-md font-semibold"
               />
               <span
@@ -131,7 +165,9 @@ const Settings = () => {
 
       {/* Buttons */}
       <div className="w-full lg:mt-16 mt-8 flex gap-4 lg:gap-8 justify-center">
-        <button className="bg-textPrimary-900 text-white font-semibold text-xs lg:text-sm w-max px-6 lg:px-0 lg:w-[15%] py-3 rounded-md">
+        <button
+          type="submit"
+          className="bg-textPrimary-900 text-white font-semibold text-xs lg:text-sm w-max px-6 lg:px-0 lg:w-[15%] py-3 rounded-md">
           SAVE CHANGES
         </button>
         <button
@@ -142,7 +178,7 @@ const Settings = () => {
           CANCEL
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 

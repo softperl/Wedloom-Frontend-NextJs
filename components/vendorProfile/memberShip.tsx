@@ -3,19 +3,16 @@ import { useState } from "react";
 import MembershipCard from "./membershipCard";
 
 const MemberShip = () => {
-  const [yearly, setYearly] = useState(true);
-  const [monthly, setMonthly] = useState(false);
+  const [planType, setPlanType] = useState("Yearly");
 
   // Yearly Toggle Function
   const yearlyMembership = () => {
-    setYearly(true);
-    setMonthly(false);
+    setPlanType("Yearly");
   };
 
   // Monthly Toggle Function
   const monthlyMembership = () => {
-    setMonthly(true);
-    setYearly(false);
+    setPlanType("Monthly");
   };
 
   return (
@@ -36,7 +33,7 @@ const MemberShip = () => {
         <div className="flex items-center gap-4 mt-2 lg:mt-0">
           <button
             className={`border p-2 px-4 text-xs lg:text-sm rounded-sm ${
-              monthly
+              planType === "Monthly"
                 ? "bg-textPrimary-900 text-white"
                 : "text-textSecondary-900"
             }`}
@@ -45,7 +42,7 @@ const MemberShip = () => {
           </button>
           <button
             className={`border p-2 px-4 text-xs lg:text-sm ${
-              yearly
+              planType === "Yearly"
                 ? "bg-textPrimary-900 text-white"
                 : "text-textSecondary-900"
             }`}
@@ -55,24 +52,7 @@ const MemberShip = () => {
         </div>
       </div>
 
-      {/* Yearly Card Content */}
-      {yearly && (
-        <MembershipCard
-          amount="52,325"
-          amount2="1,02,802"
-          amount3="1,94,051"
-          plans="Yearly"
-        />
-      )}
-
-      {monthly && (
-        <MembershipCard
-          amount="4300"
-          amount2="8,500"
-          amount3="16,170"
-          plans="Monthly"
-        />
-      )}
+      <MembershipCard planType={planType} />
     </div>
   );
 };
