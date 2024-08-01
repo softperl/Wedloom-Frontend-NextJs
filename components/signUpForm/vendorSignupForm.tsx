@@ -110,13 +110,12 @@ const VendorSignupForm = () => {
   const router = useRouter();
 
   // Outside Click Off dropdown
-  const ref = useRef<any>();
-  const ref2 = useRef<any>();
+  const citiesRef = useRef<any>();
+  const vendorRef = useRef<any>();
 
   useEffect(() => {
     const closePopup = (e: any) => {
-      if (!ref.current.contains(e.target) && !ref2.current.contains(e.target)) {
-        setOpenVendor(false);
+      if (!citiesRef.current.contains(e.target)) {
         setOpenCity(false);
       }
     };
@@ -124,7 +123,19 @@ const VendorSignupForm = () => {
     return () => {
       document.removeEventListener("click", closePopup);
     };
-  }, [openVendor, openCity]);
+  }, [openCity]);
+
+  useEffect(() => {
+    const closePopup = (e: any) => {
+      if (!vendorRef.current.contains(e.target)) {
+        setOpenVendor(false);
+      }
+    };
+    document.addEventListener("click", closePopup);
+    return () => {
+      document.removeEventListener("click", closePopup);
+    };
+  }, [openVendor]);
 
   return (
     <div className="contact_form">
@@ -188,7 +199,7 @@ const VendorSignupForm = () => {
                 </div>
 
                 {/* City Name */}
-                <div className="mb-6" ref={ref}>
+                <div className="mb-6" ref={citiesRef}>
                   <div className="w-full relative">
                     <div className="labels bg-white px-2 absolute left-[15px] top-[-15%]">
                       <label
@@ -237,6 +248,7 @@ const VendorSignupForm = () => {
                                       setCitiesInput(opt?.name);
                                       setCitiesValue(opt?.name);
                                       setValue("city", opt?.name);
+                                      setOpenCity(false);
                                     }}>
                                     {opt?.name}
                                   </div>
@@ -250,7 +262,7 @@ const VendorSignupForm = () => {
                 </div>
 
                 {/* Vendor Type Select */}
-                <div className="mb-6" ref={ref2}>
+                <div className="mb-6" ref={vendorRef}>
                   <div className="w-full relative">
                     <div className="labels bg-white px-2 absolute left-[15px] top-[-15%]">
                       <label
@@ -298,6 +310,7 @@ const VendorSignupForm = () => {
                                     setVendorInput(opt?.name);
                                     setVendorsValue(opt?.name);
                                     setValue("vendorType", opt?.name);
+                                    setOpenVendor(false);
                                   }}>
                                   {opt?.name}
                                 </div>

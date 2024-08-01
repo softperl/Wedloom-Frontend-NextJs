@@ -41,13 +41,24 @@ const Banner = () => {
   }, [openCity]);
 
   // Close Dropdown When Click
-  const ref = useRef<any>();
-  const ref2 = useRef<any>();
+  const vendorRef = useRef<any>();
+  const citiesRef = useRef<any>();
 
   useEffect(() => {
     const closePopup = (e: any) => {
-      if (!ref.current.contains(e.target) && !ref2.current.contains(e.target)) {
+      if (!vendorRef.current.contains(e.target)) {
         setOpenVendor(false);
+      }
+    };
+    document.addEventListener("click", closePopup);
+    return () => {
+      document.removeEventListener("click", closePopup);
+    };
+  }, [openVendor]);
+
+  useEffect(() => {
+    const closePopup = (e: any) => {
+      if (!citiesRef.current.contains(e.target)) {
         setOpenCity(false);
       }
     };
@@ -55,7 +66,7 @@ const Banner = () => {
     return () => {
       document.removeEventListener("click", closePopup);
     };
-  }, [openVendor, openCity]);
+  }, [openCity]);
 
   return (
     // Banner Start
@@ -74,7 +85,7 @@ const Banner = () => {
           <div className="for_Desktop hidden xl:block">
             <div className="dropdown__container flex my-5 w-full">
               {/* Select Vendor Dropdown */}
-              <div className="vendor__container w-5/12" ref={ref}>
+              <div className="vendor__container w-5/12" ref={vendorRef}>
                 <div className="vendor__container__wrapper relative w-full border-r">
                   <div
                     className="input__container"
@@ -111,6 +122,7 @@ const Banner = () => {
                               onClick={() => {
                                 setVendorInput(opt?.name);
                                 setVendorsValue(opt?.name);
+                                setOpenVendor(false);
                               }}>
                               {opt?.name}
                             </div>
@@ -122,7 +134,7 @@ const Banner = () => {
               </div>
 
               {/* Select City Container */}
-              <div className="city__container w-5/12" ref={ref2}>
+              <div className="city__container w-5/12" ref={citiesRef}>
                 <div className="city__container__wrapper relative w-full border-r-2">
                   <div
                     className="input__container"
@@ -159,6 +171,7 @@ const Banner = () => {
                               onClick={() => {
                                 setCitiesInput(opt?.name);
                                 setCitiesValue(opt?.name);
+                                setOpenCity(false);
                               }}>
                               {opt?.name}
                             </div>

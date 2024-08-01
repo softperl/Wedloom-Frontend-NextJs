@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import VenuesPop from "@/components/navbar/navbarPopups/venuesPop";
 import VendorsPop from "@/components/navbar/navbarPopups/vendorsPop";
 import PhotosPop from "@/components/navbar/navbarPopups/photosPop";
@@ -29,6 +29,7 @@ import { cn } from "@/lib/utils";
 import useUi from "@/lib/hooks/useUi";
 import Image from "next/image";
 import useAuth from "@/lib/hooks/useAuth";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -49,8 +50,26 @@ const Navbar = () => {
   const [photo, setPhoto] = useState(false);
   const [shop, setShop] = useState(false);
   const [allCities, setAllCities] = useState(false);
+  const profilePopupRef = useRef<any>();
   const [profilePopup, setProfilePopup] = useState(false);
   const { menus } = useUi();
+  const pathname = usePathname();
+
+  const closePopup = (e: any) => {
+    if (
+      profilePopupRef.current &&
+      !profilePopupRef.current.contains(e.target)
+    ) {
+      setProfilePopup(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", closePopup);
+    return () => {
+      document.removeEventListener("click", closePopup);
+    };
+  }, []);
 
   const handleAllCities = () => {
     setAllCities(!allCities);
@@ -62,7 +81,7 @@ const Navbar = () => {
     <>
       {/* Desktop Navbar */}
       <div className="desktop_nav hidden xl:block">
-        <div className="navbar bg-navbarBGL-900 flex justify-between items-center md:px-12 text-white py-4 md:py-0 px-2">
+        <div className="navbar bg-navbarBGL-900 flex justify-between items-center md:px-12 text-white py-4 md:py-0 px-2 h-16">
           {/* Left Side */}
           <div className="navbar__left flex items-center w-8/12">
             <div className="navbar__logo">
@@ -183,7 +202,9 @@ const Navbar = () => {
 
             {/* Profile Tab */}
             {user && (
-              <div className="flex justify-center items-center relative">
+              <div
+                ref={profilePopupRef}
+                className="flex justify-center items-center relative">
                 {/* Avatar */}
                 <div
                   className="flex items-center gap-2 cursor-pointer"
