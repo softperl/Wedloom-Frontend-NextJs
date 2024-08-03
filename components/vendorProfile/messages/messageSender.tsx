@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React from "react";
+import { FaUser } from "react-icons/fa6";
 
 const MessageSender = ({
   name,
@@ -20,13 +21,19 @@ const MessageSender = ({
       )}>
       {/* Image */}
       <div className="md:w-3/12">
-        <Image
-          width={500}
-          height={500}
-          src={img}
-          alt="avatar"
-          className="w-12 h-12 rounded-full"
-        />
+        {img ? (
+          <Image
+            width={500}
+            height={500}
+            src={img}
+            alt="avatar"
+            className="w-12 h-12 rounded-full"
+          />
+        ) : (
+          <div className="w-10 h-10 rounded-full border border-textPrimary-900 flex flex-col items-center justify-center">
+            <FaUser className="text-textPrimary-900 mx-auto text-xl" />
+          </div>
+        )}
       </div>
 
       {/* Author Info */}

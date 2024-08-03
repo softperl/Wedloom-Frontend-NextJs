@@ -1,14 +1,103 @@
+"use client";
+
+import { createMessage, getConversationsByUser, getMessage } from "@/lib/api";
+import useAuth from "@/lib/hooks/useAuth";
+import useChats from "@/lib/hooks/useChats";
+import useSocket from "@/lib/hooks/useSocket";
+import { handelError } from "@/lib/utils";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { FiSend } from "react-icons/fi";
-import { ImAttachment } from "react-icons/im";
 import { IoMdTrash } from "react-icons/io";
 import { LuMailOpen } from "react-icons/lu";
 import { MdLocationOn, MdStarOutline } from "react-icons/md";
 
 export default function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: { username: string };
 }>) {
+  const { user } = useAuth();
+  const { socket } = useSocket();
+  const [messageInput, setMessageInput] = useState<string>("");
+  const { conversations, setMessage, chatUser, setChatUser } = useChats();
+
+  useEffect(() => {
+    if (!conversations || !params?.username || !user?.id) return;
+
+    const filterData = (
+      data: any,
+      conversationId: string,
+      userId: string
+    ): any => {
+      const conversation = data?.find(
+        (convo: any) => convo?.id === conversationId
+      );
+      if (!conversation) return null;
+
+      const user = conversation?.users?.find(
+        (user: any) => user?.userId !== userId
+      );
+      if (!user) return null;
+
+      return {
+        ...conversation,
+        users: [user],
+      };
+    };
+
+    const filteredConversation = filterData(
+      conversations,
+      params?.username,
+      user?.id
+    );
+    const data = filteredConversation?.users[0];
+    setChatUser(data);
+  }, [conversations, params?.username, user?.id]);
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    try {
+      await createMessage({
+        text: messageInput,
+        conversationId: params?.username,
+      });
+
+      toast.success("Message Send Successfully");
+      setMessageInput("");
+    } catch (error) {
+      handelError(error);
+    }
+  };
+
+  const messageFn = async () => {
+    try {
+      const { data } = await getMessage(params?.username);
+      setMessage(data.messages);
+    } catch (error) {
+      handelError(error);
+    }
+  };
+
+  useEffect(() => {
+    messageFn();
+  }, [messageInput]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on(`new-message-${params?.username}-${user?.id}`, (data: any) => {
+        console.log("data", data);
+      });
+    }
+    return () => {
+      if (socket) {
+        socket.off("new-notification");
+      }
+    };
+  }, [socket]);
+
   return (
     <div className="w-full hidden md:block">
       <div className="max-h-[75vh] w-full">
@@ -18,15 +107,17 @@ export default function RootLayout({
           <div className="w-full">
             {/* Name */}
             <h2 className="text-textSecondary-900 lg:text-base text-sm font-bold mb-[4px]">
-              Junaid Asghar
+              {chatUser?.user?.name}
             </h2>
 
-            <p
-              title="Location"
-              className="text-textPrimary-900 text-xs font-semibold flex items-center">
-              <MdLocationOn className="mr-1" />
-              <span>Islamabad</span>
-            </p>
+            {chatUser?.user?.city && (
+              <p
+                title="Location"
+                className="text-textPrimary-900 text-xs font-semibold flex items-center">
+                <MdLocationOn className="mr-1" />
+                <span className="capitalize">{chatUser?.user?.city}</span>
+              </p>
+            )}
           </div>
           {/* Right */}
           <div className="w-full flex justify-end">
@@ -50,18 +141,22 @@ export default function RootLayout({
           {children}
         </div>
         {/* SendBox */}
-        <div className="bg-white h-[74px] lg:px-4 px-1 flex justify-between items-center border-y border-y-paginationBg-900 sticky bottom-0">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white h-[74px] lg:px-4 px-1 flex justify-between items-center border-y border-y-paginationBg-900 sticky bottom-0">
           {/* Upper Part */}
           <div className="w-full border border-paginationBg-900 flex gap-4 items-center justify-between px-2 rounded-l">
             <div className="w-full">
               <input
                 type="text"
                 placeholder="Write Message..."
+                value={messageInput}
+                onChange={(e) => setMessageInput(e.target.value)}
                 className="w-full text-textSecondary-900 outline-none text-xs lg:text-sm py-3 focus:border-textPrimary-900 rounded-sm"
                 maxLength={100}
               />
             </div>
-            <div>
+            {/* <div>
               <label
                 htmlFor="file"
                 className="text-[10px] lg:text-xs border-l border-l-paginationBg-900 text-textSecondary-900 flex items-center gap-1 pl-1 cursor-pointer">
@@ -69,7 +164,7 @@ export default function RootLayout({
                 Attachments
               </label>
               <input type="file" id="file" className="hidden" />
-            </div>
+            </div> */}
           </div>
 
           {/* button */}
@@ -80,7 +175,7 @@ export default function RootLayout({
               Send <FiSend />
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

@@ -1,151 +1,31 @@
 "use client";
 import MessageSender from "@/components/vendorProfile/messages/messageSender";
+import { getConversationsByUser } from "@/lib/api";
+import useAuth from "@/lib/hooks/useAuth";
+import useChats from "@/lib/hooks/useChats";
+import { handelError } from "@/lib/utils";
+import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
 import Link from "next/link";
+import { useEffect } from "react";
 import { BiSearch } from "react-icons/bi";
 
-const MessageUsers = ({ vendor }: { vendor?: boolean }) => {
-  const senderData = [
-    {
-      id: 1,
-      name: "Junaid Asghar",
-      text: "Hey, I Need a info",
-      img: "https://images.pexels.com/photos/1300402/pexels-photo-1300402.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      date: "Dec 9",
-    },
-    {
-      id: 2,
-      name: "Salam Sheikh",
-      text: "Are you there?",
-      img: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      date: "Dec 2",
-    },
-    {
-      id: 3,
-      name: "Sohan",
-      text: "I want to book a vendor",
-      img: "https://images.pexels.com/photos/1680175/pexels-photo-1680175.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      date: "Nov 20",
-    },
-    {
-      id: 4,
-      name: "Hossain Faiyaz",
-      text: "Okay! Thats Great",
-      img: "https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      date: "Nov 26",
-    },
-    {
-      id: 1,
-      name: "Junaid Asghar",
-      text: "Hey, I Need a info",
-      img: "https://images.pexels.com/photos/1300402/pexels-photo-1300402.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      date: "Dec 9",
-    },
-    {
-      id: 2,
-      name: "Salam Sheikh",
-      text: "Are you there?",
-      img: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      date: "Dec 2",
-    },
-    {
-      id: 3,
-      name: "Sohan",
-      text: "I want to book a vendor",
-      img: "https://images.pexels.com/photos/1680175/pexels-photo-1680175.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      date: "Nov 20",
-    },
-    {
-      id: 4,
-      name: "Hossain Faiyaz",
-      text: "Okay! Thats Great",
-      img: "https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      date: "Nov 26",
-    },
-    {
-      id: 5,
-      name: "Junaid Asghar",
-      text: "Hey, I Need a info",
-      img: "https://images.pexels.com/photos/1300402/pexels-photo-1300402.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      date: "Dec 9",
-    },
-    {
-      id: 6,
-      name: "Salam Sheikh",
-      text: "Are you there?",
-      img: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      date: "Dec 2",
-    },
-    {
-      id: 7,
-      name: "Sohan",
-      text: "I want to book a vendor",
-      img: "https://images.pexels.com/photos/1680175/pexels-photo-1680175.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      date: "Nov 20",
-    },
-    {
-      id: 8,
-      name: "Hossain Faiyaz",
-      text: "Okay! Thats Great",
-      img: "https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      date: "Nov 26",
-    },
-    {
-      id: 9,
-      name: "Junaid Asghar",
-      text: "Hey, I Need a info",
-      img: "https://images.pexels.com/photos/1300402/pexels-photo-1300402.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      date: "Dec 9",
-    },
-    {
-      id: 10,
-      name: "Salam Sheikh",
-      text: "Are you there?",
-      img: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      date: "Dec 2",
-    },
-    {
-      id: 11,
-      name: "Sohan",
-      text: "I want to book a vendor",
-      img: "https://images.pexels.com/photos/1680175/pexels-photo-1680175.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      date: "Nov 20",
-    },
-    {
-      id: 12,
-      name: "Hossain Faiyaz",
-      text: "Okay! Thats Great",
-      img: "https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      date: "Nov 26",
-    },
-    {
-      id: 13,
-      name: "Junaid Asghar",
-      text: "Hey, I Need a info",
-      img: "https://images.pexels.com/photos/1300402/pexels-photo-1300402.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      date: "Dec 9",
-    },
-    {
-      id: 14,
-      name: "Salam Sheikh",
-      text: "Are you there?",
-      img: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      date: "Dec 2",
-    },
-    {
-      id: 15,
-      name: "Sohan",
-      text: "I want to book a vendor",
-      img: "https://images.pexels.com/photos/1680175/pexels-photo-1680175.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      date: "Nov 20",
-    },
-    {
-      id: 16,
-      name: "Hossain Faiyaz",
-      text: "Okay! Thats Great",
-      img: "https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      date: "Nov 26",
-    },
-  ];
+const MessageUsers = () => {
+  const { user } = useAuth();
+  const { conversations, setConversations } = useChats();
+
+  const conversationsFn = async () => {
+    try {
+      const { data } = await getConversationsByUser();
+      setConversations(data.conversations);
+    } catch (error) {
+      handelError(error);
+    }
+  };
+
+  useEffect(() => {
+    conversationsFn();
+  }, []);
+
   return (
     <>
       <div className="w-full md:w-[35%] lg:w-56 flex-shrink-0 h-full border-r-paginationBg-900 border-r max-h-[75vh] overflow-scroll">
@@ -163,36 +43,47 @@ const MessageUsers = ({ vendor }: { vendor?: boolean }) => {
 
           {/* Desktop Message Components */}
           <div className="hidden md:block">
-            {senderData.map((data) => (
-              <Link
-                key={data?.id}
-                href={`${
-                  vendor ? "/vendor/profile/inbox" : "/user/inbox"
-                }/${data?.name.split(" ").splice(0, 1)}`}>
-                <MessageSender
-                  img={data?.img}
-                  date={data?.date}
-                  name={data?.name}
-                  text={data?.text}
-                />
-              </Link>
-            ))}
+            {conversations?.map((data: any, i: number) => {
+              const currentuser = data?.users
+                .filter((item: any) => item.userId !== user?.id)
+                .map((receiver: any) => receiver);
+
+              return (
+                <Link
+                  key={i}
+                  href={`${
+                    user?.role === "Vendor"
+                      ? "/vendor/profile/inbox"
+                      : "/user/inbox" + `/${data?.id}`
+                  }/`}>
+                  <MessageSender
+                    img={""}
+                    date={formatDistanceToNow(new Date(data?.createdAt))}
+                    name={currentuser[0]?.user?.name}
+                    text={data.messages[0]?.text}
+                  />
+                </Link>
+              );
+            })}
           </div>
 
           {/* Mobile Messages */}
           <div className="block md:hidden">
-            {senderData.map((data) => (
-              <Link
-                key={data?.id}
-                href={`/mobilemessage/${data?.name.split(" ").splice(0, 1)}`}>
-                <MessageSender
-                  img={data?.img}
-                  date={data?.date}
-                  name={data?.name}
-                  text={data?.text}
-                />
-              </Link>
-            ))}
+            {conversations?.map((data: any, i: number) => {
+              const currentuser = data?.users
+                .filter((item: any) => item.userId !== user?.id)
+                .map((receiver: any) => receiver);
+              return (
+                <Link key={i} href={`/mobilemessage/${conversations?.id}`}>
+                  <MessageSender
+                    img={""}
+                    date={formatDistanceToNow(new Date(data?.createdAt))}
+                    name={currentuser[0]?.user?.name}
+                    text={data?.messages[0]?.text}
+                  />
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>

@@ -68,3 +68,14 @@ export const deletePlan = (id: string) =>
   API.delete(`/site/plans/delete/${id}`);
 export const createPlan = (formData: any) =>
   API.post("/site/plans/new", formData);
+
+//Chat
+export const createConversation = (receiverId: string) =>
+  API.post(`/chat/create-conversation/${receiverId}`);
+export const getConversationsByUser = () => API.get("/chat/get-conversations");
+export const createMessage = (formData: any) =>
+  API.post("/chat/create-message", formData);
+export const getMessage = (conversationId: string) =>
+  API.get(`/chat/get-messages/${conversationId}`);
+export const deleteConversation = (conversationId: string) =>
+  API.delete(`/delete-conversation/${conversationId}`);

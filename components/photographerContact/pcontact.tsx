@@ -1,26 +1,98 @@
 "use client";
+import { createConversation, createMessage } from "@/lib/api";
+import { handelError } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
+import toast from "react-hot-toast";
 import { HiMail } from "react-icons/hi";
 import { IoMdCall } from "react-icons/io";
 
 const Pcontact = () => {
+  const router = useRouter();
   // All States
   const [showContact, setShowContact] = useState(false);
-  const [message, setMessage] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
   const [value, setValue] = useState("+92");
   const [switchInput, setSwitchInput] = useState();
+  const [formData, setFormData] = useState({
+    name: "",
+    contactNumber: "",
+    email: "",
+    date: null,
+    details: "",
+    functionType: "",
+    functionTime: "",
+  });
+
+  const [errors, setErrors] = useState({
+    name: false,
+    contactNumber: false,
+    email: false,
+    date: false,
+    details: false,
+    functionType: false,
+    functionTime: false,
+  });
+
+  const handleChange = (e: any) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleDateChange = (date: any) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      date,
+    }));
+  };
+
+  const validateForm = () => {
+    const newErrors = {
+      name: !formData.name,
+      contactNumber: !formData.contactNumber,
+      email: !formData.email,
+      date: !formData.date,
+      details: !formData.details,
+      functionType: !formData.functionType,
+      functionTime: !formData.functionTime,
+    };
+
+    setErrors(newErrors);
+    return !Object.values(newErrors).includes(true);
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    if (validateForm()) {
+      try {
+        const { data } = await createConversation("clzd0iko10010lzg4nnnwte43");
+        await createMessage({
+          text: `Name: ${formData?.name} \nContact Number: ${formData?.contactNumber} \nE-mail: ${formData?.email} \nDate: ${formData?.date} \nDetails: ${formData?.details} \nFunction Type: ${formData?.functionType} \nFunction Time: ${formData?.functionTime}`,
+          conversationId: data.conversation.id,
+        });
+        router.push(`/user/inbox/clzd0iko10010lzg4nnnwte43`);
+      } catch (error) {
+        handelError(error);
+      }
+    } else {
+      handelError("All fill out all fields");
+    }
+  };
 
   const toggleMenuContact = () => {
-    setMessage(false);
     setShowContact(true);
+    setShowMessage(false);
   };
 
   const toggleMessage = () => {
+    setShowMessage(true);
     setShowContact(false);
-    setMessage(true);
   };
 
   const functionType = [
@@ -52,7 +124,7 @@ const Pcontact = () => {
         <div className="send">
           <button
             className="text-white lg:text-lg text-sm bg-textPrimary-900 lg:py-3 flex items-center flex-nowrap p-4 rounded-full hover:bg-btnHover-900 duration-200"
-            onClick={toggleMenuContact}>
+            onClick={toggleMessage}>
             <div className="flex"></div>
             <HiMail className="mr-2" />
             Send Message
@@ -61,7 +133,7 @@ const Pcontact = () => {
         <div className="view">
           <button
             className="text-white lg:text-lg text-sm bg-greenBG-900 lg:py-3 flex items-center flex-nowrap rounded-full hover:bg-greenHover-900 duration-200 p-4"
-            onClick={toggleMessage}>
+            onClick={toggleMenuContact}>
             <IoMdCall className="mr-2" />
             View Contact
           </button>
@@ -73,27 +145,32 @@ const Pcontact = () => {
       </div>
 
       {/* Message Form */}
-      {showContact && (
+      {showMessage && (
         <div className="pContact_modal border-t border-textPrimary-900">
           <div className="pContact_modal_Content px-4 py-4">
             <h1 className="text-textSecondary-900 font-semibold text-lg">
               Hello Dear,
             </h1>
-            <div className="form_fields my-6">
+            <form className="form_fields my-6" onSubmit={handleSubmit}>
               <div className="frist_row flex gap-8 justify-between my-4">
                 <div className="name w-full">
                   <input
                     type="text"
+                    name="name"
                     placeholder="Name"
-                    required
-                    className="w-full outline-none pb-2 focus:border-b focus:border-textPrimary-900  border-b border-newBorder-900"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full outline-none pb-2 focus:border-b focus:border-textPrimary-900 border-b border-newBorder-900"
                   />
                 </div>
                 <div className="number w-full">
                   <input
                     type="text"
+                    name="contactNumber"
                     placeholder="Contact Number*"
-                    className="w-full outline-none pb-2 focus:border-b focus:border-textPrimary-900  border-b border-newBorder-900"
+                    value={formData.contactNumber}
+                    onChange={handleChange}
+                    className="w-full outline-none pb-2 focus:border-b focus:border-textPrimary-900 border-b border-newBorder-900"
                   />
                 </div>
               </div>
@@ -101,16 +178,17 @@ const Pcontact = () => {
                 <div className="name w-full">
                   <input
                     type="email"
+                    name="email"
                     placeholder="Email"
-                    required
-                    className="w-full outline-none pb-2 focus:border-b focus:border-textPrimary-900  border-b border-newBorder-900"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full outline-none pb-2 focus:border-b focus:border-textPrimary-900 border-b border-newBorder-900"
                   />
                 </div>
-                {/* Date */}
                 <div className="date w-full border-b">
                   <DatePicker
-                    selected={switchInput}
-                    onChange={(e: Date | any) => setSwitchInput(e)}
+                    selected={formData.date}
+                    onChange={handleDateChange}
                     dateFormat="MMMM d, yyyy"
                     placeholderText="Function Date"
                     className="outline-none border-none"
@@ -121,9 +199,11 @@ const Pcontact = () => {
                 <div className="name w-full">
                   <input
                     type="text"
+                    name="details"
                     placeholder="Details About Your Wedding*"
-                    required
-                    className="w-full outline-none pb-2 focus:border-b focus:border-textPrimary-900  border-b border-newBorder-900"
+                    value={formData.details}
+                    onChange={handleChange}
+                    className="w-full outline-none pb-2 focus:border-b focus:border-textPrimary-900 border-b border-newBorder-900"
                   />
                 </div>
               </div>
@@ -133,36 +213,39 @@ const Pcontact = () => {
                   <h5 className="text-lg text-textSecondary-900 font-semibold">
                     Function Type
                   </h5>
-                  <form className="flex items-center gap-4 lg:gap-6 mt-4 flex-wrap">
-                    {functionType?.map((item, i) => {
-                      return (
-                        <label key={i}>
-                          <input
-                            type="radio"
-                            name="functionType"
-                            value={item?.name}
-                            className="scale-150 accent-textPrimary-900"
-                          />
-                          <span className="pl-2 font-medium text-textSecondary-900">
-                            {item?.name}
-                          </span>
-                        </label>
-                      );
-                    })}
-                  </form>
+                  <div className="flex items-center gap-4 lg:gap-6 mt-4 flex-wrap">
+                    {/* Replace this with your functionType array */}
+                    {functionType?.map((item, i) => (
+                      <label key={i}>
+                        <input
+                          type="radio"
+                          name="functionType"
+                          value={item?.name}
+                          checked={formData.functionType === item?.name}
+                          onChange={handleChange}
+                          className="scale-150 accent-textPrimary-900"
+                        />
+                        <span className="pl-2 font-medium text-textSecondary-900">
+                          {item?.name}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="w-full text-start">
                   <h5 className="text-lg text-textSecondary-900 font-semibold">
                     Function Time
                   </h5>
-                  <form className="flex items-start gap-4 lg:gap-6 mt-4 flex-wrap flex-col lg:flex-row">
+                  <div className="flex items-start gap-4 lg:gap-6 mt-4 flex-wrap flex-col lg:flex-row">
                     <div>
                       <input
                         type="radio"
                         id="evening"
-                        name="time"
+                        name="functionTime"
                         value="Evening"
+                        checked={formData.functionTime === "Evening"}
+                        onChange={handleChange}
                         className="scale-150 accent-textPrimary-900"
                       />
                       <label
@@ -175,8 +258,10 @@ const Pcontact = () => {
                       <input
                         type="radio"
                         id="day"
-                        name="time"
+                        name="functionTime"
                         value="Day"
+                        checked={formData.functionTime === "Day"}
+                        onChange={handleChange}
                         className="scale-150 accent-textPrimary-900"
                       />
                       <label
@@ -185,7 +270,7 @@ const Pcontact = () => {
                         Day
                       </label>
                     </div>
-                  </form>
+                  </div>
                 </div>
               </div>
 
@@ -203,13 +288,13 @@ const Pcontact = () => {
                   vendor responses
                 </span>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       )}
 
       {/* Contact Form*/}
-      {message && (
+      {showContact && (
         <div className="message border-t border-textPrimary-900">
           <div className="message_Content px-4 py-8">
             <h1 className="text-textSecondary-900 font-semibold text-base">
@@ -224,7 +309,6 @@ const Pcontact = () => {
                   <input
                     type="text"
                     placeholder="Full Name*"
-                    required
                     className="mt-2 w-full outline-none focus:border-b focus:border-textPrimary-900  border-b border-paginationBg-900"
                   />
                 </div>
