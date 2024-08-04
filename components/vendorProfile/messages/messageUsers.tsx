@@ -6,12 +6,13 @@ import useChats from "@/lib/hooks/useChats";
 import { handelError } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 
 const MessageUsers = () => {
   const { user } = useAuth();
   const { conversations, setConversations } = useChats();
+  const [search, setSearch] = useState<any>("");
 
   const conversationsFn = async () => {
     try {
@@ -26,6 +27,15 @@ const MessageUsers = () => {
     conversationsFn();
   }, []);
 
+  const filteredConversations = conversations?.filter((conversation: any) => {
+    const currentUser = conversation?.users
+      .filter((item: any) => item.userId !== user?.id)
+      .map((receiver: any) => receiver);
+    return currentUser[0]?.user?.name
+      .toLowerCase()
+      .includes(search.toLowerCase());
+  });
+
   return (
     <>
       <div className="w-full md:w-[35%] lg:w-56 flex-shrink-0 h-[75vh] border-r-paginationBg-900 border-r max-h-[75vh] overflow-scroll">
@@ -36,6 +46,8 @@ const MessageUsers = () => {
             <input
               type="text"
               placeholder="Search....."
+              value={search}
+              onChange={(e: any) => setSearch(e.target.value)}
               className="w-full bg-transparent placeholder:text-textSecondary-900 border-none outline-none text-sm"
             />
             <BiSearch className="text-xl" />
@@ -43,7 +55,7 @@ const MessageUsers = () => {
 
           {/* Desktop Message Components */}
           <div className="hidden md:block">
-            {conversations?.map((data: any, i: number) => {
+            {filteredConversations?.map((data: any, i: number) => {
               const currentuser = data?.users
                 .filter((item: any) => item.userId !== user?.id)
                 .map((receiver: any) => receiver);
@@ -68,12 +80,12 @@ const MessageUsers = () => {
 
           {/* Mobile Messages */}
           <div className="block md:hidden">
-            {conversations?.map((data: any, i: number) => {
+            {filteredConversations?.map((data: any, i: number) => {
               const currentuser = data?.users
                 .filter((item: any) => item.userId !== user?.id)
                 .map((receiver: any) => receiver);
               return (
-                <Link key={i} href={`/mobilemessage/${conversations?.id}`}>
+                <Link key={i} href={`/mobilemessage/${data?.id}`}>
                   <MessageSender
                     img={""}
                     date={formatDistanceToNow(new Date(data?.createdAt))}

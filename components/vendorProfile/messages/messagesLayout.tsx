@@ -22,7 +22,14 @@ export const MessagesLayout = ({
   const { user } = useAuth();
   const { socket } = useSocket();
   const [messageInput, setMessageInput] = useState<string>("");
-  const { conversations, setMessage, chatUser, setChatUser } = useChats();
+  const {
+    conversations,
+    setMessages,
+    setRefresh,
+    refresh,
+    chatUser,
+    setChatUser,
+  } = useChats();
   const router = useRouter();
 
   useEffect(() => {
@@ -76,7 +83,8 @@ export const MessagesLayout = ({
   const messageFn = async () => {
     try {
       const { data } = await getMessage(params?.username);
-      setMessage(data.messages);
+      setMessages(data.messages);
+      setRefresh(false);
     } catch (error) {
       handelError(error);
     }
@@ -84,32 +92,35 @@ export const MessagesLayout = ({
 
   useEffect(() => {
     messageFn();
-  }, [messageInput]);
+  }, [messageInput, refresh]);
 
   const deleteConversationFn = async () => {
     try {
       await deleteConversation(params?.username);
       toast.success("Conversation Deleted");
-      router.push("/user/inbox");
+      router.push(`${user?.id === "Vendor" ? "vendor/profile" : "user"}/inbox`);
     } catch (error) {
       handelError(error);
     }
   };
 
+  console.log(`new-message-${params?.username}-${user?.id}`);
+
   useEffect(() => {
     if (socket) {
       socket.on(`new-message-${params?.username}-${user?.id}`, (data: any) => {
-        console.log("data", data);
+        setRefresh(true);
       });
     }
     return () => {
       if (socket) {
-        socket.off("new-notification");
+        socket.off(`new-message-${params?.username}-${user?.id}`);
       }
     };
   }, [socket]);
+
   return (
-    <div className="w-full hidden md:block">
+    <div className="w-full">
       <div className="max-h-[75vh] w-full">
         {/* Header */}
         <div className="w-full h-[60px] border-b border-b-paginationBg-900 px-4 flex justify-between items-center sticky top-0">

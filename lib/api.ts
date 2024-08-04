@@ -78,4 +78,4 @@ export const createMessage = (formData: any) =>
 export const getMessage = (conversationId: string) =>
   API.get(`/chat/get-messages/${conversationId}`);
 export const deleteConversation = (conversationId: string) =>
-  API.delete(`/delete-conversation/${conversationId}`);
+  API.delete(`/chat/delete-conversation/${conversationId}`);
