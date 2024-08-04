@@ -4,7 +4,7 @@ import { handelError } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
-
+import { formatDate } from "date-fns/format";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
 import { HiMail } from "react-icons/hi";
@@ -73,7 +73,14 @@ const Pcontact = () => {
       try {
         const { data } = await createConversation("clzd0iko10010lzg4nnnwte43");
         await createMessage({
-          text: `Name: ${formData?.name} \nContact Number: ${formData?.contactNumber} \nE-mail: ${formData?.email} \nDate: ${formData?.date} \nDetails: ${formData?.details} \nFunction Type: ${formData?.functionType} \nFunction Time: ${formData?.functionTime}`,
+          text: `Name: ${formData?.name} \nContact Number: ${
+            formData?.contactNumber
+          } \nE-mail: ${formData?.email} \nDate: ${formatDate(
+            formData?.date || new Date(),
+            "EEEE',' do MMMM YYY"
+          )} \nDetails: ${formData?.details} \nFunction Type: ${
+            formData?.functionType
+          } \nFunction Time: ${formData?.functionTime}`,
           conversationId: data.conversation.id,
         });
         router.push(`/user/inbox/clzd0iko10010lzg4nnnwte43`);

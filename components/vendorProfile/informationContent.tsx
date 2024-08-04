@@ -14,7 +14,6 @@ const InformationContent = () => {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [questions, setQuestions] = useState([]);
-  console.log(questions);
 
   const [locationPopUp, setLocationPopUp] = useState(false);
   const [value, setValue] = useState(EditorState.createEmpty());
@@ -66,7 +65,6 @@ const InformationContent = () => {
     try {
       const { data } = await getQuestions();
       setQuestions(data.questions);
-      console.log(data.questions);
     } catch (error) {
       console.log(error);
     } finally {

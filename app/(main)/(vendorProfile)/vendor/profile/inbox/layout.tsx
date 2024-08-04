@@ -8,7 +8,7 @@ export default function RootLayout({
   return (
     <div className="w-full">
       <div className={`w-full h-full max-h-[75vh] flex`}>
-        <MessageUsers vendor={true} />
+        <MessageUsers />
         {children}
       </div>
     </div>

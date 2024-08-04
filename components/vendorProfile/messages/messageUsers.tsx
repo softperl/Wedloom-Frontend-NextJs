@@ -28,7 +28,7 @@ const MessageUsers = () => {
 
   return (
     <>
-      <div className="w-full md:w-[35%] lg:w-56 flex-shrink-0 h-full border-r-paginationBg-900 border-r max-h-[75vh] overflow-scroll">
+      <div className="w-full md:w-[35%] lg:w-56 flex-shrink-0 h-[75vh] border-r-paginationBg-900 border-r max-h-[75vh] overflow-scroll">
         {/* <MessageSidebar /> */}
         <div className="h-full overflow-y-scroll">
           {/* SearchBar */}
@@ -47,15 +47,14 @@ const MessageUsers = () => {
               const currentuser = data?.users
                 .filter((item: any) => item.userId !== user?.id)
                 .map((receiver: any) => receiver);
-
               return (
                 <Link
                   key={i}
                   href={`${
                     user?.role === "Vendor"
                       ? "/vendor/profile/inbox"
-                      : "/user/inbox" + `/${data?.id}`
-                  }/`}>
+                      : "/user/inbox"
+                  }/${data?.id}`}>
                   <MessageSender
                     img={""}
                     date={formatDistanceToNow(new Date(data?.createdAt))}
