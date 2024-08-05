@@ -79,3 +79,19 @@ export const getMessage = (conversationId: string) =>
   API.get(`/chat/get-messages/${conversationId}`);
 export const deleteConversation = (conversationId: string) =>
   API.delete(`/chat/delete-conversation/${conversationId}`);
+
+//Event
+export const newEvent = (formData: any) => API.post(`/event/new`, formData);
+export const getAllEvents = ({
+  q,
+  page,
+  perPage,
+  sortBy,
+  sortOrder,
+}: {
+  q?: string;
+  page?: number;
+  perPage?: number;
+  sortBy?: string;
+  sortOrder?: string;
+}) => API.get(`/event/get-all?q=${q}&page=${page}&perPage=${perPage}`);

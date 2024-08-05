@@ -223,7 +223,12 @@ const Navbar = () => {
                 {profilePopup && (
                   <div className="bg-white text-black w-[200px] absolute top-[125%] right-0 z-[1000] shadow-sm border border-paginationBg-900 border-t-0">
                     {/* Profile */}
-                    <Link href="/user/profile">
+                    <Link
+                      href={
+                        user?.role === "Vendor"
+                          ? "/vendor/profile"
+                          : "/user/profile"
+                      }>
                       <div className="bg-carouselBG-900 p-2 flex gap-2 items-center justify-between">
                         {/* Image */}
                         <div className="w-4/12">
