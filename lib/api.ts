@@ -79,6 +79,10 @@ export const getMessage = (conversationId: string) =>
   API.get(`/chat/get-messages/${conversationId}`);
 export const deleteConversation = (conversationId: string) =>
   API.delete(`/chat/delete-conversation/${conversationId}`);
+export const addToFav = (conversationId: any) =>
+  API.post(`/chat/add-to-fav/${conversationId}`);
+export const removeFromFav = (conversationId: any) =>
+  API.delete(`/chat/delete-conversation/${conversationId}`);
 
 //Event
 export const newEvent = (formData: any) => API.post(`/event/new`, formData);

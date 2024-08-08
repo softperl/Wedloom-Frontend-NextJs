@@ -1,10 +1,11 @@
+import { addToFav } from "./../api";
 import { create } from "zustand";
 
 interface Store {
   conversations: any;
   setConversations: (val: any) => void;
-  messages: any;
-  setMessages: (val: any) => void;
+  messages: any[];
+  setMessages: (val: any | any[]) => void;
   chatUser: any;
   setChatUser: (val: any) => void;
   refresh: boolean;
@@ -14,8 +15,11 @@ interface Store {
 const useChats = create<Store>((set) => ({
   conversations: null,
   setConversations: (val) => set({ conversations: val }),
-  messages: null,
-  setMessages: (val) => set({ messages: val }),
+  messages: [],
+  setMessages: (val) =>
+    set((state) => ({
+      messages: Array.isArray(val) ? val : [...state.messages, val],
+    })),
   chatUser: null,
   setChatUser: (val) => set({ chatUser: val }),
   refresh: false,

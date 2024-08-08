@@ -1,17 +1,22 @@
 "use client";
-import React from "react";
-import { createMessage, deleteConversation, getMessage } from "@/lib/api";
+import {
+  addToFav,
+  createMessage,
+  deleteConversation,
+  getMessage,
+  removeFromFav,
+} from "@/lib/api";
 import useAuth from "@/lib/hooks/useAuth";
 import useChats from "@/lib/hooks/useChats";
 import useSocket from "@/lib/hooks/useSocket";
 import { handelError } from "@/lib/utils";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FiSend } from "react-icons/fi";
 import { IoMdTrash } from "react-icons/io";
 import { LuMailOpen } from "react-icons/lu";
-import { MdLocationOn, MdStarOutline } from "react-icons/md";
+import { MdLocationOn, MdStar, MdStarOutline, MdStars } from "react-icons/md";
 
 export const MessagesLayout = ({
   children,
@@ -22,14 +27,7 @@ export const MessagesLayout = ({
   const { user } = useAuth();
   const { socket } = useSocket();
   const [messageInput, setMessageInput] = useState<string>("");
-  const {
-    conversations,
-    setMessages,
-    setRefresh,
-    refresh,
-    chatUser,
-    setChatUser,
-  } = useChats();
+  const { conversations, setMessages, chatUser, setChatUser } = useChats();
   const router = useRouter();
 
   useEffect(() => {
@@ -61,9 +59,26 @@ export const MessagesLayout = ({
       params?.username,
       user?.id
     );
+    console.log("filteredConversation", filteredConversation);
     const data = filteredConversation?.users[0];
     setChatUser(data);
   }, [conversations, params?.username, user?.id]);
+
+  const addToFavFn = async () => {
+    try {
+      await addToFav(params?.username);
+    } catch (error) {
+      handelError(error);
+    }
+  };
+
+  const removeFavFn = async () => {
+    try {
+      await removeFromFav(params?.username);
+    } catch (error) {
+      handelError(error);
+    }
+  };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -72,7 +87,6 @@ export const MessagesLayout = ({
         text: messageInput,
         conversationId: params?.username,
       });
-
       toast.success("Message Send Successfully");
       setMessageInput("");
     } catch (error) {
@@ -84,7 +98,6 @@ export const MessagesLayout = ({
     try {
       const { data } = await getMessage(params?.username);
       setMessages(data.messages);
-      setRefresh(false);
     } catch (error) {
       handelError(error);
     }
@@ -92,24 +105,24 @@ export const MessagesLayout = ({
 
   useEffect(() => {
     messageFn();
-  }, [messageInput, refresh]);
+  }, [messageInput]);
 
   const deleteConversationFn = async () => {
     try {
       await deleteConversation(params?.username);
       toast.success("Conversation Deleted");
-      router.push(`${user?.id === "Vendor" ? "vendor/profile" : "user"}/inbox`);
+      router.push(
+        `${user?.role === "Vendor" ? "/vendor/profile/inbox" : "/user/inbox"}`
+      );
     } catch (error) {
       handelError(error);
     }
   };
 
-  console.log(`new-message-${params?.username}-${user?.id}`);
-
   useEffect(() => {
     if (socket) {
       socket.on(`new-message-${params?.username}-${user?.id}`, (data: any) => {
-        setRefresh(true);
+        setMessages(data.message);
       });
     }
     return () => {
@@ -143,10 +156,16 @@ export const MessagesLayout = ({
           {/* Right */}
           <div className="w-full flex justify-end">
             <div className="text-textSecondary-900 flex gap-4">
-              <MdStarOutline
+              {/* {<MdStarOutline
                 className="cursor-pointer hover:text-textPrimary-900 duration-200 text-xl"
                 title="Mark the Conversation as Star"
-              />
+                onClick={addToFavFn}
+              />:
+              <MdStar
+                className="cursor-pointer hover:text-textPrimary-900 duration-200 text-xl"
+                title="Mark the Conversation as UnStar"
+                onClick={removeFavFn}
+              />} */}
               <IoMdTrash
                 className="cursor-pointer hover:text-textPrimary-900 duration-200 text-xl"
                 title="Delete"

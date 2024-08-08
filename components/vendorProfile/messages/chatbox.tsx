@@ -12,7 +12,7 @@ const Chatbox = () => {
       <div className="overflow-y-scroll flex flex-col-reverse px-4 py-2 h-full">
         <div>
           {messages?.map((item: any, i: number) => {
-            return <CustomarMessage key={i} item={item} />;
+            return <CustomarMessage key={item?.id} item={item} />;
           })}
         </div>
       </div>

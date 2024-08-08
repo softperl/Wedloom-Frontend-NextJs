@@ -83,7 +83,7 @@ const Pcontact = () => {
           } \nFunction Time: ${formData?.functionTime}`,
           conversationId: data.conversation.id,
         });
-        router.push(`/user/inbox/clzd0iko10010lzg4nnnwte43`);
+        router.push(`/user/inbox/${data.conversation.id}`);
       } catch (error) {
         handelError(error);
       }

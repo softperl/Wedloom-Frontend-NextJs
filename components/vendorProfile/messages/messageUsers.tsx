@@ -11,7 +11,8 @@ import { BiSearch } from "react-icons/bi";
 
 const MessageUsers = () => {
   const { user } = useAuth();
-  const { conversations, setConversations } = useChats();
+  const [lastMessage, setLastMessage] = useState<any>();
+  const { conversations, setConversations, messages } = useChats();
   const [search, setSearch] = useState<any>("");
 
   const conversationsFn = async () => {
@@ -35,6 +36,16 @@ const MessageUsers = () => {
       .toLowerCase()
       .includes(search.toLowerCase());
   });
+
+  const getLastMessage = () => {
+    if (messages.length === 0) return null;
+    return messages.slice(-1)[0];
+  };
+
+  useEffect(() => {
+    const last = getLastMessage();
+    setLastMessage(last);
+  }, [messages]);
 
   return (
     <>
@@ -69,7 +80,9 @@ const MessageUsers = () => {
                   }/${data?.id}`}>
                   <MessageSender
                     img={""}
-                    date={formatDistanceToNow(new Date(data?.createdAt))}
+                    date={formatDistanceToNow(
+                      new Date(data.messages[0]?.createdAt)
+                    )}
                     name={currentuser[0]?.user?.name}
                     text={data.messages[0]?.text}
                   />
