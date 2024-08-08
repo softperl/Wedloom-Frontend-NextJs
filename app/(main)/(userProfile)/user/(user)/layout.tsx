@@ -3,12 +3,12 @@
 import UserRightCard from "@/components/userProfile/userRightCard";
 import { getAllEvents } from "@/lib/api";
 import useUi from "@/lib/hooks/useUi";
-import { calculateTimeRemaining, handelError } from "@/lib/utils";
-import { format, differenceInDays } from "date-fns";
+import { calculateTimeRemaining } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { FaLocationDot } from "react-icons/fa6";
 import { MdCall } from "react-icons/md";
 
 export default function RootLayout({
@@ -51,51 +51,62 @@ export default function RootLayout({
       {events?.length > 0 && (
         <div
           className="w-full h-[30vh] md:h-[50vh] bg-no-repeat bg-cover bg-top relative"
-          style={{
-            backgroundImage: `radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
-url("https://onehorizonproductions.com/wp-content/uploads/2022/03/Alfisha-Fahad-habib-Day-2-3-One-Horizon-Productions-52.jpg")`,
-          }}>
-          {/* Black Overlay */}
-          <Image
-            fill
-            src="https://images.wedmegood.com/images/image_gradient.png"
-            alt=""
-            className="w-full h-full absolute inset-0 filter blur-sm"
-          />
+          //           style={{
+          //             backgroundImage: `radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+          // url("https://onehorizonproductions.com/wp-content/uploads/2022/03/Alfisha-Fahad-habib-Day-2-3-One-Horizon-Productions-52.jpg")`,
+          //           }}
+        >
+          <div className="relative w-full h-full">
+            <Image
+              fill
+              src="https://onehorizonproductions.com/wp-content/uploads/2022/03/Alfisha-Fahad-habib-Day-2-3-One-Horizon-Productions-52.jpg"
+              alt=""
+              className="w-full h-full inset-0 object-top"
+            />
+            {/* Black Overlay */}
+            <div className="relative w-full h-full">
+              <Image
+                width={800}
+                height={400}
+                src="https://images.wedmegood.com/images/image_gradient.png"
+                alt=""
+                className="w-full h-full inset-0 filter blur-sm"
+              />
+              <div className="bg-black/30 absolute top-0 left-0 w-full h-full"></div>
+            </div>
+          </div>
 
           {/* Contents */}
-          <div className="banner-blur w-full h-full z-[1000]">
+          <div className="banner-blur w-full h-full absolute top-0 left-0">
+            {events?.length > 0 && (
+              <div className="flex items-center justify-center absolute right-10 bottom-6">
+                <FaLocationDot className="text-textPrimary-900 w-5 h-5" />
+                <p className="ml-1 text-white text-xs lg:text-sm">
+                  {events[0]?.location}
+                </p>
+              </div>
+            )}
             {/* Name */}
-            <div
-              className="absolute top-[50%] left-[50%]"
-              style={{
-                transform: "translate(-50%, -100%)",
-              }}>
-              <h1 className="text-white text-2xl lg:text-4xl font-medium">
+            <div className="absolute w-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-screen-sm lg:max-w-screen-lg">
+              <h1 className="text-white text-2xl lg:text-4xl font-medium mx-auto text-center -translate-y-10">
                 {!loading && events[0]?.title}
               </h1>
-            </div>
-            <div
-              className="w-full lg:w-9/12 mx-auto h-[40%] lg:h-[20%] lg:pt-[15%] pt-[40%] flex justify-center gap-20"
-              style={{
-                border: "2px solid #fff",
-                borderColor: "transparent transparent #fff transparent",
-                borderRadius: "0px 0px 50% 50%",
-              }}>
-              <div className="bg-white lg:w-[100px] lg:h-[100px] w-[60px] h-[60px] p-2 text-center rotate-6 lg:rotate-3 mt-[-12px] lg:mt-[-10px] flex flex-col justify-between items-center font-semibold text-textPrimary-900">
-                <h1 className="lg:text-5xl text-xl">
-                  {events?.length > 0 &&
-                    calculateTimeRemaining(events[0]?.date).months}
-                </h1>
-                <p className="text-[13px] md:text-base">MONTH</p>
-              </div>
+              <div className="w-full mx-auto flex justify-center gap-20 relative border-b-2 border-white rounded-l-[50%] rounded-r-[50%] -top-14 lg:-top-20">
+                <div className="bg-white lg:w-[100px] lg:h-[100px] w-[60px] h-[60px] p-2 text-center rotate-6 lg:rotate-3 mt-[-12px] lg:mt-[-10px] flex flex-col justify-between items-center font-semibold text-textPrimary-900 translate-y-14 lg:translate-y-24">
+                  <h1 className="lg:text-5xl text-xl">
+                    {events?.length > 0 &&
+                      calculateTimeRemaining(events[0]?.date).months}
+                  </h1>
+                  <p className="text-[13px] md:text-base">MONTH</p>
+                </div>
 
-              <div className="bg-white lg:w-[100px] lg:h-[100px] w-[60px] h-[60px] p-2 text-center -rotate-6 lg:-rotate-3 mt-[-12px] lg:mt-[-10px] flex flex-col justify-between items-center font-semibold text-textPrimary-900">
-                <h1 className="lg:text-5xl text-xl">
-                  {events?.length > 0 &&
-                    calculateTimeRemaining(events[0]?.date).days}
-                </h1>
-                <p className="text-[13px] md:text-base">DAY</p>
+                <div className="bg-white lg:w-[100px] lg:h-[100px] w-[60px] h-[60px] p-2 text-center -rotate-6 lg:-rotate-3 mt-[-12px] lg:mt-[-10px] flex flex-col justify-between items-center font-semibold text-textPrimary-900 translate-y-14 lg:translate-y-24">
+                  <h1 className="lg:text-5xl text-xl">
+                    {events?.length > 0 &&
+                      calculateTimeRemaining(events[0]?.date).days}
+                  </h1>
+                  <p className="text-[13px] md:text-base">DAY</p>
+                </div>
               </div>
             </div>
           </div>

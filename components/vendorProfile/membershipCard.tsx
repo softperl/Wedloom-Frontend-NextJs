@@ -20,8 +20,6 @@ const MembershipCard = ({ planType }: { planType: string }) => {
     fetchData();
   }, []);
 
-  console.log(plans);
-
   return (
     <div className="p-4 flex flex-wrap lg:flex-nowrap justify-between gap-4">
       {plans
@@ -48,10 +46,10 @@ const MembershipCard = ({ planType }: { planType: string }) => {
               </div>
 
               <div>
-                {item?.feature?.map((data: any, idx: number) => (
+                {item?.features?.map((data: any, idx: number) => (
                   <div key={idx} className="border-t py-8 px-4 text-center">
                     <span className="text-xs lg:text-sm text-textSecondary-900">
-                      {data}
+                      {data?.feature}
                     </span>
                   </div>
                 ))}

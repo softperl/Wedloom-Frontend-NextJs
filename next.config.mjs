@@ -14,6 +14,7 @@ const nextConfig = {
       "static.wixstatic.com",
       "encrypted-tbn0.gstatic.com",
       "upload.wikimedia.org",
+      "onehorizonproductions.com",
     ],
   },
 };

@@ -8,13 +8,13 @@ import { AddressPopup } from "../popups/addressPopup";
 import { getQuestions } from "@/lib/api";
 import useUi from "@/lib/hooks/useUi";
 import useAuth from "@/lib/hooks/useAuth";
+import { add } from "date-fns";
 
 const InformationContent = () => {
   const { cities } = useUi();
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [questions, setQuestions] = useState([]);
-
   const [locationPopUp, setLocationPopUp] = useState(false);
   const [value, setValue] = useState(EditorState.createEmpty());
   const [formData, setFormData] = useState<any>({
@@ -30,6 +30,8 @@ const InformationContent = () => {
     city: "",
     address: "",
   });
+  const [additionalData, setAdditionalData] = useState<any>({});
+  const [selectedOptions, setSelectedOptions] = useState<any[]>([]);
 
   const [numberBox, setNumberBox] = useState([{ number: "9566423200" }]);
 
@@ -52,12 +54,38 @@ const InformationContent = () => {
     list[index][name] = value;
     setNumberBox(list);
   };
+
   const handleChange = (field: any, event: any) => {
     const value =
       field.inputType === "File" ? event.target.files[0] : event.target.value;
     setFormData({
       ...formData,
-      [field.label]: value,
+      [field.labelName]: value,
+    });
+  };
+
+  //@ts-ignore
+  const handleCheckboxChange = (option: any, isChecked: boolean) => {
+    let updatedOptions;
+    if (isChecked) {
+      updatedOptions = [...selectedOptions, option];
+    } else {
+      updatedOptions = selectedOptions.filter((opt) => opt !== option);
+    }
+    setSelectedOptions(updatedOptions);
+    setAdditionalData({
+      ...additionalData,
+      others: updatedOptions,
+    });
+  };
+
+  const handleChangeAdditional = (field: any, event: any) => {
+    const value =
+      field.inputType === "File" ? event.target.files[0] : event.target.value;
+
+    setAdditionalData({
+      ...additionalData,
+      [field.labelName]: value,
     });
   };
 
@@ -65,6 +93,7 @@ const InformationContent = () => {
     try {
       const { data } = await getQuestions();
       setQuestions(data.questions);
+      console.log(data.questions);
     } catch (error) {
       console.log(error);
     } finally {
@@ -74,6 +103,12 @@ const InformationContent = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  // console.log(formData);
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    console.log(additionalData);
+  };
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -125,7 +160,7 @@ const InformationContent = () => {
       </div>
       {/* Form Content */}
       <div className="">
-        <form>
+        <form onSubmit={handleSubmit}>
           {/* Heading */}
           <div className="bg-sectionBg-900 px-2 py-3">
             <h2 className="text-textSecondary-900 lg:text-lg">
@@ -149,9 +184,9 @@ const InformationContent = () => {
                   <input
                     id="loginid"
                     type="text"
-                    placeholder="User@gmail.com"
+                    placeholder={user?.email}
                     disabled
-                    className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md"
+                    className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md w-full"
                   />
                 </div>
               </div>
@@ -512,114 +547,115 @@ const InformationContent = () => {
           {/* Additional Details Boxes */}
           <div className="w-full mt-2 mb-8 lg:px-8 px-2">
             {/* Booked Package */}
-
-            {questions?.map((q: any, index: number) => {
-              const d = [
-                {
-                  option: "sjsjj",
-                },
-                {
-                  option: "yriiwr",
-                },
-                {
-                  option: "lroem",
-                },
-              ];
-
-              return (
-                <div key={index} className="border-b py-2 lg:pt-4 lg:pb-6">
-                  <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                    {q?.label}
-                  </p>
-                  {q?.inputType === "Radio" && (
-                    <div className="mt-2 pl-4">
-                      {q?.others?.map((item: any, i: number) => {
-                        return (
-                          <div key={i}>
-                            <input
-                              className="accent-textPrimary-900"
-                              type="radio"
-                              id={item}
-                              name={item}
-                              value={item}
-                            />
-                            <label
-                              className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                              htmlFor="one_day">
-                              {item}
-                            </label>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
-                  {q?.inputType === "Textarea" && (
-                    <div className="mt-4">
-                      <textarea
-                        rows={5}
-                        className="text-xs lg:text-sm outline-none border w-full px-2 py-1"></textarea>
-                    </div>
-                  )}
-                  {q?.inputType === "Checkbox" && (
-                    <div className="mt-2 pl-4">
-                      {q?.others?.map((item: any, i: number) => {
-                        return (
-                          <div className="mb-1" key={i}>
-                            <input
-                              className="accent-textPrimary-900"
-                              type="checkbox"
-                              id={item}
-                              checked={formData.candid}
-                              value={formData.candid}
-                              onChange={(e) =>
-                                setFormData({
-                                  ...formData,
-                                  candid: e.target.checked,
-                                })
-                              }
-                            />
-                            <label
-                              className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                              htmlFor={item}>
-                              {item}
-                            </label>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
-                  {q?.inputType === "Text" && (
+            {questions?.map((item: any, index: number) => (
+              <div key={index} className="border-b py-2 lg:pt-4 lg:pb-6">
+                <p className="text-xs lg:text-sm font-bold text-textSecondary-900">
+                  {item?.question}
+                </p>
+                {item?.questionType === "Radio" && (
+                  <div className="mt-2 pl-4">
+                    {item?.others?.map((option: any, i: number) => {
+                      console.log(formData[option?.value]);
+                      return (
+                        <div key={i} className="">
+                          <input
+                            className="accent-textPrimary-900"
+                            type="radio"
+                            id={`${item?.question}-${i}`}
+                            name={item?.others}
+                            value={option?.value}
+                            onChange={(e) => handleChangeAdditional(item, e)}
+                          />
+                          <label
+                            className="pl-2 text-xs lg:text-sm text-textSecondary-900"
+                            htmlFor={`${item?.question}-${i}`}>
+                            {option?.value}
+                          </label>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+                {item?.questionType === "Multiple_Choice" && (
+                  <div className="mt-2 pl-4">
+                    {item?.others?.map((option: any, i: number) => (
+                      <div className="mb-1" key={i}>
+                        <input
+                          className="accent-textPrimary-900"
+                          type="checkbox"
+                          id={`${item?.question}-${i}`}
+                          name={option?.value}
+                          onChange={(e) =>
+                            handleCheckboxChange(option, e.target.checked)
+                          }
+                        />
+                        <label
+                          className="pl-2 text-xs lg:text-sm text-textSecondary-900"
+                          htmlFor={`${item?.question}-${i}`}>
+                          {option?.value}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {item?.inputType === "Text_Number" &&
+                  item?.questionType !== "Multiple_Choice" &&
+                  item?.questionType !== "Radio" && (
                     <input
                       className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
                       type="text"
-                      onChange={(e) => handleChange(q, e)}
+                      name={item?.question}
+                      onChange={(e) => handleChangeAdditional(item, e)}
                     />
                   )}
-                  {q?.inputType === "Number" && (
-                    <input
-                      className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
-                      type="number"
-                      onChange={(e) => handleChange(q, e)}
-                    />
-                  )}
-                  {q?.inputType === "Date" && (
-                    <input type="date" onChange={(e) => handleChange(q, e)} />
-                  )}
-                  {q?.inputType === "Select" && (
-                    <select onChange={(e) => {}} className="text-sm mt-2">
-                      {q?.others?.map((option: any, idx: number) => (
-                        <option key={idx} value={option} className="text-sm">
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  )}
-                  {q?.inputType === "File" && (
-                    <input type="file" onChange={(e) => handleChange(q, e)} />
-                  )}
-                </div>
-              );
-            })}
+                {item?.inputType === "Number" && (
+                  <input
+                    className="border mt-2 outline-none text-xs lg:text-sm px-2 py-[2px] w-full"
+                    type="number"
+                    name={item?.question}
+                    onChange={(e) => handleChangeAdditional(item, e)}
+                  />
+                )}
+                {/* {item?.inputType === "Textarea" && (
+                  <div className="mt-4">
+                    <textarea
+                      rows={5}
+                      className="text-xs lg:text-sm outline-none border w-full px-2 py-1"
+                      name={item?.question}
+                      value={formData[item?.question] || ""}
+                      onChange={(e) => handleChangeAdditional(item, e)}
+                    ></textarea>
+                  </div>
+                )} */}
+                {/* {item?.inputType === "Date" && (
+                  <input
+                    type="date"
+                    name={item?.question}
+                    onChange={(e) => handleChangeAdditional(item, e)}
+                  />
+                )} */}
+                {/* {item?.inputType === "Select" && (
+                  <select
+                    className="text-sm mt-2"
+                    name={item?.question}
+                    // onChange={(e) => handleChangeAdditional(item, e)}
+                  >
+                    {item?.others?.map((option: any, idx: number) => (
+                      <option key={idx} className="text-sm">
+                        {option?.value}
+                      </option>
+                    ))}
+                  </select>
+                )} */}
+                {/* {item?.inputType === "File" && (
+                  <input
+                    type="file"
+                    name={item?.question}
+                    onChange={(e) => handleChangeAdditional(item, e)}
+                  />
+                )} */}
+              </div>
+            ))}
           </div>
 
           {/* Save Button */}
