@@ -3,6 +3,7 @@ import {
   addToFav,
   createMessage,
   deleteConversation,
+  getChatUsersByConversationId,
   getMessage,
   removeFromFav,
 } from "@/lib/api";
@@ -16,7 +17,7 @@ import toast from "react-hot-toast";
 import { FiSend } from "react-icons/fi";
 import { IoMdTrash } from "react-icons/io";
 import { LuMailOpen } from "react-icons/lu";
-import { MdLocationOn, MdStar, MdStarOutline, MdStars } from "react-icons/md";
+import { MdLocationOn, MdStarOutline } from "react-icons/md";
 
 export const MessagesLayout = ({
   children,
@@ -27,58 +28,40 @@ export const MessagesLayout = ({
   const { user } = useAuth();
   const { socket } = useSocket();
   const [messageInput, setMessageInput] = useState<string>("");
-  const { conversations, setMessages, chatUser, setChatUser } = useChats();
+  const { setMessages, chatUser, setChatUser, refresh, setRefresh } =
+    useChats();
   const router = useRouter();
-
-  useEffect(() => {
-    if (!conversations || !params?.username || !user?.id) return;
-
-    const filterData = (
-      data: any,
-      conversationId: string,
-      userId: string
-    ): any => {
-      const conversation = data?.find(
-        (convo: any) => convo?.id === conversationId
-      );
-      if (!conversation) return null;
-
-      const user = conversation?.users?.find(
-        (user: any) => user?.userId !== userId
-      );
-      if (!user) return null;
-
-      return {
-        ...conversation,
-        users: [user],
-      };
-    };
-
-    const filteredConversation = filterData(
-      conversations,
-      params?.username,
-      user?.id
-    );
-    console.log("filteredConversation", filteredConversation);
-    const data = filteredConversation?.users[0];
-    setChatUser(data);
-  }, [conversations, params?.username, user?.id]);
 
   const addToFavFn = async () => {
     try {
       await addToFav(params?.username);
+      setRefresh(!refresh);
+    } catch (error) {
+      handelError(error);
+    }
+  };
+  const removeFavFn = async () => {
+    try {
+      await removeFromFav(params?.username);
+      setRefresh(!refresh);
     } catch (error) {
       handelError(error);
     }
   };
 
-  const removeFavFn = async () => {
+  const getChatUsersByConversationIdFn = async () => {
     try {
-      await removeFromFav(params?.username);
+      const { data } = await getChatUsersByConversationId(params?.username);
+      setChatUser(data);
+      setRefresh(!refresh);
     } catch (error) {
       handelError(error);
     }
   };
+
+  useEffect(() => {
+    getChatUsersByConversationIdFn();
+  }, []);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -111,6 +94,7 @@ export const MessagesLayout = ({
     try {
       await deleteConversation(params?.username);
       toast.success("Conversation Deleted");
+      setRefresh(!refresh);
       router.push(
         `${user?.role === "Vendor" ? "/vendor/profile/inbox" : "/user/inbox"}`
       );
@@ -141,31 +125,32 @@ export const MessagesLayout = ({
           <div className="w-full">
             {/* Name */}
             <h2 className="text-textSecondary-900 lg:text-base text-sm font-bold mb-[4px]">
-              {chatUser?.user?.name}
+              {chatUser?.name}
             </h2>
 
-            {chatUser?.user?.city && (
+            {chatUser?.city && (
               <p
                 title="Location"
                 className="text-textPrimary-900 text-xs font-semibold flex items-center">
                 <MdLocationOn className="mr-1" />
-                <span className="capitalize">{chatUser?.user?.city}</span>
+                <span className="capitalize">{chatUser.city}</span>
               </p>
             )}
           </div>
           {/* Right */}
           <div className="w-full flex justify-end">
             <div className="text-textSecondary-900 flex gap-4">
-              {/* {<MdStarOutline
+              {/* <MdStar
+                  className="cursor-pointer hover:text-textPrimary-900 duration-200 text-xl"
+                  title="Mark the Conversation as UnStar"
+                  onClick={removeFavFn}
+                /> */}
+
+              <MdStarOutline
                 className="cursor-pointer hover:text-textPrimary-900 duration-200 text-xl"
                 title="Mark the Conversation as Star"
                 onClick={addToFavFn}
-              />:
-              <MdStar
-                className="cursor-pointer hover:text-textPrimary-900 duration-200 text-xl"
-                title="Mark the Conversation as UnStar"
-                onClick={removeFavFn}
-              />} */}
+              />
               <IoMdTrash
                 className="cursor-pointer hover:text-textPrimary-900 duration-200 text-xl"
                 title="Delete"

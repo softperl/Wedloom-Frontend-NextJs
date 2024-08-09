@@ -1,3 +1,4 @@
+import { use } from "react";
 import axios from "axios";
 import { getCookie, setCookie } from "cookies-next";
 
@@ -83,10 +84,12 @@ export const addToFav = (conversationId: any) =>
   API.post(`/chat/add-to-fav/${conversationId}`);
 export const removeFromFav = (conversationId: any) =>
   API.delete(`/chat/delete-conversation/${conversationId}`);
+export const getChatUsersByConversationId = (conversationId: string) =>
+  API.get(`/chat/get-chat-user/${conversationId}`);
 
 //Event
 export const newEvent = (formData: any) => API.post(`/event/new`, formData);
-export const getAllEvents = ({
+export const getAllEventsByUserId = ({
   q,
   page,
   perPage,
@@ -98,4 +101,7 @@ export const getAllEvents = ({
   perPage?: number;
   sortBy?: string;
   sortOrder?: string;
-}) => API.get(`/event/get-all?q=${q}&page=${page}&perPage=${perPage}`);
+}) =>
+  API.get(
+    `/event/get-events?q=${q}&page=${page}&perPage=${perPage}&sortBy=${sortBy}&sortOrder=${sortOrder}`
+  );

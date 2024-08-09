@@ -4,6 +4,8 @@ import { create } from "zustand";
 interface Store {
   conversations: any;
   setConversations: (val: any) => void;
+  favConversations: any;
+  setFavConversations: (val: any) => void;
   messages: any[];
   setMessages: (val: any | any[]) => void;
   chatUser: any;
@@ -15,6 +17,8 @@ interface Store {
 const useChats = create<Store>((set) => ({
   conversations: null,
   setConversations: (val) => set({ conversations: val }),
+  favConversations: null,
+  setFavConversations: (val) => set({ favConversations: val }),
   messages: [],
   setMessages: (val) =>
     set((state) => ({

@@ -3,6 +3,7 @@ import MessageSender from "@/components/vendorProfile/messages/messageSender";
 import { getConversationsByUser } from "@/lib/api";
 import useAuth from "@/lib/hooks/useAuth";
 import useChats from "@/lib/hooks/useChats";
+import useUi from "@/lib/hooks/useUi";
 import { handelError } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
 import Link from "next/link";
@@ -12,13 +13,22 @@ import { BiSearch } from "react-icons/bi";
 const MessageUsers = () => {
   const { user } = useAuth();
   const [lastMessage, setLastMessage] = useState<any>();
-  const { conversations, setConversations, messages } = useChats();
+  const {
+    conversations,
+    setConversations,
+    favConversations,
+    setFavConversations,
+    messages,
+    refresh,
+  } = useChats();
   const [search, setSearch] = useState<any>("");
 
   const conversationsFn = async () => {
     try {
       const { data } = await getConversationsByUser();
+      console.log(data);
       setConversations(data.conversations);
+      setFavConversations(data.favConversations);
     } catch (error) {
       handelError(error);
     }
@@ -26,16 +36,18 @@ const MessageUsers = () => {
 
   useEffect(() => {
     conversationsFn();
-  }, []);
+  }, [refresh]);
 
-  const filteredConversations = conversations?.filter((conversation: any) => {
-    const currentUser = conversation?.users
-      .filter((item: any) => item.userId !== user?.id)
-      .map((receiver: any) => receiver);
-    return currentUser[0]?.user?.name
-      .toLowerCase()
-      .includes(search.toLowerCase());
-  });
+  const filterConversations = (data: any[]) => {
+    return data?.filter((item: any) => {
+      const currentUser = item?.users
+        .filter((currItem: any) => currItem?.userId !== user?.id)
+        .map((receiver: any) => receiver);
+      return currentUser[0]?.user?.name
+        .toLowerCase()
+        .includes(search.toLowerCase());
+    });
+  };
 
   const getLastMessage = () => {
     if (messages.length === 0) return null;
@@ -66,7 +78,39 @@ const MessageUsers = () => {
 
           {/* Desktop Message Components */}
           <div className="hidden md:block">
-            {filteredConversations?.map((data: any, i: number) => {
+            {filterConversations(favConversations)
+              ?.filter((conversation: any) => {
+                const currentUser = conversation?.users
+                  .filter((item: any) => item.userId !== user?.id)
+                  .map((receiver: any) => receiver);
+                return currentUser[0]?.user?.name
+                  .toLowerCase()
+                  .includes(search.toLowerCase());
+              })
+              ?.map((data: any, i: number) => {
+                const currentuser = data?.users
+                  .filter((item: any) => item.userId !== user?.id)
+                  .map((receiver: any) => receiver);
+                return (
+                  <Link
+                    key={i}
+                    href={`${
+                      user?.role === "Vendor"
+                        ? "/vendor/profile/inbox"
+                        : "/user/inbox"
+                    }/${data?.id}`}>
+                    <MessageSender
+                      img={""}
+                      date={formatDistanceToNow(
+                        new Date(data.messages[0]?.createdAt)
+                      )}
+                      name={currentuser[0]?.user?.name}
+                      text={data.messages[0]?.text}
+                    />
+                  </Link>
+                );
+              })}
+            {filterConversations(conversations)?.map((data: any, i: number) => {
               const currentuser = data?.users
                 .filter((item: any) => item.userId !== user?.id)
                 .map((receiver: any) => receiver);
@@ -93,7 +137,24 @@ const MessageUsers = () => {
 
           {/* Mobile Messages */}
           <div className="block md:hidden">
-            {filteredConversations?.map((data: any, i: number) => {
+            {filterConversations(favConversations)?.map(
+              (data: any, i: number) => {
+                const currentuser = data?.users
+                  .filter((item: any) => item.userId !== user?.id)
+                  .map((receiver: any) => receiver);
+                return (
+                  <Link key={i} href={`/mobilemessage/${data?.id}`}>
+                    <MessageSender
+                      img={""}
+                      date={formatDistanceToNow(new Date(data?.createdAt))}
+                      name={currentuser[0]?.user?.name}
+                      text={data?.messages[0]?.text}
+                    />
+                  </Link>
+                );
+              }
+            )}
+            {filterConversations(conversations)?.map((data: any, i: number) => {
               const currentuser = data?.users
                 .filter((item: any) => item.userId !== user?.id)
                 .map((receiver: any) => receiver);

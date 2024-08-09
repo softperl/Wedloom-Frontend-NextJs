@@ -262,7 +262,12 @@ const Navbar = () => {
                         </Link>
                       </div>
                       <div className="px-4 mb-2">
-                        <Link href="/user/inbox">
+                        <Link
+                          href={
+                            user?.role === "Vendor"
+                              ? "/vendor/profile/inbox"
+                              : "/user/inbox"
+                          }>
                           <span className="text-textSecondary-900 font-medium text-sm hover:font-semibold">
                             Inbox
                           </span>

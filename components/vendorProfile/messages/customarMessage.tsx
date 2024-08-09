@@ -25,7 +25,7 @@ const CustomarMessage = ({ item }: { item: any }) => {
             "max-w-[85%] lg:max-w-[70%] bg-textPrimary-900 text-white text-xs lg:text-sm py-2 px-4 rounded-lg ml-2",
             !sender && "bg-[#E4E6EB] text-textSecondary-900 ml-0 mr-2"
           )}>
-          <p>{item?.text}</p>
+          <p className="whitespace-pre-wrap">{item?.text}</p>
         </div>
       </div>
     </div>

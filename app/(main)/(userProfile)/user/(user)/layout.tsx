@@ -1,7 +1,7 @@
 "use client";
 
 import UserRightCard from "@/components/userProfile/userRightCard";
-import { getAllEvents } from "@/lib/api";
+import { getAllEventsByUserId } from "@/lib/api";
 import useUi from "@/lib/hooks/useUi";
 import { calculateTimeRemaining } from "@/lib/utils";
 import Image from "next/image";
@@ -26,10 +26,11 @@ export default function RootLayout({
 
   const fetchData = async () => {
     try {
-      const { data } = await getAllEvents({
+      const { data } = await getAllEventsByUserId({
         q,
         page: currentPage,
         perPage: 10,
+        sortOrder: "desc",
       });
       setEvents(data.events);
       setTotal(data.total);
