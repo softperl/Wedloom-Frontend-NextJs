@@ -26,7 +26,6 @@ const MessageUsers = () => {
   const conversationsFn = async () => {
     try {
       const { data } = await getConversationsByUser();
-      console.log(data);
       setConversations(data.conversations);
       setFavConversations(data.favConversations);
     } catch (error) {
@@ -36,18 +35,18 @@ const MessageUsers = () => {
 
   useEffect(() => {
     conversationsFn();
-  }, [refresh]);
+  }, []);
 
-  const filterConversations = (data: any[]) => {
-    return data?.filter((item: any) => {
-      const currentUser = item?.users
-        .filter((currItem: any) => currItem?.userId !== user?.id)
-        .map((receiver: any) => receiver);
-      return currentUser[0]?.user?.name
-        .toLowerCase()
-        .includes(search.toLowerCase());
-    });
-  };
+  // const filterConversations = (data: any[]) => {
+  //   return data?.filter((item: any) => {
+  //     const currentUser = item?.users
+  //       .filter((currItem: any) => currItem?.userId !== user?.id)
+  //       .map((receiver: any) => receiver);
+  //     return currentUser[0]?.user?.name
+  //       .toLowerCase()
+  //       .includes(search.toLowerCase());
+  //   });
+  // };
 
   const getLastMessage = () => {
     if (messages.length === 0) return null;
@@ -61,7 +60,7 @@ const MessageUsers = () => {
 
   return (
     <>
-      <div className="w-full md:w-[35%] lg:w-56 flex-shrink-0 h-[75vh] border-r-paginationBg-900 border-r max-h-[75vh] overflow-scroll">
+      <div className="w-full md:w-[35%] lg:w-64 flex-shrink-0 h-[75vh] border-r-paginationBg-900 border-r max-h-[75vh] overflow-scroll">
         {/* <MessageSidebar /> */}
         <div className="h-full overflow-y-scroll">
           {/* SearchBar */}
@@ -78,7 +77,7 @@ const MessageUsers = () => {
 
           {/* Desktop Message Components */}
           <div className="hidden md:block">
-            {filterConversations(favConversations)
+            {favConversations
               ?.filter((conversation: any) => {
                 const currentUser = conversation?.users
                   .filter((item: any) => item.userId !== user?.id)
@@ -110,7 +109,7 @@ const MessageUsers = () => {
                   </Link>
                 );
               })}
-            {filterConversations(conversations)?.map((data: any, i: number) => {
+            {conversations?.map((data: any, i: number) => {
               const currentuser = data?.users
                 .filter((item: any) => item.userId !== user?.id)
                 .map((receiver: any) => receiver);
@@ -137,24 +136,22 @@ const MessageUsers = () => {
 
           {/* Mobile Messages */}
           <div className="block md:hidden">
-            {filterConversations(favConversations)?.map(
-              (data: any, i: number) => {
-                const currentuser = data?.users
-                  .filter((item: any) => item.userId !== user?.id)
-                  .map((receiver: any) => receiver);
-                return (
-                  <Link key={i} href={`/mobilemessage/${data?.id}`}>
-                    <MessageSender
-                      img={""}
-                      date={formatDistanceToNow(new Date(data?.createdAt))}
-                      name={currentuser[0]?.user?.name}
-                      text={data?.messages[0]?.text}
-                    />
-                  </Link>
-                );
-              }
-            )}
-            {filterConversations(conversations)?.map((data: any, i: number) => {
+            {favConversations?.map((data: any, i: number) => {
+              const currentuser = data?.users
+                .filter((item: any) => item.userId !== user?.id)
+                .map((receiver: any) => receiver);
+              return (
+                <Link key={i} href={`/mobilemessage/${data?.id}`}>
+                  <MessageSender
+                    img={""}
+                    date={formatDistanceToNow(new Date(data?.createdAt))}
+                    name={currentuser[0]?.user?.name}
+                    text={data?.messages[0]?.text}
+                  />
+                </Link>
+              );
+            })}
+            {conversations?.map((data: any, i: number) => {
               const currentuser = data?.users
                 .filter((item: any) => item.userId !== user?.id)
                 .map((receiver: any) => receiver);

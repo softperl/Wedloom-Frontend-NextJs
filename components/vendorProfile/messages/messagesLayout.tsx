@@ -5,6 +5,7 @@ import {
   deleteConversation,
   getChatUsersByConversationId,
   getMessage,
+  isFavoriteConversation,
   removeFromFav,
 } from "@/lib/api";
 import useAuth from "@/lib/hooks/useAuth";
@@ -17,7 +18,7 @@ import toast from "react-hot-toast";
 import { FiSend } from "react-icons/fi";
 import { IoMdTrash } from "react-icons/io";
 import { LuMailOpen } from "react-icons/lu";
-import { MdLocationOn, MdStarOutline } from "react-icons/md";
+import { MdLocationOn, MdStar, MdStarOutline } from "react-icons/md";
 
 export const MessagesLayout = ({
   children,
@@ -31,6 +32,7 @@ export const MessagesLayout = ({
   const { setMessages, chatUser, setChatUser, refresh, setRefresh } =
     useChats();
   const router = useRouter();
+  const [isFavConversation, setIsFavConversation] = useState([]);
 
   const addToFavFn = async () => {
     try {
@@ -61,6 +63,20 @@ export const MessagesLayout = ({
 
   useEffect(() => {
     getChatUsersByConversationIdFn();
+  }, []);
+
+  const isFavoriteConversationFn = async () => {
+    try {
+      const { data } = await isFavoriteConversation(params?.username);
+      setIsFavConversation(data);
+      setRefresh(!refresh);
+    } catch (error) {
+      handelError(error);
+    }
+  };
+
+  useEffect(() => {
+    isFavoriteConversationFn();
   }, []);
 
   const handleSubmit = async (e: any) => {
@@ -133,24 +149,26 @@ export const MessagesLayout = ({
                 title="Location"
                 className="text-textPrimary-900 text-xs font-semibold flex items-center">
                 <MdLocationOn className="mr-1" />
-                <span className="capitalize">{chatUser.city}</span>
+                <span className="capitalize">{chatUser?.city}</span>
               </p>
             )}
           </div>
           {/* Right */}
           <div className="w-full flex justify-end">
             <div className="text-textSecondary-900 flex gap-4">
-              {/* <MdStar
+              {isFavConversation ? (
+                <MdStar
                   className="cursor-pointer hover:text-textPrimary-900 duration-200 text-xl"
                   title="Mark the Conversation as UnStar"
                   onClick={removeFavFn}
-                /> */}
-
-              <MdStarOutline
-                className="cursor-pointer hover:text-textPrimary-900 duration-200 text-xl"
-                title="Mark the Conversation as Star"
-                onClick={addToFavFn}
-              />
+                />
+              ) : (
+                <MdStarOutline
+                  className="cursor-pointer hover:text-textPrimary-900 duration-200 text-xl"
+                  title="Mark the Conversation as Star"
+                  onClick={addToFavFn}
+                />
+              )}
               <IoMdTrash
                 className="cursor-pointer hover:text-textPrimary-900 duration-200 text-xl"
                 title="Delete"

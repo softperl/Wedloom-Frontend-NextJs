@@ -86,6 +86,8 @@ export const removeFromFav = (conversationId: any) =>
   API.delete(`/chat/delete-conversation/${conversationId}`);
 export const getChatUsersByConversationId = (conversationId: string) =>
   API.get(`/chat/get-chat-user/${conversationId}`);
+export const isFavoriteConversation = (conversationId: string) =>
+  API.get(`/chat/favorite-conversation/${conversationId}`);
 
 //Event
 export const newEvent = (formData: any) => API.post(`/event/new`, formData);
