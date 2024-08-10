@@ -31,7 +31,11 @@ const WeddingSetupBanner = () => {
         "Please select if you are the groom or bride.";
     if (!eventTitle) validationErrors.eventTitle = "Event title is required.";
     if (!location) validationErrors.location = "Location is required.";
-    if (!eventDate) validationErrors.eventDate = "Event date is required.";
+    if (!eventDate) {
+      validationErrors.eventDate = "Event date is required.";
+    } else if (eventDate < new Date()) {
+      validationErrors.eventDate = "Event date should be in the future.";
+    }
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);

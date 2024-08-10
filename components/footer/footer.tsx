@@ -1,4 +1,5 @@
 "use client";
+import useAuth from "@/lib/hooks/useAuth";
 import useUi from "@/lib/hooks/useUi";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,6 +23,7 @@ import {
 
 const Footer = () => {
   const { aboutData, socialLinks } = useUi();
+  const { user } = useAuth();
 
   return (
     <section className={`lg:py-14 py-6 bg-white`}>
@@ -60,9 +62,11 @@ const Footer = () => {
                 <button className="p-2 md:p-4 text-textPrimary-900 border border-textPrimary-900 rounded-md hover:bg-textPrimary-900 hover:text-white duration-300 font-semibold">
                   Submit Wedding
                 </button>
-                <button className="p-2 md:p-4 text-textBlue-900 border border-textBlue-900 rounded-md hover:bg-textBlue-900 hover:text-white duration-300 font-semibold">
-                  Register a Vendor
-                </button>
+                {user?.role === "User" && (
+                  <button className="p-2 md:p-4 text-textBlue-900 border border-textBlue-900 rounded-md hover:bg-textBlue-900 hover:text-white duration-300 font-semibold">
+                    Register a Vendor
+                  </button>
+                )}
               </div>
             </div>
 

@@ -274,7 +274,12 @@ const Navbar = () => {
                         </Link>
                       </div>
                       <div className="px-4 mb-2">
-                        <Link href="/user/profile/settings">
+                        <Link
+                          href={
+                            user?.role === "Vendor"
+                              ? "/vendor/profile/settings"
+                              : "/user/profile/settings"
+                          }>
                           <span className="text-textSecondary-900 font-medium text-sm hover:font-semibold">
                             Settings
                           </span>

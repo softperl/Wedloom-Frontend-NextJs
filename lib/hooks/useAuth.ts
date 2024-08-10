@@ -10,6 +10,7 @@ export type TUser = {
   email: string;
   role: string;
   session: string;
+  exp: number;
 };
 
 interface Store {
