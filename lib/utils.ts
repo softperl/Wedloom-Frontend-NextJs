@@ -7,6 +7,7 @@ import {
   differenceInYears,
   parseISO,
 } from "date-fns";
+import { formatDate } from "date-fns/format";
 import toast from "react-hot-toast";
 import { twMerge } from "tailwind-merge";
 
@@ -58,4 +59,22 @@ export const calculateTimeRemaining = (eventDateString: any) => {
     months,
     days,
   };
+};
+
+export const timeFormat = (createdAt: any) => {
+  let formattedDate = "";
+  if (createdAt) {
+    const now = new Date();
+    const messageDate = new Date(createdAt);
+    const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000);
+
+    if (messageDate > oneHourAgo) {
+      formattedDate = formatDate(createdAt, "p");
+    } else if (messageDate.toDateString() === now.toDateString()) {
+      formattedDate = formatDate(createdAt, "K a");
+    } else {
+      formattedDate = formatDate(createdAt, "d MMM");
+    }
+  }
+  return formattedDate;
 };

@@ -254,10 +254,24 @@ const Navbar = () => {
 
                     {/* Others Item */}
                     <div className="py-2">
+                      {user?.role === "User" && (
+                        <div className="px-4 mb-2">
+                          <Link href="/setup-wedding">
+                            <span className="text-textSecondary-900 font-medium text-sm hover:font-semibold">
+                              Setup Your Wedding
+                            </span>
+                          </Link>
+                        </div>
+                      )}
                       <div className="px-4 mb-2">
-                        <Link href="/setup-wedding">
+                        <Link
+                          href={
+                            user?.role === "Vendor"
+                              ? "/vendor/profile"
+                              : "/user/profile"
+                          }>
                           <span className="text-textSecondary-900 font-medium text-sm hover:font-semibold">
-                            Setup Your Wedding
+                            Dashboard
                           </span>
                         </Link>
                       </div>

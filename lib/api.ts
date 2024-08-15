@@ -69,6 +69,7 @@ export const deletePlan = (id: string) =>
   API.delete(`/site/plans/delete/${id}`);
 export const createPlan = (formData: any) =>
   API.post("/site/plans/new", formData);
+export const getSteps = () => API.get("/site/get-all-steps");
 
 //Chat
 export const createConversation = (receiverId: string) =>
@@ -88,6 +89,9 @@ export const getChatUsersByConversationId = (conversationId: string) =>
   API.get(`/chat/get-chat-user/${conversationId}`);
 export const isFavoriteConversation = (conversationId: string) =>
   API.get(`/chat/favorite-conversation/${conversationId}`);
+export const getUnReadConversationCount = () =>
+  API.get(`/chat/get-unread-conversation-count`);
+export const markAsUnread = () => API.get(`/chat/mark-as-unread`);
 
 //Event
 export const newEvent = (formData: any) => API.post(`/event/new`, formData);
@@ -107,3 +111,9 @@ export const getAllEventsByUserId = ({
   API.get(
     `/event/get-events?q=${q}&page=${page}&perPage=${perPage}&sortBy=${sortBy}&sortOrder=${sortOrder}`
   );
+
+//Vendor Profile Info
+export const vendorProfileInfo = ({ formData }: { formData: any }) =>
+  API.post(`/vendor/profile-info`, formData);
+export const getVendorCategoryById = () =>
+  API.get("/site/get-category/vendor-id");

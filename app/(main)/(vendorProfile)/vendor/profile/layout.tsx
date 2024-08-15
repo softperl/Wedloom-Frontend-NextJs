@@ -1,4 +1,10 @@
+"use client";
+import { getUnReadConversationCount } from "@/lib/api";
+import useChats from "@/lib/hooks/useChats";
+import useUi from "@/lib/hooks/useUi";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { useEffect } from "react";
 import {
   FaDesktop,
   FaImages,
@@ -9,13 +15,14 @@ import {
 } from "react-icons/fa";
 import { FaRegFileZipper, FaRegMessage } from "react-icons/fa6";
 import { IoMdSettings } from "react-icons/io";
-import { MdCall } from "react-icons/md";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { unReadConversation } = useChats();
+
   const vendorMenu = [
     {
       label: "Profile Informations",
@@ -61,6 +68,7 @@ export default function RootLayout({
       label: "Messages",
       link: "/vendor/profile/inbox",
       icon: FaRegMessage,
+      count: unReadConversation,
     },
   ];
   return (
@@ -75,9 +83,25 @@ export default function RootLayout({
                     <div
                       className={`flex items-center gap-5 cursor-pointer text-[#4a4a4a] hover:text-[#00aef7] duration-100`}>
                       <item.icon className="w-5 h-5" />
-                      <span className="text-xs lg:text-sm font-medium">
-                        {item?.label}
-                      </span>
+                      <div className="w-full flex items-center justify-between gap-2">
+                        <p className="text-xs lg:text-sm font-medium">
+                          {item?.label}
+                        </p>
+
+                        {item?.count > 0 && (
+                          <div
+                            className={cn(
+                              "w-6 h-6 rounded-full invisible flex items-center justify-center",
+                              item?.count > 0 && "bg-textPrimary-900 visible"
+                            )}>
+                            {item?.count > 0 && (
+                              <p className="p-1 text-xs text-white">
+                                {item?.count}
+                              </p>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </Link>
                 );

@@ -1,29 +1,27 @@
 "use client";
-import React, { useEffect } from "react";
 import OthersLogin from "@/components/othersLoginButton/othersLogin";
+import { useEffect } from "react";
 
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/autoplay";
 import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // import required modules
 // import { Pagination, Autoplay } from "swiper";
-import AuthPhotos from "@/components/signupCarouselItem/authPhotos";
-import { useState } from "react";
-import MobileSignupLoginBanner from "@/components/signuploginBanner/mobileSignupLoginBanner";
-import { useRef } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { InputField } from "@/components/global/formFields/inputField";
-import * as z from "zod";
-import { useForm } from "react-hook-form";
+import AuthPhotos from "@/components/signupCarouselItem/authPhotos";
+import MobileSignupLoginBanner from "@/components/signuploginBanner/mobileSignupLoginBanner";
+import { signUp } from "@/lib/api";
+import useUi from "@/lib/hooks/useUi";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { cn, handelError } from "@/lib/utils";
-import { signIn, signUp } from "@/lib/api";
+import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { BiChevronUp } from "react-icons/bi";
-import useUi from "@/lib/hooks/useUi";
+import * as z from "zod";
 
 const formSchema = z.object({
   name: z.string(),
@@ -59,28 +57,29 @@ const VendorSignupForm = () => {
     vendorType: undefined,
   };
 
-  const { control, handleSubmit, setValue } = useForm({
+  const { control, handleSubmit, setValue, reset } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues,
   });
 
   const onSubmit = async (data: Partial<VendorSignUpFormValues>) => {
     try {
-      console.log({ data });
       await signUp({
-        email: data.email,
-        password: data.password,
-        phone: data.phoneNumber,
         name: data.name,
+        email: data.email,
+        phone: data.phoneNumber,
+        password: data.password,
         brand: data.brand,
         city: data.city,
         vendorType: data.vendorType,
         role: "Vendor",
       });
+
       toast.success("Please check your email for verify!");
       router.push("/signin");
+      reset(defaultValues);
     } catch (error) {
-      handelError(error);
+      console.log(error);
     }
   };
 
@@ -175,7 +174,9 @@ const VendorSignupForm = () => {
               </p>
 
               {/* Form */}
-              <form className="mt-10 bg-white rounded">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="mt-10 bg-white rounded">
                 {/* Full Name */}
                 <div className="mb-6">
                   <InputField
@@ -358,8 +359,7 @@ const VendorSignupForm = () => {
                 <div className="mb-6 text-center">
                   <button
                     className="w-full px-4 py-5 font-bold text-white bg-textPrimary-900 focus:outline-none focus:shadow-outline"
-                    type="button"
-                    onClick={handleSubmit(onSubmit)}>
+                    type="submit">
                     Create an account
                   </button>
                 </div>

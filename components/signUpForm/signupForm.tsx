@@ -11,6 +11,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FiAtSign } from "react-icons/fi";
 import { IoMdEyeOff } from "react-icons/io";
 import { IoEye } from "react-icons/io5";
+import { signUp } from "@/lib/api";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   fullName: z.string(),
@@ -29,13 +31,24 @@ const SignUpForm = () => {
     password: undefined,
   };
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues,
   });
 
-  const onSubmit = (data: Partial<SignUpFormValues>) => {
-    console.log(data);
+  const onSubmit = async (data: Partial<SignUpFormValues>) => {
+    try {
+      await signUp({
+        name: data.fullName,
+        email: data.email,
+        password: data.password,
+      });
+      toast.success("Please check your email for verify!");
+      router.push("/signin");
+      reset(defaultValues);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Password Show State
@@ -117,7 +130,9 @@ const SignUpForm = () => {
 
       <>
         {/* Normal Screen */}
-        <form className="mt-10 bg-white rounded">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="mt-10 bg-white rounded">
           {/* Email */}
           <div className="mb-10">
             <InputField
@@ -165,8 +180,7 @@ const SignUpForm = () => {
           <div className="mt-8 mb-4 text-center">
             <button
               className="w-full px-4 py-5 font-bold text-white bg-textPrimary-900 focus:outline-none focus:shadow-outline"
-              type="button"
-              onClick={handleSubmit(onSubmit)}>
+              type="submit">
               Continue
             </button>
           </div>

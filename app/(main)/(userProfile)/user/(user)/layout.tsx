@@ -2,11 +2,11 @@
 
 import UserRightCard from "@/components/userProfile/userRightCard";
 import { getAllEventsByUserId } from "@/lib/api";
+import useChats from "@/lib/hooks/useChats";
 import useUi from "@/lib/hooks/useUi";
-import { calculateTimeRemaining } from "@/lib/utils";
+import { calculateTimeRemaining, cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdCall } from "react-icons/md";
@@ -16,13 +16,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const router = useRouter();
-  const { vendorCategories } = useUi();
+  const { vendorCategories, setRefresh, refresh } = useUi();
+  const { unReadConversation } = useChats();
   const [events, setEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [q, setQ] = useState("");
-  const [total, setTotal] = useState(0);
 
   const fetchData = async () => {
     try {
@@ -33,7 +32,7 @@ export default function RootLayout({
         sortOrder: "desc",
       });
       setEvents(data.events);
-      setTotal(data.total);
+      setRefresh(!refresh);
     } catch (error) {
       console.log(error);
     } finally {
@@ -41,11 +40,41 @@ export default function RootLayout({
     }
   };
 
-  console.log(events);
-
   useEffect(() => {
     fetchData();
   }, [currentPage, q]);
+
+  const userMenu = [
+    {
+      label: "Setup Your Wedding",
+      link: "/setup-wedding",
+    },
+    {
+      label: "Messages",
+      link: "/user/inbox",
+      count: unReadConversation,
+    },
+    {
+      label: "Loves",
+      link: "/user/profile",
+    },
+    {
+      label: "Checklists",
+      link: "/user/profile/checklists",
+    },
+    {
+      label: "Shortlists",
+      link: "/user/profile/shortlists",
+    },
+    {
+      label: "Finalize Vendors",
+      link: "/user/profile/finalize-vendor",
+    },
+    {
+      label: "Settings",
+      link: "/user/profile/settings",
+    },
+  ];
 
   return (
     <>
@@ -122,110 +151,34 @@ export default function RootLayout({
             <div className="w-full lg:w-[18%] flex lg:flex-col flex-col-reverse">
               {/* Toggle Card */}
               <div className="px-5 lg:py-6 py-4 flex flex-col gap-5 bg-white shadow-sm w-full rounded-sm mb-4 lg:mb-0">
-                {/* Setup Your wedding */}
-                <Link
-                  href="/setup-wedding"
-                  // style={({ isActive }) =>
-                  //   isActive ? activeStyle : defaultStyle
-                  // }
-                >
-                  <div
-                    className={`flex items-center gap-3 cursor-pointer hover:text-[#00aef7] duration-100`}>
-                    <span className="text-xs md:text-sm font-medium ml-1">
-                      Setup Your Wedding
-                    </span>
-                  </div>
-                </Link>
+                {userMenu?.map((item: any, i: number) => {
+                  return (
+                    <Link key={i} href={item?.link}>
+                      <div
+                        className={`flex items-center gap-5 cursor-pointer text-[#4a4a4a] hover:text-[#00aef7] duration-100`}>
+                        <div className="w-full flex items-center justify-between gap-2">
+                          <p className="text-xs lg:text-sm font-medium">
+                            {item?.label}
+                          </p>
 
-                {/* Messages */}
-                <Link
-                  href="/user/inbox"
-                  // style={({ isActive }) =>
-                  //   isActive ? activeStyle : defaultStyle
-                  // }
-                >
-                  <div
-                    className={`flex items-center gap-3 cursor-pointer hover:text-[#00aef7] duration-100`}>
-                    <span className="text-xs md:text-sm font-medium ml-1">
-                      Messages
-                    </span>
-                  </div>
-                </Link>
-
-                {/* Love */}
-                <Link
-                  href="/user/profile"
-                  // style={({ isActive }) =>
-                  //   isActive ? activeStyle : defaultStyle
-                  // }
-                >
-                  <div
-                    className={`flex items-center gap-3 cursor-pointer hover:text-[#00aef7] duration-100`}>
-                    <span className="text-xs md:text-sm font-medium ml-1">
-                      Loves
-                    </span>
-                  </div>
-                </Link>
-
-                {/* Checklist */}
-                <Link
-                  href="/user/profile/checklists"
-                  // style={({ isActive }) =>
-                  //   isActive ? activeStyle : defaultStyle
-                  // }
-                >
-                  <div
-                    className={`flex items-center gap-3 cursor-pointer hover:text-[#00aef7] duration-100`}>
-                    <span className="text-xs md:text-sm font-medium ml-1">
-                      Checklists
-                    </span>
-                  </div>
-                </Link>
-
-                {/* Shortlist */}
-                <Link
-                  href="/user/profile/shortlists"
-                  // style={({ isActive }) =>
-                  //   isActive ? activeStyle : defaultStyle
-                  // }
-                >
-                  <div
-                    className={`flex items-center gap-3 cursor-pointer hover:text-[#00aef7] duration-100`}>
-                    <span className="text-xs md:text-sm font-medium ml-1">
-                      Shortlists
-                    </span>
-                  </div>
-                </Link>
-
-                {/* Finalize Vendor */}
-                <Link
-                  href="/user/profile/finalize-vendor"
-                  // style={({ isActive }) =>
-                  //   isActive ? activeStyle : defaultStyle
-                  // }
-                >
-                  <div
-                    className={`flex items-center gap-3 cursor-pointer hover:text-[#00aef7] duration-100`}>
-                    <span className="text-xs md:text-sm font-medium ml-1">
-                      Finalize Vendors
-                    </span>
-                  </div>
-                </Link>
-
-                {/* Settings */}
-                <Link
-                  href="/user/profile/settings"
-                  // style={({ isActive }) =>
-                  //   isActive ? activeStyle : defaultStyle
-                  // }
-                >
-                  <div
-                    className={`flex items-center gap-3 cursor-pointer hover:text-[#00aef7] duration-100`}>
-                    <span className="text-xs md:text-sm font-medium ml-1">
-                      Settings
-                    </span>
-                  </div>
-                </Link>
+                          {item?.count > 0 && (
+                            <div
+                              className={cn(
+                                "w-6 h-6 rounded-full invisible flex items-center justify-center",
+                                item?.count > 0 && "bg-textPrimary-900 visible"
+                              )}>
+                              {item?.count > 0 && (
+                                <p className="p-1 text-xs text-white">
+                                  {item?.count}
+                                </p>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
 
               {/* Weddloom Contact */}

@@ -2,17 +2,22 @@
 
 import { useEffect, useState } from "react";
 import { FaCirclePlus, FaCircleXmark } from "react-icons/fa6";
-import { EditorState } from "draft-js";
+import { convertToRaw, EditorState } from "draft-js";
 import AppReactDraftWysiwyg from "@/libs/styles/AppReactDraftWysiwyg";
 import { AddressPopup } from "../popups/addressPopup";
-import { getQuestions } from "@/lib/api";
+import {
+  getQuestions,
+  getVendorCategoryById,
+  vendorProfileInfo,
+} from "@/lib/api";
 import useUi from "@/lib/hooks/useUi";
 import useAuth from "@/lib/hooks/useAuth";
-import { add } from "date-fns";
+import { add, set } from "date-fns";
 
 const InformationContent = () => {
   const { cities } = useUi();
   const { user } = useAuth();
+  const [vendorCategory, setVendorCategory] = useState<any>({});
   const [isLoading, setIsLoading] = useState(true);
   const [questions, setQuestions] = useState([]);
   const [locationPopUp, setLocationPopUp] = useState(false);
@@ -21,6 +26,7 @@ const InformationContent = () => {
     name: "",
     personName: "",
     additionalMail: "",
+    categoryName: "",
     contactNumber: "",
     numberType: "",
     website: "",
@@ -29,11 +35,13 @@ const InformationContent = () => {
     youtube: "",
     city: "",
     address: "",
+    addInfo: "",
   });
   const [additionalData, setAdditionalData] = useState<any>({});
   const [selectedOptions, setSelectedOptions] = useState<any[]>([]);
-
   const [numberBox, setNumberBox] = useState([{ number: "9566423200" }]);
+
+  const profileComplete = 10;
 
   // Add Dynamic Number Boxes
   const addNumberBox = () => {
@@ -93,7 +101,6 @@ const InformationContent = () => {
     try {
       const { data } = await getQuestions();
       setQuestions(data.questions);
-      console.log(data.questions);
     } catch (error) {
       console.log(error);
     } finally {
@@ -104,10 +111,55 @@ const InformationContent = () => {
     fetchData();
   }, []);
 
-  // console.log(formData);
-  const handleSubmit = (e: any) => {
+  const getVendorCategoryByIdFn = async () => {
+    try {
+      const { data } = await getVendorCategoryById();
+      setVendorCategory(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    getVendorCategoryByIdFn();
+  }, []);
+
+  console.log("vendor", vendorCategory);
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(additionalData);
+    await vendorProfileInfo({
+      loginEmail: user?.email,
+      brandName: formData.name,
+      categoryName: formData.category,
+      contactPersonName: formData.personName,
+      additionalMail: formData.additionalMail,
+      contactNumber: numberBox,
+      website: formData.website,
+      facebook: formData.facebook,
+      instagram: formData.instagram,
+      youtube: formData.youtube,
+      addInfo: formData.addInfo,
+      city: formData.city,
+      address: "address form data",
+      ...additionalData,
+    });
+    // console.log({
+    //   loginEmail: user?.email,
+    //   brandName: formData.name,
+    //   categoryName: formData.category,
+    //   contactPersonName: formData.personName,
+    //   additionalMail: formData.additionalMail,
+    //   contactNumber: numberBox,
+    //   website: formData.website,
+    //   facebook: formData.facebook,
+    //   instagram: formData.instagram,
+    //   youtube: formData.youtube,
+    //   addInfo: formData.addInfo,
+    //   city: formData.city,
+    //   address: "address form data",
+    //   ...additionalData,
+    // });
   };
 
   if (isLoading) return <p>Loading...</p>;
@@ -120,9 +172,11 @@ const InformationContent = () => {
         <span className="text-textSecondary-900">Profile Completation</span>
         <div className="bg-white overflow-hidden p-[6px] shadow-md border border-textPrimary-900 rounded-[4px] mt-2">
           <div className="relative h-7 flex items-center justify-center">
-            <div className="absolute top-0 bottom-0 left-0 w-[10%] bg-textPrimary-900"></div>
+            <div
+              style={{ width: `${profileComplete}%` }}
+              className="absolute top-0 bottom-0 left-0  bg-textPrimary-900"></div>
             <div className="relative text-textSecondary-900 font-medium text-sm">
-              10% COMPLETE
+              {profileComplete}% COMPLETE
             </div>
           </div>
         </div>
@@ -229,7 +283,14 @@ const InformationContent = () => {
                   <input
                     id="category"
                     type="text"
-                    placeholder="Photographer"
+                    placeholder="Enter your category"
+                    value={vendorCategory?.name || formData.categoryName}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        categoryName: e.target.value,
+                      })
+                    }
                     disabled
                     className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md"
                   />
@@ -480,7 +541,22 @@ const InformationContent = () => {
                 <div className="mt-2 lg:mt-0 py-1 h-auto">
                   <AppReactDraftWysiwyg
                     editorState={value}
-                    onEditorStateChange={(data) => setValue(data)}
+                    onEditorStateChange={(data) => {
+                      const blocks = convertToRaw(
+                        data.getCurrentContent()
+                      ).blocks;
+                      const value = blocks
+                        .map(
+                          (block) => (!block.text.trim() && "\n") || block.text
+                        )
+                        .join("\n");
+                      setFormData({
+                        ...formData,
+                        addInfo: value,
+                      });
+                      // console.log(blocks);
+                      setValue(data);
+                    }}
                   />
                 </div>
               </div>
@@ -555,7 +631,6 @@ const InformationContent = () => {
                 {item?.questionType === "Radio" && (
                   <div className="mt-2 pl-4">
                     {item?.others?.map((option: any, i: number) => {
-                      console.log(formData[option?.value]);
                       return (
                         <div key={i} className="">
                           <input

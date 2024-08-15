@@ -6,12 +6,14 @@ import {
   getChatUsersByConversationId,
   getMessage,
   isFavoriteConversation,
+  markAsUnread,
   removeFromFav,
 } from "@/lib/api";
 import useAuth from "@/lib/hooks/useAuth";
 import useChats from "@/lib/hooks/useChats";
 import useSocket from "@/lib/hooks/useSocket";
 import { handelError } from "@/lib/utils";
+import { set } from "date-fns";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -69,7 +71,6 @@ export const MessagesLayout = ({
     try {
       const { data } = await isFavoriteConversation(params?.username);
       setIsFavConversation(data);
-      setRefresh(!refresh);
     } catch (error) {
       handelError(error);
     }
@@ -77,7 +78,7 @@ export const MessagesLayout = ({
 
   useEffect(() => {
     isFavoriteConversationFn();
-  }, []);
+  }, [refresh]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -88,6 +89,7 @@ export const MessagesLayout = ({
       });
       toast.success("Message Send Successfully");
       setMessageInput("");
+      setRefresh(!refresh);
     } catch (error) {
       handelError(error);
     }
@@ -97,6 +99,7 @@ export const MessagesLayout = ({
     try {
       const { data } = await getMessage(params?.username);
       setMessages(data.messages);
+      setRefresh(!refresh);
     } catch (error) {
       handelError(error);
     }
@@ -119,9 +122,22 @@ export const MessagesLayout = ({
     }
   };
 
+  const markAsUnreadFn = async () => {
+    try {
+      await markAsUnread();
+      setRefresh(!refresh);
+      router.push(
+        user?.role !== "Vendor" ? `/user/inbox` : `/vendor/profile/inbox`
+      );
+    } catch (error) {
+      handelError(error);
+    }
+  };
+
   useEffect(() => {
     if (socket) {
       socket.on(`new-message-${params?.username}-${user?.id}`, (data: any) => {
+        console.log("new-message", data);
         setMessages(data.message);
       });
     }
@@ -158,7 +174,7 @@ export const MessagesLayout = ({
             <div className="text-textSecondary-900 flex gap-4">
               {isFavConversation ? (
                 <MdStar
-                  className="cursor-pointer hover:text-textPrimary-900 duration-200 text-xl"
+                  className="cursor-pointer text-yellow-500 hover:text-yellow-500 duration-200 text-xl"
                   title="Mark the Conversation as UnStar"
                   onClick={removeFavFn}
                 />
@@ -177,6 +193,7 @@ export const MessagesLayout = ({
               <LuMailOpen
                 className="cursor-pointer hover:text-textPrimary-900 duration-200 text-lg"
                 title="Mark as unread"
+                onClick={markAsUnreadFn}
               />
             </div>
           </div>

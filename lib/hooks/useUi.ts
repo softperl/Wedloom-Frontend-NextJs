@@ -15,6 +15,8 @@ interface Store {
   setContactInfo: (val: any) => void;
   map: any;
   setMap: (val: any) => void;
+  refresh: boolean;
+  setRefresh: (val: boolean) => void;
 }
 
 const useUi = create<Store>((set) => ({
@@ -32,6 +34,8 @@ const useUi = create<Store>((set) => ({
   setContactInfo: (val) => set({ contactInfo: val }),
   map: null,
   setMap: (val) => set({ map: val }),
+  refresh: false,
+  setRefresh: (val) => set({ refresh: val }),
 }));
 
 export default useUi;

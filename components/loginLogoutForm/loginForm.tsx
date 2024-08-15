@@ -15,6 +15,7 @@ import { signIn } from "@/lib/api";
 import { handelError } from "@/lib/utils";
 import useAuth from "@/lib/hooks/useAuth";
 import { setCookie } from "cookies-next";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   email: z.string().email("E-mail is required"),
@@ -45,6 +46,7 @@ const LoginForm = () => {
       });
       setCookie("refreshToken", data?.refreshToken);
       setAccessToken(data.accessToken);
+      toast.success("Login Successfully");
       // window.location.reload();
       router.push("/");
     } catch (error) {
@@ -389,7 +391,7 @@ const LoginForm = () => {
           </span>
           <Link href="/vendor-signup">
             <button className="py-2 rounded px-4 bg-textPrimary-900 text-white font-medium">
-              Business Sign in
+              Business Sign Up
             </button>
           </Link>
         </div>

@@ -19,9 +19,9 @@ export default async function middleware(req: NextRequest) {
       console.log(error);
     }
   }
-  console.log("middleware", user);
 
-  const authRoutes = ["/signin", "/signup"];
+  const roles = { user: "user", vendor: "vendor", admin: "admin" };
+  const authRoutes = ["/signin", "/signup", "/vendor-signup"];
   const sensitiveRoutes = ["/vendor", "/user", "/setup-wedding"];
 
   if (authRoutes.some((route) => pathname.startsWith(route))) {
@@ -37,16 +37,19 @@ export default async function middleware(req: NextRequest) {
     }
     if (user) {
       if (
-        user.role.toLowerCase() === "vendor" &&
+        user.role.toLowerCase() === roles.vendor &&
         pathname.startsWith("/vendor")
       ) {
         return NextResponse.next();
       } else if (
-        user.role.toLowerCase() === "user" &&
+        user.role.toLowerCase() === roles.user &&
         pathname.startsWith("/user")
       ) {
         return NextResponse.next();
-      } else if (pathname.startsWith("/setup-wedding")) {
+      } else if (
+        user.role.toLowerCase() === roles.user &&
+        pathname.startsWith("/setup-wedding")
+      ) {
         return NextResponse.next();
       }
       return NextResponse.redirect(new URL("/", req.url));
