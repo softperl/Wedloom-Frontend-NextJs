@@ -3,7 +3,7 @@
 import * as React from "react";
 import { getCookie } from "cookies-next";
 import { useEffect } from "react";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import useAuth from "@/lib/hooks/useAuth";
 import useUi from "@/lib/hooks/useUi";
 import useSocket from "@/lib/hooks/useSocket";
@@ -17,14 +17,9 @@ export function Providers({ children, ...props }: any) {
   const { connect, socket } = useSocket();
   const accessToken = getCookie("accessToken");
   const { setAccessToken, setIsAuthenticating, user } = useAuth();
-  const {
-    setUnReadConversation,
-    refresh,
-    setRefresh,
-    updateUserConversation,
-    setUpdateUserConversation,
-  } = useChats();
-  const audio = new Audio("/notification-sound.mp3");
+  const { setUnReadConversation, refresh, setRefresh, setLastMessage } =
+    useChats();
+  const audioRef = React.useRef<HTMLAudioElement>(null);
 
   const {
     setAboutData,
@@ -58,6 +53,7 @@ export function Providers({ children, ...props }: any) {
     try {
       const { data } = await getUnReadConversationCount();
       setUnReadConversation(data);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -72,12 +68,30 @@ export function Providers({ children, ...props }: any) {
   }, []);
 
   useEffect(() => {
+    const audio = audioRef.current;
     if (socket) {
       socket.on(`new-message-${user?.id}`, (data: any) => {
-        data?.message?.sender !== user?.id && audio.play();
-        setUpdateUserConversation(!updateUserConversation);
+        if (data?.message?.sender !== user?.id) {
+          if (audio) {
+            audio.play().catch((error) => {
+              if (error.name === "NotAllowedError") {
+                toast.error(
+                  "Please interact with the page to enable audio playback."
+                );
+              } else {
+                console.error(
+                  "Playback failed due to an unknown error:",
+                  error
+                );
+              }
+            });
+          }
+          setLastMessage(data.message);
+          setRefresh(!refresh);
+        }
       });
     }
+
     return () => {
       if (socket) {
         socket.off(`new-message-${user?.id}`);
@@ -88,6 +102,11 @@ export function Providers({ children, ...props }: any) {
   return (
     <>
       <Toaster position="bottom-right" />
+      <audio
+        ref={audioRef}
+        src={"/notification-sound.mp3"}
+        className="hidden"
+      />
       {children}
     </>
   );

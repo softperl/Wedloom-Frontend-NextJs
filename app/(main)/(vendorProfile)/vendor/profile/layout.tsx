@@ -1,10 +1,8 @@
 "use client";
-import { getUnReadConversationCount } from "@/lib/api";
+
 import useChats from "@/lib/hooks/useChats";
-import useUi from "@/lib/hooks/useUi";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useEffect } from "react";
 import {
   FaDesktop,
   FaImages,

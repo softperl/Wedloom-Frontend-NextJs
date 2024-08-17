@@ -1,23 +1,30 @@
+import useChats from "@/lib/hooks/useChats";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React from "react";
 import { FaUser } from "react-icons/fa6";
+import { MdStar } from "react-icons/md";
 
 const MessageSender = ({
   name,
   text,
   date,
   img,
+  seen,
+  fevCon = false,
 }: {
   name: string;
   text: string;
   date: any;
   img: string;
+  seen: any;
+  fevCon?: any;
 }) => {
+  const { setRemoveFevCon } = useChats();
   return (
     <div
       className={cn(
-        "border-b border-b-paginationBg-900 py-2 px-2 flex gap-4 md:gap-0 items-center cursor-pointer hover:bg-tagsBackground-900 hover:text-white"
+        "border-b border-b-paginationBg-900 py-2 px-2 flex gap-4 md:gap-0 items-center cursor-pointer hover:bg-tagsBackground-900 hover:text-white group"
       )}>
       {/* Image */}
       <div className="w-12">
@@ -44,14 +51,32 @@ const MessageSender = ({
             <h3 className="text-textSecondary-900 font-bold text-sm">{name}</h3>
           </div>
           <div className="w-full h-5 overflow-hidden">
-            <p className="text-gray-500 font-semibold text-[11px]">{text}</p>
+            <p
+              className={cn(
+                "font-semibold text-[11px] text-textPrimary-900",
+                seen && "text-gray-500"
+              )}>
+              {text}
+            </p>
           </div>
         </div>
         {/* Last Message Time */}
-        <div className="w-full text-end">
-          <span className="text-textBlack-900 text-[11px] font-semibold">
-            {date}
-          </span>
+        <div className="w-full flex flex-col gap-2 items-end justify-center">
+          <div className="flex items-center gap-1">
+            {!seen && (
+              <div className="bg-textPrimary-900 w-3 h-3 rounded-full" />
+            )}
+
+            {fevCon && (
+              <MdStar
+                className="cursor-pointer text-yellow-500 group-hover:text-yellow-500 duration-200"
+                title="Mark the Conversation as UnStar"
+                onClick={() => setRemoveFevCon(true)}
+              />
+            )}
+          </div>
+
+          <p className="text-textBlack-900 text-[11px] font-semibold">{date}</p>
         </div>
       </div>
     </div>

@@ -13,7 +13,6 @@ import useAuth from "@/lib/hooks/useAuth";
 import useChats from "@/lib/hooks/useChats";
 import useSocket from "@/lib/hooks/useSocket";
 import { handelError } from "@/lib/utils";
-import { set } from "date-fns";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -31,10 +30,24 @@ export const MessagesLayout = ({
   const { user } = useAuth();
   const { socket } = useSocket();
   const [messageInput, setMessageInput] = useState<string>("");
-  const { setMessages, chatUser, setChatUser, refresh, setRefresh } =
-    useChats();
+  const {
+    setMessages,
+    chatUser,
+    setChatUser,
+    refresh,
+    setRefresh,
+    isFavConversation,
+    setIsFavConversation,
+    removeFevCon,
+    setRemoveFevCon,
+  } = useChats();
   const router = useRouter();
-  const [isFavConversation, setIsFavConversation] = useState([]);
+  const [lastMessage, setLastMessage] = useState<any>();
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [params]);
 
   const addToFavFn = async () => {
     try {
@@ -52,6 +65,10 @@ export const MessagesLayout = ({
       handelError(error);
     }
   };
+
+  useEffect(() => {
+    removeFavFn();
+  }, [removeFevCon]);
 
   const getChatUsersByConversationIdFn = async () => {
     try {
@@ -137,7 +154,6 @@ export const MessagesLayout = ({
   useEffect(() => {
     if (socket) {
       socket.on(`new-message-${params?.username}-${user?.id}`, (data: any) => {
-        console.log("new-message", data);
         setMessages(data.message);
       });
     }
@@ -190,15 +206,17 @@ export const MessagesLayout = ({
                 title="Delete"
                 onClick={deleteConversationFn}
               />
+              {/* {lastMessage?.conversation.id !== user?.id && ( */}
               <LuMailOpen
                 className="cursor-pointer hover:text-textPrimary-900 duration-200 text-lg"
                 title="Mark as unread"
                 onClick={markAsUnreadFn}
               />
+              {/* )} */}
             </div>
           </div>
         </div>
-        <div className="h-full min-h-[calc(75vh-134px)] max-h-[calc(75vh-134px)] overflow-scroll">
+        <div className="h-full min-h-[calc(75vh-134px)] max-h-[calc(75vh-134px)] overflow-y-scroll">
           {children}
         </div>
         {/* SendBox */}
@@ -211,21 +229,13 @@ export const MessagesLayout = ({
               <input
                 type="text"
                 placeholder="Write Message..."
+                ref={inputRef}
                 value={messageInput}
                 onChange={(e) => setMessageInput(e.target.value)}
                 className="w-full text-textSecondary-900 outline-none text-xs lg:text-sm py-3 focus:border-textPrimary-900 rounded-sm"
                 maxLength={100}
               />
             </div>
-            {/* <div>
-          <label
-            htmlFor="file"
-            className="text-[10px] lg:text-xs border-l border-l-paginationBg-900 text-textSecondary-900 flex items-center gap-1 pl-1 cursor-pointer">
-            <ImAttachment />
-            Attachments
-          </label>
-          <input type="file" id="file" className="hidden" />
-        </div> */}
           </div>
 
           {/* button */}

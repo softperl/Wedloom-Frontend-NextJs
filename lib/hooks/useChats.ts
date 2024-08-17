@@ -1,3 +1,5 @@
+import { removeFromFav } from "./../api";
+import { set } from "date-fns";
 import { create } from "zustand";
 
 interface Store {
@@ -13,8 +15,12 @@ interface Store {
   setUnReadConversation: (val: number) => void;
   refresh: boolean;
   setRefresh: (val: boolean) => void;
-  updateUserConversation: boolean;
-  setUpdateUserConversation: (val: any) => void;
+  lastMessage: any;
+  setLastMessage: (val: any) => void;
+  isFavConversation: any;
+  setIsFavConversation: (val: any) => void;
+  removeFevCon: boolean;
+  setRemoveFevCon: (val: boolean) => void;
 }
 
 const useChats = create<Store>((set) => ({
@@ -33,8 +39,12 @@ const useChats = create<Store>((set) => ({
   setChatUser: (val) => set({ chatUser: val }),
   refresh: false,
   setRefresh: (val) => set({ refresh: val }),
-  updateUserConversation: false,
-  setUpdateUserConversation: (val) => set({ updateUserConversation: val }),
+  lastMessage: null,
+  setLastMessage: (val) => set({ lastMessage: val }),
+  isFavConversation: null,
+  setIsFavConversation: (val) => set({ isFavConversation: val }),
+  removeFevCon: false,
+  setRemoveFevCon: (val) => set({ removeFevCon: val }),
 }));
 
 export default useChats;

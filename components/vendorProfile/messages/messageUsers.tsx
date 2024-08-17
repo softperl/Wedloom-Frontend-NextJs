@@ -16,6 +16,7 @@ const MessageUsers = () => {
     favConversations,
     setFavConversations,
     refresh,
+    lastMessage,
   } = useChats();
   const [search, setSearch] = useState<any>("");
 
@@ -31,7 +32,20 @@ const MessageUsers = () => {
 
   useEffect(() => {
     conversationsFn();
-  }, [refresh]);
+  }, [refresh, lastMessage]);
+
+  // const getLastMessageFn = async () => {
+  //   try {
+  //     const { data } = await getLastMessages();
+  //     setLastMessage(data);
+  //   } catch (error) {
+  //     handelError(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getLastMessageFn();
+  // }, [refresh]);
 
   const filterConversations = (data: any[]) => {
     return data?.filter((conversation: any) => {
@@ -77,10 +91,16 @@ const MessageUsers = () => {
                         : "/user/inbox"
                     }/${data?.id}`}>
                     <MessageSender
+                      fevCon={true}
                       img={""}
                       date={timeFormat(data.messages[0]?.createdAt)}
                       name={currentuser[0]?.user?.name}
                       text={data.messages[0]?.text}
+                      seen={
+                        data.messages[0]?.senderId === user?.id
+                          ? true
+                          : data.messages[0]?.seen
+                      }
                     />
                   </Link>
                 );
@@ -103,6 +123,11 @@ const MessageUsers = () => {
                     date={timeFormat(data.messages[0]?.createdAt)}
                     name={currentuser[0]?.user?.name}
                     text={data.messages[0]?.text}
+                    seen={
+                      data.messages[0]?.senderId === user?.id
+                        ? true
+                        : data.messages[0]?.seen
+                    }
                   />
                 </Link>
               );
@@ -123,6 +148,11 @@ const MessageUsers = () => {
                       date={timeFormat(data.messages[0]?.createdAt)}
                       name={currentuser[0]?.user?.name}
                       text={data?.messages[0]?.text}
+                      seen={
+                        data.messages[0]?.senderId === user?.id
+                          ? true
+                          : data?.messages[0]?.seen
+                      }
                     />
                   </Link>
                 );
@@ -139,6 +169,11 @@ const MessageUsers = () => {
                     date={timeFormat(data.messages[0]?.createdAt)}
                     name={currentuser[0]?.user?.name}
                     text={data?.messages[0]?.text}
+                    seen={
+                      data.messages[0]?.senderId === user?.id
+                        ? true
+                        : data.messages[0]?.seen
+                    }
                   />
                 </Link>
               );

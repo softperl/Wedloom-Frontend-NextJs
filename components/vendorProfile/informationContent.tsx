@@ -13,6 +13,7 @@ import {
 import useUi from "@/lib/hooks/useUi";
 import useAuth from "@/lib/hooks/useAuth";
 import { add, set } from "date-fns";
+import { calculateProfileProgress } from "@/lib/utils";
 
 const InformationContent = () => {
   const { cities } = useUi();
@@ -26,7 +27,6 @@ const InformationContent = () => {
     name: "",
     personName: "",
     additionalMail: "",
-    categoryName: "",
     contactNumber: "",
     numberType: "",
     website: "",
@@ -41,7 +41,13 @@ const InformationContent = () => {
   const [selectedOptions, setSelectedOptions] = useState<any[]>([]);
   const [numberBox, setNumberBox] = useState([{ number: "9566423200" }]);
 
-  const profileComplete = 10;
+  const allForms = [formData, additionalData];
+  const { individualPercentages, overallPercentage } =
+    calculateProfileProgress(allForms);
+
+  const formDataCompletion = 40;
+  const additionalDataCompletion = 60;
+  const overallCompletion = formDataCompletion + additionalDataCompletion;
 
   // Add Dynamic Number Boxes
   const addNumberBox = () => {
@@ -173,10 +179,10 @@ const InformationContent = () => {
         <div className="bg-white overflow-hidden p-[6px] shadow-md border border-textPrimary-900 rounded-[4px] mt-2">
           <div className="relative h-7 flex items-center justify-center">
             <div
-              style={{ width: `${profileComplete}%` }}
+              style={{ width: `${overallCompletion}%` }}
               className="absolute top-0 bottom-0 left-0  bg-textPrimary-900"></div>
             <div className="relative text-textSecondary-900 font-medium text-sm">
-              {profileComplete}% COMPLETE
+              {overallCompletion}% COMPLETE
             </div>
           </div>
         </div>
