@@ -1,16 +1,15 @@
 "use client";
 
-import * as React from "react";
+import { getUnReadConversationCount } from "@/lib/api";
+import useAuth from "@/lib/hooks/useAuth";
+import useChats from "@/lib/hooks/useChats";
+import useSocket from "@/lib/hooks/useSocket";
+import useUi from "@/lib/hooks/useUi";
 import { getCookie } from "cookies-next";
+import { usePathname } from "next/navigation";
+import * as React from "react";
 import { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import useAuth from "@/lib/hooks/useAuth";
-import useUi from "@/lib/hooks/useUi";
-import useSocket from "@/lib/hooks/useSocket";
-import useChats from "@/lib/hooks/useChats";
-import { getUnReadConversationCount } from "@/lib/api";
-import { set } from "date-fns";
-import { usePathname, useRouter } from "next/navigation";
 
 export function Providers({ children, ...props }: any) {
   const pathname = usePathname();
@@ -29,6 +28,7 @@ export function Providers({ children, ...props }: any) {
     setVendorCategories,
     setContactInfo,
     setMap,
+    setSteps,
   } = useUi();
 
   useEffect(() => {
@@ -47,13 +47,13 @@ export function Providers({ children, ...props }: any) {
     setVendorCategories(props.siteData?.vendorCategories);
     setContactInfo(props.siteData?.contactInfo);
     setMap(props.siteData?.map);
+    setSteps(props.siteData?.steps);
   }, []);
 
   const getUnReadConversationFn = async () => {
     try {
       const { data } = await getUnReadConversationCount();
       setUnReadConversation(data);
-      console.log(data);
     } catch (error) {
       console.log(error);
     }

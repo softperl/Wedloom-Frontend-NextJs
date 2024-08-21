@@ -1,53 +1,158 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { FaCirclePlus, FaCircleXmark } from "react-icons/fa6";
-import { convertToRaw, EditorState } from "draft-js";
+import { vendorProfileInfo } from "@/lib/api";
+import { cn, handelError } from "@/lib/utils";
 import AppReactDraftWysiwyg from "@/libs/styles/AppReactDraftWysiwyg";
+import { convertToRaw, EditorState } from "draft-js";
+import { useMemo, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { FaCirclePlus, FaCircleXmark } from "react-icons/fa6";
 import { AddressPopup } from "../popups/addressPopup";
-import {
-  getQuestions,
-  getVendorCategoryById,
-  vendorProfileInfo,
-} from "@/lib/api";
-import useUi from "@/lib/hooks/useUi";
-import useAuth from "@/lib/hooks/useAuth";
-import { add, set } from "date-fns";
-import { calculateProfileProgress } from "@/lib/utils";
+import toast from "react-hot-toast";
 
-const InformationContent = () => {
-  const { cities } = useUi();
-  const { user } = useAuth();
-  const [vendorCategory, setVendorCategory] = useState<any>({});
-  const [isLoading, setIsLoading] = useState(true);
-  const [questions, setQuestions] = useState([]);
+const calculateProfileCompletion = (profileData: any) => {
+  // Define field groups and their weights
+  const group1Fields = [
+    "brandName",
+    "categoryName",
+    "contactPersonName",
+    "additionalMail",
+    "contactNumber",
+    "website",
+    "facebook",
+    "instagram",
+    "youtube",
+    "addInfo",
+    "city",
+    "address",
+  ];
+  const group2Fields = ["additionalData"];
+  const group3Fields = ["projects"];
+
+  const group1Weight = 0.2; // 20%
+  const group2Weight = 0.65; // 65%
+  const group3Weight = 0.15; // 15%
+
+  // Helper function to check if a field is filled
+  const isFieldFilled = (field: any) =>
+    field !== null && field !== undefined && field !== "";
+
+  // Calculate completion for group 1
+  const filledGroup1Fields = group1Fields.filter((field) =>
+    isFieldFilled(profileData[field])
+  );
+  const group1Completion =
+    (filledGroup1Fields.length / group1Fields.length) * group1Weight;
+
+  // Calculate completion for group 2
+  const filledGroup2Fields = group2Fields.filter((field) =>
+    isFieldFilled(profileData[field])
+  );
+  const group2Completion =
+    (filledGroup2Fields.length / group2Fields.length) * group2Weight;
+
+  // Calculate completion for group 3
+  const filledGroup3Fields = group3Fields.filter((field) =>
+    isFieldFilled(profileData[field])
+  );
+  const group3Completion =
+    (filledGroup3Fields.length / group3Fields.length) * group3Weight;
+
+  // Total profile completion percentage
+  const totalCompletion =
+    (group1Completion + group2Completion + group3Completion) * 100;
+
+  return {
+    totalCompletion,
+    filledFieldsCount: {
+      group1: filledGroup1Fields.length,
+      group2: filledGroup2Fields.length,
+      group3: filledGroup3Fields.length,
+    },
+    totalFieldsCount: {
+      group1: group1Fields.length,
+      group2: group2Fields.length,
+      group3: group3Fields.length,
+    },
+  };
+};
+
+const InformationContent = ({ data }: any) => {
+  const { vendorProfile, vendorInfo, questions } = data;
   const [locationPopUp, setLocationPopUp] = useState(false);
-  const [value, setValue] = useState(EditorState.createEmpty());
-  const [formData, setFormData] = useState<any>({
-    name: "",
-    personName: "",
-    additionalMail: "",
-    contactNumber: "",
-    numberType: "",
-    website: "",
-    facebook: "",
-    instagram: "",
-    youtube: "",
-    city: "",
-    address: "",
-    addInfo: "",
-  });
+  const [valueEditor, setValueEditor] = useState(EditorState.createEmpty());
+  const [formData, setFormData] = useState<any>({});
   const [additionalData, setAdditionalData] = useState<any>({});
   const [selectedOptions, setSelectedOptions] = useState<any[]>([]);
   const [numberBox, setNumberBox] = useState([{ number: "9566423200" }]);
 
-  const allForms = [formData, additionalData];
-  const { individualPercentages, overallPercentage } =
-    calculateProfileProgress(allForms);
+  const defaultValues = useMemo(
+    () => ({
+      email: vendorProfile?.email,
+      brandName: vendorProfile?.brand,
+      categoryName: vendorProfile?.vendorType,
+      contactPersonName: vendorInfo?.contactPersonName,
+      additionalMail: vendorInfo?.additionalMail,
+      contactNumber: vendorInfo?.contactNumber,
+      website: vendorInfo?.website,
+      facebook: vendorInfo?.facebook,
+      instagram: vendorInfo?.instagram,
+      youtube: vendorInfo?.youtube,
+      city: vendorProfile?.city,
+      address: vendorInfo?.address,
+      addInfo: vendorInfo?.addInfo,
+      additionalData: vendorInfo?.additionalData,
+    }),
+    [vendorInfo, vendorProfile]
+  );
 
-  const formDataCompletion = 40;
-  const additionalDataCompletion = 60;
-  const overallCompletion = formDataCompletion + additionalDataCompletion;
+  const { totalCompletion, filledFieldsCount, totalFieldsCount } =
+    calculateProfileCompletion({
+      brandName: vendorProfile?.brand,
+      categoryName: vendorProfile?.vendorType,
+      contactPersonName: vendorInfo?.contactPersonName,
+      additionalMail: vendorInfo?.additionalMail,
+      contactNumber: vendorInfo?.contactNumber,
+      website: vendorInfo?.website,
+      facebook: vendorInfo?.facebook,
+      instagram: vendorInfo?.instagram,
+      youtube: vendorInfo?.youtube,
+      city: vendorProfile?.city,
+      address: vendorInfo?.address,
+      addInfo: vendorInfo?.addInfo,
+      additionalData: vendorInfo?.additionalData,
+      projects: vendorInfo?.projects,
+    });
+
+  console.log({ totalCompletion, filledFieldsCount, totalFieldsCount });
+
+  const { control, handleSubmit, setValue } = useForm({
+    defaultValues,
+  });
+
+  const onSubmit = async (data: any) => {
+    try {
+      await vendorProfileInfo({
+        brandName: vendorProfile?.brand,
+        categoryName: vendorProfile?.vendorType,
+        contactPersonName: data.contactPersonName,
+        additionalMail: data.additionalMail,
+        contactNumber: data.contactNumber,
+        website: data.website,
+        facebook: data.facebook,
+        instagram: data.instagram,
+        youtube: data.youtube,
+        city: data.city,
+        address: data.address,
+        addInfo: data.addInfo,
+        additionalData: additionalData,
+      });
+      toast.success("Profile Updated Successfully");
+    } catch (error) {
+      console.log(error);
+      handelError("Something went wrong");
+    }
+  };
 
   // Add Dynamic Number Boxes
   const addNumberBox = () => {
@@ -103,73 +208,6 @@ const InformationContent = () => {
     });
   };
 
-  const fetchData = async () => {
-    try {
-      const { data } = await getQuestions();
-      setQuestions(data.questions);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const getVendorCategoryByIdFn = async () => {
-    try {
-      const { data } = await getVendorCategoryById();
-      setVendorCategory(data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  useEffect(() => {
-    getVendorCategoryByIdFn();
-  }, []);
-
-  console.log("vendor", vendorCategory);
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    await vendorProfileInfo({
-      loginEmail: user?.email,
-      brandName: formData.name,
-      categoryName: formData.category,
-      contactPersonName: formData.personName,
-      additionalMail: formData.additionalMail,
-      contactNumber: numberBox,
-      website: formData.website,
-      facebook: formData.facebook,
-      instagram: formData.instagram,
-      youtube: formData.youtube,
-      addInfo: formData.addInfo,
-      city: formData.city,
-      address: "address form data",
-      ...additionalData,
-    });
-    // console.log({
-    //   loginEmail: user?.email,
-    //   brandName: formData.name,
-    //   categoryName: formData.category,
-    //   contactPersonName: formData.personName,
-    //   additionalMail: formData.additionalMail,
-    //   contactNumber: numberBox,
-    //   website: formData.website,
-    //   facebook: formData.facebook,
-    //   instagram: formData.instagram,
-    //   youtube: formData.youtube,
-    //   addInfo: formData.addInfo,
-    //   city: formData.city,
-    //   address: "address form data",
-    //   ...additionalData,
-    // });
-  };
-
-  if (isLoading) return <p>Loading...</p>;
-
   return (
     <div className="w-full">
       {/* ProgressBar of Profile Completation */}
@@ -179,10 +217,14 @@ const InformationContent = () => {
         <div className="bg-white overflow-hidden p-[6px] shadow-md border border-textPrimary-900 rounded-[4px] mt-2">
           <div className="relative h-7 flex items-center justify-center">
             <div
-              style={{ width: `${overallCompletion}%` }}
+              style={{ width: `${totalCompletion}%` }}
               className="absolute top-0 bottom-0 left-0  bg-textPrimary-900"></div>
-            <div className="relative text-textSecondary-900 font-medium text-sm">
-              {overallCompletion}% COMPLETE
+            <div
+              className={cn(
+                "relative text-textSecondary-900 font-medium text-sm",
+                totalCompletion > 50 && "text-white"
+              )}>
+              {Math.floor(totalCompletion)}% COMPLETE
             </div>
           </div>
         </div>
@@ -220,7 +262,7 @@ const InformationContent = () => {
       </div>
       {/* Form Content */}
       <div className="">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           {/* Heading */}
           <div className="bg-sectionBg-900 px-2 py-3">
             <h2 className="text-textSecondary-900 lg:text-lg">
@@ -241,12 +283,16 @@ const InformationContent = () => {
                   </label>
                 </div>
                 <div className="w-full lg:w-8/12 border lg:border-b-0 py-1 lg:px-4 px-2">
-                  <input
-                    id="loginid"
-                    type="text"
-                    placeholder={user?.email}
+                  <Controller
+                    control={control}
+                    name="email"
                     disabled
-                    className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md w-full"
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md w-full"
+                      />
+                    )}
                   />
                 </div>
               </div>
@@ -261,17 +307,16 @@ const InformationContent = () => {
                   </label>
                 </div>
                 <div className="w-full lg:w-8/12 border lg:border-b-0 py-1 lg:px-4 px-2">
-                  <input
-                    id="brand"
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        name: e.target.value,
-                      })
-                    }
-                    className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md"
+                  <Controller
+                    control={control}
+                    name="brandName"
+                    disabled
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md w-full"
+                      />
+                    )}
                   />
                 </div>
               </div>
@@ -286,19 +331,16 @@ const InformationContent = () => {
                   </label>
                 </div>
                 <div className="w-full lg:w-8/12 border lg:border-b-0 py-1 lg:px-4 px-2">
-                  <input
-                    id="category"
-                    type="text"
-                    placeholder="Enter your category"
-                    value={vendorCategory?.name || formData.categoryName}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        categoryName: e.target.value,
-                      })
-                    }
+                  <Controller
+                    control={control}
+                    name="categoryName"
                     disabled
-                    className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md"
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md w-full"
+                      />
+                    )}
                   />
                 </div>
               </div>
@@ -307,24 +349,21 @@ const InformationContent = () => {
               <div className="w-full flex flex-col md:flex-row justify-between lg:items-center mb-1 lg:mb-0">
                 <div className="w-full lg:w-4/12">
                   <label
-                    htmlFor="contactname"
+                    htmlFor=""
                     className="text-xs lg:text-sm font-bold text-textSecondary-900">
                     Contact person name{" "}
                   </label>
                 </div>
                 <div className="w-full lg:w-8/12 border lg:border-b-0 py-1 lg:px-4 px-2">
-                  <input
-                    id="contactname"
-                    type="text"
-                    placeholder=""
-                    value={formData.personName}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        personName: e.target.value,
-                      })
-                    }
-                    className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md"
+                  <Controller
+                    control={control}
+                    name="contactPersonName"
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md w-full"
+                      />
+                    )}
                   />
                 </div>
               </div>
@@ -333,24 +372,21 @@ const InformationContent = () => {
               <div className="w-full flex flex-col md:flex-row justify-between lg:items-center mb-1 lg:mb-0">
                 <div className="w-full lg:w-4/12">
                   <label
-                    htmlFor="additionalmail"
+                    htmlFor="additionalMail"
                     className="text-xs lg:text-sm font-bold text-textSecondary-900">
                     Additional email ID
                   </label>
                 </div>
                 <div className="w-full lg:w-8/12 border py-1 lg:px-4 px-2">
-                  <input
-                    id="additionalmail"
-                    type="email"
-                    placeholder=""
-                    value={formData.additionalMail}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        additionalMail: e.target.value,
-                      })
-                    }
-                    className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md"
+                  <Controller
+                    control={control}
+                    name="additionalMail"
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md w-full"
+                      />
+                    )}
                   />
                 </div>
               </div>
@@ -440,17 +476,15 @@ const InformationContent = () => {
                   </label>
                 </div>
                 <div className="w-full lg:w-8/12 border lg:border-b-0 py-1 lg:px-4 px-2">
-                  <input
-                    id="websiteLink"
-                    type="text"
-                    value={formData.website}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        website: e.target.value,
-                      })
-                    }
-                    className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md"
+                  <Controller
+                    control={control}
+                    name="website"
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md w-full"
+                      />
+                    )}
                   />
                 </div>
               </div>
@@ -465,17 +499,15 @@ const InformationContent = () => {
                   </label>
                 </div>
                 <div className="w-full lg:w-8/12 border lg:border-b-0 py-1 lg:px-4 px-2">
-                  <input
-                    id="facebook"
-                    type="text"
-                    value={formData.facebook}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        facebook: e.target.value,
-                      })
-                    }
-                    className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md"
+                  <Controller
+                    control={control}
+                    name="facebook"
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md w-full"
+                      />
+                    )}
                   />
                 </div>
               </div>
@@ -490,17 +522,15 @@ const InformationContent = () => {
                   </label>
                 </div>
                 <div className="w-full lg:w-8/12 border lg:border-b-0 py-1 lg:px-4 px-2">
-                  <input
-                    id="instagram"
-                    type="text"
-                    value={formData.instagram}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        instagram: e.target.value,
-                      })
-                    }
-                    className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md"
+                  <Controller
+                    control={control}
+                    name="instagram"
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md w-full"
+                      />
+                    )}
                   />
                 </div>
               </div>
@@ -515,18 +545,15 @@ const InformationContent = () => {
                   </label>
                 </div>
                 <div className="w-full lg:w-8/12 border py-1 lg:px-4 px-2">
-                  <input
-                    id="ytLink"
-                    type="text"
-                    placeholder=""
-                    value={formData.youtube}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        youtube: e.target.value,
-                      })
-                    }
-                    className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md"
+                  <Controller
+                    control={control}
+                    name="youtube"
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        className="bg-transparent outline-none border-none text-textSecondary-900 lg:text-[13px] text-xs font-semibold rounded-md w-full"
+                      />
+                    )}
                   />
                 </div>
               </div>
@@ -546,7 +573,7 @@ const InformationContent = () => {
                 </div>
                 <div className="mt-2 lg:mt-0 py-1 h-auto">
                   <AppReactDraftWysiwyg
-                    editorState={value}
+                    editorState={valueEditor}
                     onEditorStateChange={(data) => {
                       const blocks = convertToRaw(
                         data.getCurrentContent()
@@ -556,12 +583,9 @@ const InformationContent = () => {
                           (block) => (!block.text.trim() && "\n") || block.text
                         )
                         .join("\n");
-                      setFormData({
-                        ...formData,
-                        addInfo: value,
-                      });
-                      // console.log(blocks);
-                      setValue(data);
+
+                      setValueEditor(data);
+                      setValue("addInfo", value);
                     }}
                   />
                 </div>
@@ -573,25 +597,20 @@ const InformationContent = () => {
                   <label
                     htmlFor="city"
                     className="text-xs lg:text-sm font-bold text-textSecondary-900">
-                    City*(Choose your base city here)
+                    City
                   </label>
                 </div>
                 <div className="w-full lg:w-8/12 border lg:border-b-0 py-1 lg:px-4 px-2 bg-[#efefef] ">
                   <select
                     id="city"
                     className="w-full bg-transparent outline-none text-textSecondary-900 text-xs lg:text-sm"
-                    value={formData.city}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        city: e.target.value,
-                      })
-                    }>
-                    {cities?.map((city: any, i: number) => (
-                      <option value={city?.name} key={i}>
-                        {city?.name}
-                      </option>
-                    ))}
+                    value={vendorProfile?.city}
+                    disabled>
+                    {/* {cities?.map((city: any, i: number) => ( */}
+                    <option disabled value={vendorProfile?.city}>
+                      {vendorProfile?.city}
+                    </option>
+                    {/* ))} */}
                   </select>
                 </div>
               </div>

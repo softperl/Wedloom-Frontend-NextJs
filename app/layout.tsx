@@ -27,7 +27,6 @@ export default async function RootLayout({
       },
     });
     siteData = data.siteData;
-    console.log(siteData);
   } catch (error) {
     console.log(error);
   }

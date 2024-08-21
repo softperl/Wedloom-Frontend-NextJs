@@ -8,6 +8,24 @@ import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const PopularSearch = () => {
+  const data = [
+    {
+      img: "https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg",
+      text: "shdjshd yuhsd",
+    },
+    {
+      img: "https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg",
+      text: "eusjdksd sd jka",
+    },
+    {
+      img: "https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg",
+      text: "akslkso wewxc sd",
+    },
+    {
+      img: "https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg",
+      text: "wewxc sdsd",
+    },
+  ];
   return (
     <section className="lg:py-14 pt-4">
       <div className="popular_venue container mx-auto md:px-20 px-4">
@@ -52,60 +70,13 @@ const PopularSearch = () => {
                     spaceBetween: 40,
                   },
                 }}>
-                <SwiperSlide>
-                  <PsearchCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                    text="Bridal Ware in Pakistan"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <PsearchCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                    text="Bridal Ware in Lahore"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <PsearchCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/banner_image/1/bridal-wear.jpg"
-                    text="Bridal Ware in Islamabad"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <PsearchCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                    text="Bridal Ware in Faisalabad"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <PsearchCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                    text="Bridal Ware in Rawalpindi"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <PsearchCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                    text="Bridal Ware in Rawalpindi"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <PsearchCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                    text="Bridal Ware in Rawalpindi"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <PsearchCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                    text="Bridal Ware in Rawalpindi"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <PsearchCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                    text="Bridal Ware in Rawalpindi"
-                  />
-                </SwiperSlide>
+                {data?.map((item: any, i: number) => {
+                  return (
+                    <SwiperSlide key={i}>
+                      <PsearchCarousel img={item?.img} text={item?.text} />
+                    </SwiperSlide>
+                  );
+                })}
               </Swiper>
             </div>
           </div>
@@ -122,60 +93,13 @@ const PopularSearch = () => {
             loop={false}
             loopFillGroupWithBlank={true}
             className="mySwiper">
-            <SwiperSlide>
-              <PsearchCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                text="Bridal Ware in Islamabad"
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <PsearchCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                text="Bridal Ware in Pakistan"
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <PsearchCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/banner_image/1/bridal-wear.jpg"
-                text="Bridal Ware in Maldives"
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <PsearchCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                text="Bridal Ware in Faisalabad"
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <PsearchCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                text="Bridal Ware in Lahore"
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <PsearchCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                text="Bridal Ware in Rawalpindi"
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <PsearchCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                text="Bridal Ware in Rawalpindi"
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <PsearchCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                text="Bridal Ware in Rawalpindi"
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <PsearchCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                text="Bridal Ware in Rawalpindi"
-              />
-            </SwiperSlide>
+            {data?.map((item: any, i: number) => {
+              return (
+                <SwiperSlide key={i}>
+                  <PsearchCarousel img={item?.img} text={item?.text} />
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </div>
       </div>

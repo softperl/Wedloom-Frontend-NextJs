@@ -101,7 +101,7 @@ export const MessagesLayout = ({
     e.preventDefault();
     try {
       await createMessage({
-        text: messageInput,
+        text: messageInput.trim(),
         conversationId: params?.username,
       });
       toast.success("Message Send Successfully");
@@ -156,10 +156,14 @@ export const MessagesLayout = ({
       socket.on(`new-message-${params?.username}-${user?.id}`, (data: any) => {
         setMessages(data.message);
       });
+      // socket.on(`last-message-${params?.username}`, (data: any) => {
+      //   console.log("last-message", data);
+      // });
     }
     return () => {
       if (socket) {
         socket.off(`new-message-${params?.username}-${user?.id}`);
+        // socket.off(`last-message-${params?.username}`);
       }
     };
   }, [socket]);
@@ -232,6 +236,11 @@ export const MessagesLayout = ({
                 ref={inputRef}
                 value={messageInput}
                 onChange={(e) => setMessageInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && messageInput.trim()) {
+                    handleSubmit(e);
+                  }
+                }}
                 className="w-full text-textSecondary-900 outline-none text-xs lg:text-sm py-3 focus:border-textPrimary-900 rounded-sm"
                 maxLength={100}
               />

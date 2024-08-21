@@ -1,6 +1,8 @@
 import { create } from "zustand";
 
 interface Store {
+  steps: any;
+  setSteps: (val: any) => void;
   aboutData: any;
   setAboutData: (val: any) => void;
   socialLinks: any;
@@ -20,6 +22,8 @@ interface Store {
 }
 
 const useUi = create<Store>((set) => ({
+  steps: null,
+  setSteps: (val) => set({ steps: val }),
   aboutData: null,
   setAboutData: (val) => set({ aboutData: val }),
   socialLinks: null,

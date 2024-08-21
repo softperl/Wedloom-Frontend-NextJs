@@ -1,34 +1,42 @@
 "use client";
+import useUi from "@/lib/hooks/useUi";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa6";
 
 const VendorSearch = () => {
-  // State
+  const vendorRef = useRef<any>();
+  const { vendorCategories } = useUi();
+  const [openVendor, setOpenVendor] = useState(false);
+  const [vendorInput, setVendorInput] = useState("");
+  const [vendorInputShow, setVendorInputShow] = useState("");
+  const [vendorsValue, setVendorsValue] = useState("");
+
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
-  // Options
-  const options = [
-    { key: 1, value: "Sialkot" },
-    { key: 2, value: "Faisalabad" },
-    { key: 3, value: "Rawalpindi" },
-    { key: 4, value: "Multan" },
-    { key: 5, value: "Gujranwala" },
-    { key: 6, value: "Quetta" },
-  ];
-
-  // Input Field OnChange Function
-  const changeInputValue = (e: any) => {
-    setValue(e.target.value);
+  const VendorDropdown = () => {
+    if (openVendor === true) {
+      setVendorInput("");
+    }
+    const value = vendorInput !== vendorsValue ? vendorsValue : vendorInput;
+    setVendorInputShow(value);
   };
+  useEffect(() => {
+    VendorDropdown();
 
-  const selectValue = (option: any) => {
-    setValue(option);
-    setOpen(!open);
-  };
+    const closePopup = (e: any) => {
+      if (!vendorRef.current.contains(e.target)) {
+        setOpenVendor(false);
+      }
+    };
+    document.addEventListener("click", closePopup);
+    return () => {
+      document.removeEventListener("click", closePopup);
+    };
+  }, [openVendor]);
 
   return (
     // Vendor Search Content Start
@@ -53,38 +61,44 @@ const VendorSearch = () => {
                   <span className="text-xl">I&apos;m Looking For</span>
                 </div>
                 {/* Input Dropdown */}
-                <div className="vendor__container__wrapper relative w-3/12 border-b border-textPrimary-900">
+                <div
+                  className="vendor__container__wrapper relative w-3/12 border-b border-textPrimary-900"
+                  ref={vendorRef}>
                   <div
                     className="input__container"
-                    onClick={() => setOpen(!open)}>
+                    onClick={() => setOpenVendor(!openVendor)}>
                     <input
                       type="text"
                       placeholder="Select Vendor"
-                      value={value}
-                      onChange={changeInputValue}
+                      value={openVendor ? vendorInput : vendorInputShow}
+                      onChange={(e) => setVendorInput(e.target.value)}
                       className="py-3 pr-3 text-xl w-full outline-none border-none text-black cursor-pointer"
                     />
                     <div className="input__arrow__container absolute right-3 bottom-5 text-black">
                       <FaChevronDown
                         className={cn(
                           "cursor-pointer transition-all duration-300",
-                          open && "rotate-180"
+                          openVendor && "rotate-180"
                         )}
                       />
                     </div>
                   </div>
-                  {open && (
+                  {openVendor && (
                     <div className="dropdown border border-textPrimary-900 box-border absolute w-full">
-                      {options
-                        .filter((item) =>
-                          item.value.toLocaleLowerCase().includes(value)
+                      {vendorCategories
+                        .filter((item: any) =>
+                          item.name.toLocaleLowerCase().includes(vendorInput)
                         )
-                        .map((opt) => (
+                        .map((opt: any, i: number) => (
                           <div
                             className="bg-white text-black p-2 flex items-center cursor-pointer hover:bg-gray-300 text-sm"
-                            key={opt.key}
-                            onClick={() => selectValue(opt.value)}>
-                            {opt.value}
+                            key={i}
+                            onClick={() => {
+                              setVendorInput(opt?.name);
+                              setVendorsValue(opt?.name);
+                              setOpenVendor(false);
+                            }}>
+                            {opt?.name}
                           </div>
                         ))}
                     </div>

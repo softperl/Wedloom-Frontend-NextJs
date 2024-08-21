@@ -164,20 +164,20 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
   console.log(unHidePage);
   return (
-    <html lang="en">
+    <>
       {params?.card[0] === "gv" ? (
-        <body>
-          <main className="bg-sectionBg-900 overflow-x-hidden h-full">
+        <div>
+          <div className="bg-sectionBg-900 overflow-x-hidden h-full">
             <div className="container mx-auto overflow-x-hidden h-full">
               <ViewCard />
               <Watermark />
               <ActionFooter />
             </div>
-          </main>
-        </body>
+          </div>
+        </div>
       ) : (
-        <body className={cn((modal || publishPopUp) && "overflow-hidden")}>
-          <main className="bg-sectionBg-900 overflow-x-hidden h-full">
+        <div className={cn((modal || publishPopUp) && "overflow-hidden")}>
+          <div className="bg-sectionBg-900 overflow-x-hidden h-full">
             <TopNav />
             <Navbar />
             <div className="container mx-auto px-5 lg:px-20">
@@ -240,7 +240,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               )}
               {children}
             </div>
-          </main>
+          </div>
           {params?.card[0] === "card-view" && (
             <>
               <Watermark />
@@ -372,8 +372,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
           {publishPopUp && (
             <PublishPopup closeModal={() => setPublishPopUp(false)} />
           )}
-        </body>
+        </div>
       )}
-    </html>
+    </>
   );
 }

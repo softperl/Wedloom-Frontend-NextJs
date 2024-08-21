@@ -3,6 +3,7 @@ import CustomarMessage from "@/components/vendorProfile/messages/customarMessage
 import useChats from "@/lib/hooks/useChats";
 import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 const Chatbox = () => {
   const { messages } = useChats();
@@ -25,7 +26,11 @@ const Chatbox = () => {
     /* Message Box */
     <div className="w-full h-full flex flex-col justify-end">
       {/* Messages */}
-      <div className="overflow-y-auto flex flex-col px-4 py-2 h-full">
+      <div
+        className={cn(
+          "overflow-y-auto flex flex-col px-4 py-2 h-full",
+          messages.length === messages.length && "pb-0"
+        )}>
         <AnimatePresence>
           {messages?.map((item: any, i: number) => (
             <motion.div
@@ -39,6 +44,7 @@ const Chatbox = () => {
                   type: "spring",
                   bounce: 0.3,
                   duration: messages.indexOf(item) * 0.05 + 0.2,
+                  delay: i * 0.05,
                 },
               }}
               style={{
@@ -50,7 +56,7 @@ const Chatbox = () => {
             </motion.div>
           ))}
         </AnimatePresence>
-        <div ref={messagesEndRef} />
+        <div ref={messagesEndRef} className={cn(messages.length && "pb-2")} />
       </div>
     </div>
   );

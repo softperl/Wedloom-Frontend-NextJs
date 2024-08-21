@@ -60,10 +60,7 @@ export const getPosts = ({
 }) => API.get(`/blog/post/get-all?q=${q}&page=${page}&perPage=${perPage}`);
 export const getCategories = () => API.get("/blog/category/get-all");
 
-//Questions
-export const getQuestions = () => API.get("/question/get-all");
-
-//Plans
+//Site
 export const getAllPlan = () => API.get("/site/plans");
 export const deletePlan = (id: string) =>
   API.delete(`/site/plans/delete/${id}`);
@@ -113,7 +110,5 @@ export const getAllEventsByUserId = ({
   );
 
 //Vendor Profile Info
-export const vendorProfileInfo = ({ formData }: { formData: any }) =>
+export const vendorProfileInfo = (formData: any) =>
   API.post(`/vendor/profile-info`, formData);
-export const getVendorCategoryById = () =>
-  API.get("/site/get-category/vendor-id");

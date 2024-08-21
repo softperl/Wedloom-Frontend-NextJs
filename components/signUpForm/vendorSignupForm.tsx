@@ -14,7 +14,7 @@ import AuthPhotos from "@/components/signupCarouselItem/authPhotos";
 import MobileSignupLoginBanner from "@/components/signuploginBanner/mobileSignupLoginBanner";
 import { signUp } from "@/lib/api";
 import useUi from "@/lib/hooks/useUi";
-import { cn } from "@/lib/utils";
+import { cn, handelError } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
@@ -79,7 +79,7 @@ const VendorSignupForm = () => {
       router.push("/signin");
       reset(defaultValues);
     } catch (error) {
-      console.log(error);
+      handelError(error);
     }
   };
 

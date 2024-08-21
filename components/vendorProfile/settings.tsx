@@ -29,11 +29,11 @@ const Settings = () => {
         oldPassword,
         newPassword,
       });
-
       setAccessToken(data?.accessToken);
       setOldPassword("");
       setNewPassword("");
       setConfirmPassword("");
+      router.push("/signin");
     } catch (error) {
       handelError(error);
     }

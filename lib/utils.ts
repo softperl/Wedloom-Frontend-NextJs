@@ -78,33 +78,3 @@ export const timeFormat = (createdAt: any) => {
   }
   return formattedDate;
 };
-
-export const calculateProfileProgress = (
-  forms: any[]
-): {
-  individualPercentages: { [key: string]: number };
-  overallPercentage: number;
-} => {
-  const individualPercentages: { [key: string]: number } = {};
-
-  forms.forEach((form, index) => {
-    const fields = Object.values(form);
-    const filledFields = fields.filter((field) => field !== "").length;
-    const totalFields = fields.length;
-    individualPercentages[`form${index + 1}`] =
-      (filledFields / totalFields) * 100;
-  });
-
-  const overallFilledFields = forms.reduce(
-    (acc, form) =>
-      acc + Object.values(form).filter((field) => field !== "").length,
-    0
-  );
-  const overallTotalFields = forms.reduce(
-    (acc, form) => acc + Object.values(form).length,
-    0
-  );
-  const overallPercentage = (overallFilledFields / overallTotalFields) * 100;
-
-  return { individualPercentages, overallPercentage };
-};

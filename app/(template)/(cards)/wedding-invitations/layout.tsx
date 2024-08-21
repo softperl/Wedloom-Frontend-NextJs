@@ -16,16 +16,16 @@ export default function RootLayout({
   const params = useParams();
 
   return (
-    <html lang="en">
-      <body>
-        <main className="bg-sectionBg-900 overflow-x-hidden h-full">
+    <>
+      <div>
+        <div className="bg-sectionBg-900 overflow-x-hidden h-full">
           <TopNav />
           <Navbar />
           <div className="container mx-auto px-5 lg:px-20">
             <StickyPagesCustomized />
             {children}
           </div>
-        </main>
+        </div>
         <div className="sticky bottom-0 bg-sectionBg-900">
           <div className="flex items-center justify-center">
             <div className="bg-white w-[414px] shadow mx-auto flex items-center justify-center py-5">
@@ -41,7 +41,7 @@ export default function RootLayout({
             </div>
           </div>
         </div>
-      </body>
-    </html>
+      </div>
+    </>
   );
 }

@@ -8,6 +8,32 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import GLookCarousel from "@/components/carousels/gLookCarousel";
 
 const GalleryLook = () => {
+  const data = [
+    {
+      img: "https://image.wedmegood.com/resized/300X/uploads/im_cat_image/4/outfits.jpg",
+      text: "Bridal Ware in Lahore",
+    },
+    {
+      img: "https://image.wedmegood.com/resized/300X/uploads/im_cat_image/4/outfits.jpg",
+      text: "Lahore",
+    },
+    {
+      img: "https://image.wedmegood.com/resized/300X/uploads/im_cat_image/4/outfits.jpg",
+      text: "Bridal Ware",
+    },
+    {
+      img: "https://image.wedmegood.com/resized/300X/uploads/im_cat_image/4/outfits.jpg",
+      text: "jdskjd sd",
+    },
+    {
+      img: "https://image.wedmegood.com/resized/300X/uploads/im_cat_image/4/outfits.jpg",
+      text: "uiuw sdjsg sgds",
+    },
+    {
+      img: "https://image.wedmegood.com/resized/300X/uploads/im_cat_image/4/outfits.jpg",
+      text: "Ware in Lahore",
+    },
+  ];
   return (
     <section className="lg:py-14">
       <div className="popular_venue container mx-auto md:px-20 px-4">
@@ -52,66 +78,13 @@ const GalleryLook = () => {
                     spaceBetween: 40,
                   },
                 }}>
-                <SwiperSlide>
-                  <GLookCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/im_cat_image/4/outfits.jpg"
-                    text="Bridal Ware in Lahore"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <GLookCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/im_cat_image/4/outfits.jpg"
-                    text="Bridal Ware in Pakistan"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <GLookCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/im_cat_image/4/outfits.jpg"
-                    text="Bridal Ware in Faisalabad"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <GLookCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                    text="Bridal Ware in Islamabad"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <GLookCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                    text="Bridal Ware in Karachi"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <GLookCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                    text="Bridal Ware in Multan"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <GLookCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                    text="Bridal Ware in Sukkur"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <GLookCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                    text="Bridal Ware in Okara"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <GLookCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                    text="Bridal Ware in Nawabshah"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <GLookCarousel
-                    img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                    text="Bridal Ware in Jhelum"
-                  />
-                </SwiperSlide>
+                {data?.map((item: any, i: number) => {
+                  return (
+                    <SwiperSlide key={i}>
+                      <GLookCarousel img={item?.img} text={item?.text} />
+                    </SwiperSlide>
+                  );
+                })}
               </Swiper>
             </div>
           </div>
