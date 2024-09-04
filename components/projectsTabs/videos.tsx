@@ -1,62 +1,89 @@
 "use client";
 
+import { createVideo, getVideos, removeVideoById } from "@/lib/api";
 import { useProjects } from "@/lib/hooks/useProjects";
-import { cn } from "@/lib/utils";
+import { cn, extractVideoId, handelError, isYouTubeUrl } from "@/lib/utils";
+import { set } from "date-fns";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaX } from "react-icons/fa6";
 
 const Videos = () => {
-  const { videosFiles, addVideo, removeVideo } = useProjects();
+  const [data, setData] = useState<any>([]);
+  const { refresh, setRefresh } = useProjects();
   const [open, setOpen] = useState(false);
   const [deleteId, setDeleteId] = useState<any>(null);
   const [createNew, setCreateNew] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
   const [videoId, setVideoId] = useState("");
+  const [isValidUrl, setIsValidUrl] = useState(false);
 
-  // Function to extract video ID from various YouTube URL formats
-  const extractVideoId = (url: string): string | null => {
-    const regex =
-      /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-    const match = url.match(regex);
-    return match ? match[1] : null;
+  const fetchVideos = async () => {
+    try {
+      const { data } = await getVideos();
+      setData(data?.videos);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  // get video id from videoUrl
+  useEffect(() => {
+    fetchVideos();
+  }, [refresh]);
+
+  // get video id from videoUrl and validate URL
   useEffect(() => {
     if (videoUrl) {
       const id = extractVideoId(videoUrl);
       setVideoId(id || "");
+      setIsValidUrl(isYouTubeUrl(videoUrl));
+    } else {
+      setIsValidUrl(false);
     }
   }, [videoUrl]);
 
-  const handleAddVideo = (event: any) => {
+  const handleAddVideo = async (event: any) => {
     event.preventDefault();
-    if (videosFiles.includes(videoId)) {
-      toast.error("Video already added.");
-      setCreateNew(false);
-      setVideoUrl("");
+
+    if (!isValidUrl) {
+      toast.error("Please enter a valid YouTube URL.");
       return;
     }
-    addVideo(videoId);
-    setCreateNew(false);
-    setVideoUrl("");
+    try {
+      await createVideo({
+        video: videoId,
+      });
+      toast.success("Video Added Successfully.");
+      setRefresh(!refresh);
+      setCreateNew(false);
+      setVideoUrl("");
+    } catch (error) {
+      console.log(error);
+      handelError(error);
+    }
   };
 
-  const deleteVideo = (id: string) => {
-    removeVideo(id);
+  const deleteVideo = async (id: string) => {
+    try {
+      await removeVideoById(id);
+      setRefresh(!refresh);
+      setOpen(false);
+      setDeleteId(null);
+      toast.success("Video Deleted Successfully.");
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to delete video.");
+    }
   };
 
-  console.log({ videosFiles });
   return (
     <div>
       <div className="flex items-center justify-between mb-5">
         <h2 className="m-0 font-medium text-lg">
-          {videosFiles?.length === 0
+          {data?.length === 0
             ? "No Video Found"
-            : `You Added ${videosFiles?.length} Videos`}
+            : `You Added ${data?.length} Videos`}
         </h2>
         <button
           className="block py-2 px-4 rounded-md border border-textPrimary-900 text-textPrimary-900 transition-all hover:bg-textPrimary-900 hover:text-white"
@@ -64,30 +91,31 @@ const Videos = () => {
           Add New
         </button>
       </div>
-
       <div className="grid grid-cols-3 gap-5">
-        {videosFiles?.map((video, i) => (
-          <div
-            key={i}
-            className="relative rounded-md overflow-hidden aspect-video">
-            <iframe
-              className="w-full h-full"
-              src={`https://www.youtube.com/embed/${video}`}
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen></iframe>
+        {data?.map((item: any, i: number) => {
+          return (
             <div
-              className="absolute top-2 right-2 w-8 h-8 bg-textPrimary-900 flex items-center justify-center rounded-full cursor-pointer"
-              onClick={() => {
-                setDeleteId(video);
-                setOpen(true);
-              }}>
-              <FaX className="w-4 h-4 text-white" />
+              key={i}
+              className="relative rounded-md overflow-hidden aspect-video">
+              <iframe
+                className="w-full h-full"
+                src={`https://www.youtube.com/embed/${item?.video}`}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen></iframe>
+              <div
+                className="absolute top-2 right-2 w-8 h-8 bg-textPrimary-900 flex items-center justify-center rounded-full cursor-pointer"
+                onClick={() => {
+                  setDeleteId(item?.id);
+                  setOpen(true);
+                }}>
+                <FaX className="w-4 h-4 text-white" />
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* create new album box */}
@@ -107,7 +135,7 @@ const Videos = () => {
               <input
                 type="url"
                 className="border rounded-md w-full inline-block py-2 px-4 outline-none focus:ring-pink-600 border-gray-300 focus:border-none mb-4"
-                placeholder="Enter Your Video URL"
+                placeholder="Enter Youtube Video URL"
                 required
                 value={videoUrl}
                 onChange={(e) => setVideoUrl(e.target.value)}
@@ -115,9 +143,9 @@ const Videos = () => {
 
               <div
                 className={`transition-all w-full duration-300 ${
-                  videoUrl ? "h-full " : "h-0"
+                  isValidUrl ? "h-full " : "h-0"
                 } px-5 rounded-md overflow-hidden aspect-video`}>
-                {videoUrl && (
+                {isValidUrl && (
                   <iframe
                     className="w-full h-full"
                     style={{ borderRadius: "6px" }}
@@ -136,7 +164,11 @@ const Videos = () => {
                 <button
                   type="button"
                   className="block py-2 px-4 border rounded-md"
-                  onClick={() => setCreateNew(false)}>
+                  onClick={() => {
+                    setCreateNew(false);
+                    setVideoUrl("");
+                    setCreateNew(false);
+                  }}>
                   Cancel
                 </button>
               </div>
@@ -168,11 +200,7 @@ const Videos = () => {
             </p>
             <div className="flex items-center gap-2 justify-center mt-6">
               <button
-                onClick={() => {
-                  deleteId && deleteVideo(deleteId);
-                  setOpen(false);
-                  setDeleteId(null);
-                }}
+                onClick={() => deleteVideo(deleteId)}
                 className="text-sm font-medium py-[8px] px-[14px] rounded-[4px] outline-none bg-[#3085D6] block text-white hover:bg-[#3085D6]/60">
                 Yes, delete it!
               </button>

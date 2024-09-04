@@ -1,6 +1,5 @@
 import VendorProjectContent from "@/components/vendorProfile/vendorProjectContent";
-import React from "react";
 
-export default function page() {
+export default async function page() {
   return <VendorProjectContent />;
 }

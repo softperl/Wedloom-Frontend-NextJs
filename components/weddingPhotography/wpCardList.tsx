@@ -19,11 +19,12 @@ const WpCardList = ({
   vote1,
   vote2,
   shortdesc,
+  profileId,
 }: any) => {
   const pathname = usePathname();
   return (
     <div className="wpCardList w-full p-3 bg-white rounded-md shadow-sm mb-8">
-      <Link href={`${pathname}/profile`}>
+      <Link href={`/profile/${profileId}`}>
         <div className="wpCard__list_content flex flex-wrap items-center">
           {/* Image Div */}
           <div className="wpCardlist__image w-5/12 relative">

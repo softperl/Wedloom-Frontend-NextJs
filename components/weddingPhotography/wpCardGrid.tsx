@@ -18,11 +18,12 @@ const WpCardGrid = ({
   totalReview,
   tooltip1,
   tooltip2,
+  profileId,
 }: any) => {
   const pathname = usePathname();
   return (
     <div className="wpCardGrid w-full md:w-4/12 mb-6 px-3 pt-2 pb-4 hover:bg-white hover:shadow-md duration-200 rounded-md">
-      <Link href={`${pathname}/profile`}>
+      <Link href={`/profile/${profileId}`}>
         <div className="wpCardGrid__content">
           {/* Image */}
 

@@ -1,13 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Album, useProjects } from "@/lib/hooks/useProjects";
-import { cn } from "@/lib/utils";
+import { createAlbum, getAlbums, removeAlbumById } from "@/lib/api";
+import { useProjects } from "@/lib/hooks/useProjects";
+import { cn, handelError } from "@/lib/utils";
+import { set } from "date-fns";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FaImage, FaX } from "react-icons/fa6";
 
 const Albums = () => {
-  const { albumsFiles, setAlbumsFiles, projectsFiles } = useProjects();
+  const { albums, setAlbums, projects, refresh, setRefresh } = useProjects();
   const [createNew, setCreateNew] = useState(false);
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
   const [albumName, setAlbumName] = useState("");
@@ -15,48 +17,21 @@ const Albums = () => {
     {}
   );
   const [open, setOpen] = useState(false);
-  const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [deleteId, setDeleteId] = useState<any>(null);
 
-  const handleCreateAlbum = () => {
-    if (!albumName) {
-      setErrors({ ...errors, name: "Album name is required" });
-      return;
+  const getAlbumsFn = async () => {
+    try {
+      const { data } = await getAlbums();
+      setAlbums(data?.albums);
+    } catch (error) {
+      console.log(error);
+      handelError(error);
     }
-
-    if (selectedImages.length === 0) {
-      setErrors({
-        ...errors,
-        albumImages: "At least one image must be selected",
-      });
-      return;
-    }
-
-    const newAlbumFile: Album = {
-      name: albumName,
-      images: selectedImages,
-    };
-
-    // Check for duplicate album name
-    const isDuplicate = albumsFiles?.some(
-      (album) => album?.name.toLowerCase() === albumName.toLowerCase()
-    );
-
-    if (isDuplicate) {
-      toast.error("Album with this name already exists.");
-      setCreateNew(false);
-      setAlbumName("");
-      setSelectedImages([]);
-      setErrors({});
-      return;
-    }
-
-    setAlbumsFiles([...albumsFiles, newAlbumFile]);
-    setCreateNew(false);
-    setAlbumName("");
-    setSelectedImages([]);
-    setErrors({});
-    toast.success("Album created successfully!");
   };
+
+  useEffect(() => {
+    getAlbumsFn();
+  }, [refresh]);
 
   const handleSelectImage = (image: File) => {
     setSelectedImages((prevSelectedImages) => {
@@ -68,20 +43,67 @@ const Albums = () => {
     });
   };
 
-  const handleDeleteAlbum = (index: number) => {
-    setAlbumsFiles(albumsFiles.filter((_, i) => i !== index));
-    setOpen(false);
-    setDeleteId(null);
-    toast.success("Album deleted successfully!");
+  const handleCreateAlbum = async () => {
+    try {
+      if (!albumName) {
+        setErrors({ ...errors, name: "Album name is required" });
+        return;
+      }
+
+      if (selectedImages.length === 0) {
+        setErrors({
+          ...errors,
+          albumImages: "At least one image must be selected",
+        });
+        return;
+      }
+
+      // Check for duplicate album name
+      const isDuplicate = albums?.some(
+        (item: any) => item?.name.toLowerCase() === albumName.toLowerCase()
+      );
+
+      if (isDuplicate) {
+        toast.error("Album with this name already exists.");
+        setCreateNew(false);
+        setAlbumName("");
+        setSelectedImages([]);
+        setErrors({});
+        return;
+      }
+      await createAlbum({ name: albumName, photoIds: selectedImages });
+      setRefresh(!refresh);
+      setCreateNew(false);
+      setAlbumName("");
+      setSelectedImages([]);
+      setErrors({});
+      toast.success("Album created successfully!");
+    } catch (error) {
+      console.log(error);
+      handelError(error);
+    }
+  };
+
+  const handleDeleteAlbum = async (id: string) => {
+    try {
+      await removeAlbumById(id);
+      setRefresh(!refresh);
+      setOpen(false);
+      setDeleteId(null);
+      toast.success("Album deleted successfully!");
+    } catch (error) {
+      console.log(error);
+      handelError(error);
+    }
   };
 
   return (
     <div>
       <div className="flex items-center justify-between mb-5">
         <h2 className="m-0 font-medium text-lg">
-          {albumsFiles?.length === 0
+          {albums?.length === 0
             ? "No album found!"
-            : `You Created ${albumsFiles?.length} Albums`}
+            : `You Created ${albums?.length} Albums`}
         </h2>
         <button
           className="block py-2 px-4 rounded-md border border-textPrimary-900 text-textPrimary-900 transition-all hover:bg-textPrimary-900 hover:text-white"
@@ -91,33 +113,36 @@ const Albums = () => {
       </div>
 
       <div className="grid grid-cols-3 gap-5">
-        {albumsFiles.map((album, index) => (
-          <div key={index} className="relative w-full aspect-square">
-            <Image
-              fill
-              src={URL.createObjectURL(album.images[0])}
-              className="w-full h-full object-cover"
-              alt="album"
-            />
-            <div className="absolute top-0 left-0 right-0 bottom-0 w-full h-full bg-black/60">
-              <div
-                className="absolute top-2 left-2 w-6 h-6 bg-textPrimary-900 flex items-center justify-center rounded-full cursor-pointer"
-                onClick={() => {
-                  setOpen(true);
-                  setDeleteId(index);
-                }}>
-                <FaX className="w-5 h-5 p-1 text-white" />
+        {albums.map((item: any, index: number) => {
+          console.log({ item });
+          return (
+            <div key={index} className="relative w-full aspect-square">
+              <Image
+                fill
+                src={item.photos[0].photo}
+                className="w-full h-full object-cover"
+                alt="album"
+              />
+              <div className="absolute top-0 left-0 right-0 bottom-0 w-full h-full bg-black/60">
+                <div
+                  className="absolute top-2 left-2 w-6 h-6 bg-textPrimary-900 flex items-center justify-center rounded-full cursor-pointer"
+                  onClick={() => {
+                    setOpen(true);
+                    setDeleteId(item?.id);
+                  }}>
+                  <FaX className="w-5 h-5 p-1 text-white" />
+                </div>
+                <div className="flex justify-end items-center text-white gap-2 mr-4 font-semibold mt-2">
+                  <FaImage className="w-4 h-4 text-white" />
+                  <span>{item?.images?.length}</span>
+                </div>
+                <h2 className="absolute bottom-1 left-2 text-white w-[60%]">
+                  {item?.name}
+                </h2>
               </div>
-              <div className="flex justify-end items-center text-white gap-2 mr-4 font-semibold mt-2">
-                <FaImage className="w-4 h-4 text-white" />
-                <span>{album.images.length}</span>
-              </div>
-              <h2 className="absolute bottom-1 left-2 text-white w-[60%]">
-                {album.name}
-              </h2>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* create new album box */}
@@ -152,7 +177,7 @@ const Albums = () => {
           )}
 
           <div className="py-3 px-5 grid grid-cols-none sm:grid-cols-2 md:grid-cols-4 gap-5 overflow-y-auto h-[calc(100vh-400px)]">
-            {projectsFiles.map((project, i) => (
+            {projects.map((project: any, i: number) => (
               <div
                 key={i}
                 className={`border-4 w-full aspect-square relative ${
@@ -164,7 +189,7 @@ const Albums = () => {
                 <Image
                   fill
                   className="object-cover"
-                  src={URL.createObjectURL(project)}
+                  src={project?.photo}
                   alt="project"
                 />
               </div>
@@ -218,7 +243,7 @@ const Albums = () => {
             <div className="flex items-center gap-2 justify-center mt-6">
               <button
                 onClick={() => {
-                  deleteId !== null && handleDeleteAlbum(deleteId);
+                  handleDeleteAlbum(deleteId);
                 }}
                 className="text-sm font-medium py-[8px] px-[14px] rounded-[4px] outline-none bg-[#3085D6] block text-white hover:bg-[#3085D6]/60">
                 Yes, delete it!

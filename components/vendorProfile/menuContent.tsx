@@ -1,55 +1,83 @@
 "use client";
-import { useState } from "react";
-import { NumberWithCommas } from "@/lib/utils";
+import { useEffect, useState } from "react";
+import { handelError, NumberWithCommas } from "@/lib/utils";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
-import { FaTrash } from "react-icons/fa6";
+import { FaTrash, FaX } from "react-icons/fa6";
 import Image from "next/image";
+import { createFoodMenu, getFoodMenu, removeFoodMenu } from "@/lib/api";
+import toast from "react-hot-toast";
 
 const MenuContent = () => {
   // States
   const [openPopup, setOpenPopup] = useState(false);
   const [value, setValue] = useState({
-    name: "",
+    title: "",
     menuType: "",
     price: "",
     starters: "",
     main: "",
-    soupsalad: "",
+    soupOrSalad: "",
     desserts: "",
   });
+  const [refresh, setRefresh] = useState(false);
   const [data, setData] = useState<any>([]);
-  const [deletedPopup, setDeletedPopup] = useState(false);
 
-  const formSubmitted = (e: any) => {
+  const formSubmitted = async (e: any) => {
     e.preventDefault();
-    setData([...data, value]);
-    setValue({
-      name: "",
-      menuType: "",
-      price: "",
-      starters: "",
-      main: "",
-      soupsalad: "",
-      desserts: "",
-    });
-    setOpenPopup(false);
+    try {
+      await createFoodMenu({
+        title: value.title,
+        menuType: value.menuType,
+        price: value.price,
+        starter: value.starters,
+        mainCourse: value.main,
+        soupOrSalad: value.soupOrSalad,
+        dessert: value.desserts,
+      });
+      setValue({
+        title: "",
+        menuType: "",
+        price: "",
+        starters: "",
+        main: "",
+        soupOrSalad: "",
+        desserts: "",
+      });
+      setRefresh(!refresh);
+      setOpenPopup(false);
+      toast.success("Menu Added Successfully!");
+    } catch (error) {
+      console.log(error);
+      handelError(error);
+    }
+  };
+
+  const getFoodMenuFn = async () => {
+    try {
+      const { data } = await getFoodMenu();
+      setData(data.foodMenu);
+    } catch (error) {
+      console.log(error);
+      handelError(error);
+    }
   };
 
   // Remove Banquets Function
-  const deleteBanquetes = (i: number) => {
-    const datalist = [...data];
-    datalist.splice(i, 1);
-    setData(datalist);
-    setDeletedPopup(!deletedPopup);
+  const deleteBanquetes = async (id: string) => {
+    try {
+      await removeFoodMenu(id);
+      setRefresh(!refresh);
+      toast.success("Menu Deleted Successfully!");
+    } catch (error) {
+      console.log(error);
+      handelError(error);
+    }
   };
 
-  // Delete Modal
-  if (deletedPopup === true) {
-    setTimeout(() => {
-      setDeletedPopup(!deletedPopup);
-    }, 2000);
-  }
+  useEffect(() => {
+    getFoodMenuFn();
+  }, [refresh]);
 
   return (
     <div className="w-full h-full">
@@ -115,26 +143,26 @@ const MenuContent = () => {
           </div>
 
           {data.length >= 1 &&
-            data.map((D: any, i: number) => (
+            data.map((item: any, i: number) => (
               <div
                 key={i}
                 className="px-4 py-3 border-b border-b-paginationBg-900 font-medium text-textSecondary-900 flex justify-between items-center text-xs lg:text-sm">
                 <div className="w-3/12">
-                  <p>{D.name}</p>
+                  <p>{item.title}</p>
                 </div>
 
                 <div className="w-3/12">
-                  <p>{D.menuType}</p>
+                  <p>{item.menuType}</p>
                 </div>
 
                 <div className="w-3/12">
-                  <p>PKR {NumberWithCommas(D.price)}</p>
+                  <p>PKR {NumberWithCommas(item.price)}</p>
                 </div>
 
                 <div className="w-3/12 text-end">
                   <span className="text-textSecondary-900 flex justify-end">
                     <FaTrash
-                      onClick={() => deleteBanquetes(i)}
+                      onClick={() => deleteBanquetes(item?.id)}
                       className="cursor-pointer"
                     />
                   </span>
@@ -149,6 +177,10 @@ const MenuContent = () => {
         <div className="w-screen h-screen bg-black bg-opacity-70 fixed top-0 right-0 flex justify-center items-center">
           <div className="flex lg:items-start items-end gap-2 w-full px-4 lg:w-[40%] flex-col-reverse">
             <div className="w-full h-max bg-white text-black px-6 py-4 rounded-md">
+              <FaX
+                onClick={() => setOpenPopup(false)}
+                className="float-right w-4 h-4 text-red-500 cursor-pointer"
+              />
               <div className="flex justify-center mb-4">
                 <Image
                   width={500}
@@ -158,6 +190,7 @@ const MenuContent = () => {
                   className="w-14 lg:w-16"
                 />
               </div>
+
               {/* Heading */}
               <h2 className="text-textSecondary-900 text-base lg:text-xl font-semibold text-center">
                 Add New Menu
@@ -168,11 +201,11 @@ const MenuContent = () => {
                   {/* Menu Name Input */}
                   <div className="mb-2">
                     <input
-                      value={value.name}
+                      value={value.title}
                       onChange={(e) =>
                         setValue({
                           ...value,
-                          name: e.target.value,
+                          title: e.target.value,
                         })
                       }
                       type="text"
@@ -303,11 +336,11 @@ const MenuContent = () => {
                       {/* Soup Salads Course */}
                       <div className="w-full">
                         <select
-                          value={value.soupsalad}
+                          value={value.soupOrSalad}
                           onChange={(e) =>
                             setValue({
                               ...value,
-                              soupsalad: e.target.value,
+                              soupOrSalad: e.target.value,
                             })
                           }
                           required
@@ -392,15 +425,6 @@ const MenuContent = () => {
                 onClick={() => setOpenPopup(!openPopup)}></i>
             </div>
           </div>
-        </div>
-      )}
-
-      {/* Delete Popup Modal */}
-      {deletedPopup && (
-        <div className="w-screen py-1 bg-green-600 text-white absolute top-0 right-0 text-center">
-          <span className="text-xs lg:text-sm font-semibold">
-            Menu Has been Deleted Successfully!
-          </span>
         </div>
       )}
     </div>

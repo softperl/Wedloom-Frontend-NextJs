@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
+import { getCookie } from "cookies-next";
 import {
   addMonths,
   addYears,
@@ -41,6 +42,20 @@ export const removeHyphen = (value: string | undefined) => {
   return value?.replace(/-/g, " ").toLowerCase();
 };
 
+// Function to extract video ID from various YouTube URL formats
+export const extractVideoId = (url: string): string | null => {
+  const regex =
+    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const match = url.match(regex);
+  return match ? match[1] : null;
+};
+
+// Function to check if the URL is a valid YouTube URL
+export const isYouTubeUrl = (url: string) => {
+  const regex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+  return regex.test(url);
+};
+
 export const calculateTimeRemaining = (eventDateString: any) => {
   // Parse the event date string to a Date object
   const eventDate = parseISO(eventDateString);
@@ -77,4 +92,38 @@ export const timeFormat = (createdAt: any) => {
     }
   }
   return formattedDate;
+};
+
+export const uploadFiles = async (files: any[], dir: string = "others") => {
+  if (!files) {
+    return false;
+  }
+  const formData = new FormData();
+  files.forEach((file: string | Blob) => {
+    formData.append("files", file);
+  });
+  formData.append("dir", dir);
+  const accessToken = getCookie("accessToken");
+  const refreshToken = getCookie("refreshToken");
+  const requestOptions: any = {
+    method: "POST",
+    body: formData,
+    redirect: "follow",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "x-refresh-token": refreshToken,
+    },
+  };
+  try {
+    const resp = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/upload`,
+      requestOptions
+    );
+    const data = await resp.json();
+    const { files } = data;
+    return files;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
 };

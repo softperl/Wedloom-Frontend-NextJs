@@ -105,7 +105,7 @@ const InformationContent = ({ data }: any) => {
     }),
     [vendorInfo, vendorProfile]
   );
-
+  console.log("additionalData", vendorInfo);
   const { totalCompletion, filledFieldsCount, totalFieldsCount } =
     calculateProfileCompletion({
       brandName: vendorProfile?.brand,

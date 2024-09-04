@@ -1,49 +1,73 @@
 "use client";
+import { createBanquet, getBanquets, removeBanquet } from "@/lib/api";
+import { handelError } from "@/lib/utils";
+import { get } from "http";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { FaTrash } from "react-icons/fa6";
+import toast from "react-hot-toast";
+import { FaTrash, FaX, FaXmark } from "react-icons/fa6";
 
 const Banquets = () => {
-  // States
+  const [refresh, setRefresh] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
   const [value, setValue] = useState({
-    name: "",
-    fixedC: "",
-    floatC: "",
-    vendorType: "",
+    title: "",
+    type: "",
+    fixedCapacity: "",
+    floatCapacity: "",
   });
-  const [data, setData] = useState<any[]>([]);
-  const [deletedPopup, setDeletedPopup] = useState(false);
+  const [data, setData] = useState<any>([]);
+
+  const getBanquetsFn = async () => {
+    try {
+      const { data } = await getBanquets();
+      setData(data?.banquet);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getBanquetsFn();
+  }, [refresh]);
 
   // Form Submit Function
-  const formSubmitted = (e: any) => {
+  const formSubmitted = async (e: any) => {
     e.preventDefault();
-    setData([...data, value]);
-    setValue({
-      name: "",
-      fixedC: "",
-      floatC: "",
-      vendorType: "",
-    });
-    console.log(data);
-    setOpenPopup(false);
+    try {
+      await createBanquet({
+        title: value.title,
+        type: value.type,
+        fixedCapacity: value.fixedCapacity,
+        floatCapacity: value.floatCapacity,
+      });
+      setValue({
+        title: "",
+        type: "",
+        fixedCapacity: "",
+        floatCapacity: "",
+      });
+      setRefresh(!refresh);
+      toast.success("Banquet has been added!");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setOpenPopup(false);
+    }
   };
 
   // Remove Banquets Function
-  const deleteBanquetes = (i: number) => {
-    const datalist = [...data];
-    datalist.splice(i, 1);
-    setData(datalist);
-    setDeletedPopup(!deletedPopup);
+  const deleteBanquetes = async (id: string) => {
+    try {
+      await removeBanquet(id);
+      setRefresh(!refresh);
+      toast.success("Banquet has been deleted!");
+    } catch (error) {
+      console.log(error);
+      handelError(error);
+    }
   };
-
-  // Delete Modal
-  if (deletedPopup === true) {
-    setTimeout(() => {
-      setDeletedPopup(!deletedPopup);
-    }, 2000);
-  }
 
   return (
     <div className="w-full h-full">
@@ -60,7 +84,7 @@ const Banquets = () => {
       {/* Content */}
       <div className="w-full h-full">
         {/* Initial Div */}
-        {data.length < 1 && (
+        {data?.length < 1 && (
           <div className="flex items-center flex-col my-8 lg:my-16 gap-4">
             <p className="text-textSecondary-900 font-semibold lg:text-base text-sm">
               No Banquets found. Add a new banquet
@@ -73,7 +97,7 @@ const Banquets = () => {
           </div>
         )}
 
-        {data.length >= 1 && (
+        {data?.length >= 1 && (
           <>
             <div className="w-full flex justify-between px-4 border-b-paginationBg-900 border-b mt-4 pb-2">
               <div className="w-[20%]">
@@ -103,34 +127,34 @@ const Banquets = () => {
               </div>
             </div>
 
-            {data.map((v, i) => (
+            {data.map((v: any, i: number) => (
               <div
                 key={i}
                 className="w-full flex items-center px-4 py-2 border-b border-b-paginationBg-900">
                 <div className="w-[20%]">
                   <p className="text-xs lg:text-sm font-medium text-textSecondary-900">
-                    {v.name}
+                    {v.title}
                   </p>
                 </div>
                 <div className="w-[20%]">
                   <p className="text-xs lg:text-sm font-medium text-textSecondary-900">
-                    {v.fixedC}
+                    {v.type}
                   </p>
                 </div>
                 <div className="w-[20%]">
                   <p className="text-xs lg:text-sm font-medium text-textSecondary-900">
-                    {v.floatC}
+                    {v.fixedCapacity}
                   </p>
                 </div>
                 <div className="w-[20%]">
                   <p className="text-xs lg:text-sm font-medium text-textSecondary-900">
-                    {v.vendorType}
+                    {v.floatCapacity}
                   </p>
                 </div>
                 <div className="w-[20%] text-end">
                   <span className="text-textSecondary-900 flex justify-end">
                     <FaTrash
-                      onClick={() => deleteBanquetes(i)}
+                      onClick={() => deleteBanquetes(v?.id)}
                       className="cursor-pointer"
                     />
                   </span>
@@ -145,7 +169,7 @@ const Banquets = () => {
         <div className="w-screen h-screen bg-black bg-opacity-70 fixed top-0 right-0 flex justify-center items-center">
           <div className="flex flex-col-reverse lg:flex-row items-end justify-center lg:items-start gap-2 w-full px-4 lg:px-0">
             {/* Content */}
-            <div className="w-full lg:max-w-[400px] h-max bg-white text-black px-6 py-4 rounded-md">
+            <div className="w-full lg:max-w-[400px] h-max bg-white text-black px-6 py-4 rounded-md relative">
               <div className="flex justify-center mb-4">
                 <Image
                   width={500}
@@ -165,11 +189,11 @@ const Banquets = () => {
                   {/* Name Input */}
                   <div className="mb-2">
                     <input
-                      value={value.name}
+                      value={value.title}
                       onChange={(e) =>
                         setValue({
                           ...value,
-                          name: e.target.value,
+                          title: e.target.value,
                         })
                       }
                       type="text"
@@ -183,11 +207,11 @@ const Banquets = () => {
                   {/* Fixed Capacity Input */}
                   <div className="mb-2">
                     <input
-                      value={value.fixedC}
+                      value={value.fixedCapacity}
                       onChange={(e) =>
                         setValue({
                           ...value,
-                          fixedC: e.target.value,
+                          fixedCapacity: e.target.value,
                         })
                       }
                       type="number"
@@ -200,11 +224,11 @@ const Banquets = () => {
                   {/* Floating Capacity Input */}
                   <div className="mb-2">
                     <input
-                      value={value.floatC}
+                      value={value.floatCapacity}
                       onChange={(e) =>
                         setValue({
                           ...value,
-                          floatC: e.target.value,
+                          floatCapacity: e.target.value,
                         })
                       }
                       type="number"
@@ -217,11 +241,11 @@ const Banquets = () => {
                   {/* Banquets Type */}
                   <div className="mb-6">
                     <select
-                      value={value.vendorType}
+                      value={value.type}
                       onChange={(e) =>
                         setValue({
                           ...value,
-                          vendorType: e.target.value,
+                          type: e.target.value,
                         })
                       }
                       required
@@ -244,23 +268,15 @@ const Banquets = () => {
                   </div>
                 </form>
               </div>
-            </div>
-            {/* Close Icon */}
-            <div className="-mt-2">
-              <i
-                className="fa-solid fa-xmark text-3xl text-white cursor-pointer"
-                onClick={() => setOpenPopup(!openPopup)}></i>
+              {/* Close Icon */}
+              <div className="absolute right-5 top-5">
+                <FaXmark
+                  className="text-2xl text-red-500 cursor-pointer"
+                  onClick={() => setOpenPopup(!openPopup)}
+                />
+              </div>
             </div>
           </div>
-        </div>
-      )}
-
-      {/* Delete Popup Modal */}
-      {deletedPopup && (
-        <div className="w-screen py-1 bg-green-600 text-white absolute top-0 right-0 text-center">
-          <span className="text-xs lg:text-sm font-semibold">
-            Banquet Has been Deleted!
-          </span>
         </div>
       )}
     </div>

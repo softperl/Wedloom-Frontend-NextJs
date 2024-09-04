@@ -2,7 +2,7 @@
 
 import MobileVendors from "@/components/mobileVendors";
 import useUi from "@/lib/hooks/useUi";
-import { cn } from "@/lib/utils";
+import { cn, slugify } from "@/lib/utils";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
@@ -68,6 +68,20 @@ const Banner = () => {
     };
   }, [openCity]);
 
+  const search = () => {
+    if (vendorsValue && citiesValue) {
+      return `/vendors/${slugify(citiesValue)}/${slugify(vendorsValue)}`;
+    }
+    if (!citiesValue && vendorsValue) {
+      return `/vendors/all/${slugify(vendorsValue)}`;
+    }
+    if (citiesValue && !vendorsValue) {
+      return `/vendors/${slugify(citiesValue)}`;
+    }
+    return "/vendors";
+  };
+
+  console.log(vendorsValue, citiesValue);
   return (
     // Banner Start
     <div className="banner text-white">
@@ -182,7 +196,7 @@ const Banner = () => {
                 </div>
               </div>
               <div className="submit w-2/12">
-                <Link href="/search">
+                <Link href={search()}>
                   <button className="bg-navbarBGL-900 p-3">Get Started</button>
                 </Link>
               </div>

@@ -5,6 +5,7 @@ import SectionHeader from "@/components/sectionHeader";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import WstoriesCarousel from "@/components/carousels/wstoriesCarousel";
+import { formatDate } from "date-fns/format";
 
 const LatestBlogs = ({ heading }: { heading: string }) => {
   const data = [
@@ -14,7 +15,7 @@ const LatestBlogs = ({ heading }: { heading: string }) => {
         "12 Amazing New Things To Do To Your Lehenga That Will Make It Super Unique!",
       summary:
         "Every bride wants to be a unique one- we bet you do too! So rather than running around for a unique lehenga, you could also consider making a few tweaks here and there, as well as adding new things th...",
-      date: "01 December 2021",
+      date: "2024-08-21T16:15:06.334Z",
     },
     {
       img: "https://images.pexels.com/photos/2106687/pexels-photo-2106687.jpeg?auto=compress&cs=tinysrgb&w=1600",
@@ -22,7 +23,7 @@ const LatestBlogs = ({ heading }: { heading: string }) => {
         "12 Amazing New Things To Do To Your Lehenga That Will Make It Super Unique!",
       summary:
         "Every bride wants to be a unique one- we bet you do too! So rather than running around for a unique lehenga, you could also consider making a few tweaks here and there, as well as adding new things th...",
-      date: "01 December 2021",
+      date: "2024-08-21T16:15:06.334Z",
     },
     {
       img: "https://images.pexels.com/photos/2106687/pexels-photo-2106687.jpeg?auto=compress&cs=tinysrgb&w=1600",
@@ -30,7 +31,7 @@ const LatestBlogs = ({ heading }: { heading: string }) => {
         "12 Amazing New Things To Do To Your Lehenga That Will Make It Super Unique!",
       summary:
         "Every bride wants to be a unique one- we bet you do too! So rather than running around for a unique lehenga, you could also consider making a few tweaks here and there, as well as adding new things th...",
-      date: "01 December 2021",
+      date: "2024-08-21T16:15:06.334Z",
     },
     {
       img: "https://images.pexels.com/photos/2106687/pexels-photo-2106687.jpeg?auto=compress&cs=tinysrgb&w=1600",
@@ -38,7 +39,7 @@ const LatestBlogs = ({ heading }: { heading: string }) => {
         "12 Amazing New Things To Do To Your Lehenga That Will Make It Super Unique!",
       summary:
         "Every bride wants to be a unique one- we bet you do too! So rather than running around for a unique lehenga, you could also consider making a few tweaks here and there, as well as adding new things th...",
-      date: "01 December 2021",
+      date: "2024-08-21T16:15:06.334Z",
     },
   ];
   return (
@@ -86,7 +87,7 @@ const LatestBlogs = ({ heading }: { heading: string }) => {
                       img={item?.img}
                       name={item?.title}
                       summary={item?.summary}
-                      date={item?.date}
+                      date={formatDate(item?.date, "d MMMM YYY")}
                     />
                   </SwiperSlide>
                 );

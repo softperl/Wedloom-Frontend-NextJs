@@ -11,8 +11,10 @@ import WpCardList from "@/components/weddingPhotography/wpCardList";
 import { BiGridAlt } from "react-icons/bi";
 import { FaBarsStaggered, FaMagnifyingGlass, FaShuffle } from "react-icons/fa6";
 import { FaCaretDown, FaDna } from "react-icons/fa";
+import { useParams } from "next/navigation";
 
 const WeedingPhotographer = () => {
+  const params = useParams();
   // All States
   const [gridView, setGridView] = useState(true);
   const [listView, setListView] = useState(false);
@@ -40,7 +42,7 @@ const WeedingPhotographer = () => {
     <section className="lg:py-8 py-0 text-textSecondary-900">
       <div className="wphotographer container mx-auto lg:px-20 px-0">
         <div className="hidden xl:block">
-          <Path first="Home" second="Vendors" third="all" />
+          <Path first="Home" second="Vendors" third={params?.vendorType} />
         </div>
         <div className="wphotographer__content">
           {/* Content Header Part */}
@@ -167,6 +169,7 @@ const WeedingPhotographer = () => {
                       rating,
                       reviews,
                       tooltip,
+                      profileId,
                     } = data;
                     return (
                       <WpCardGrid
@@ -180,6 +183,7 @@ const WeedingPhotographer = () => {
                         tooltip2={tooltip}
                         totalReview={reviews}
                         key={id}
+                        profileId={profileId}
                       />
                     );
                   })}
@@ -206,6 +210,7 @@ const WeedingPhotographer = () => {
                         shortDesc,
                         voteOne,
                         voteTwo,
+                        profileId,
                       } = data;
                       return (
                         <WpCardList
@@ -221,6 +226,7 @@ const WeedingPhotographer = () => {
                           vote1={voteOne}
                           vote2={voteTwo}
                           key={id}
+                          profileId={profileId}
                         />
                       );
                     })}

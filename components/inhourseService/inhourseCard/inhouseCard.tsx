@@ -3,14 +3,14 @@ import React from "react";
 
 const InhouseCard = ({ image, title, subtitle }: any) => {
   return (
-    <div className="inhouseCard bg-white p-4 md:w-6/12 w-full rounded-lg shadow-xl group">
+    <div className="inhouseCard bg-white p-4 w-full rounded-lg shadow-xl group">
       <div className="inhouseCard__container text-center">
         <div className="image w-full overflow-hidden">
           <Image
             width={500}
             height={500}
             src={image}
-            alt=""
+            alt="image"
             className="h-52 w-full group-hover:scale-125 duration-200 rounded-lg"
           />
         </div>

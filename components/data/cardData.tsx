@@ -1,6 +1,9 @@
+import { nanoid } from "nanoid";
+
 const cardData = [
   {
     id: 1,
+    profileId: nanoid(),
     image:
       "https://images.pexels.com/photos/10332889/pexels-photo-10332889.jpeg?auto=compress&cs=tinysrgb&w=1600",
     name: "Happy Framers",
@@ -17,6 +20,7 @@ const cardData = [
   },
   {
     id: 2,
+    profileId: nanoid(),
     image:
       "https://images.pexels.com/photos/2106673/pexels-photo-2106673.jpeg?auto=compress&cs=tinysrgb&w=1600",
     name: "CamLens Photography",
@@ -33,6 +37,7 @@ const cardData = [
   },
   {
     id: 3,
+    profileId: nanoid(),
     image:
       "https://images.pexels.com/photos/7184081/pexels-photo-7184081.jpeg?auto=compress&cs=tinysrgb&w=1600",
     name: "CamLens Photography",
@@ -49,6 +54,7 @@ const cardData = [
   },
   {
     id: 4,
+    profileId: nanoid(),
     image:
       "https://images.pexels.com/photos/11762791/pexels-photo-11762791.jpeg?auto=compress&cs=tinysrgb&w=1600",
     name: "Happy Framers",
@@ -65,6 +71,7 @@ const cardData = [
   },
   {
     id: 5,
+    profileId: nanoid(),
     image:
       "https://images.pexels.com/photos/10332889/pexels-photo-10332889.jpeg?auto=compress&cs=tinysrgb&w=1600",
     name: "Stories by Parag",
@@ -81,6 +88,7 @@ const cardData = [
   },
   {
     id: 6,
+    profileId: nanoid(),
     image:
       "https://images.pexels.com/photos/7184081/pexels-photo-7184081.jpeg?auto=compress&cs=tinysrgb&w=1600",
     name: "CamLens Photography",
@@ -97,6 +105,7 @@ const cardData = [
   },
   {
     id: 7,
+    profileId: nanoid(),
     image:
       "https://images.pexels.com/photos/11762791/pexels-photo-11762791.jpeg?auto=compress&cs=tinysrgb&w=1600",
     name: "Happy Framers",
@@ -113,6 +122,7 @@ const cardData = [
   },
   {
     id: 8,
+    profileId: nanoid(),
     image:
       "https://images.pexels.com/photos/10332889/pexels-photo-10332889.jpeg?auto=compress&cs=tinysrgb&w=1600",
     name: "Stories by Parag",
@@ -129,6 +139,7 @@ const cardData = [
   },
   {
     id: 9,
+    profileId: nanoid(),
     image:
       "https://images.pexels.com/photos/7184081/pexels-photo-7184081.jpeg?auto=compress&cs=tinysrgb&w=1600",
     name: "CamLens Photography",
@@ -140,278 +151,6 @@ const cardData = [
     reviews: "61",
     category: "Photo + Video",
     budget: "2,00,000",
-    voteOne: "10",
-    voteTwo: "30",
-  },
-  {
-    id: 10,
-    image:
-      "https://images.pexels.com/photos/11762791/pexels-photo-11762791.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    name: "Happy Framers",
-    location: "Karachi",
-    shortDesc:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur quo laudantium rem repellendus voluptatibus. Laboriosam cumque veniam nulla aliquam",
-    tooltip: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    rating: "4.9",
-    reviews: "61",
-    category: "Photo + Video",
-    budget: "2,00,000",
-    voteOne: "10",
-    voteTwo: "30",
-  },
-  {
-    id: 11,
-    image:
-      "https://images.pexels.com/photos/10332889/pexels-photo-10332889.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    name: "Stories by Parag",
-    location: "Karachi",
-    shortDesc:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur quo laudantium rem repellendus voluptatibus. Laboriosam cumque veniam nulla aliquam",
-    tooltip: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    rating: "4.9",
-    reviews: "61",
-    category: "Photo + Video",
-    budget: "2,00,000",
-    voteOne: "10",
-    voteTwo: "30",
-  },
-  {
-    id: 12,
-    image:
-      "https://images.pexels.com/photos/10332889/pexels-photo-10332889.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    name: "CamLens Photography",
-    location: "Karachi",
-    shortDesc:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur quo laudantium rem repellendus voluptatibus. Laboriosam cumque veniam nulla aliquam",
-    tooltip: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    rating: "4.9",
-    reviews: "61",
-    category: "Photo + Video",
-    budget: "2,00,000",
-    voteOne: "10",
-    voteTwo: "30",
-  },
-  {
-    id: 13,
-    image:
-      "https://images.pexels.com/photos/7184081/pexels-photo-7184081.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    name: "Happy Framers",
-    location: "Karachi",
-    shortDesc:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur quo laudantium rem repellendus voluptatibus. Laboriosam cumque veniam nulla aliquam",
-    tooltip: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    rating: "4.9",
-    reviews: "61",
-    category: "Photo + Video",
-    budget: "2,00,000",
-    voteOne: "10",
-    voteTwo: "30",
-  },
-  {
-    id: 14,
-    image:
-      "https://images.pexels.com/photos/11762791/pexels-photo-11762791.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    name: "Stories by Parag",
-    location: "Karachi",
-    shortDesc:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur quo laudantium rem repellendus voluptatibus. Laboriosam cumque veniam nulla aliquam",
-    tooltip: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    rating: "4.9",
-    reviews: "61",
-    category: "Photo + Video",
-    budget: "2,00,000",
-    voteOne: "10",
-    voteTwo: "30",
-  },
-  {
-    id: 15,
-    image:
-      "https://images.pexels.com/photos/10332889/pexels-photo-10332889.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    name: "CamLens Photography",
-    location: "Karachi",
-    shortDesc:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur quo laudantium rem repellendus voluptatibus. Laboriosam cumque veniam nulla aliquam",
-    tooltip: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    rating: "4.9",
-    reviews: "61",
-    category: "Photo + Video",
-    budget: "2,50,000",
-    voteOne: "10",
-    voteTwo: "30",
-  },
-  {
-    id: 16,
-    image:
-      "https://images.pexels.com/photos/7184081/pexels-photo-7184081.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    name: "Happy Framers",
-    location: "Karachi",
-    shortDesc:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur quo laudantium rem repellendus voluptatibus. Laboriosam cumque veniam nulla aliquam",
-    tooltip: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    rating: "4.9",
-    reviews: "61",
-    category: "Photo + Video",
-    budget: "2,00,000",
-    voteOne: "10",
-    voteTwo: "30",
-  },
-  {
-    id: 17,
-    image:
-      "https://images.pexels.com/photos/11762791/pexels-photo-11762791.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    name: "Stories by Parag",
-    location: "Karachi",
-    shortDesc:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur quo laudantium rem repellendus voluptatibus. Laboriosam cumque veniam nulla aliquam",
-    tooltip: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    rating: "4.9",
-    reviews: "61",
-    category: "Photo + Video",
-    budget: "2,00,000",
-    voteOne: "10",
-    voteTwo: "30",
-  },
-  {
-    id: 18,
-    image:
-      "https://images.pexels.com/photos/10332889/pexels-photo-10332889.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    name: "CamLens Photography",
-    location: "Karachi",
-    shortDesc:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur quo laudantium rem repellendus voluptatibus. Laboriosam cumque veniam nulla aliquam",
-    tooltip: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    rating: "4.9",
-    reviews: "61",
-    category: "Photo + Video",
-    budget: "2,00,000",
-    voteOne: "10",
-    voteTwo: "30",
-  },
-  {
-    id: 19,
-    image:
-      "https://images.pexels.com/photos/7184081/pexels-photo-7184081.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    name: "Happy Framers",
-    location: "Karachi",
-    shortDesc:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur quo laudantium rem repellendus voluptatibus. Laboriosam cumque veniam nulla aliquam",
-    tooltip: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    rating: "4.9",
-    reviews: "61",
-    category: "Photo + Video",
-    budget: "2,00,000",
-    voteOne: "10",
-    voteTwo: "30",
-  },
-  {
-    id: 20,
-    image:
-      "https://images.pexels.com/photos/11762791/pexels-photo-11762791.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    name: "CamLens Photography",
-    location: "Karachi",
-    shortDesc:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur quo laudantium rem repellendus voluptatibus. Laboriosam cumque veniam nulla aliquam",
-    tooltip: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    rating: "4.9",
-    reviews: "61",
-    category: "Photo + Video",
-    budget: "2,00,000",
-    voteOne: "10",
-    voteTwo: "30",
-  },
-  {
-    id: 21,
-    image:
-      "https://images.pexels.com/photos/10332889/pexels-photo-10332889.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    name: "CamLens Photography",
-    location: "Karachi",
-    shortDesc:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur quo laudantium rem repellendus voluptatibus. Laboriosam cumque veniam nulla aliquam",
-    tooltip: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    rating: "4.9",
-    reviews: "61",
-    category: "Photo + Video",
-    budget: "2,00,000",
-    voteOne: "10",
-    voteTwo: "30",
-  },
-  {
-    id: 22,
-    image:
-      "https://images.pexels.com/photos/7184081/pexels-photo-7184081.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    name: "Happy Framers",
-    location: "Karachi",
-    shortDesc:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur quo laudantium rem repellendus voluptatibus. Laboriosam cumque veniam nulla aliquam",
-    tooltip: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    rating: "4.9",
-    reviews: "61",
-    category: "Photo + Video",
-    budget: "2,00,000",
-    voteOne: "10",
-    voteTwo: "30",
-  },
-  {
-    id: 23,
-    image:
-      "https://images.pexels.com/photos/11762791/pexels-photo-11762791.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    name: "Stories by Parag",
-    location: "Karachi",
-    shortDesc:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur quo laudantium rem repellendus voluptatibus. Laboriosam cumque veniam nulla aliquam",
-    tooltip: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    rating: "4.9",
-    reviews: "61",
-    category: "Photo + Video",
-    budget: "2,00,000",
-    voteOne: "10",
-    voteTwo: "30",
-  },
-  {
-    id: 24,
-    image:
-      "https://images.pexels.com/photos/10332889/pexels-photo-10332889.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    name: "CamLens Photography",
-    location: "Karachi",
-    shortDesc:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur quo laudantium rem repellendus voluptatibus. Laboriosam cumque veniam nulla aliquam",
-    tooltip: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    rating: "4.9",
-    reviews: "61",
-    category: "Photo + Video",
-    budget: "2,00,000",
-    voteOne: "10",
-    voteTwo: "30",
-  },
-  {
-    id: 25,
-    image:
-      "https://images.pexels.com/photos/7184081/pexels-photo-7184081.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    name: "Happy Framers",
-    location: "Karachi",
-    shortDesc:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur quo laudantium rem repellendus voluptatibus. Laboriosam cumque veniam nulla aliquam",
-    tooltip: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    rating: "4.9",
-    reviews: "61",
-    category: "Photo + Video",
-    budget: "2,50,000",
-    voteOne: "10",
-    voteTwo: "30",
-  },
-  {
-    id: 26,
-    image:
-      "https://images.pexels.com/photos/11762791/pexels-photo-11762791.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    name: "CamLens Photography",
-    location: "Karachi",
-    shortDesc:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur quo laudantium rem repellendus voluptatibus. Laboriosam cumque veniam nulla aliquam",
-    tooltip: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    rating: "4.9",
-    reviews: "61",
-    category: "Photo + Video",
-    budget: "1,00,000",
     voteOne: "10",
     voteTwo: "30",
   },

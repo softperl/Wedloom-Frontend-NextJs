@@ -1,41 +1,68 @@
+import { getProjects, makeFeatured, removeProjectById } from "@/lib/api";
 import { useProjects } from "@/lib/hooks/useProjects";
-import { cn } from "@/lib/utils";
+import { cn, handelError } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { FaTrash } from "react-icons/fa6";
 
 const Projects = () => {
-  const { projectsFiles, featuredImage, setFeaturedImage, handleDelete } =
-    useProjects();
+  const { projects, setProjects, refresh, setRefresh } = useProjects();
+  const [featured, setFeatured] = useState<any>();
   const [open, setOpen] = useState(false);
-  const [deleteId, setDeleteId] = useState<File | null>(null);
+  const [deleteId, setDeleteId] = useState<any>(null);
+
+  const getProjectsFn = async () => {
+    try {
+      const { data } = await getProjects();
+      setProjects(data?.projects);
+      setFeatured(data?.featured);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const removeProjectByIdFn = async (id: any) => {
+    try {
+      await removeProjectById(id);
+      getProjectsFn();
+      toast.success("Project deleted successfully");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    if (featuredImage === deleteId) {
-      setFeaturedImage(null);
-    }
-    if (!featuredImage && projectsFiles && projectsFiles?.length > 0) {
-      setFeaturedImage(projectsFiles[0]);
-    }
-  }, [projectsFiles, setFeaturedImage]);
+    getProjectsFn();
+  }, [refresh]);
 
+  const makeFeaturedFn = async (id: any) => {
+    try {
+      await makeFeatured(id);
+      setRefresh(!refresh);
+      toast.success("Project made featured successfully");
+    } catch (error) {
+      console.log(error);
+      handelError(error);
+    }
+  };
   return (
     <div>
       {/* Image */}
       <div className="grid grid-cols-none sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-        {featuredImage && (
+        {featured && (
           <div className="w-full aspect-square flex justify-center items-center cursor-pointer rounded-md relative project-item overflow-hidden border-4 border-textPrimary-900 group">
             <Image
               fill
               className="object-cover"
-              src={URL.createObjectURL(featuredImage)}
+              src={featured?.photo}
               alt="project"
             />
             <div className="transition-all duration-300 absolute -top-[100%] group-hover:top-0 left-0 right-0 bottom-0 w-full h-full bg-black/80">
               <FaTrash
                 onClick={() => {
-                  setDeleteId(featuredImage);
+                  setDeleteId(featured?.id);
                   setOpen(true);
                 }}
                 className="w-6 h-6 text-white bg-red-500 p-1 rounded-md absolute top-2 right-2"
@@ -48,23 +75,22 @@ const Projects = () => {
             </div>
           </div>
         )}
-
-        {projectsFiles?.map((img, i) => {
+        {projects?.map((img: any, i: number) => {
           return (
-            featuredImage !== img && (
+            img?.isFeatured !== true && (
               <div
                 key={i}
                 className="w-full aspect-square flex justify-center items-center cursor-pointer rounded-md relative project-item overflow-hidden group">
                 <Image
                   fill
                   className="object-cover"
-                  src={URL.createObjectURL(img)}
+                  src={img?.photo}
                   alt="project"
                 />
                 <div className="transition-all duration-300 absolute -top-[100%] group-hover:top-0 left-0 right-0 bottom-0 w-full h-full bg-black/80">
                   <FaTrash
                     onClick={() => {
-                      setDeleteId(img);
+                      setDeleteId(img?.id);
                       setOpen(true);
                     }}
                     className="w-6 h-6 text-white bg-red-500 p-1 rounded-md absolute top-2 right-2"
@@ -72,14 +98,12 @@ const Projects = () => {
                   <div className="transition-all duration-300 absolute bottom-0 left-0 right-0 px-5 flex flex-col gap-2 pb-2">
                     <button
                       className={`py-1 px-3 transition-all text-white border text-sm ${
-                        featuredImage === img
+                        img?.isFeatured
                           ? "bg-emerald-600 border-emerald-600"
                           : "border-emerald-600 hover:bg-emerald-600"
                       } rounded-md`}
-                      onClick={() =>
-                        featuredImage === img ? null : setFeaturedImage(img)
-                      }>
-                      {featuredImage === img ? "Featured" : "Make Featured"}
+                      onClick={() => makeFeaturedFn(img?.id)}>
+                      {img?.isFeatured ? "Featured" : "Make Featured"}
                     </button>
                   </div>
                 </div>
@@ -90,21 +114,23 @@ const Projects = () => {
       </div>
       <>
         {/* Navlinks */}
-        <Link href={`/vendor/profile/projects/portfolio`}>
-          <div
-            className="lg:w-72 w-full h-56 flex justify-center items-center cursor-pointer rounded-md"
-            style={{
-              background:
-                "radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url('https://img.freepik.com/free-photo/abstract-blur-wedding-hall_74190-5229.jpg?w=1380&t=st=1670178252~exp=1670178852~hmac=c1f6d7158f8e07a88aafb0278bf8ddab3cb1da46714147cc1983a74b8ff52247')",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}>
-            <span className="text-xl lg:text-2xl text-white font-medium">
-              ADD IMAGES
-            </span>
-          </div>
-        </Link>
+        <div className="inline-flex">
+          <Link href={`/vendor/profile/projects/portfolio`}>
+            <div
+              className="lg:w-72 w-full h-56 flex justify-center items-center cursor-pointer rounded-md"
+              style={{
+                background:
+                  "radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url('https://img.freepik.com/free-photo/abstract-blur-wedding-hall_74190-5229.jpg?w=1380&t=st=1670178252~exp=1670178852~hmac=c1f6d7158f8e07a88aafb0278bf8ddab3cb1da46714147cc1983a74b8ff52247')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}>
+              <span className="text-xl lg:text-2xl text-white font-medium">
+                ADD IMAGES
+              </span>
+            </div>
+          </Link>
+        </div>
 
         {/* Links */}
         <div className="mt-6">
@@ -139,7 +165,7 @@ const Projects = () => {
             <div className="flex items-center gap-2 justify-center mt-6">
               <button
                 onClick={() => {
-                  deleteId && handleDelete(deleteId);
+                  removeProjectByIdFn(deleteId);
                   setOpen(false);
                   setDeleteId(null);
                 }}

@@ -10,7 +10,7 @@ import {
   FaWhatsapp,
 } from "react-icons/fa6";
 
-const WstoriesCarousel = ({ img, name, summary, date }: any) => {
+const WstoriesCarousel = ({ img, name, summary, date, slug }: any) => {
   const pathname = usePathname();
   const router = useRouter();
   const [showShare, setShowShare] = useState(false);
@@ -58,7 +58,7 @@ const WstoriesCarousel = ({ img, name, summary, date }: any) => {
                     showShare ? "translate-x-0" : "translate-x-48"
                   }`}>
                   <a
-                    href={`https://www.facebook.com/share.php?u=${pathname}`}
+                    href={`https://www.facebook.com/share.php?u=${slug}`}
                     target="_blank"
                     rel="noreferrer">
                     <FaSquareFacebook
@@ -66,7 +66,7 @@ const WstoriesCarousel = ({ img, name, summary, date }: any) => {
                       style={{ color: "#4267B2" }}></FaSquareFacebook>
                   </a>
                   <a
-                    href={`https://twitter.com/share?url=${pathname}`}
+                    href={`https://twitter.com/share?url=${slug}`}
                     target="_blank"
                     rel="noreferrer">
                     <FaSquareTwitter
@@ -74,7 +74,7 @@ const WstoriesCarousel = ({ img, name, summary, date }: any) => {
                       style={{ color: "#1DA1F2" }}></FaSquareTwitter>
                   </a>
                   <a
-                    href={`https://api.whatsapp.com/send?text=${pathname}`}
+                    href={`https://api.whatsapp.com/send?text=${slug}`}
                     target="_blank"
                     rel="noreferrer">
                     <FaWhatsapp
@@ -82,7 +82,7 @@ const WstoriesCarousel = ({ img, name, summary, date }: any) => {
                       style={{ color: "#25d366" }}></FaWhatsapp>
                   </a>
                   <a
-                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${pathname}`}
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${slug}`}
                     target="_blank"
                     rel="noreferrer">
                     <FaLinkedin
@@ -93,7 +93,6 @@ const WstoriesCarousel = ({ img, name, summary, date }: any) => {
                 <button
                   onClick={() => {
                     setShowShare(!showShare);
-                    console.log("hi");
                   }}>
                   <FaShareNodes />
                 </button>

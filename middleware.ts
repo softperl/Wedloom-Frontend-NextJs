@@ -23,7 +23,11 @@ export default async function middleware(req: NextRequest) {
   const roles = { user: "user", vendor: "vendor", admin: "admin" };
   const authRoutes = ["/signin", "/signup", "/vendor-signup"];
   const sensitiveRoutes = ["/vendor", "/user", "/setup-wedding"];
+  const publicRoutes = ["/vendors"];
 
+  if (publicRoutes.some((route) => pathname.startsWith(route))) {
+    return NextResponse.next();
+  }
   if (authRoutes.some((route) => pathname.startsWith(route))) {
     if (!user) {
       return NextResponse.next();

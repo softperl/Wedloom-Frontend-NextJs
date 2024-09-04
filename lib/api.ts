@@ -1,6 +1,7 @@
 import { use } from "react";
 import axios from "axios";
 import { getCookie, setCookie } from "cookies-next";
+import { get } from "http";
 
 const API = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -112,3 +113,34 @@ export const getAllEventsByUserId = ({
 //Vendor Profile Info
 export const vendorProfileInfo = (formData: any) =>
   API.post(`/vendor/profile-info`, formData);
+export const createBanquet = (formData: any) =>
+  API.post(`/vendor/banquet/new`, formData);
+export const getBanquets = () => API.get("/vendor/get-all-banquet");
+export const removeBanquet = (banquetId: string) =>
+  API.delete(`/vendor/banquet/delete/${banquetId}`);
+
+//Projects
+export const createProject = (formData: any) =>
+  API.post("/vendor/project-image/new", formData);
+export const makeFeatured = (projectId: any) =>
+  API.post(`/vendor/project-image/featured/${projectId}`);
+export const getProjects = () => API.get("/vendor/project-image/get-all");
+export const removeProjectById = (id: string) =>
+  API.delete(`/vendor/project-image/delete/${id}`);
+export const createAlbum = (formData: any) =>
+  API.post("/vendor/project-album/new", formData);
+export const getAlbums = () => API.get("/vendor/project-album/get-all");
+export const removeAlbumById = (id: string) =>
+  API.delete(`/vendor/project-album/delete/${id}`);
+export const createVideo = (formData: any) =>
+  API.post("/vendor/project-video/new", formData);
+export const getVideos = () => API.get("/vendor/project-video/get-all");
+export const removeVideoById = (id: string) =>
+  API.delete(`/vendor/project-video/delete/${id}`);
+
+//Food Menu
+export const createFoodMenu = (formData: any) =>
+  API.post("/vendor/food-menu/new", formData);
+export const getFoodMenu = () => API.get("/vendor/food-menu/get-all");
+export const removeFoodMenu = (menuId: string) =>
+  API.delete(`/vendor/food-menu/delete/${menuId}`);

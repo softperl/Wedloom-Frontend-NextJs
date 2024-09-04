@@ -15,6 +15,7 @@ const nextConfig = {
       "encrypted-tbn0.gstatic.com",
       "upload.wikimedia.org",
       "onehorizonproductions.com",
+      "minio-u448okoskcw8k0c0g48koow0.84.247.182.41.sslip.io",
     ],
   },
 };

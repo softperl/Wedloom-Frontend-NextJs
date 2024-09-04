@@ -5,15 +5,9 @@ import Albums from "../projectsTabs/albums";
 import Projects from "../projectsTabs/projects";
 import Videos from "../projectsTabs/videos";
 
-const tabs: any = {
-  1: Projects,
-  2: Albums,
-  3: Videos,
-};
-
 const VendorProjectContent = () => {
   const [activeTab, setActiveTab] = useState(1);
-  const Tab = tabs[activeTab];
+
   return (
     <div>
       {/* Heading */}
@@ -48,7 +42,9 @@ const VendorProjectContent = () => {
 
       {/* Content */}
       <div className="mt-5 px-4 pb-8">
-        <Tab />
+        {activeTab === 1 && <Projects />}
+        {activeTab === 2 && <Albums />}
+        {activeTab === 3 && <Videos />}
       </div>
     </div>
   );

@@ -1,18 +1,21 @@
 "use client";
 
+import { createProject } from "@/lib/api";
 import { useProjects } from "@/lib/hooks/useProjects";
+import { uploadFiles } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { FaArrowLeftLong, FaCloudArrowUp } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 
 const ImageUpload = () => {
-  const { setProjectsFiles } = useProjects();
   const router = useRouter();
   const [files, setFiles] = useState<File[]>([]);
   const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const addFiles = (newFiles: FileList | null) => {
     if (newFiles) {
@@ -32,9 +35,19 @@ const ImageUpload = () => {
     setFiles(updatedFiles);
   };
 
-  const uploadFiles = () => {
-    setProjectsFiles(files);
-    router.push("/vendor/profile/projects");
+  const uploadFilesSave = async () => {
+    try {
+      setIsLoading(true);
+      const urls = await uploadFiles(files, "others");
+      await createProject({ photos: urls });
+      toast.success("Images uploaded successfully");
+    } catch (error) {
+      console.log(error);
+      toast.error("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
+      router.push("/vendor/profile/projects");
+    }
   };
   return (
     <div>
@@ -55,7 +68,7 @@ const ImageUpload = () => {
           <div className="border-2 border-dashed border-paginationBg-900 w-max text-center pt-2 pb-6 px-10">
             <FaCloudArrowUp className="w-10 h-10 mx-auto" />
             <div className="my-4">
-              <p className="text-sm mb-2">Max file size : 16 MB</p>
+              <p className="text-sm mb-2">Max file size : 3 MB</p>
               <p className="text-sm mb-2">Accepted Formats: jpg, jpeg, png</p>
               <p className="text-sm mb-2">Max files: 40</p>
             </div>
@@ -108,7 +121,7 @@ const ImageUpload = () => {
       {files.length > 0 && (
         <div className="flex items-center justify-between gap-6 px-6 pb-6">
           <button
-            onClick={uploadFiles}
+            onClick={uploadFilesSave}
             className={`w-6/12 text-white py-4 text-sm ${
               files.length > 40
                 ? "bg-[#F396BB] cursor-not-allowed"
