@@ -120,6 +120,8 @@ export const removeBanquet = (banquetId: string) =>
   API.delete(`/vendor/banquet/delete/${banquetId}`);
 
 //Projects
+export const uploadRulesPortfolio = () =>
+  API.get("/vendor/upload-image-rules/portfolio");
 export const createProject = (formData: any) =>
   API.post("/vendor/project-image/new", formData);
 export const makeFeatured = (projectId: any) =>
@@ -144,3 +146,15 @@ export const createFoodMenu = (formData: any) =>
 export const getFoodMenu = () => API.get("/vendor/food-menu/get-all");
 export const removeFoodMenu = (menuId: string) =>
   API.delete(`/vendor/food-menu/delete/${menuId}`);
+export const uploadRulesFoodMenu = () =>
+  API.get("/vendor/upload-image-rules/foodMenu");
+export const createFoodMenuPhotos = (formData: any) =>
+  API.post("/vendor/food-menu-image/new", formData);
+
+//Reviews
+export const createReview = (formData: any) =>
+  API.post("/vendor/review/new", formData);
+export const getReviews = () => API.get("/vendor/review/get-all");
+export const getPublicReviews = () => API.get("/vendor/review/get-all");
+
+

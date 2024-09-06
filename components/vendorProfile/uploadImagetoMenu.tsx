@@ -1,9 +1,11 @@
 "use client";
-import { uploadFiles } from "@/lib/utils";
+import { uploadRulesFoodMenu } from "@/lib/api";
+import { useProjects } from "@/lib/hooks/useProjects";
+import { handelError, uploadFiles } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaArrowLeftLong, FaCloudArrowUp } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
@@ -12,13 +14,36 @@ const UploadImagetoMenu = () => {
   const router = useRouter();
   const [files, setFiles] = useState<File[]>([]);
   const [error, setError] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { refresh } = useProjects();
+  const [MAX_FILE_SIZE, setMAX_FILE_SIZE] = useState<number>(0);
+  const [MAX_FILES, setMAX_FILES] = useState<number>(0);
+  const [ACCEPTED_FILE_FORMATS, setACCEPTED_FILE_FORMATS] =
+    useState<string>("");
+
+  const uploadRulesFoodMenuFn = async () => {
+    try {
+      const { data } = await uploadRulesFoodMenu();
+      setMAX_FILE_SIZE(data?.MAX_MB);
+      setMAX_FILES(data?.MAX_FILES);
+      setACCEPTED_FILE_FORMATS(data?.ACCEPTED_FILE_FORMATS);
+    } catch (error) {
+      console.log(error);
+      handelError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    uploadRulesFoodMenuFn();
+  }, [refresh]);
 
   const addFiles = (newFiles: FileList | null) => {
     if (newFiles) {
       const updatedFiles = [...files, ...Array.from(newFiles)];
-      if (updatedFiles.length > 40) {
-        setError("You can upload a maximum of 40 images.");
+      if (updatedFiles.length > MAX_FILES) {
+        setError(`You can upload a maximum of ${MAX_FILES} images.`);
       } else {
         setFiles(updatedFiles);
         setError("");
@@ -47,6 +72,7 @@ const UploadImagetoMenu = () => {
     }
   };
 
+  if (isLoading) return <div>Loading...</div>;
   return (
     <div>
       {/* Heading */}
@@ -65,9 +91,11 @@ const UploadImagetoMenu = () => {
           <div className="border-2 border-dashed border-paginationBg-900 w-max text-center pt-2 pb-6 px-10">
             <FaCloudArrowUp className="w-10 h-10 mx-auto" />
             <div className="my-4">
-              <p className="text-sm mb-2">Max file size : 3 MB</p>
-              <p className="text-sm mb-2">Accepted Formats: jpg, jpeg, png</p>
-              <p className="text-sm mb-2">Max files: 40</p>
+              <p className="text-sm mb-2">Max file size : {MAX_FILE_SIZE} MB</p>
+              <p className="text-sm mb-2">
+                Accepted Formats: {ACCEPTED_FILE_FORMATS}
+              </p>
+              <p className="text-sm mb-2">Max files: {MAX_FILES}</p>
             </div>
             <div>
               <span className="bg-textPrimary-900 text-white px-7 text-sm py-2 rounded-full">
@@ -79,7 +107,7 @@ const UploadImagetoMenu = () => {
         <input
           type="file"
           id="file"
-          accept=".png, .jpeg, .jpg"
+          accept={ACCEPTED_FILE_FORMATS}
           multiple
           style={{ display: "none" }}
           onChange={(e) => addFiles(e.target.files)}
@@ -92,7 +120,7 @@ const UploadImagetoMenu = () => {
       {/* Preview Box */}
       <div className="mt-16 mb-4 mx-6 w-full flex flex-wrap items-center gap-4">
         {files.length > 0 &&
-          files.slice(0, 40).map((img, i) => {
+          files.slice(0, MAX_FILES).map((img, i) => {
             return (
               <div
                 key={i}
@@ -120,11 +148,11 @@ const UploadImagetoMenu = () => {
           <button
             onClick={uploadFilesSave}
             className={`w-6/12 text-white py-4 text-sm ${
-              files.length > 40
+              files.length > MAX_FILES
                 ? "bg-[#F396BB] cursor-not-allowed"
                 : "bg-textPrimary-900 cursor-pointer"
             }`}
-            disabled={files.length > 40}>
+            disabled={files.length > MAX_FILES}>
             Upload Files
           </button>
           <button

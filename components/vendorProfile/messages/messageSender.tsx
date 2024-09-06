@@ -17,7 +17,7 @@ const MessageSender = ({
   text: string;
   date: any;
   img: string;
-  seen: any;
+  seen?: any;
   fevCon?: any;
 }) => {
   const { setRemoveFevCon } = useChats();
