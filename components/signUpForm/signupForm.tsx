@@ -44,10 +44,11 @@ const SignUpForm = () => {
         password: data.password,
       });
       toast.success("Please check your email for verify!");
-      router.push("/signin");
       reset(defaultValues);
     } catch (error) {
       console.log(error);
+    } finally {
+      router.push("/signin");
     }
   };
 

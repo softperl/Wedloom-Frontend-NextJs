@@ -153,8 +153,9 @@ export const createFoodMenuPhotos = (formData: any) =>
 
 //Reviews
 export const createReview = (formData: any) =>
-  API.post("/vendor/review/new", formData);
-export const getReviews = () => API.get("/vendor/review/get-all");
-export const getPublicReviews = () => API.get("/vendor/review/get-all");
-
-
+  API.post("/review/new", formData);
+export const replyReview = (formData: any) =>
+  API.post("/review/reply", formData);
+export const getReviews = () => API.get("/review/get-all");
+export const getPublicReviews = (vendorId: any) =>
+  API.get(`/review/public/get-all/${vendorId}`);

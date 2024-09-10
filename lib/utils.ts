@@ -6,6 +6,7 @@ import {
   differenceInDays,
   differenceInMonths,
   differenceInYears,
+  formatDistanceToNow,
   parseISO,
 } from "date-fns";
 import { formatDate } from "date-fns/format";
@@ -126,4 +127,11 @@ export const uploadFiles = async (files: any[], dir: string = "others") => {
     console.log(error);
     return false;
   }
+};
+
+export const formNow = (date: any) => {
+  const value = formatDistanceToNow(date, {
+    addSuffix: true,
+  }).replace(/^about /, "");
+  return value;
 };

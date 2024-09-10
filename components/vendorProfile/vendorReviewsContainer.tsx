@@ -1,9 +1,27 @@
 "use client";
-import React from "react";
-import ReviewCardWithoutReply from "@/components/reviewCard/reviewCardWithoutReply";
 import Pagination from "@/components/pagination/pagination";
+import ReviewCardWithoutReply from "@/components/reviewCard/reviewCardWithoutReply";
+import { getReviews } from "@/lib/api";
+import { formNow, handelError } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
 const VendorReviewsContainer = () => {
+  const [reviews, setReviews] = useState([]);
+  const getReviewsFn = async () => {
+    try {
+      const { data } = await getReviews();
+      setReviews(data?.reviews);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+      handelError(error);
+    }
+  };
+
+  useEffect(() => {
+    getReviewsFn();
+  }, []);
+
   return (
     <div>
       <div className="bg-sectionBg-900 px-2 py-3">
@@ -11,46 +29,20 @@ const VendorReviewsContainer = () => {
           Reviews from Customar
         </h2>
       </div>
-      <ReviewCardWithoutReply
-        image="https://images.pexels.com/photos/2119095/pexels-photo-2119095.jpeg?auto=compress&cs=tinysrgb&w=1600"
-        name="Sujana Begum"
-      />
-      <ReviewCardWithoutReply
-        image="https://images.pexels.com/photos/2119095/pexels-photo-2119095.jpeg?auto=compress&cs=tinysrgb&w=1600"
-        name="Sujana Begum"
-      />
-      <ReviewCardWithoutReply
-        image="https://images.pexels.com/photos/2119095/pexels-photo-2119095.jpeg?auto=compress&cs=tinysrgb&w=1600"
-        name="Sujana Begum"
-      />
-      <ReviewCardWithoutReply
-        image="https://images.pexels.com/photos/2119095/pexels-photo-2119095.jpeg?auto=compress&cs=tinysrgb&w=1600"
-        name="Sujana Begum"
-      />
-      <ReviewCardWithoutReply
-        image="https://images.pexels.com/photos/2119095/pexels-photo-2119095.jpeg?auto=compress&cs=tinysrgb&w=1600"
-        name="Sujana Begum"
-      />
-      <ReviewCardWithoutReply
-        image="https://images.pexels.com/photos/2119095/pexels-photo-2119095.jpeg?auto=compress&cs=tinysrgb&w=1600"
-        name="Sujana Begum"
-      />
-      <ReviewCardWithoutReply
-        image="https://images.pexels.com/photos/2119095/pexels-photo-2119095.jpeg?auto=compress&cs=tinysrgb&w=1600"
-        name="Sujana Begum"
-      />
-      <ReviewCardWithoutReply
-        image="https://images.pexels.com/photos/2119095/pexels-photo-2119095.jpeg?auto=compress&cs=tinysrgb&w=1600"
-        name="Sujana Begum"
-      />
-      <ReviewCardWithoutReply
-        image="https://images.pexels.com/photos/2119095/pexels-photo-2119095.jpeg?auto=compress&cs=tinysrgb&w=1600"
-        name="Sujana Begum"
-      />
-      <ReviewCardWithoutReply
-        image="https://images.pexels.com/photos/2119095/pexels-photo-2119095.jpeg?auto=compress&cs=tinysrgb&w=1600"
-        name="Sujana Begum"
-      />
+      {reviews?.map((item: any, i: number) => {
+        return (
+          <ReviewCardWithoutReply
+            key={i}
+            reviewId={item?.id}
+            image={item?.user?.photo}
+            name={item?.user?.name}
+            date={formNow(item?.createdAt)}
+            rating={item?.rating}
+            feedback={item?.feedback}
+            reply={item?.reply}
+          />
+        );
+      })}
 
       <Pagination />
     </div>

@@ -43,7 +43,7 @@ const ImageUpload = () => {
   const addFiles = (newFiles: FileList | null) => {
     if (newFiles) {
       const updatedFiles = [...files, ...Array.from(newFiles)];
-      if (updatedFiles.length > 40) {
+      if (updatedFiles.length > MAX_FILES) {
         setError(`You can upload a maximum of ${MAX_FILES} images.`);
       } else {
         setFiles(updatedFiles);
