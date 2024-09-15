@@ -1,42 +1,55 @@
 "use client";
 
+import { createFaq } from "@/lib/api";
 import useFaq from "@/lib/hooks/useFaq";
-import { useEffect, useState } from "react";
+import { handelError } from "@/lib/utils";
+import { nanoid } from "nanoid";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaX } from "react-icons/fa6";
 
-export const FaqPopup = ({ closeModal }: { closeModal: () => void }) => {
-  const { addFaq, currentFaq, editFaq } = useFaq();
-  const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
+export const FaqPopup = () => {
+  const { setRefresh, refresh, setFaqOpen, editFaq } = useFaq();
 
-  useEffect(() => {
-    if (currentFaq) {
-      setQuestion(currentFaq.question);
-      setAnswer(currentFaq.answer);
-    }
-  }, [currentFaq]);
+  const [formData, setFormData] = useState({
+    question: editFaq?.data?.question || "",
+    answer: editFaq?.data?.answer || "",
+  });
 
-  const handleQuestionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuestion(e.target.value);
+  const handleChange = (e: any) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
-  const handleAnswerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAnswer(e.target.value);
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addFaq(question, answer);
-    setQuestion("");
-    setAnswer("");
-    closeModal();
+    try {
+      await createFaq({
+        id: editFaq?.data?.id || nanoid(),
+        question: formData?.question,
+        answer: formData?.answer,
+      });
+      setFaqOpen(false);
+      setRefresh(!refresh);
+      toast.success("FAQ added successfully");
+      setFormData({
+        question: "",
+        answer: "",
+      });
+    } catch (error) {
+      console.log(error);
+      handelError(error);
+    }
   };
 
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
       <div className="bg-white p-5 rounded shadow-lg relative w-full max-w-lg lg:max-w-screen-md flex flex-col gap-5">
         <FaX
-          onClick={closeModal}
+          onClick={() => setFaqOpen(false)}
           className="text-red-500 w-4 h-4 absolute right-2 top-2 cursor-pointer"
         />
         <form className="divide-y" onSubmit={handleSubmit}>
@@ -49,8 +62,9 @@ export const FaqPopup = ({ closeModal }: { closeModal: () => void }) => {
                   className="mt-0.5 w-full py-2 px-[22px] text-sm leading-tight border border-paginationBg-900 focus:outline-none focus:border-textPrimary-900 rounded text-textSecondary-900 font-semibold"
                   placeholder="Question"
                   required
-                  value={question}
-                  onChange={handleQuestionChange}
+                  name="question"
+                  value={formData?.question}
+                  onChange={handleChange}
                 />
               </div>
               <div className="">
@@ -59,8 +73,9 @@ export const FaqPopup = ({ closeModal }: { closeModal: () => void }) => {
                   className="mt-0.5 w-full py-2 px-[22px] text-sm leading-tight border border-paginationBg-900 focus:outline-none focus:border-textPrimary-900 rounded text-textSecondary-900 font-semibold"
                   placeholder="Answer"
                   required
-                  value={answer}
-                  onChange={handleAnswerChange}
+                  name="answer"
+                  value={formData?.answer}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -68,7 +83,7 @@ export const FaqPopup = ({ closeModal }: { closeModal: () => void }) => {
           <div className="flex gap-5 pt-5">
             <button
               type="button"
-              onClick={closeModal}
+              onClick={() => setFaqOpen(false)}
               className="border p-2 mx-auto text-center text-gray-700 font-semibold rounded-md w-full">
               Cancel
             </button>

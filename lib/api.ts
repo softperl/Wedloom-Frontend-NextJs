@@ -168,3 +168,10 @@ export const publicVendorProfileById = (profileId: any) =>
   API.get(`/vendor/get-vendor-profile/${profileId}`);
 export const galleryPhotos = ({ profileId }: { profileId: any }) =>
   API.get(`/vendor/gallery/${profileId}`);
+
+//Vendor Faq
+export const createFaq = (formData: any) =>
+  API.post("/vendor/faq/new", formData);
+export const getFaq = (profileId: any) =>
+  API.get(`/vendor/faq/get-all/${profileId}`);
+export const removeFaq = (id: any) => API.delete(`/vendor/faq/delete/${id}`);
