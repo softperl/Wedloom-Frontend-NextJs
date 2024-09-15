@@ -2,11 +2,11 @@
 import { replyReview } from "@/lib/api";
 import { handelError } from "@/lib/utils";
 import Image from "next/image";
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { FaShare, FaStar } from "react-icons/fa";
 import { FaSquareFacebook, FaTwitter } from "react-icons/fa6";
+import ReplyCard from "./replyCard";
 
 const ReviewCardWithoutReply = ({
   image,
@@ -16,6 +16,7 @@ const ReviewCardWithoutReply = ({
   feedback,
   reviewId,
   reply,
+  vendor,
 }: {
   image: string;
   name: string;
@@ -24,10 +25,10 @@ const ReviewCardWithoutReply = ({
   feedback: string;
   reviewId: string;
   reply: string;
+  vendor: any;
 }) => {
   const [viewLess, setViewLess] = useState(false);
   const [viewReply, setViewReply] = useState(false);
-
   const shareFacebook = `https://www.facebook.com/sharer/sharer.php?u=https://wedplanr.com/`;
   const shareTwitter = `https://twitter.com/intent/tweet?url=https://wedplanr.com/`;
   const [textArea, setTextArea] = useState("");
@@ -125,13 +126,7 @@ const ReviewCardWithoutReply = ({
                   {viewReply ? "Close Reply" : "View Reply"}
                 </div>
               )}
-              {viewReply && reply && (
-                <div className="review_content mt-4 ml-20 p-4 border rounded-md shadow-md mb-1">
-                  <div className="initial_view h-full overflow-hidden pr-5 text-textSecondary-900 leading-7 font-normal text-xs lg:text-sm">
-                    {reply}
-                  </div>
-                </div>
-              )}
+              {viewReply && reply && <ReplyCard data={vendor} />}
             </div>
             <div className="block lg:hidden mt-4">
               <div className="social_links flex items-center gap-4">

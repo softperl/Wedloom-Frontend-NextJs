@@ -1,4 +1,5 @@
 "use client";
+import { formatDate } from "date-fns/format";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -9,13 +10,11 @@ import { PiShare } from "react-icons/pi";
 
 const GalleryBanner = ({
   bannerPhoto,
-  album1,
-  album2,
-  album3,
-  album4,
-  time,
-  photographer,
+  albums,
+  vendorName,
+  vendorType,
   more,
+  createdAt,
 }: any) => {
   const [filled, setFilled] = useState(false);
   return (
@@ -28,7 +27,7 @@ const GalleryBanner = ({
           <Image
             width={500}
             height={500}
-            src={bannerPhoto}
+            src={bannerPhoto || "/placehoderImg.jpg"}
             alt="galleryBanner"
             className="w-full h-full"
           />
@@ -70,11 +69,13 @@ const GalleryBanner = ({
           <div className="details pb-5 border-b border-paginationBg-900 px-4 pt-4">
             <div className="history text-dateColor-900 font-medium text-xs lg:text-sm flex items-center">
               <MdOutlineWatchLater className="mr-1 text-lg" />
-              <span>Uploaded {time} months ago</span>
+              <span>
+                Uploaded {createdAt && formatDate(createdAt, "d MMM yyyy")}
+              </span>
             </div>
             <div className="heading mt-5">
-              <h3 className="text-textSecondary-900 font-semibold text-sm lg:text-base">
-                Photo By {photographer} Weddings - Photographers
+              <h3 className="text-textSecondary-900 capitalize font-semibold text-sm lg:text-base">
+                Photo By {vendorName} - {vendorType}
               </h3>
             </div>
 
@@ -117,52 +118,33 @@ const GalleryBanner = ({
               </h3>
             </div>
             <div className="image_div flex gap-2 mt-4">
-              <div className="image1 w-full h-24">
-                <Image
-                  width={500}
-                  height={500}
-                  src={album1}
-                  alt=""
-                  className="h-full w-full rounded-md"
-                />
-              </div>
-              <div className="image2 w-full h-24">
-                <Image
-                  width={500}
-                  height={500}
-                  src={album2}
-                  alt=""
-                  className="h-full w-full rounded-md"
-                />
-              </div>
-              <div className="image3 w-full h-24">
-                <Image
-                  width={500}
-                  height={500}
-                  src={album3}
-                  alt=""
-                  className="h-full w-full rounded-md"
-                />
-              </div>
-              <div className="image4 w-full h-24 relative">
-                <Link href="/album">
-                  <Image
-                    width={500}
-                    height={500}
-                    src={album4}
-                    alt=""
-                    className="h-full w-full rounded-md"
-                  />
-                  <div
-                    className="overlay absolute w-full h-full right-0 bottom-0 flex justify-center items-center cursor-pointer rounded-md"
-                    style={{
-                      background:
-                        "radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))",
-                    }}>
-                    <span className="text-white text-sm">+{more} More</span>
+              {albums?.slice(0, 4)?.map((item: any, i: number) => {
+                return (
+                  <div key={i} className="image4 w-full h-24 relative">
+                    <Link href="/">
+                      <Image
+                        width={500}
+                        height={500}
+                        src={item?.photo}
+                        alt=""
+                        className="h-full w-full rounded-md"
+                      />
+                      {i === 3 && (
+                        <div
+                          className="overlay absolute w-full h-full right-0 bottom-0 flex justify-center items-center cursor-pointer rounded-md"
+                          style={{
+                            background:
+                              "radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))",
+                          }}>
+                          <span className="text-white text-sm">
+                            +{more} More
+                          </span>
+                        </div>
+                      )}
+                    </Link>
                   </div>
-                </Link>
-              </div>
+                );
+              })}
             </div>
           </div>
         </div>

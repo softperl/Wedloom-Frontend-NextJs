@@ -70,7 +70,7 @@ export const createPlan = (formData: any) =>
 export const getSteps = () => API.get("/site/get-all-steps");
 
 //Chat
-export const createConversation = (receiverId: string) =>
+export const createConversation = (receiverId: any) =>
   API.post(`/chat/create-conversation/${receiverId}`);
 export const getConversationsByUser = () => API.get("/chat/get-conversations");
 export const createMessage = (formData: any) =>
@@ -159,3 +159,12 @@ export const replyReview = (formData: any) =>
 export const getReviews = () => API.get("/review/get-all");
 export const getPublicReviews = (vendorId: any) =>
   API.get(`/review/public/get-all/${vendorId}`);
+export const getReviewsDistribution = (vendorId: any) =>
+  API.get(`/review/public/review-distribution/${vendorId}`);
+
+//Public Vendors List
+export const vendorsList = () => API.get(`/vendor/list/get-all`);
+export const publicVendorProfileById = (profileId: any) =>
+  API.get(`/vendor/get-vendor-profile/${profileId}`);
+export const galleryPhotos = ({ profileId }: { profileId: any }) =>
+  API.get(`/vendor/gallery/${profileId}`);

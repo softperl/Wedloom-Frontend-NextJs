@@ -1,9 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Path from "@/components/routesPath/path";
 import Link from "next/link";
 import FilterPopup from "@/components/filterPopup/filterPopup";
-import cardData from "@/components/data/cardData";
 import PhotoBudgetCard from "@/components/weddingPhotography/photoBudgetCard";
 import Pagination from "@/components/pagination/pagination";
 import WpCardGrid from "@/components/weddingPhotography/wpCardGrid";
@@ -12,15 +11,37 @@ import { BiGridAlt } from "react-icons/bi";
 import { FaBarsStaggered, FaMagnifyingGlass, FaShuffle } from "react-icons/fa6";
 import { FaCaretDown, FaDna } from "react-icons/fa";
 import { useParams } from "next/navigation";
+import { handelError } from "@/lib/utils";
+import { vendorsList } from "@/lib/api";
+import { is } from "immutable";
 
 const WeedingPhotographer = () => {
   const params = useParams();
   // All States
+  const [isLoading, setIsLoading] = useState(false);
   const [gridView, setGridView] = useState(true);
   const [listView, setListView] = useState(false);
+  const [vendors, setVendors] = useState<any>();
   const [showFilter, setShowFilter] = useState(false);
   // Search Filter States
   const [search, setSearch] = useState("");
+
+  const vendorsListFn = async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await vendorsList();
+      setVendors(data.vendorsList);
+    } catch (error) {
+      console.log(error);
+      handelError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    vendorsListFn();
+  }, []);
 
   // Function For View
   const gridViewOn = () => {
@@ -153,80 +174,66 @@ const WeedingPhotographer = () => {
 
           {/* Desktop Different View Content */}
           <div className="px-4 lg:px-0 pt-4 pb-8 lg:py-0">
-            {/* Card Container - Grid View*/}
-            {gridView && (
-              <div className="grid__view flex flex-wrap">
-                {cardData
-                  .filter((card) => card.name.toLowerCase().includes(search))
-                  .map((data) => {
-                    const {
-                      budget,
-                      category,
-                      id,
-                      image,
-                      location,
-                      name,
-                      rating,
-                      reviews,
-                      tooltip,
-                      profileId,
-                    } = data;
-                    return (
-                      <WpCardGrid
-                        img={image}
-                        category={category}
-                        location={location}
-                        name={name}
-                        price={budget}
-                        review={rating}
-                        tooltip1={tooltip}
-                        tooltip2={tooltip}
-                        totalReview={reviews}
-                        key={id}
-                        profileId={profileId}
-                      />
-                    );
-                  })}
-              </div>
+            {isLoading ? (
+              <div>Loading...</div>
+            ) : (
+              gridView && (
+                <div className="grid__view flex flex-wrap">
+                  {vendors
+                    ?.filter((item: any) =>
+                      item?.name?.toLowerCase()?.includes(search)
+                    )
+                    ?.map((item: any, i: number) => {
+                      return (
+                        <WpCardGrid
+                          key={i}
+                          img={
+                            item?.ProjectPhoto[0]?.photo || "/placehoderImg.jpg"
+                          }
+                          category={item?.vendorType}
+                          location={item?.city}
+                          name={item?.brand}
+                          price={"200000000"}
+                          review={item?.averageRating}
+                          tooltip1={"lorem ipsum dolor sit amet"}
+                          tooltip2={
+                            "lorem ipsum dolor sit amet consectetur adipisicing elit"
+                          }
+                          totalReview={item?.vendorReviews?.length}
+                          profileId={item?.id}
+                        />
+                      );
+                    })}
+                </div>
+              )
             )}
 
             {/* Card Container - List View */}
             {listView && (
               <div className="card__view md:flex gap-6">
                 <div className="w-full md:w-9/12">
-                  {cardData
-                    .filter((card) => card.name.toLowerCase().includes(search))
-                    .map((data) => {
-                      const {
-                        budget,
-                        category,
-                        id,
-                        image,
-                        location,
-                        name,
-                        rating,
-                        reviews,
-                        tooltip,
-                        shortDesc,
-                        voteOne,
-                        voteTwo,
-                        profileId,
-                      } = data;
+                  {vendors
+                    ?.filter((item: any) =>
+                      item?.name?.toLowerCase()?.includes(search)
+                    )
+                    ?.map((item: any, i: number) => {
                       return (
                         <WpCardList
-                          budget={budget}
-                          category={category}
-                          image={image}
-                          location={location}
-                          name={name}
-                          rating={rating}
-                          shortdesc={shortDesc}
-                          tooltip1={tooltip}
-                          totalreviews={reviews}
-                          vote1={voteOne}
-                          vote2={voteTwo}
-                          key={id}
-                          profileId={profileId}
+                          key={i}
+                          img={
+                            item?.ProjectPhoto[0]?.photo || "/placehoderImg.jpg"
+                          }
+                          category={item?.vendorType}
+                          location={item?.city}
+                          name={item?.brand}
+                          price={"200000000"}
+                          review={item?.averageRating}
+                          tooltip1={"lorem ipsum dolor sit amet"}
+                          tooltip2={
+                            "lorem ipsum dolor sit amet consectetur adipisicing elit"
+                          }
+                          totalReview={item?.vendorReviews?.length}
+                          profileId={item?.id}
                         />
                       );
                     })}

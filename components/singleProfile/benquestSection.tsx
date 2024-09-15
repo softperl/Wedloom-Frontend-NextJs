@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const BenquestSection = ({ banquets }: any) => {
+const BenquestSection = ({ data }: any) => {
   return (
     <div>
       <div className="pricingProfile bg-white shadow-md w-full">
@@ -10,31 +10,31 @@ const BenquestSection = ({ banquets }: any) => {
           <div className="heading flex justify-between border-b border-paginationBg-900 p-4">
             <div className="title">
               <h2 className="text-textSecondary-900 font-semibold font-base text-xl">
-                Areas Available ({banquets?.length})
+                Areas Available ({data?._count?.Banquet})
               </h2>
             </div>
           </div>
           <div className="py-2 grid lg:grid-cols-2">
-            {banquets?.map((banquet: any, i: number) =>
-              banquet?.href ? (
-                <Link key={i} href={banquet?.href}>
+            {data?.Banquet?.map((item: any, i: number) =>
+              item?.href ? (
+                <Link key={i} href={item?.href}>
                   <div className="flex flex-nowrap p-4">
                     <div className="w-16">
                       <Image
-                        alt="outdorimage"
-                        src={banquet?.src}
+                        alt="outdor"
+                        src={"/outdoor.svg"}
                         className="h-10 w-10 mr-5"
                         width={500}
                         height={500}
                       />
-                      <p className="text-sm">{banquet?.banquet}</p>
+                      <p className="text-xs">{item?.type}</p>
                     </div>
                     <div className="">
                       <h6 className="text-[15px] font-bold">
-                        {`${banquet?.fixedCapacity} seating | 
-                  ${banquet?.floatingCapacity} floating`}
+                        {`${item?.fixedCapacity} seating | 
+                  ${item?.floatCapacity} floating`}
                       </h6>
-                      <p>{banquet?.des}</p>
+                      <p>{item?.title}</p>
                     </div>
                   </div>
                 </Link>
@@ -43,19 +43,19 @@ const BenquestSection = ({ banquets }: any) => {
                   <div className="w-16">
                     <Image
                       alt="outdorimage"
-                      src={banquet?.src}
+                      src={"/outdoor.svg"}
                       className="h-10 w-10 mr-5"
                       width={500}
                       height={500}
                     />
-                    <p className="text-sm">{banquet?.banquet}</p>
+                    <p className="text-xs">{item?.type}</p>
                   </div>
                   <div className="">
                     <h6 className="text-[15px] font-bold">
-                      {`${banquet?.fixedCapacity} seating | 
-                    ${banquet?.floatingCapacity} floating`}
+                      {`${item?.fixedCapacity} seating | 
+                    ${item?.floatCapacity} floating`}
                     </h6>
-                    <p>{banquet?.des}</p>
+                    <p>{item?.title}</p>
                   </div>
                 </div>
               )

@@ -156,14 +156,10 @@ export const MessagesLayout = ({
       socket.on(`new-message-${params?.username}-${user?.id}`, (data: any) => {
         setMessages(data.message);
       });
-      // socket.on(`last-message-${params?.username}`, (data: any) => {
-      //   console.log("last-message", data);
-      // });
     }
     return () => {
       if (socket) {
         socket.off(`new-message-${params?.username}-${user?.id}`);
-        // socket.off(`last-message-${params?.username}`);
       }
     };
   }, [socket]);

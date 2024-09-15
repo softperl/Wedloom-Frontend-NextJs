@@ -113,8 +113,7 @@ const Albums = () => {
       </div>
 
       <div className="grid grid-cols-3 gap-5">
-        {albums.map((item: any, index: number) => {
-          console.log({ item });
+        {albums?.map((item: any, index: number) => {
           return (
             <div key={index} className="relative w-full aspect-square">
               <Image

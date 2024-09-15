@@ -93,7 +93,7 @@ const WpCardGrid = ({
 
             {/* Category */}
             <div className="package">
-              <span className="text-package text-sm font-medium text-dateColor-900">
+              <span className="text-package text-sm font-medium text-dateColor-900 capitalize">
                 {category}
               </span>
             </div>
@@ -102,7 +102,7 @@ const WpCardGrid = ({
             <div className="price flex gap-2 md:gap-2 lg:gap-6 items-center flex-wrap my-1">
               <div className="flex items-center">
                 <span className="text-lg mr-2 font-semibold text-textPrimary-900">
-                  Rs. {price}
+                  Rs. {price.toLocaleString()}
                 </span>
                 <p className="text-sm text-textSecondary-900 font-medium">
                   per day

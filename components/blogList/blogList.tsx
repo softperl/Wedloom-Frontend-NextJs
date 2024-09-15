@@ -22,7 +22,6 @@ const BlogList = () => {
       setCategories(catData.categories);
       setPosts(data.posts);
       setTotal(data.total);
-      console.log(data);
     } catch (error) {
       console.log(error);
     } finally {

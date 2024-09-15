@@ -13,7 +13,6 @@ const CardPaymentBox = () => {
   // On SUbmit Handler
   const onSubmitHandler = (e: any) => {
     e.preventDefault();
-    console.log(data);
   };
 
   return (

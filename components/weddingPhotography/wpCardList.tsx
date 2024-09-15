@@ -8,17 +8,15 @@ import { FaStar } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 
 const WpCardList = ({
-  tooltip1,
-  image,
+  img,
   name,
-  rating,
-  totalreviews,
   location,
   category,
-  budget,
-  vote1,
-  vote2,
-  shortdesc,
+  price,
+  review,
+  totalReview,
+  tooltip1,
+  tooltip2,
   profileId,
 }: any) => {
   const pathname = usePathname();
@@ -31,7 +29,7 @@ const WpCardList = ({
             <Image
               width={500}
               height={500}
-              src={image}
+              src={img}
               alt="photographer_image"
               className="h-60 w-full rounded-md"
             />
@@ -70,8 +68,8 @@ const WpCardList = ({
               {/* Reviews */}
               <div className="flex items-center gap-1">
                 <FaStar className="w-5 h-5 text-textPrimary-900" />
-                <span className="text-xl">{rating}</span>{" "}
-                <span className="text-sm">({totalreviews} reviews)</span>
+                <span className="text-xl">{review}</span>{" "}
+                <span className="text-sm">({totalReview} reviews)</span>
               </div>
             </div>
 
@@ -92,7 +90,7 @@ const WpCardList = ({
             <div className="price flex gap-2 md:gap-2 lg:gap-6 items-center flex-wrap mb-2">
               <div className="flex items-center">
                 <span className="text-xl mr-2 font-semibold text-textPrimary-900">
-                  Rs. {budget}
+                  Rs. {price}
                 </span>
                 <p className="text-sm text-textSecondary-900 font-medium">
                   per day
@@ -101,7 +99,7 @@ const WpCardList = ({
             </div>
 
             {/* Votes */}
-            <div className="tags flex gap-4 flex-wrap">
+            {/* <div className="tags flex gap-4 flex-wrap">
               <div className="cursor-pointer">
                 <span className="font-medium bg-tagsBackground-900 py-1 px-2 text-sm text-textSecondary-900">
                   Professionalism: {vote1} Votes
@@ -119,14 +117,14 @@ const WpCardList = ({
                   </span>
                 </Link>
               </div>
-            </div>
+            </div> */}
 
             {/* Photographer short summary */}
-            <div className="details h-6 w-full overflow-hidden my-2">
+            {/* <div className="details h-6 w-full overflow-hidden my-2">
               <span className="text-sm font-medium text-dateColor-900">
                 {shortdesc}
               </span>
-            </div>
+            </div> */}
 
             {/* Sheild */}
             {/* 

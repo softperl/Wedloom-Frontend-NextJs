@@ -47,10 +47,10 @@ const LoginForm = () => {
       setCookie("refreshToken", data?.refreshToken);
       setAccessToken(data.accessToken);
       toast.success("Login Successfully");
-      // window.location.reload();
-      router.push("/");
     } catch (error) {
       handelError(error);
+    } finally {
+      router.push("/");
     }
   };
 

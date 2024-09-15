@@ -7,8 +7,14 @@ import PortfolioView from "@/components/projects/portfolioView";
 import UploadFromImage from "@/components/uploadFromImage/uploadFromImage";
 import Link from "next/link";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { useParams } from "next/navigation";
 
-const ProjectsSample = () => {
+const ProjectsSample = ({ data }: { data: any }) => {
+  const params = useParams();
+  const photos = data?.ProjectPhoto;
+  const videos = data?.ProjectVideo;
+  const albums = data?.ProjectAlbum;
+
   const [portfolio, setPortfolio] = useState(true);
   const [showAlbum, setShowAlbum] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
@@ -43,7 +49,9 @@ const ProjectsSample = () => {
                   : ""
               }`}
               onClick={portfolioView}>
-              <span className="text-xs md:text-base">PORTFOLIO (162)</span>
+              <span className="text-xs md:text-base">
+                PORTFOLIO ({data?._count?.ProjectPhoto})
+              </span>
             </div>
             <div
               className={`album lg:py-6 lg:px-6 p-2 cursor-pointer lg:text-start text-center ${
@@ -52,7 +60,9 @@ const ProjectsSample = () => {
                   : ""
               }`}
               onClick={albumView}>
-              <span className="text-xs md:text-base">ALBUM (26)</span>
+              <span className="text-xs md:text-base">
+                ALBUM ({data?._count?.ProjectAlbum})
+              </span>
             </div>
             <div
               className={`video lg:py-6 lg:px-6 p-2 cursor-pointer lg:text-start text-center ${
@@ -61,23 +71,27 @@ const ProjectsSample = () => {
                   : ""
               }`}
               onClick={videoView}>
-              <span className="text-xs md:text-base">VIDEOS (90)</span>
+              <span className="text-xs md:text-base">
+                VIDEOS ({data?._count?.ProjectVideo})
+              </span>
             </div>
           </div>
         </div>
         <div className="project__sample_content px-6 py-6">
-          {portfolio && <PortfolioView />}
-          {showAlbum && <ProjectAlbumView />}
-          {showVideo && <ProjectVideo />}
+          {portfolio && <PortfolioView data={photos} profileId={data?.id} />}
+          {showAlbum && <ProjectAlbumView data={albums} />}
+          {showVideo && <ProjectVideo data={videos} />}
         </div>
         {/* Project Button */}
-        <div className="project__button w-full text-center pb-5 border-b-2 border-paginationBg-900">
-          <Link href="/gallery">
-            <button className="border border-textPrimary-900 text-textPrimary-900 px-8 py-1 rounded-full hover:bg-textPrimary-900 hover:text-white duration-300 font-semibold">
-              View More
-            </button>
-          </Link>
-        </div>
+        {data?._count?.ProjectPhoto > 4 && (
+          <div className="project__button w-full text-center pb-5 border-b-2 border-paginationBg-900">
+            <Link href={`/gallery/${params?.profileId}?photos=all`}>
+              <button className="border border-textPrimary-900 text-textPrimary-900 px-8 py-1 rounded-full hover:bg-textPrimary-900 hover:text-white duration-300 font-semibold">
+                View More
+              </button>
+            </Link>
+          </div>
+        )}
 
         {/* Project Upload From */}
         <div className="upload__from px-6 pt-6 pb-8 hidden lg:first-letter:block">

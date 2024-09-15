@@ -6,12 +6,11 @@ import { formNow, handelError } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
 const VendorReviewsContainer = () => {
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState<any>([]);
   const getReviewsFn = async () => {
     try {
       const { data } = await getReviews();
       setReviews(data?.reviews);
-      console.log(data);
     } catch (error) {
       console.log(error);
       handelError(error);
@@ -40,6 +39,7 @@ const VendorReviewsContainer = () => {
             rating={item?.rating}
             feedback={item?.feedback}
             reply={item?.reply}
+            vendor={item}
           />
         );
       })}

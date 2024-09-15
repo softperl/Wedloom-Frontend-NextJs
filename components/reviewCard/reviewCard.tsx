@@ -1,14 +1,15 @@
 "use client";
-import React, { useState } from "react";
 import ReplyCard from "@/components/reviewCard/replyCard";
+import Image from "next/image";
+import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { FaSquareFacebook, FaTwitter } from "react-icons/fa6";
-import Image from "next/image";
 
 const ReviewCard = ({ image, name, date, rating, feedback, reply }: any) => {
   const [viewLess, setViewLess] = useState(false);
   const shareFacebook = `https://www.facebook.com/sharer/sharer.php?u=https://wedplanr.com/`;
   const shareTwitter = `https://twitter.com/intent/tweet?url=https://wedplanr.com/`;
+
   return (
     <>
       <div className="w-full py-6 px-5">
@@ -61,20 +62,20 @@ const ReviewCard = ({ image, name, date, rating, feedback, reply }: any) => {
             </div>
           </div>
           <div className="review_content mt-4">
-            <div className="initial_view h-14 overflow-hidden pr-5 text-textSecondary-900 leading-7 font-normal text-sm">
-              <span>{feedback}</span>
+            <div className="h-auto overflow-hidden pr-5 text-textSecondary-900 leading-7 font-normal text-sm">
+              {!viewLess && feedback.length > 300
+                ? feedback.slice(0, 300)
+                : feedback}
+
+              {feedback.length > 300 && (
+                <span
+                  className="text-xs lg:text-sm font-bold text-textSecondary-900 cursor-pointer"
+                  onClick={() => setViewLess(!viewLess)}>
+                  {viewLess ? " Read Less..." : "... Read More"}
+                </span>
+              )}
             </div>
 
-            {viewLess && (
-              <div className="hidden_view text-textSecondary-900 leading-7 font-normal text-sm pr-5">
-                <span>{feedback}</span>
-              </div>
-            )}
-            <span
-              className="text-sm font-bold text-textSecondary-900 cursor-pointer"
-              onClick={() => setViewLess(!viewLess)}>
-              {viewLess ? "Read Less.." : "..Read More"}
-            </span>
             <div className="block lg:hidden mt-4">
               <div className="social_links flex items-center gap-4">
                 <div className="facebook w-8 h-8 border flex items-center justify-center p-1">
@@ -102,7 +103,7 @@ const ReviewCard = ({ image, name, date, rating, feedback, reply }: any) => {
           </div>
         </div>
       </div>
-      <ReplyCard />
+      {reply?.reply && <ReplyCard data={reply} />}
     </>
   );
 };

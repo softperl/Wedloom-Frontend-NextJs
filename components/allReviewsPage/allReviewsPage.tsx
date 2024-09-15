@@ -1,9 +1,8 @@
 "use client";
-import React from "react";
 import Path from "@/components/routesPath/path";
 import Review from "@/components/submitReview/review";
 
-export const AllReviewsPage = () => {
+export const AllReviewsPage = ({ data }: { data: any }) => {
   return (
     <div className="all_reviews">
       <div className="container mx-auto lg:px-20 px-4">
@@ -19,7 +18,7 @@ export const AllReviewsPage = () => {
         </div>
         {/* Content */}
         <div className="content">
-          <Review heading="Reviews (37)" />
+          <Review heading={`Reviews (${data?.length})`} />
         </div>
       </div>
     </div>
