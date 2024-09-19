@@ -10,7 +10,7 @@ import { FaqPopup } from "../popups/faqPopup";
 const ProfileFAQ = () => {
   const { user } = useAuth();
   const params = useParams();
-  const { faq, setFaq, faqOpen, setFaqOpen, refresh } = useFaq();
+  const { faq, setFaq, setFaqOpen, refresh } = useFaq();
 
   const getFaqFn = async () => {
     try {
@@ -35,13 +35,6 @@ const ProfileFAQ = () => {
             <h5 className="text-lg text-left font-medium text-textBlack-900">
               FAQ about THE MEMORY CAPTURE
             </h5>
-            {user?.id === params?.profileId && (
-              <button
-                onClick={() => setFaqOpen(true)}
-                className="py-2 px-4 text-textPrimary-900 border border-textPrimary-900 hover:bg-textPrimary-900 hover:text-white duration-300 font-semibold text-sm rounded-full">
-                Add FAQ
-              </button>
-            )}
           </div>
         </div>
         {/* Bottom */}
@@ -53,7 +46,6 @@ const ProfileFAQ = () => {
           </div>
         )}
       </div>
-      {faqOpen && <FaqPopup />}
     </section>
   );
 };

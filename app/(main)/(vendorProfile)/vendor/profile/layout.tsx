@@ -11,8 +11,9 @@ import {
   FaRegComments,
   FaVenus,
 } from "react-icons/fa";
-import { FaRegFileZipper, FaRegMessage } from "react-icons/fa6";
+import { FaQuestion, FaRegFileZipper, FaRegMessage } from "react-icons/fa6";
 import { IoMdSettings } from "react-icons/io";
+import { LuPackagePlus } from "react-icons/lu";
 
 export default function RootLayout({
   children,
@@ -33,9 +34,19 @@ export default function RootLayout({
       icon: FaImages,
     },
     {
+      label: "Packages",
+      link: "/vendor/profile/packages",
+      icon: LuPackagePlus,
+    },
+    {
       label: "Membership Plans",
       link: "/vendor/profile/membership",
       icon: FaDesktop,
+    },
+    {
+      label: "Faq",
+      link: "/vendor/profile/faq",
+      icon: FaQuestion,
     },
     {
       label: "Reviews",

@@ -12,8 +12,8 @@ import { FaBarsStaggered, FaMagnifyingGlass, FaShuffle } from "react-icons/fa6";
 import { FaCaretDown, FaDna } from "react-icons/fa";
 import { useParams } from "next/navigation";
 import { handelError } from "@/lib/utils";
-import { vendorsList } from "@/lib/api";
 import { is } from "immutable";
+import { vendorsList } from "@/lib/api";
 
 const WeedingPhotographer = () => {
   const params = useParams();

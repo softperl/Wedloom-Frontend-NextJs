@@ -4,10 +4,13 @@ import MobileVendors from "@/components/mobileVendors";
 import useUi from "@/lib/hooks/useUi";
 import { cn, slugify } from "@/lib/utils";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 import { BiChevronDown } from "react-icons/bi";
 
 const Banner = () => {
+  const router = useRouter();
   const { vendorCategories, cities } = useUi();
   const [citiesValue, setCitiesValue] = useState("");
   const [openVendor, setOpenVendor] = useState(false);
@@ -68,20 +71,6 @@ const Banner = () => {
     };
   }, [openCity]);
 
-  const search = () => {
-    if (vendorsValue && citiesValue) {
-      return `/vendors/${slugify(citiesValue)}/${slugify(vendorsValue)}`;
-    }
-    if (!citiesValue && vendorsValue) {
-      return `/vendors/all/${slugify(vendorsValue)}`;
-    }
-    if (citiesValue && !vendorsValue) {
-      return `/vendors/${slugify(citiesValue)}`;
-    }
-    return "/vendors";
-  };
-
-  console.log(vendorsValue, citiesValue);
   return (
     // Banner Start
     <div className="banner text-white">
@@ -196,9 +185,27 @@ const Banner = () => {
                 </div>
               </div>
               <div className="submit w-2/12">
-                <Link href={search()}>
-                  <button className="bg-navbarBGL-900 p-3">Get Started</button>
-                </Link>
+                <button
+                  onClick={() => {
+                    if (vendorsValue && citiesValue) {
+                      router.push(
+                        `/vendors/${slugify(citiesValue)}/${slugify(
+                          vendorsValue
+                        )}`
+                      );
+                    }
+                    if (!citiesValue && vendorsValue) {
+                      router.push(`/vendors/all/${slugify(vendorsValue)}`);
+                    }
+                    if (citiesValue && !vendorsValue) {
+                      router.push(`/vendors/${slugify(citiesValue)}/all`);
+                    }
+                    if (!vendorsValue && !citiesValue)
+                      return toast.error("Please Select City and Vendor");
+                  }}
+                  className="bg-navbarBGL-900 p-3">
+                  Get Started
+                </button>
               </div>
             </div>
             <div className="search__result flex mb-10">

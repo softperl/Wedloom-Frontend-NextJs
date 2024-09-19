@@ -18,7 +18,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const NumberWithCommas = (x: any) => {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return x?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
 export function handelError(error: any) {

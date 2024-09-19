@@ -169,6 +169,13 @@ export const publicVendorProfileById = (profileId: any) =>
 export const galleryPhotos = ({ profileId }: { profileId: any }) =>
   API.get(`/vendor/gallery/${profileId}`);
 
+//Vendor Packages
+export const createPackage = (formData: any) =>
+  API.post("/vendor/package/new", formData);
+export const getPackage = () => API.get(`/vendor/package/get-all`);
+export const removePackage = (id: any) =>
+  API.delete(`/vendor/package/delete/${id}`);
+
 //Vendor Faq
 export const createFaq = (formData: any) =>
   API.post("/vendor/faq/new", formData);

@@ -7,7 +7,13 @@ import { useParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { BiPencil, BiTrash } from "react-icons/bi";
 
-const ProfileFAQCard = ({ data }: { data: any }) => {
+const ProfileFAQCard = ({
+  data,
+  editMode,
+}: {
+  data: any;
+  editMode?: boolean;
+}) => {
   const { user } = useAuth();
   const params = useParams();
   const { setEditFaq, setFaqOpen, refresh, setRefresh } = useFaq();
@@ -24,7 +30,7 @@ const ProfileFAQCard = ({ data }: { data: any }) => {
 
   return (
     <div className="">
-      {user?.id === params?.profileId && (
+      {user?.id === editMode && (
         <div className="flex justify-end items-end gap-2">
           <BiPencil
             onClick={() => {
