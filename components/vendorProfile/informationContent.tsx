@@ -83,12 +83,13 @@ const calculateProfileCompletion = (profileData: any) => {
 
 const InformationContent = ({ data }: any) => {
   const { vendorProfile, vendorInfo, questions } = data;
-  console.log("questions", data);
 
   const [locationPopUp, setLocationPopUp] = useState(false);
   const [valueEditor, setValueEditor] = useState(EditorState.createEmpty());
   const [formData, setFormData] = useState<any>({});
-  const [additionalData, setAdditionalData] = useState<any>({});
+  const [additionalData, setAdditionalData] = useState<any>(
+    vendorInfo.additionalData || {}
+  );
   const [selectedOptions, setSelectedOptions] = useState<any[]>([]);
   const [numberBox, setNumberBox] = useState([{ number: "9566423200" }]);
 
@@ -111,7 +112,7 @@ const InformationContent = ({ data }: any) => {
     }),
     [vendorInfo, vendorProfile]
   );
-  console.log("additionalData----", vendorInfo);
+  console.log("db-additionalData----", additionalData);
   const { totalCompletion, filledFieldsCount, totalFieldsCount } =
     calculateProfileCompletion({
       brandName: vendorProfile?.brand,
@@ -130,8 +131,6 @@ const InformationContent = ({ data }: any) => {
       projects: vendorInfo?.projects,
       questions,
     });
-
-  console.log({ totalCompletion, filledFieldsCount, totalFieldsCount });
 
   const { control, handleSubmit, setValue } = useForm({
     defaultValues,
@@ -686,6 +685,9 @@ const InformationContent = ({ data }: any) => {
                       return (
                         <div key={i} className="">
                           <input
+                            checked={
+                              option?.value == additionalData[item?.labelName]
+                            }
                             className="accent-textPrimary-900"
                             type="radio"
                             id={`${item?.question}-${i}`}
@@ -707,16 +709,13 @@ const InformationContent = ({ data }: any) => {
                 {item?.questionType === "Multiple_Choice" && (
                   <div className="mt-2 pl-4">
                     {item?.others?.map((option: any, i: number) => (
-                      <div
-                        defaultValue={
-                          vendorInfo?.additionalData[item?.labelName]
-                        }
-                        className="mb-1"
-                        key={i}
-                      >
+                      <div className="mb-1" key={i}>
                         <input
                           className="accent-textPrimary-900"
                           type="checkbox"
+                          // checked={
+                          //   option?.value == additionalData[item?.labelName]
+                          // }
                           id={`${item?.question}-${i}`}
                           name={option?.value}
                           onChange={(e) =>
