@@ -4,11 +4,10 @@ import React from "react";
 const PackageDetails = ({ item, services, lastElem, path }: any) => {
   return (
     <div
-      className={`price_segment px-4 pt-6 pb-2 ${
-        lastElem === true ? "" : "border-b border-paginationBg-900"
-      }`}>
+      className={`price_segment px-4 pt-6 pb-2
+         ${lastElem === true ? "" : "border-b border-paginationBg-900"}`}>
       {/* Package Details Div */}
-      <div className="details grid grid-cols-3 grid-rows-3 gap-4 w-full">
+      <div className="details grid grid-cols-3 gap-4 w-full">
         {/* Details One */}
         {services?.map((item: any, id: number) => {
           return (
@@ -17,7 +16,7 @@ const PackageDetails = ({ item, services, lastElem, path }: any) => {
                 Service {id + 1}
               </h6>
               <span className="font-semibold text-sm text-dateColor-900">
-                {item}
+                {item?.value}
               </span>
             </div>
           );

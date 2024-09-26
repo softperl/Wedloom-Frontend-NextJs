@@ -173,6 +173,8 @@ export const galleryPhotos = ({ profileId }: { profileId: any }) =>
 export const createPackage = (formData: any) =>
   API.post("/vendor/package/new", formData);
 export const getPackage = () => API.get(`/vendor/package/get-all`);
+export const getPublicPackage = (profileId: any) =>
+  API.get(`/vendor/package/${profileId}`);
 export const removePackage = (id: any) =>
   API.delete(`/vendor/package/delete/${id}`);
 

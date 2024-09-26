@@ -130,7 +130,7 @@ input[type="number"] {
   outline: none !important;
 }
 
-.navbar__links ul>.submenu {
+.navbar__links ul > .submenu {
   font-size: 14px;
   padding: 20px 0;
 }
@@ -155,7 +155,7 @@ input[type="number"] {
   font-size: 14px;
 }
 
-.venuelist__items ul>li:hover {
+.venuelist__items ul > li:hover {
   transform: scale(1.01);
   font-weight: 700;
 }
@@ -168,8 +168,8 @@ input[type="number"] {
   z-index: 999999;
 }
 
-.DraftEditor-root {
-  min-height: 200px
+.rdw-editor-main .DraftEditor-root {
+  min-height: 200px;
 }
 
 @tailwind base;

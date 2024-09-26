@@ -45,8 +45,6 @@ const Review = ({ review, heading }: any) => {
     getReviewsDistributionFn();
   }, []);
 
-  console.log(reviewsDistribution);
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
@@ -263,12 +261,6 @@ const Review = ({ review, heading }: any) => {
                         filledIcon={<FaStar className="w-8 h-8" />}
                       />
                     )}
-                    <button
-                      disabled={user && true}
-                      type="button"
-                      onClick={() => setStarRate(0)}>
-                      Reset
-                    </button>
 
                     <span className="text-textSecondary-900 font-semibold text-lg">
                       {starRate} Star

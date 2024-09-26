@@ -39,15 +39,16 @@ export default function RootLayout({
       icon: LuPackagePlus,
     },
     {
-      label: "Membership Plans",
-      link: "/vendor/profile/membership",
-      icon: FaDesktop,
-    },
-    {
       label: "Faq",
       link: "/vendor/profile/faq",
       icon: FaQuestion,
     },
+    {
+      label: "Membership Plans",
+      link: "/vendor/profile/membership",
+      icon: FaDesktop,
+    },
+
     {
       label: "Reviews",
       link: "/vendor/profile/reviews",

@@ -3,7 +3,8 @@
 import { vendorProfileInfo } from "@/lib/api";
 import { cn, handelError } from "@/lib/utils";
 import AppReactDraftWysiwyg from "@/libs/styles/AppReactDraftWysiwyg";
-import { convertToRaw, EditorState } from "draft-js";
+import { convertToRaw, convertFromRaw, EditorState } from "draft-js";
+import { draftToMarkdown, markdownToDraft } from "markdown-draft-js";
 import { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { FaCirclePlus, FaCircleXmark } from "react-icons/fa6";
@@ -29,9 +30,9 @@ const calculateProfileCompletion = (profileData: any) => {
   const group2Fields = ["additionalData"];
   const group3Fields = ["projects"];
 
-  const group1Weight = 50; // 50%
-  const group2Weight = 30; // 30%
-  const group3Weight = 20; // 20%
+  const group1Weight = 10; // 10%
+  const group2Weight = 65; // 65%
+  const group3Weight = 15; // 15%
 
   // Helper function to check if a field is filled
   const isFieldFilled = (field: any) =>
@@ -224,14 +225,12 @@ const InformationContent = ({ data }: any) => {
           <div className="relative h-7 flex items-center justify-center">
             <div
               style={{ width: `${totalCompletion}%` }}
-              className="absolute top-0 bottom-0 left-0  bg-textPrimary-900"
-            ></div>
+              className="absolute top-0 bottom-0 left-0  bg-textPrimary-900"></div>
             <div
               className={cn(
                 "relative text-textSecondary-900 font-medium text-sm",
                 totalCompletion > 50 && "text-white"
-              )}
-            >
+              )}>
               {Math.floor(totalCompletion)}% COMPLETE
             </div>
           </div>
@@ -286,8 +285,7 @@ const InformationContent = ({ data }: any) => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="loginid"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
-                  >
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
                     Login email ID
                   </label>
                 </div>
@@ -311,8 +309,7 @@ const InformationContent = ({ data }: any) => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="brand"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
-                  >
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
                     Brand Name*
                   </label>
                 </div>
@@ -336,8 +333,7 @@ const InformationContent = ({ data }: any) => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="category"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
-                  >
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
                     Category Name*
                   </label>
                 </div>
@@ -361,8 +357,7 @@ const InformationContent = ({ data }: any) => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor=""
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
-                  >
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
                     Contact person name{" "}
                   </label>
                 </div>
@@ -385,8 +380,7 @@ const InformationContent = ({ data }: any) => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="additionalMail"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
-                  >
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
                     Additional email ID
                   </label>
                 </div>
@@ -409,8 +403,7 @@ const InformationContent = ({ data }: any) => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="contactnumber"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
-                  >
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
                     Contact number*
                   </label>
                 </div>
@@ -423,8 +416,7 @@ const InformationContent = ({ data }: any) => {
                       {numberBox.map((singleNumberBox, i) => (
                         <div
                           key={i}
-                          className="w-full flex justify-between items-center gap-3 mb-2 lg:mb-0"
-                        >
+                          className="w-full flex justify-between items-center gap-3 mb-2 lg:mb-0">
                           <div className="w-full flex lg:flex-nowrap flex-wrap border border-t-0">
                             {/* Country */}
                             <div className="bg-[#efefef] w-full lg:w-2/12 flex justify-center items-center">
@@ -456,8 +448,7 @@ const InformationContent = ({ data }: any) => {
                           {numberBox.length >= 2 && (
                             <span
                               className="text-textPrimary-900"
-                              onClick={() => removeNumberBox(i)}
-                            >
+                              onClick={() => removeNumberBox(i)}>
                               <FaCircleXmark className="w-4 h-4 cursor-pointer" />
                             </span>
                           )}
@@ -470,8 +461,7 @@ const InformationContent = ({ data }: any) => {
                       {numberBox.length < 5 && (
                         <span
                           className="flex items-center text-xs text-textPrimary-900 font-semibold cursor-pointer"
-                          onClick={addNumberBox}
-                        >
+                          onClick={addNumberBox}>
                           <FaCirclePlus className="w-4 h-4 mr-2" /> ADD MORE
                         </span>
                       )}
@@ -488,8 +478,7 @@ const InformationContent = ({ data }: any) => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="websiteLink"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
-                  >
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
                     Website link
                   </label>
                 </div>
@@ -512,8 +501,7 @@ const InformationContent = ({ data }: any) => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="facebook"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
-                  >
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
                     Facebook url
                   </label>
                 </div>
@@ -536,8 +524,7 @@ const InformationContent = ({ data }: any) => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="instagram"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
-                  >
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
                     Instagram url
                   </label>
                 </div>
@@ -560,8 +547,7 @@ const InformationContent = ({ data }: any) => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="ytLink"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
-                  >
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
                     Youtube/Vimeo url
                   </label>
                 </div>
@@ -584,8 +570,7 @@ const InformationContent = ({ data }: any) => {
                 <div className="w-full">
                   <label
                     htmlFor="additionalInfo"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900 flex flex-col"
-                  >
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900 flex flex-col">
                     <span>Additional Information</span>
                     <span className="text-[10px]">
                       (To update your description, please send a mail to
@@ -597,17 +582,13 @@ const InformationContent = ({ data }: any) => {
                   <AppReactDraftWysiwyg
                     editorState={valueEditor}
                     onEditorStateChange={(data) => {
-                      const blocks = convertToRaw(
-                        data.getCurrentContent()
-                      ).blocks;
-                      const value = blocks
-                        .map(
-                          (block) => (!block.text.trim() && "\n") || block.text
-                        )
-                        .join("\n");
-
+                      // Convert draft.js state to markdown
+                      const content = data.getCurrentContent();
+                      const rawObject = convertToRaw(content);
+                      const markdown = draftToMarkdown(rawObject);
                       setValueEditor(data);
-                      setValue("addInfo", value);
+                      setValue("addInfo", markdown);
+                      console.log("markdown", markdown);
                     }}
                   />
                 </div>
@@ -618,8 +599,7 @@ const InformationContent = ({ data }: any) => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="city"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
-                  >
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
                     City
                   </label>
                 </div>
@@ -628,8 +608,7 @@ const InformationContent = ({ data }: any) => {
                     id="city"
                     className="w-full bg-transparent outline-none text-textSecondary-900 text-xs lg:text-sm"
                     value={vendorProfile?.city}
-                    disabled
-                  >
+                    disabled>
                     {/* {cities?.map((city: any, i: number) => ( */}
                     <option disabled value={vendorProfile?.city}>
                       {vendorProfile?.city}
@@ -644,16 +623,14 @@ const InformationContent = ({ data }: any) => {
                 <div className="w-full lg:w-4/12">
                   <label
                     htmlFor="address"
-                    className="text-xs lg:text-sm font-bold text-textSecondary-900"
-                  >
+                    className="text-xs lg:text-sm font-bold text-textSecondary-900">
                     Address
                   </label>
                 </div>
                 <div className="w-full lg:w-8/12 py-1 lg:px-4 px-2">
                   <p
                     onClick={() => setLocationPopUp(true)}
-                    className="text-xs lg:text-sm font-bold text-textPrimary-900 cursor-pointer"
-                  >
+                    className="text-xs lg:text-sm font-bold text-textPrimary-900 cursor-pointer">
                     Add a Location
                   </p>
                   {locationPopUp && (
@@ -697,8 +674,7 @@ const InformationContent = ({ data }: any) => {
                           />
                           <label
                             className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                            htmlFor={`${item?.question}-${i}`}
-                          >
+                            htmlFor={`${item?.question}-${i}`}>
                             {option?.value}
                           </label>
                         </div>
@@ -724,8 +700,7 @@ const InformationContent = ({ data }: any) => {
                         />
                         <label
                           className="pl-2 text-xs lg:text-sm text-textSecondary-900"
-                          htmlFor={`${item?.question}-${i}`}
-                        >
+                          htmlFor={`${item?.question}-${i}`}>
                           {option?.value}
                         </label>
                       </div>
@@ -798,8 +773,7 @@ const InformationContent = ({ data }: any) => {
           <div className="w-full pb-8 px-8 text-end">
             <button
               type="submit"
-              className="w-4/12 py-[6px] bg-textPrimary-900 text-[15px] text-white"
-            >
+              className="w-4/12 py-[6px] bg-textPrimary-900 text-[15px] text-white">
               SAVE
             </button>
           </div>

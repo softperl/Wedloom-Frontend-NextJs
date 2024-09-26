@@ -27,9 +27,7 @@ const SingleProfile = ({
   data,
   isLoading,
 }: any) => {
-  const [click, setclick] = useState(false);
-
-  console.log("reviews l", data?._count);
+  const [click, setClick] = useState(false);
 
   return (
     <section className="lg:pt-4">
@@ -99,7 +97,7 @@ const SingleProfile = ({
                     <div className="overall__rating">
                       <span className="bg-textPrimary-900 px-4 py-2 text-white font-semibold flex items-center flex-nowrap">
                         <FaStar className="mr-2" />
-                        5.0
+                        {data?._averageReview}
                       </span>
                       <p className="mt-2 font-semibold text-textSecondary-900">
                         {data?._count?.vendorReviews} reviews
@@ -113,9 +111,9 @@ const SingleProfile = ({
                   <span className="font-medium ml-2">
                     {data?.city}, Pakistan
                   </span>{" "}
-                  <Link href="map">
+                  {/* <Link href="map">
                     <span>(View on Map)</span>
-                  </Link>
+                  </Link> */}
                 </div>
 
                 {/* Contact */}
@@ -145,7 +143,7 @@ const SingleProfile = ({
                   </div>
                   <div
                     className="photos w-full text-center border-r-2 cursor-pointer lg:flex items-center justify-center"
-                    onClick={() => setclick(!click)}>
+                    onClick={() => setClick(!click)}>
                     {click ? (
                       <FaHeart className="mr-2 text-textPrimary-900" />
                     ) : (
@@ -168,7 +166,7 @@ const SingleProfile = ({
 
             {/* Pricing Content For Mobile */}
             <div className="singleProfileContent__right block xl:hidden w-full">
-              <PricingProfile />
+              <PricingProfile packages={data?.Package} />
               <Pcontact />
               <div className="report mt-6 text-textPrimary-900 text-center">
                 <Link href="/report">
@@ -227,7 +225,7 @@ const SingleProfile = ({
           {/* Pricing Content for Desktop */}
           <div className="singleProfileContent__right lg:w-5/12 w-full hidden lg:block">
             {/* Pricing Components */}
-            <PricingProfile />
+            <PricingProfile packages={data?.Package} />
 
             {/* Contact Components */}
             <Pcontact />
@@ -248,7 +246,7 @@ const SingleProfile = ({
         {/* Projects Start Section*/}
         <div className="projects bg-white" ref={about}>
           <div className="project__card">
-            <About />
+            <About data={data} />
           </div>
         </div>
         {/* Projects Start Section*/}

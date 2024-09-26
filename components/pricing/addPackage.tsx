@@ -130,15 +130,11 @@ export const AddPackage = () => {
                 key={i}
                 className="px-4 py-3 border-b border-b-paginationBg-900 font-medium text-textSecondary-900 flex justify-between items-center text-xs lg:text-sm">
                 <div className="w-3/12">
-                  <p>{item.title}</p>
+                  <p>{item.packageName}</p>
                 </div>
 
                 <div className="w-3/12">
-                  <p>{item.menuType}</p>
-                </div>
-
-                <div className="w-3/12">
-                  <p>PKR {NumberWithCommas(item.price)}</p>
+                  <p>PKR {NumberWithCommas(item.packagePrice)}</p>
                 </div>
 
                 <div className="w-3/12 text-end">

@@ -1,6 +1,19 @@
-import React from "react";
+import { EditorState, convertFromRaw } from "draft-js";
+import { markdownToDraft } from "markdown-draft-js";
+import { useEffect, useState } from "react";
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-export const About = ({ about }: any) => {
+export const About = ({ about, data }: any) => {
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+  useEffect(() => {
+    // Convert Markdown to Draft.js content
+    const rawContent = markdownToDraft(data?.VendorProfileInfo[0]?.addInfo);
+    const contentState = convertFromRaw(rawContent);
+    setEditorState(EditorState.createWithContent(contentState));
+  }, [data?.VendorProfileInfo[0]?.addInfo]);
+
   return (
     <section className="">
       <div className="about__content  bg-white shadow-md" ref={about}>
@@ -12,74 +25,12 @@ export const About = ({ about }: any) => {
           </div>
 
           <div className="about__description py-6 px-5">
-            <div className="top">
-              <p className="text-sm leading-7 text-textSecondary-900">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
-                itaque blanditiis a eaque harum commodi dolorum laborum ea
-                ratione, odio atque corrupti repellendus nihil perspiciatis
-                alias quis sed! A nam explicabo natus doloribus, quaerat, nobis
-                quasi facilis neque minus maiores sapiente sint adipisci
-                reprehenderit ipsum illo deserunt architecto fuga, autem
-                reiciendis quas? Impedit dolorum expedita accusantium corporis.
-                Magnam, quibusdam! Nemo a omnis fuga nihil? Laboriosam officiis
-                cupiditate aliquid perspiciatis nostrum dolorum veniam facere
-                voluptate reprehenderit deserunt pariatur qui repellat, maxime
-                quis quas totam, voluptatibus, non alias est obcaecati
-                distinctio! Fuga iure, officiis assumenda sunt necessitatibus
-                ullam voluptas cumque velit hic.
-              </p>
-            </div>
-            <div className="working__style my-8">
-              <span className="text-textBlack-900 font-bold text-sm">
-                Working Style
-              </span>
-              <p className="text-sm leading-7 text-textSecondary-900 mt-1">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga
-                dolorum pariatur officia veritatis impedit veniam? Saepe quae
-                perspiciatis cumque accusamus inventore unde ad hic velit nam
-                dolore, officia nisi beatae aspernatur ipsum nulla ratione
-                temporibus magni voluptate magnam, possimus repellendus eos
-                quia! Deserunt earum aliquid ut laudantium esse perspiciatis
-                nulla dolorum, blanditiis quasi nam alias cum officia. Natus
-                error quis corrupti quaerat consectetur dolor earum. Hic aperiam
-                perferendis distinctio molestias ducimus quasi dolorum modi
-                error consectetur. Sint ab nemo rem, aliquam non molestias
-                voluptatum numquam est, tempora quia quod ipsum quam labore
-                nostrum beatae provident ducimus esse nam asperiores. Illum
-                voluptatum officia sint, commodi minima repudiandae quia nisi
-                doloremque fugit! Non quam minima, suscipit dolorum excepturi
-                cupiditate in ex aperiam ad sunt doloribus explicabo eos
-                numquam, neque unde harum reprehenderit quasi! Cum optio labore
-                aut eligendi, voluptates deserunt fuga, voluptatibus tempora
-                fugit beatae, obcaecati vero rem. Fuga enim aperiam ducimus?
-              </p>
-            </div>
-            <div className="travel my-8">
-              <span className="text-textBlack-900 font-bold text-sm">
-                Travels to the venue
-              </span>
-              <p className="text-sm leading-7 text-textSecondary-900 mt-1">
-                The team is open to travelling outstation as well to cover the
-                events
-              </p>
-            </div>
-            <div className="travel mt-8 mb-1">
-              <span className="text-textBlack-900 font-bold text-sm">
-                Services Offered
-              </span>
-              <p className="text-sm leading-7 text-textSecondary-900">
-                The team offers services in :
-              </p>
-              <ul className="list-disc pl-8 flex flex-col gap-2 mt-1 text-textSecondary-900 text-sm">
-                <li>Candid Photography</li>
-                <li>Traditional Photography</li>
-                <li>Pre-Wedding Photography</li>
-                <li>Wedding Albums Photography</li>
-                <li>Maternity Shoots</li>
-                <li>Fashions Shoots</li>
-                <li>Pre-Wedding Flims</li>
-                <li>Traditional Videography</li>
-              </ul>
+            <div className="">
+              <Editor
+                editorState={editorState}
+                toolbarHidden={true}
+                readOnly={true}
+              />
             </div>
           </div>
         </div>
