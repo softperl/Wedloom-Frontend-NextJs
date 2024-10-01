@@ -184,3 +184,7 @@ export const createFaq = (formData: any) =>
 export const getFaq = (profileId: any) =>
   API.get(`/vendor/faq/get-all/${profileId}`);
 export const removeFaq = (id: any) => API.delete(`/vendor/faq/delete/${id}`);
+
+//Payment
+export const createPayment = (formData: any) =>
+  API.post("/payment/new", formData);

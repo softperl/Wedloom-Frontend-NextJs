@@ -1,12 +1,15 @@
 "use client";
 import React, { useState } from "react";
 import PaymentCard from "@/components/paymentCard/paymentCard";
-import { NumberWithCommas } from "@/lib/utils";
+import { handelError, NumberWithCommas } from "@/lib/utils";
 import { useParams, useRouter } from "next/navigation";
 import Path from "@/components/routesPath/path";
 import Image from "next/image";
+import { createPayment } from "@/lib/api";
+import { nanoid } from "nanoid";
 
 const CheckoutContent = ({ packageName }: any) => {
+  const params = useParams();
   const router = useRouter();
   // Price State
   const price = "50000";
@@ -31,6 +34,25 @@ const CheckoutContent = ({ packageName }: any) => {
       )}`
     );
     router.push("/");
+  };
+
+  const payNow = async () => {
+    try {
+      await createPayment({
+        id: nanoid(),
+        vendorId: "cm0w9q1tf0003cay89oy242qk",
+        amount: `${Number(price) * quantity + Number(tax)}`,
+        currency: "PKR",
+        quantity: quantity,
+        packageName: packageName,
+        customerName: "Muhammad Usman",
+        customerEmail: "abc@gmail.com1",
+        customerNumber: "+923000000000",
+      });
+    } catch (error) {
+      console.error(error);
+      handelError(error);
+    }
   };
 
   return (
@@ -290,7 +312,7 @@ const CheckoutContent = ({ packageName }: any) => {
                   {pay && (
                     <button
                       className="bg-textPrimary-900 text-white text-lg py-4 w-full font-semibold rounded border border-textPrimary-900 hover:bg-transparent  hover:text-textSecondary-900 duration-200"
-                      onClick={navigateHomePage}>
+                      onClick={payNow}>
                       Pay Now
                     </button>
                   )}
