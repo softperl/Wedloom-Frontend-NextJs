@@ -193,7 +193,7 @@ const WeedingPhotographer = () => {
                           category={item?.vendorType}
                           location={item?.city}
                           name={item?.brand}
-                          price={"200000000"}
+                          price={item?.initialPrice}
                           review={item?.averageRating}
                           tooltip1={"lorem ipsum dolor sit amet"}
                           tooltip2={

@@ -113,6 +113,8 @@ export const getAllEventsByUserId = ({
 //Vendor Profile Info
 export const vendorProfileInfo = (formData: any) =>
   API.post(`/vendor/profile-info`, formData);
+export const requestApprovalVendor = (userId: any) =>
+  API.post(`/vendor/request-approval/${userId}`);
 export const createBanquet = (formData: any) =>
   API.post(`/vendor/banquet/new`, formData);
 export const getBanquets = () => API.get("/vendor/get-all-banquet");

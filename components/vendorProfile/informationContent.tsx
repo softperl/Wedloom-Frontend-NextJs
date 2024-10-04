@@ -1,15 +1,41 @@
 "use client";
 
-import { vendorProfileInfo } from "@/lib/api";
+import { requestApprovalVendor, vendorProfileInfo } from "@/lib/api";
 import { cn, handelError } from "@/lib/utils";
 import AppReactDraftWysiwyg from "@/libs/styles/AppReactDraftWysiwyg";
 import { convertToRaw, convertFromRaw, EditorState } from "draft-js";
 import { draftToMarkdown, markdownToDraft } from "markdown-draft-js";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { FaCirclePlus, FaCircleXmark } from "react-icons/fa6";
 import { AddressPopup } from "../popups/addressPopup";
 import toast from "react-hot-toast";
+import {
+  BlockTypeSelect,
+  BoldItalicUnderlineToggles,
+  codeBlockPlugin,
+  CreateLink,
+  headingsPlugin,
+  imagePlugin,
+  InsertTable,
+  linkDialogPlugin,
+  linkPlugin,
+  listsPlugin,
+  ListsToggle,
+  markdownShortcutPlugin,
+  quotePlugin,
+  tablePlugin,
+  thematicBreakPlugin,
+  toolbarPlugin,
+  UndoRedo,
+  type MDXEditorMethods,
+} from "@mdxeditor/editor";
+import "@mdxeditor/editor/style.css";
+import React from "react";
+
+const InitializedMDXEditor = React.lazy(
+  () => import("../editor/initializedMDXEditor")
+);
 
 const calculateProfileCompletion = (profileData: any) => {
   // Define field groups and their weights
@@ -30,7 +56,7 @@ const calculateProfileCompletion = (profileData: any) => {
   const group2Fields = ["additionalData"];
   const group3Fields = ["projects"];
 
-  const group1Weight = 10; // 10%
+  const group1Weight = 20; // 20%
   const group2Weight = 65; // 65%
   const group3Weight = 15; // 15%
 
@@ -44,11 +70,6 @@ const calculateProfileCompletion = (profileData: any) => {
   );
   const group1Completion =
     (filledGroup1Fields.length / group1Fields.length) * group1Weight;
-
-  // Calculate completion for group 2
-  const filledGroup2Fields = group2Fields.filter((field) =>
-    isFieldFilled(profileData[field])
-  );
 
   const group2Completion =
     (Object.keys(profileData.additionalData)?.length /
@@ -66,7 +87,15 @@ const calculateProfileCompletion = (profileData: any) => {
   const totalCompletion =
     group1Completion + group2Completion + group3Completion;
 
-  console.log("projects", profileData.projects);
+  console.log(
+    "group1Completion",
+    group1Completion,
+    "group2Completion",
+    group2Completion,
+    "group3Completion",
+    group3Completion
+  );
+
   return {
     totalCompletion,
     filledFieldsCount: {
@@ -84,16 +113,21 @@ const calculateProfileCompletion = (profileData: any) => {
 
 const InformationContent = ({ data }: any) => {
   const { vendorProfile, vendorInfo, questions } = data;
-
+  const editorRef = useRef<MDXEditorMethods | null>(null);
+  const [content, setContent] = useState(data?.vendorInfo?.addInfo); // State to store the editor's content
   const [locationPopUp, setLocationPopUp] = useState(false);
-  const [valueEditor, setValueEditor] = useState(EditorState.createEmpty());
   const [formData, setFormData] = useState<any>({});
   const [additionalData, setAdditionalData] = useState<any>(
     vendorInfo.additionalData || {}
   );
   const [selectedOptions, setSelectedOptions] = useState<any[]>([]);
-  const [numberBox, setNumberBox] = useState([{ number: "9566423200" }]);
+  const [numberBox, setNumberBox] = useState(
+    data?.vendorInfo?.contactNumber.length > 0
+      ? data?.vendorInfo?.contactNumber
+      : [{ number: "" }]
+  );
 
+  console.log(vendorProfile.addInfo);
   const defaultValues = useMemo(
     () => ({
       email: vendorProfile?.email,
@@ -114,6 +148,8 @@ const InformationContent = ({ data }: any) => {
     [vendorInfo, vendorProfile]
   );
   console.log("db-additionalData----", additionalData);
+
+  console.log("vendorInfo", vendorInfo);
   const { totalCompletion, filledFieldsCount, totalFieldsCount } =
     calculateProfileCompletion({
       brandName: vendorProfile?.brand,
@@ -129,7 +165,7 @@ const InformationContent = ({ data }: any) => {
       address: vendorInfo?.address,
       addInfo: vendorInfo?.addInfo,
       additionalData: vendorInfo?.additionalData,
-      projects: vendorInfo?.projects,
+      projects: data?.projects,
       questions,
     });
 
@@ -144,14 +180,14 @@ const InformationContent = ({ data }: any) => {
         categoryName: vendorProfile?.vendorType,
         contactPersonName: data.contactPersonName,
         additionalMail: data.additionalMail,
-        contactNumber: data.contactNumber,
+        contactNumber: numberBox,
         website: data.website,
         facebook: data.facebook,
         instagram: data.instagram,
         youtube: data.youtube,
         city: data.city,
         address: data.address,
-        addInfo: data.addInfo,
+        addInfo: content,
         additionalData: additionalData,
       });
       toast.success("Profile Updated Successfully");
@@ -215,12 +251,44 @@ const InformationContent = ({ data }: any) => {
     });
   };
 
+  // Set the initial value of the editor
+  useEffect(() => {
+    if (editorRef.current && content) {
+      editorRef.current.setMarkdown(content); // Set the markdown content in the editor
+    }
+  }, [content]);
+
+  // Function to handle saving the content
+  const handleSave = () => {
+    if (editorRef.current) {
+      // Get the content from the editor instance
+      const markdown = editorRef.current.getMarkdown();
+      setContent(markdown); // Save it to the state
+      console.log(markdown);
+    }
+  };
+
+  // Call handleSave every time the content changes
+  const handleEditorChange = () => {
+    handleSave();
+  };
+
+  console.log("vendorProfile", vendorProfile);
+  const approvalFn = async () => {
+    try {
+      await requestApprovalVendor(vendorInfo?.userId);
+      toast.success("Request Sent Successfully");
+    } catch (error) {
+      console.log(error);
+      handelError(error);
+    }
+  };
   return (
     <div className="w-full">
       {/* ProgressBar of Profile Completation */}
       <div className="h-full w-full px-2 lg:px-6 my-4">
         {/* Heading */}
-        <span className="text-textSecondary-900">Profile Completation</span>
+        <span className="text-textSecondary-900">Profile Completion</span>
         <div className="bg-white overflow-hidden p-[6px] shadow-md border border-textPrimary-900 rounded-[4px] mt-2">
           <div className="relative h-7 flex items-center justify-center">
             <div
@@ -231,7 +299,8 @@ const InformationContent = ({ data }: any) => {
                 "relative text-textSecondary-900 font-medium text-sm",
                 totalCompletion > 50 && "text-white"
               )}>
-              {Math.floor(totalCompletion)}% COMPLETE
+              {totalCompletion > 100 ? 100 : Math.floor(totalCompletion)}%
+              COMPLETE
             </div>
           </div>
         </div>
@@ -413,7 +482,7 @@ const InformationContent = ({ data }: any) => {
                   <div className="w-full flex lg:flex-nowrap flex-wrap justify-between items-start">
                     <div className="w-full lg:w-10/12">
                       {/* Input Field */}
-                      {numberBox.map((singleNumberBox, i) => (
+                      {numberBox.map((singleNumberBox: any, i: number) => (
                         <div
                           key={i}
                           className="w-full flex justify-between items-center gap-3 mb-2 lg:mb-0">
@@ -579,17 +648,36 @@ const InformationContent = ({ data }: any) => {
                   </label>
                 </div>
                 <div className="mt-2 lg:mt-0 py-1 h-auto">
-                  <AppReactDraftWysiwyg
-                    editorState={valueEditor}
-                    onEditorStateChange={(data) => {
-                      // Convert draft.js state to markdown
-                      const content = data.getCurrentContent();
-                      const rawObject = convertToRaw(content);
-                      const markdown = draftToMarkdown(rawObject);
-                      setValueEditor(data);
-                      setValue("addInfo", markdown);
-                      console.log("markdown", markdown);
-                    }}
+                  <InitializedMDXEditor
+                    onChange={handleEditorChange}
+                    editorRef={editorRef}
+                    className="min-h-[300px] border border-gray-300 p-2 rounded"
+                    markdown={content}
+                    plugins={[
+                      headingsPlugin(),
+                      codeBlockPlugin(),
+                      listsPlugin(),
+                      quotePlugin(),
+                      thematicBreakPlugin(),
+                      markdownShortcutPlugin(),
+                      linkPlugin(),
+                      linkDialogPlugin(),
+                      imagePlugin(),
+                      tablePlugin(),
+                      toolbarPlugin({
+                        toolbarContents: () => (
+                          <>
+                            <BlockTypeSelect />
+                            <UndoRedo />
+                            <BoldItalicUnderlineToggles />
+                            <ListsToggle />
+                            <CreateLink />
+                            {/* <InsertImage /> */}
+                            <InsertTable />
+                          </>
+                        ),
+                      }),
+                    ]}
                   />
                 </div>
               </div>
@@ -769,14 +857,24 @@ const InformationContent = ({ data }: any) => {
             ))}
           </div>
 
-          {/* Save Button */}
-          <div className="w-full pb-8 px-8 text-end">
-            <button
-              type="submit"
-              className="w-4/12 py-[6px] bg-textPrimary-900 text-[15px] text-white">
-              SAVE
-            </button>
-          </div>
+          {totalCompletion >= 100 ? (
+            <div className="w-full pb-8 px-8 text-end">
+              <button
+                onClick={() => approvalFn()}
+                type="button"
+                className="w-4/12 py-[6px] bg-textPrimary-900 text-[15px] text-white">
+                Approval Request
+              </button>
+            </div>
+          ) : (
+            <div className="w-full pb-8 px-8 text-end">
+              <button
+                type="submit"
+                className="w-4/12 py-[6px] bg-textPrimary-900 text-[15px] text-white">
+                SAVE
+              </button>
+            </div>
+          )}
         </form>
       </div>
     </div>
