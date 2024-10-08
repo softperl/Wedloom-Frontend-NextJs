@@ -70,8 +70,9 @@ const WeedingPhotographer = () => {
           <div className="hidden xl:block">
             <div className="wphotographer__content__header mt-4 mb-12 flex justify-between items-center">
               <div className="w-full">
-                <h5 className="text-xl font-semibold">
-                  Wedding Photographers in Karachi
+                <h5 className="text-xl font-semibold capitalize">
+                  Wedding Photographers{" "}
+                  {params?.vendorCity && `in ${params?.vendorCity}`}
                 </h5>
                 <span className="text-sm">
                   Showing <strong>2089 results</strong> as per your search

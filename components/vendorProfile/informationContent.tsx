@@ -1,15 +1,11 @@
 "use client";
 
-import { requestApprovalVendor, vendorProfileInfo } from "@/lib/api";
+import {
+  finalApproval,
+  requestApprovalVendor,
+  vendorProfileInfo,
+} from "@/lib/api";
 import { cn, handelError } from "@/lib/utils";
-import AppReactDraftWysiwyg from "@/libs/styles/AppReactDraftWysiwyg";
-import { convertToRaw, convertFromRaw, EditorState } from "draft-js";
-import { draftToMarkdown, markdownToDraft } from "markdown-draft-js";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { FaCirclePlus, FaCircleXmark } from "react-icons/fa6";
-import { AddressPopup } from "../popups/addressPopup";
-import toast from "react-hot-toast";
 import {
   BlockTypeSelect,
   BoldItalicUnderlineToggles,
@@ -31,7 +27,11 @@ import {
   type MDXEditorMethods,
 } from "@mdxeditor/editor";
 import "@mdxeditor/editor/style.css";
-import React from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { FaCirclePlus, FaCircleXmark } from "react-icons/fa6";
+import { AddressPopup } from "../popups/addressPopup";
 
 const InitializedMDXEditor = React.lazy(
   () => import("../editor/initializedMDXEditor")
@@ -72,9 +72,10 @@ const calculateProfileCompletion = (profileData: any) => {
     (filledGroup1Fields.length / group1Fields.length) * group1Weight;
 
   const group2Completion =
-    (Object.keys(profileData.additionalData)?.length /
+    profileData?.additionalData &&
+    (Object?.keys(profileData?.additionalData)?.length /
       profileData?.questions?.length) *
-    group2Weight;
+      group2Weight;
 
   // Calculate completion for group 3
   const filledGroup3Fields = group3Fields.filter((field) =>
@@ -100,8 +101,10 @@ const calculateProfileCompletion = (profileData: any) => {
     totalCompletion,
     filledFieldsCount: {
       group1: filledGroup1Fields.length,
-      group2: Object.keys(profileData.additionalData)?.length,
-      group3: filledGroup3Fields.length,
+      group2:
+        profileData?.additionalData &&
+        Object.keys(profileData?.additionalData)?.length,
+      group3: filledGroup3Fields?.length,
     },
     totalFieldsCount: {
       group1: group1Fields.length,
@@ -114,11 +117,11 @@ const calculateProfileCompletion = (profileData: any) => {
 const InformationContent = ({ data }: any) => {
   const { vendorProfile, vendorInfo, questions } = data;
   const editorRef = useRef<MDXEditorMethods | null>(null);
-  const [content, setContent] = useState(data?.vendorInfo?.addInfo); // State to store the editor's content
+  const [content, setContent] = useState(data?.vendorInfo?.addInfo || ""); // State to store the editor's content
   const [locationPopUp, setLocationPopUp] = useState(false);
   const [formData, setFormData] = useState<any>({});
   const [additionalData, setAdditionalData] = useState<any>(
-    vendorInfo.additionalData || {}
+    vendorInfo?.additionalData || {}
   );
   const [selectedOptions, setSelectedOptions] = useState<any[]>([]);
   const [numberBox, setNumberBox] = useState(
@@ -276,13 +279,27 @@ const InformationContent = ({ data }: any) => {
   console.log("vendorProfile", vendorProfile);
   const approvalFn = async () => {
     try {
-      await requestApprovalVendor(vendorInfo?.userId);
+      await requestApprovalVendor({ userId: vendorInfo?.userId });
       toast.success("Request Sent Successfully");
     } catch (error) {
       console.log(error);
       handelError(error);
     }
   };
+
+  // const finalApprovalFn = async (status: string) => {
+  //   try {
+  //     await finalApproval({
+  //       id: "cm20qyreg000b11up6o6y6zzy",
+  //       userId: "cm0w9q1tf0003cay89oy242qk",
+  //       status,
+  //     });
+  //     toast.success(status !== "Approved" ? "Rejected" : "Approved");
+  //   } catch (error) {
+  //     handelError(error);
+  //     console.log(error);
+  //   }
+  // };
   return (
     <div className="w-full">
       {/* ProgressBar of Profile Completation */}
@@ -857,25 +874,33 @@ const InformationContent = ({ data }: any) => {
             ))}
           </div>
 
-          {totalCompletion >= 100 ? (
-            <div className="w-full pb-8 px-8 text-end">
+          <div className="flex gap-5 items-center justify-end pb-5 px-5">
+            {totalCompletion >= 100 ? (
               <button
-                onClick={() => approvalFn()}
+                onClick={approvalFn}
                 type="button"
-                className="w-4/12 py-[6px] bg-textPrimary-900 text-[15px] text-white">
+                className="py-3 px-4 bg-textPrimary-900 text-[15px] text-white">
                 Approval Request
               </button>
-            </div>
-          ) : (
-            <div className="w-full pb-8 px-8 text-end">
+            ) : (
               <button
                 type="submit"
-                className="w-4/12 py-[6px] bg-textPrimary-900 text-[15px] text-white">
+                className="py-3 px-4 bg-textPrimary-900 text-[15px] text-white">
                 SAVE
               </button>
-            </div>
-          )}
+            )}
+          </div>
         </form>
+        {/* <button
+          className="bg-green-500 p-5"
+          onClick={() => finalApprovalFn("Approved")}>
+          Approved
+        </button>
+        <button
+          className="bg-red-500 p-5"
+          onClick={() => finalApprovalFn("Rejected")}>
+          Rejected
+        </button> */}
       </div>
     </div>
   );
