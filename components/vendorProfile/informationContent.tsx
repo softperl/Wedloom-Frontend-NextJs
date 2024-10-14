@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  finalApproval,
-  requestApprovalVendor,
-  vendorProfileInfo,
-} from "@/lib/api";
+import { requestApprovalVendor, vendorProfileInfo } from "@/lib/api";
 import { cn, handelError } from "@/lib/utils";
 import {
   BlockTypeSelect,
@@ -287,19 +283,6 @@ const InformationContent = ({ data }: any) => {
     }
   };
 
-  // const finalApprovalFn = async (status: string) => {
-  //   try {
-  //     await finalApproval({
-  //       id: "cm20qyreg000b11up6o6y6zzy",
-  //       userId: "cm0w9q1tf0003cay89oy242qk",
-  //       status,
-  //     });
-  //     toast.success(status !== "Approved" ? "Rejected" : "Approved");
-  //   } catch (error) {
-  //     handelError(error);
-  //     console.log(error);
-  //   }
-  // };
   return (
     <div className="w-full">
       {/* ProgressBar of Profile Completation */}
@@ -891,16 +874,6 @@ const InformationContent = ({ data }: any) => {
             )}
           </div>
         </form>
-        {/* <button
-          className="bg-green-500 p-5"
-          onClick={() => finalApprovalFn("Approved")}>
-          Approved
-        </button>
-        <button
-          className="bg-red-500 p-5"
-          onClick={() => finalApprovalFn("Rejected")}>
-          Rejected
-        </button> */}
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import FaqCard from "@/components/faqs/faqCard";
 import Link from "next/link";
 import LatestReview from "@/components/reviews/latestReview";
 
-const Faq = () => {
+const Faq = ({ data }: { data: any }) => {
   return (
     <div className="faqs bg-white py-10">
       <div className="faqs__container container mx-auto md:px-20 px-4">
