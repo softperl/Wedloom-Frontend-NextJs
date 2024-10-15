@@ -28,28 +28,28 @@ const SimilarWedding = () => {
           <div className="hidden lg:block">
             <div className="similar_wedding_content_bottom flex pt-4 pb-8">
               <SimilarWeedingCard
-                image="https://images.pexels.com/photos/3872614/pexels-photo-3872614.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                image="/pexels-photo-3872614.jpeg"
                 name="The Conflict Photographer"
                 location="Lahore, Pakistan"
                 totalReview={70}
                 budget="40,000 Rs"
               />
               <SimilarWeedingCard
-                image="https://images.pexels.com/photos/10492654/pexels-photo-10492654.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                image="/pexels-photo-3872614.jpeg"
                 name="The Passionate Photographer"
                 location="Islamabad, Pakistan"
                 totalReview={90}
                 budget="70,000 Rs"
               />
               <SimilarWeedingCard
-                image="https://images.pexels.com/photos/11390735/pexels-photo-11390735.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                image="/pexels-photo-3872614.jpeg"
                 name="Ajeet Photography"
                 location="Faisalabad, Pakistan"
                 totalReview={20}
                 budget="1,00,000 Rs"
               />
               <SimilarWeedingCard
-                image="https://images.pexels.com/photos/8110411/pexels-photo-8110411.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                image="/pexels-photo-3872614.jpeg"
                 name="Pro Photography"
                 location="Lahore, Pakistan"
                 totalReview={13}
@@ -70,7 +70,7 @@ const SimilarWedding = () => {
               className="mySwiper w-full">
               <SwiperSlide>
                 <SimilarWeedingCard
-                  image="https://images.pexels.com/photos/3872614/pexels-photo-3872614.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  image="/pexels-photo-3872614.jpeg"
                   name="The Conflict Photographer"
                   location="Lahore, Pakistan"
                   totalReview={70}
@@ -79,7 +79,7 @@ const SimilarWedding = () => {
               </SwiperSlide>
               <SwiperSlide>
                 <SimilarWeedingCard
-                  image="https://images.pexels.com/photos/8110411/pexels-photo-8110411.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                  image="/pexels-photo-3872614.jpeg"
                   name="Pro Photography"
                   location="Lahore, Pakistan"
                   totalReview={13}
@@ -88,7 +88,7 @@ const SimilarWedding = () => {
               </SwiperSlide>
               <SwiperSlide>
                 <SimilarWeedingCard
-                  image="https://images.pexels.com/photos/11390735/pexels-photo-11390735.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                  image="/pexels-photo-3872614.jpeg"
                   name="Ajeet Photography"
                   location="Faisalabad, Pakistan"
                   totalReview={20}
@@ -97,7 +97,7 @@ const SimilarWedding = () => {
               </SwiperSlide>
               <SwiperSlide>
                 <SimilarWeedingCard
-                  image="https://images.pexels.com/photos/10492654/pexels-photo-10492654.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                  image="/pexels-photo-3872614.jpeg"
                   name="The Passionate Photographer"
                   location="Islamabad, Pakistan"
                   totalReview={90}

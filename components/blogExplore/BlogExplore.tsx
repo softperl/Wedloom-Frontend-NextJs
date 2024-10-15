@@ -19,22 +19,22 @@ const BlogExplore = () => {
         <div className="main_content hidden lg:block">
           <div className="blog_content my-8 flex w-full h-full gap-8 lg:flex-nowrap flex-wrap mb-4">
             <BlogExploreCard
-              image="https://images.pexels.com/photos/8393708/pexels-photo-8393708.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              image="/pexels-photo-8393708.jpeg"
               upperText="Decor"
               downText="Guide"
             />
             <BlogExploreCard
-              image="https://images.pexels.com/photos/2106687/pexels-photo-2106687.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              image="/pexels-photo-2106687.jpeg"
               upperText="Real"
               downText="Wedding"
             />
             <BlogExploreCard
-              image="https://images.pexels.com/photos/2049561/pexels-photo-2049561.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              image="/pexels-photo-2049561.jpeg"
               upperText="Dress"
               downText="Guide"
             />
             <BlogExploreCard
-              image="https://images.pexels.com/photos/2218558/pexels-photo-2218558.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              image="/pexels-photo-2218558.jpeg"
               upperText="Wedding"
               downText="Ideas"
             />
@@ -55,28 +55,28 @@ const BlogExplore = () => {
           className="mySwiper w-full">
           <SwiperSlide>
             <BlogExploreCard
-              image="https://images.pexels.com/photos/8393708/pexels-photo-8393708.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              image="/pexels-photo-8393708.jpeg"
               upperText="Decor"
               downText="Guide"
             />
           </SwiperSlide>
           <SwiperSlide>
             <BlogExploreCard
-              image="https://images.pexels.com/photos/2106687/pexels-photo-2106687.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              image="/pexels-photo-2106687.jpeg"
               upperText="Real"
               downText="Wedding"
             />
           </SwiperSlide>
           <SwiperSlide>
             <BlogExploreCard
-              image="https://images.pexels.com/photos/2049561/pexels-photo-2049561.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              image="/pexels-photo-2049561.jpeg"
               upperText="Dress"
               downText="Guide"
             />
           </SwiperSlide>
           <SwiperSlide>
             <BlogExploreCard
-              image="https://images.pexels.com/photos/2218558/pexels-photo-2218558.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              image="/pexels-photo-2218558.jpeg"
               upperText="Wedding"
               downText="Ideas"
             />

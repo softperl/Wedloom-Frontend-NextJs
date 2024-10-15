@@ -58,10 +58,7 @@ const ReviewCardWithoutReply = ({
                 <Image
                   width={500}
                   height={500}
-                  src={
-                    image ||
-                    "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png"
-                  }
+                  src={image || "/avater.jpeg"}
                   alt="photo"
                   className="w-12 lg:w-14 h-12 lg:h-14 rounded-full"
                 />

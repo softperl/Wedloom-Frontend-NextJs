@@ -384,35 +384,35 @@ const Faq = ({ data }: { data: any }) => {
             </h4>
             <div className="latest__review__container">
               <LatestReview
-                avatar="https://images.pexels.com/photos/10332895/pexels-photo-10332895.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                avatar="/pexels-photo-10332895.jpeg"
                 category="The Wedding Shading"
                 shortReview="Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, fuga Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, fuga?"
                 name="Samidha Piyush"
                 date="20 Aug 2022"
               />
               <LatestReview
-                avatar="https://images.pexels.com/photos/10332902/pexels-photo-10332902.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                avatar="/pexels-photo-10332895.jpeg"
                 category="The Wedding Shading"
                 shortReview="Debitis rerum optio numquam, minima expedita doloribus molestiae, nam harum sed qui magni quaerat alias molestias, assumenda reiciendis ipsa reprehenderit at nostrum."
                 name="Samidha Piyush"
                 date="20 Aug 2022"
               />
               <LatestReview
-                avatar="https://images.pexels.com/photos/13066341/pexels-photo-13066341.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                avatar="/pexels-photo-10332895.jpeg"
                 category="The Wedding Shading"
                 shortReview="amet consectetur adipisicing elit. Dolor, provident modi error ducimus nam"
                 name="Samidha Piyush"
                 date="20 Aug 2022"
               />
               <LatestReview
-                avatar="https://images.pexels.com/photos/1229414/pexels-photo-1229414.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                avatar="/pexels-photo-10332895.jpeg"
                 category="The Wedding Shading"
                 shortReview="amet consectetur adipisicing elit. Dolor, provident modi error ducimus nam quasi voluptatibus quos sequi deserunt"
                 name="Samidha Piyush"
                 date="20 Aug 2022"
               />
               <LatestReview
-                avatar="https://images.pexels.com/photos/3872614/pexels-photo-3872614.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                avatar="/pexels-photo-10332895.jpeg"
                 category="The Wedding Shading"
                 shortReview="Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor, provident modi error ducimus nam quasi voluptatibus quos sequi deserunt quo consectetur sed id repellat cumque nesciunt accusamus eligendi eius nostrum."
                 name="Samidha Piyush"

@@ -13,19 +13,19 @@ const CommentBox = () => {
         <SectionHeader text="Recent Comments" />
         <div className="comment_content mt-4 mb-8">
           <CommentCard
-            image="https://images.pexels.com/photos/1589216/pexels-photo-1589216.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            image="/pexels-photo-1589216.jpeg"
             author="Salam Sheikh"
             comments="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio tempore, ex quo minima aliquam quos"
             date="12 Aug 2022"
           />
           <CommentCard
-            image="https://images.pexels.com/photos/2781104/pexels-photo-2781104.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            image="/pexels-photo-2781104.jpeg"
             author="Junaid"
             comments="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio tempore, ex quo minima aliquam quos"
             date="10 Apr 2022"
           />
           <CommentCard
-            image="https://images.pexels.com/photos/1253370/pexels-photo-1253370.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            image="/pexels-photo-1253370.jpeg"
             author="Hossain Mohammad"
             comments="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio tempore, ex quo minima aliquam quos"
             date="01 Feb 2022"

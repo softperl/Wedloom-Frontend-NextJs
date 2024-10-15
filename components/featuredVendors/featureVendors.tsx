@@ -10,35 +10,35 @@ import SectionHeader from "@/components/sectionHeader";
 const FeatureVendors = () => {
   const data = [
     {
-      img: "https://images.pexels.com/photos/2124722/pexels-photo-2124722.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      img: "/pexels-photo-2124722.jpeg",
       title: "Vanity Affair By Anmol",
       category: "Bridal Makeup",
       price: "Rs. 26,000",
       rating: "4.7",
     },
     {
-      img: "https://images.pexels.com/photos/2124722/pexels-photo-2124722.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      img: "/pexels-photo-2124722.jpeg",
       title: "Vanity Affair By Anmol",
       category: "Bridal Makeup",
       price: "Rs. 19,000",
       rating: "5",
     },
     {
-      img: "https://images.pexels.com/photos/2124722/pexels-photo-2124722.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      img: "/pexels-photo-2124722.jpeg",
       title: "Vanity Affair By Anmol",
       category: "Bridal Makeup",
       price: "Rs. 14,000",
       rating: "4.9",
     },
     {
-      img: "https://images.pexels.com/photos/2124722/pexels-photo-2124722.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      img: "/pexels-photo-2124722.jpeg",
       title: "Vanity Affair By Anmol",
       category: "Bridal Makeup",
       price: "Rs. 15,000",
       rating: "4.5",
     },
     {
-      img: "https://images.pexels.com/photos/2124722/pexels-photo-2124722.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      img: "/pexels-photo-2124722.jpeg",
       title: "Vanity Affair By Anmol",
       category: "Bridal Makeup",
       price: "Rs. 36,000",

@@ -92,7 +92,7 @@ const CheckoutContent = ({ packageName }: any) => {
                     <Image
                       width={500}
                       height={500}
-                      src="https://images.pexels.com/photos/1707446/pexels-photo-1707446.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                      src="/pexels-photo-1707446.jpeg"
                       alt=""
                       className="w-full md:h-[350px] h-[200px]"
                     />

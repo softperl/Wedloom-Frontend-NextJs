@@ -39,7 +39,7 @@ const SimilarWeedingCard = ({
                   <Image
                     width={500}
                     height={500}
-                    src="https://imgs.search.brave.com/dU95yB3CF6HwwAiOFaBuXbHOiC_wnFzcAEHhdMB6UpM/rs:fit:800:800:1/g:ce/aHR0cHM6Ly9mcmVl/cG5naW1nLmNvbS9k/b3dubG9hZC9zb2Np/YWxfbWVkaWEvNzQy/NjktdmVyaWZpZWQt/aW5zdGFncmFtLWlj/b25zLW1lZGlhLXN5/bWJvbC1jb21wdXRl/ci1zb2NpYWwucG5n"
+                    src="/verified.png"
                     alt=""
                     className="w-6"
                   />

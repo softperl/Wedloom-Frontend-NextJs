@@ -23,7 +23,7 @@ export default function RootLayout({
     <div className="contact_form">
       {/* Mobile Banner */}
       <div className="block lg:hidden">
-        <MobileSignupLoginBanner image="https://images.pexels.com/photos/13162696/pexels-photo-13162696.jpeg?auto=compress&cs=tinysrgb&w=1600" />
+        <MobileSignupLoginBanner image="/pexels-photo-13162696.jpeg" />
       </div>
       <div className="container mx-auto">
         {/* Desktop View */}
@@ -45,19 +45,19 @@ export default function RootLayout({
                 <SwiperSlide className="w-full h-full">
                   <AuthPhotos
                     className="h-[824px]"
-                    image="https://images.pexels.com/photos/9901800/pexels-photo-9901800.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                    image="/pexels-photo-9901800.webp"
                   />
                 </SwiperSlide>
                 <SwiperSlide className="w-full h-full">
                   <AuthPhotos
                     className="h-[824px]"
-                    image="https://images.pexels.com/photos/6544106/pexels-photo-6544106.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                    image="/pexels-photo-6544106.jpeg"
                   />
                 </SwiperSlide>
                 <SwiperSlide className="w-full h-full">
                   <AuthPhotos
                     className="h-[824px]"
-                    image="https://images.pexels.com/photos/13162696/pexels-photo-13162696.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                    image="/pexels-photo-13162696.jpeg"
                   />
                 </SwiperSlide>
               </Swiper>

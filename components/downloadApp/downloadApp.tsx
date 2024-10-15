@@ -69,7 +69,7 @@ const DownloadApp = () => {
             <div className="download__right__img">
               <Image
                 fill
-                src="https://image.wedmegood.com/resized/500X/images/banner/download_app.jpg"
+                src="/download_app.avif"
                 alt="download_Image"
                 className="w-44"
               />

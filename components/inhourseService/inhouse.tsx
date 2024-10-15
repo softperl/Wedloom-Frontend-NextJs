@@ -5,26 +5,22 @@ import InhouseCard from "@/components/inhourseService/inhourseCard/inhouseCard";
 const Inhouse = () => {
   const data = [
     {
-      image:
-        "https://image.wedmegood.com/resized-nw/570X/uploads/wmg_services/genie_dweb.jpg",
+      image: "/genie_dweb.webp",
       title: "Genesis Service",
       subtitle: "Plan your dream wedding in your budget",
     },
     {
-      image:
-        "https://images.pexels.com/photos/11434577/pexels-photo-11434577.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      image: "/genie_dweb.webp",
       title: "Service Two",
       subtitle: "Plan your dream wedding in your budget",
     },
     {
-      image:
-        "https://images.pexels.com/photos/758898/pexels-photo-758898.png?auto=compress&cs=tinysrgb&w=1600",
+      image: "/genie_dweb.webp",
       title: "Service Three",
       subtitle: "Plan your dream wedding in your budget",
     },
     {
-      image:
-        "https://images.pexels.com/photos/1456613/pexels-photo-1456613.jpeg?cs=srgb&dl=pexels-kumar-saurabh-1456613.jpg&fm=jpg",
+      image: "/genie_dweb.webp",
       title: "Service Four",
       subtitle: "Plan your dream wedding in your budget",
     },

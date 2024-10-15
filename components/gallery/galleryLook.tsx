@@ -10,27 +10,27 @@ import GLookCarousel from "@/components/carousels/gLookCarousel";
 const GalleryLook = () => {
   const data = [
     {
-      img: "https://image.wedmegood.com/resized/300X/uploads/im_cat_image/4/outfits.jpg",
+      img: "/outfits.avif",
       text: "Bridal Ware in Lahore",
     },
     {
-      img: "https://image.wedmegood.com/resized/300X/uploads/im_cat_image/4/outfits.jpg",
+      img: "/outfits.avif",
       text: "Lahore",
     },
     {
-      img: "https://image.wedmegood.com/resized/300X/uploads/im_cat_image/4/outfits.jpg",
+      img: "/outfits.avif",
       text: "Bridal Ware",
     },
     {
-      img: "https://image.wedmegood.com/resized/300X/uploads/im_cat_image/4/outfits.jpg",
+      img: "/outfits.avif",
       text: "jdskjd sd",
     },
     {
-      img: "https://image.wedmegood.com/resized/300X/uploads/im_cat_image/4/outfits.jpg",
+      img: "/outfits.avif",
       text: "uiuw sdjsg sgds",
     },
     {
-      img: "https://image.wedmegood.com/resized/300X/uploads/im_cat_image/4/outfits.jpg",
+      img: "/outfits.avif",
       text: "Ware in Lahore",
     },
   ];
@@ -102,64 +102,40 @@ const GalleryLook = () => {
             loopFillGroupWithBlank={true}
             className="mySwiper">
             <SwiperSlide>
-              <GLookCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/im_cat_image/4/outfits.jpg"
-                text="Bridal Ware in Lahore"
-              />
+              <GLookCarousel img="/outfits.avif" text="Bridal Ware in Lahore" />
             </SwiperSlide>
             <SwiperSlide>
               <GLookCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/im_cat_image/4/outfits.jpg"
+                img="/outfits.avif"
                 text="Bridal Ware in Pakistan"
               />
             </SwiperSlide>
             <SwiperSlide>
               <GLookCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/im_cat_image/4/outfits.jpg"
+                img="/outfits.avif"
                 text="Bridal Ware in Faisalabad"
               />
             </SwiperSlide>
             <SwiperSlide>
-              <GLookCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                text="Bridal Ware in Islamabad"
-              />
+              <GLookCarousel img="/mua.webp" text="Bridal Ware in Islamabad" />
             </SwiperSlide>
             <SwiperSlide>
-              <GLookCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                text="Bridal Ware in Karachi"
-              />
+              <GLookCarousel img="/mua.webp" text="Bridal Ware in Karachi" />
             </SwiperSlide>
             <SwiperSlide>
-              <GLookCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                text="Bridal Ware in Multan"
-              />
+              <GLookCarousel img="/mua.webp" text="Bridal Ware in Multan" />
             </SwiperSlide>
             <SwiperSlide>
-              <GLookCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                text="Bridal Ware in Sukkur"
-              />
+              <GLookCarousel img="/mua.webp" text="Bridal Ware in Sukkur" />
             </SwiperSlide>
             <SwiperSlide>
-              <GLookCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                text="Bridal Ware in Okara"
-              />
+              <GLookCarousel img="/mua.webp" text="Bridal Ware in Okara" />
             </SwiperSlide>
             <SwiperSlide>
-              <GLookCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                text="Bridal Ware in Nawabshah"
-              />
+              <GLookCarousel img="/mua.webp" text="Bridal Ware in Nawabshah" />
             </SwiperSlide>
             <SwiperSlide>
-              <GLookCarousel
-                img="https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg"
-                text="Bridal Ware in Jhelum"
-              />
+              <GLookCarousel img="/mua.webp" text="Bridal Ware in Jhelum" />
             </SwiperSlide>
           </Swiper>
         </div>

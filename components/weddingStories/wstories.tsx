@@ -11,7 +11,7 @@ import { formatDate } from "date-fns/format";
 const Wstories = () => {
   const data = [
     {
-      img: "https://image.wedmegood.com/resized/450X/uploads/images/d2f380bdc1ac49b3a21427c5f6e0cb85realwedding/ShivaniSiddhant-275.jpeg?crop=10,125,2027,1140",
+      img: "/ShivaniSiddhant-275.avif",
       name: "Shivani and Siddhant",
       summary:
         "A Grand Indore Wedding With A Bride Who Served Us Swoon-Worthy Looks",
@@ -19,7 +19,7 @@ const Wstories = () => {
       slug: "/hsdh-ret-dfhdbc-sxl",
     },
     {
-      img: "https://image.wedmegood.com/resized/450X/uploads/images/d2f380bdc1ac49b3a21427c5f6e0cb85realwedding/ShivaniSiddhant-275.jpeg?crop=10,125,2027,1140",
+      img: "/ShivaniSiddhant-275.avif",
       name: "Shivani and Siddhant",
       summary:
         "A Grand Indore Wedding With A Bride Who Served Us Swoon-Worthy Looks",
@@ -27,7 +27,7 @@ const Wstories = () => {
       slug: "/hsdh-ret-dfhdbc-sxl",
     },
     {
-      img: "https://image.wedmegood.com/resized/450X/uploads/images/d2f380bdc1ac49b3a21427c5f6e0cb85realwedding/ShivaniSiddhant-275.jpeg?crop=10,125,2027,1140",
+      img: "/ShivaniSiddhant-275.avif",
       name: "Shivani and Siddhant",
       summary:
         "A Grand Indore Wedding With A Bride Who Served Us Swoon-Worthy Looks",
@@ -35,7 +35,7 @@ const Wstories = () => {
       slug: "/hsdh-ret-dfhdbc-sxl",
     },
     {
-      img: "https://image.wedmegood.com/resized/450X/uploads/images/d2f380bdc1ac49b3a21427c5f6e0cb85realwedding/ShivaniSiddhant-275.jpeg?crop=10,125,2027,1140",
+      img: "/ShivaniSiddhant-275.avif",
       name: "Shivani and Siddhant",
       summary:
         "A Grand Indore Wedding With A Bride Who Served Us Swoon-Worthy Looks",

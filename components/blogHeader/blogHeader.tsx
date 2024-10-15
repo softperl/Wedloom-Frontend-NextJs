@@ -17,7 +17,7 @@ const BlogHeader = ({ post }: any) => {
       className="blog_header h-[60vh] px-4"
       style={{
         background:
-          "radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)),url('https://images.pexels.com/photos/7514865/pexels-photo-7514865.jpeg?auto=compress&cs=tinysrgb&w=1600')",
+          "radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)),url('/pexels-photo-7514865.jpeg')",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",

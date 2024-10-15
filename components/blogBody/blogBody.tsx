@@ -63,7 +63,7 @@ const BlogBody = () => {
           <div className="w-full">
             <Image
               fill
-              src="https://images.pexels.com/photos/2857306/pexels-photo-2857306.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              src="/pexels-photo-2857306.jpeg"
               alt=""
               className="h-96"
             />

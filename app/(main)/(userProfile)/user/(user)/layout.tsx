@@ -79,17 +79,11 @@ export default function RootLayout({
   return (
     <>
       {events?.length > 0 && (
-        <div
-          className="w-full h-[30vh] md:h-[50vh] bg-no-repeat bg-cover bg-top relative"
-          //           style={{
-          //             backgroundImage: `radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
-          // url("https://onehorizonproductions.com/wp-content/uploads/2022/03/Alfisha-Fahad-habib-Day-2-3-One-Horizon-Productions-52.jpg")`,
-          //           }}
-        >
+        <div className="w-full h-[30vh] md:h-[50vh] bg-no-repeat bg-cover bg-top relative">
           <div className="relative w-full h-full">
             <Image
               fill
-              src="https://onehorizonproductions.com/wp-content/uploads/2022/03/Alfisha-Fahad-habib-Day-2-3-One-Horizon-Productions-52.jpg"
+              src="/Alfisha-Fahad-habib-Day-2-3-One-Horizon-Productions-52.webp"
               alt=""
               className="w-full h-full inset-0 object-top"
             />
@@ -98,7 +92,7 @@ export default function RootLayout({
               <Image
                 width={800}
                 height={400}
-                src="https://images.wedmegood.com/images/image_gradient.png"
+                src="/image_gradient.png"
                 alt=""
                 className="w-full h-full inset-0 filter blur-sm"
               />

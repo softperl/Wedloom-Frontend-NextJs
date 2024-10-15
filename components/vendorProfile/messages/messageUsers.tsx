@@ -61,9 +61,7 @@ const MessageUsers = () => {
   return (
     <>
       <div className="w-full md:w-[35%] lg:w-64 flex-shrink-0 h-[75vh] border-r-paginationBg-900 border-r max-h-[75vh] overflow-scroll">
-        {/* <MessageSidebar /> */}
         <div className="h-full overflow-y-scroll">
-          {/* SearchBar */}
           <div className="w-full flex gap-2 justify-between items-center border-b border-b-paginationBg-900 text-textSecondary-900 h-[60px] px-4">
             <input
               type="text"

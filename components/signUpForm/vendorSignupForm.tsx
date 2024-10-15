@@ -140,7 +140,7 @@ const VendorSignupForm = () => {
     <div className="contact_form">
       {/* Mobile Banner */}
       <div className="block lg:hidden">
-        <MobileSignupLoginBanner image="https://images.pexels.com/photos/1345352/pexels-photo-1345352.jpeg?auto=compress&cs=tinysrgb&w=1600" />
+        <MobileSignupLoginBanner image="/pexels-photo-1345352.jpeg" />
       </div>
       <div className="container mx-auto">
         {/* Desktop Part */}
@@ -393,19 +393,19 @@ const VendorSignupForm = () => {
                 <SwiperSlide className="w-full h-full">
                   <AuthPhotos
                     className="h-[1180px]"
-                    image="https://images.pexels.com/photos/1934780/pexels-photo-1934780.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                    image="/pexels-photo-1934780.jpeg"
                   />
                 </SwiperSlide>
                 <SwiperSlide className="w-full h-full">
                   <AuthPhotos
                     className="h-[1180px]"
-                    image="https://images.pexels.com/photos/1345352/pexels-photo-1345352.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                    image="/pexels-photo-1345352.jpeg"
                   />
                 </SwiperSlide>
                 <SwiperSlide className="w-full h-full">
                   <AuthPhotos
                     className="h-[1180px]"
-                    image="https://images.pexels.com/photos/2106687/pexels-photo-2106687.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                    image="/pexels-photo-2106687.jpeg"
                   />
                 </SwiperSlide>
               </Swiper>

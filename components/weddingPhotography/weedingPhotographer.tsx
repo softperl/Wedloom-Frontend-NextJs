@@ -140,8 +140,7 @@ const WeedingPhotographer = ({ data }: { data: any }) => {
             <div
               className="mobile_banner_content h-[10vh] bg-white flex items-end"
               style={{
-                background:
-                  "url('https://images.pexels.com/photos/2293102/pexels-photo-2293102.jpeg?auto=compress&cs=tinysrgb&w=1600')",
+                background: "url('/pexels-photo-2293102.jpeg')",
                 backgroundPosition: "center",
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
@@ -236,10 +235,10 @@ const WeedingPhotographer = ({ data }: { data: any }) => {
                       <PhotoBudgetCard
                         circle
                         heading="Photographer by Budget"
-                        image1="https://images.pexels.com/photos/6085682/pexels-photo-6085682.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                        image2="https://images.pexels.com/photos/6544106/pexels-photo-6544106.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                        image3="https://images.pexels.com/photos/6543940/pexels-photo-6543940.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                        image4="https://images.pexels.com/photos/11810879/pexels-photo-11810879.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                        image1="/pexels-photo-6085682.jpeg"
+                        image2="/pexels-photo-6085682.jpeg"
+                        image3="/pexels-photo-6085682.jpeg"
+                        image4="/pexels-photo-6085682.jpeg"
                         category1="Budget Friendly"
                         category2="Value For Money"
                         category3="Premium"
@@ -249,10 +248,10 @@ const WeedingPhotographer = ({ data }: { data: any }) => {
                     <div className="photographer_by_type mt-8">
                       <PhotoBudgetCard
                         heading="Photographer by Type"
-                        image1="https://images.pexels.com/photos/1229414/pexels-photo-1229414.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                        image2="https://images.pexels.com/photos/3872626/pexels-photo-3872626.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                        image3="https://images.pexels.com/photos/8790775/pexels-photo-8790775.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                        image4="https://images.pexels.com/photos/12759473/pexels-photo-12759473.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                        image1="/pexels-photo-1229414.jpeg"
+                        image2="/pexels-photo-1229414.jpeg"
+                        image3="/pexels-photo-1229414.jpeg"
+                        image4="/pexels-photo-1229414.jpeg"
                         category1="Pre wedding Photographer"
                         category2="Vaccinated Photographers"
                         category3="Top Rated Photographers"

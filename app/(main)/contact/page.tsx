@@ -7,7 +7,7 @@ import React from "react";
 export default function page() {
   return (
     <>
-      <ContactBanner background="https://images.pexels.com/photos/2174662/pexels-photo-2174662.jpeg?auto=compress&cs=tinysrgb&w=1600" />
+      <ContactBanner background="/pexels-photo-2174662.jpeg" />
       <ContactCard />
       <ContactForm />
       <GoogleMap />
