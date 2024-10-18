@@ -126,7 +126,7 @@ const InformationContent = ({ data }: any) => {
       : [{ number: "" }]
   );
 
-  console.log(vendorProfile.addInfo);
+  // console.log(vendorProfile.addInfo);
   const defaultValues = useMemo(
     () => ({
       email: vendorProfile?.email,
@@ -267,9 +267,9 @@ const InformationContent = ({ data }: any) => {
     }
   };
 
-  // Call handleSave every time the content changes
-  const handleEditorChange = () => {
-    handleSave();
+  // Update this function to set the content state
+  const handleEditorChange = (markdown: string) => {
+    setContent(markdown);
   };
 
   console.log("vendorProfile", vendorProfile);
@@ -643,7 +643,7 @@ const InformationContent = ({ data }: any) => {
                     <span>Additional Information</span>
                     <span className="text-[10px]">
                       (To update your description, please send a mail to
-                      vendors@weedloom.com)
+                      vendors@wedplanr.com)
                     </span>
                   </label>
                 </div>

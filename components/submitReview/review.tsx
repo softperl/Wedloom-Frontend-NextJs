@@ -181,6 +181,18 @@ const Review = ({ review, heading }: any) => {
               </div>
               <div className="rating__distribution_content mt-3 text-textSecondary-900 pb-3">
                 {reviewDistributions?.map((item: any, i: number) => {
+                  // Step 1: Safely calculate the total number of reviews
+                  const totalReviews = reviewDistributions.reduce(
+                    (acc: number, curr: any) => acc + (curr.count || 0), // Fallback to 0 if count is undefined
+                    0
+                  );
+
+                  // Step 2: Calculate the width percentage for each rating
+                  const percentage =
+                    totalReviews > 0
+                      ? ((item?.count || 0) / totalReviews) * 100
+                      : 0;
+                  console.log("percentage", percentage);
                   return (
                     <div key={i} className="5star flex items-center gap-4 mb-3">
                       <div className="checkbox w-1/12">
@@ -196,7 +208,7 @@ const Review = ({ review, heading }: any) => {
                       <div className="progressbar w-full bg-gray-200 rounded-full h-2.5">
                         <div
                           className="bg-textPrimary-900 h-2.5 rounded-full"
-                          style={{ width: "95%" }}></div>
+                          style={{ width: `${percentage}%` }}></div>
                       </div>
                       <div className="totalReview w-3/12">
                         <span className="text-sm">

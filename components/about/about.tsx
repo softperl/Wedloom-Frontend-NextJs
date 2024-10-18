@@ -1,19 +1,8 @@
-import { EditorState, convertFromRaw } from "draft-js";
-import { markdownToDraft } from "markdown-draft-js";
-import { useEffect, useState } from "react";
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+"use client";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export const About = ({ about, data }: any) => {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-
-  useEffect(() => {
-    // Convert Markdown to Draft.js content
-    const rawContent = markdownToDraft(data?.VendorProfileInfo[0]?.addInfo);
-    const contentState = convertFromRaw(rawContent);
-    setEditorState(EditorState.createWithContent(contentState));
-  }, [data?.VendorProfileInfo[0]?.addInfo]);
-
   return (
     <section className="">
       <div className="about__content  bg-white shadow-md" ref={about}>
@@ -26,11 +15,9 @@ export const About = ({ about, data }: any) => {
 
           <div className="about__description py-6 px-5">
             <div className="">
-              <Editor
-                editorState={editorState}
-                toolbarHidden={true}
-                readOnly={true}
-              />
+              <Markdown remarkPlugins={[remarkGfm]}>
+                {data?.VendorProfileInfo[0]?.addInfo}
+              </Markdown>
             </div>
           </div>
         </div>

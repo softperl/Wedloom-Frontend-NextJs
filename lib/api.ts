@@ -191,3 +191,8 @@ export const removeFaq = (id: any) => API.delete(`/vendor/faq/delete/${id}`);
 //Payment
 export const createPayment = (formData: any) =>
   API.post("/payment/new", formData);
+
+//Admin View Profile
+export const getAdminVendorProfile = (vendorId: any) =>
+  API.get(`/vendor/admin/get-profile-info/${vendorId}`);
+export const getQuestions = () => API.get(`/question/get-all`);
