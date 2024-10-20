@@ -26,7 +26,7 @@ export const MessagesLayout = ({
   admin = false,
 }: Readonly<{
   children: React.ReactNode;
-  admin: boolean;
+  admin?: boolean;
 }>) => {
   const params: any = useParams();
   const { user } = useAuth();

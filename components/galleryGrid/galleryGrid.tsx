@@ -36,7 +36,7 @@ const GalleryGrid = ({ data }: { data: any }) => {
         ))}
       </div>
       {/* Pagination */}
-      <Pagination />
+      {/* <Pagination /> */}
     </div>
   );
 };
