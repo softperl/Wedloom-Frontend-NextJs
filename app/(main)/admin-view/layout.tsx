@@ -1,72 +1,89 @@
 "use client";
 
+import useChats from "@/lib/hooks/useChats";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { FaInfoCircle } from "react-icons/fa";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  FaDesktop,
+  FaImages,
+  FaInfoCircle,
+  FaRegChartBar,
+  FaRegComments,
+  FaVenus,
+} from "react-icons/fa";
+import { FaQuestion, FaRegFileZipper, FaRegMessage } from "react-icons/fa6";
+import { IoMdSettings } from "react-icons/io";
+import { LuPackagePlus } from "react-icons/lu";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const router = useRouter();
+  const { unReadConversation } = useChats();
+  const pathname = usePathname();
+  const vendorId = pathname?.split("/")[2]!;
+
   const vendorMenu = [
     {
       label: "Profile Informations",
-      link: "/vendor/profile",
+      link: `/admin-view/${vendorId}/profile`,
       icon: FaInfoCircle,
     },
-    // {
-    //   label: "Projects",
-    //   link: "/vendor/profile/projects",
-    //   icon: FaImages,
-    // },
-    // {
-    //   label: "Packages",
-    //   link: "/vendor/profile/packages",
-    //   icon: LuPackagePlus,
-    // },
-    // {
-    //   label: "Faq",
-    //   link: "/vendor/profile/faq",
-    //   icon: FaQuestion,
-    // },
-    // {
-    //   label: "Membership Plans",
-    //   link: "/vendor/profile/membership",
-    //   icon: FaDesktop,
-    // },
+    {
+      label: "Projects",
+      link: `/admin-view/${vendorId}/projects`,
+      icon: FaImages,
+    },
+    {
+      label: "Packages",
+      link: `/admin-view/${vendorId}/packages`,
+      icon: LuPackagePlus,
+    },
+    {
+      label: "Faq",
+      link: `/admin-view/${vendorId}/faq`,
+      icon: FaQuestion,
+    },
+    {
+      label: "Membership Plans",
+      link: `/admin-view/${vendorId}/membership`,
+      icon: FaDesktop,
+    },
 
-    // {
-    //   label: "Reviews",
-    //   link: "/vendor/profile/reviews",
-    //   icon: FaRegComments,
-    // },
-    // {
-    //   label: "Banquets",
-    //   link: "/vendor/profile/banquets",
-    //   icon: FaVenus,
-    // },
-    // {
-    //   label: "Menu",
-    //   link: "/vendor/profile/menu",
-    //   icon: FaRegFileZipper,
-    // },
-    // {
-    //   label: "Analytics",
-    //   link: "/vendor/profile/analytics",
-    //   icon: FaRegChartBar,
-    // },
-    // {
-    //   label: "Settings",
-    //   link: "/vendor/profile/settings",
-    //   icon: IoMdSettings,
-    // },
-    // {
-    //   label: "Messages",
-    //   link: "/vendor/profile/inbox",
-    //   icon: FaRegMessage,
-    //   count: unReadConversation,
-    // },
+    {
+      label: "Reviews",
+      link: `/admin-view/${vendorId}/reviews`,
+      icon: FaRegComments,
+    },
+    {
+      label: "Banquets",
+      link: `/admin-view/${vendorId}/banquets`,
+      icon: FaVenus,
+    },
+    {
+      label: "Menu",
+      link: `/admin-view/${vendorId}/menu`,
+      icon: FaRegFileZipper,
+    },
+    {
+      label: "Analytics",
+      link: `/admin-view/${vendorId}/analytics`,
+      icon: FaRegChartBar,
+    },
+    {
+      label: "Settings",
+      link: `/admin-view/${vendorId}/settings`,
+      icon: IoMdSettings,
+    },
+    {
+      label: "Messages",
+      link: `/admin-view/${vendorId}/inbox`,
+      icon: FaRegMessage,
+      count: unReadConversation,
+    },
   ];
   return (
     <div className="bg-[#efefef]">

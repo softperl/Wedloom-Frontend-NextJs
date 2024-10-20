@@ -12,6 +12,7 @@ const MessageSender = ({
   img,
   seen,
   fevCon = false,
+  admin = false,
 }: {
   name: string;
   text: string;
@@ -19,6 +20,7 @@ const MessageSender = ({
   img: string;
   seen?: any;
   fevCon?: any;
+  admin?: boolean;
 }) => {
   const { setRemoveFevCon } = useChats();
   return (

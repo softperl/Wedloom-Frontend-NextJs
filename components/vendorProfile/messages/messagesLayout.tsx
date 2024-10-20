@@ -23,8 +23,10 @@ import { MdLocationOn, MdStar, MdStarOutline } from "react-icons/md";
 
 export const MessagesLayout = ({
   children,
+  admin = false,
 }: Readonly<{
   children: React.ReactNode;
+  admin: boolean;
 }>) => {
   const params: any = useParams();
   const { user } = useAuth();
@@ -227,6 +229,7 @@ export const MessagesLayout = ({
           <div className="w-full border border-paginationBg-900 flex gap-4 items-center justify-between px-2 rounded-l">
             <div className="w-full">
               <input
+                disabled={admin}
                 type="text"
                 placeholder="Write Message..."
                 ref={inputRef}
@@ -246,7 +249,8 @@ export const MessagesLayout = ({
           {/* button */}
           <div className="w-max">
             <button
-              className="text-white text-xs lg:text-sm font-semibold bg-textPrimary-900 px-4 flex items-center gap-1 py-[13px] rounded-tr rounded-br"
+              disabled={admin}
+              className="text-white text-xs lg:text-sm font-semibold bg-textPrimary-900 px-4 flex items-center gap-1 py-[13px] rounded-tr rounded-br disabled:bg-gray-300"
               type="submit">
               Send <FiSend />
             </button>

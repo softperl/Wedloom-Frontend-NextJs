@@ -1,14 +1,21 @@
 "use client";
-import { createBanquet, getBanquets, removeBanquet } from "@/lib/api";
+import {
+  createBanquet,
+  getBanquets,
+  getBanquetsAdmin,
+  removeBanquet,
+} from "@/lib/api";
 import { handelError } from "@/lib/utils";
 import { get } from "http";
 import Image from "next/image";
+import { useParams, usePathname } from "next/navigation";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaTrash, FaX, FaXmark } from "react-icons/fa6";
 
 const Banquets = () => {
+  const params = useParams();
   const [refresh, setRefresh] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
   const [value, setValue] = useState({
@@ -19,12 +26,31 @@ const Banquets = () => {
   });
   const [data, setData] = useState<any>([]);
 
+  const [isAdminView, setIsAdminView] = useState(false);
+  const pathname = usePathname();
+  useEffect(() => {
+    if (pathname.includes("admin-view")) {
+      setIsAdminView(true);
+    } else {
+      setIsAdminView(false);
+    }
+  }, [pathname]);
+
   const getBanquetsFn = async () => {
-    try {
-      const { data } = await getBanquets();
-      setData(data?.banquet);
-    } catch (error) {
-      console.log(error);
+    if (params?.vendorId) {
+      try {
+        const { data } = await getBanquetsAdmin(params?.vendorId);
+        setData(data?.banquet);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        const { data } = await getBanquets();
+        setData(data?.banquet);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -74,11 +100,13 @@ const Banquets = () => {
       {/* Heading */}
       <div className="bg-sectionBg-900 px-4 py-3 flex justify-between items-center">
         <h2 className="text-textSecondary-900 lg:text-lg">Banquets</h2>
-        <button
-          onClick={() => setOpenPopup(true)}
-          className={`border border-paginationBg-900 py-2 px-4 text-xs lg:text-sm rounded-sm`}>
-          Add Bunquets
-        </button>
+        {!isAdminView && (
+          <button
+            onClick={() => setOpenPopup(true)}
+            className={`border border-paginationBg-900 py-2 px-4 text-xs lg:text-sm rounded-sm`}>
+            Add Bunquets
+          </button>
+        )}
       </div>
 
       {/* Content */}
@@ -121,9 +149,11 @@ const Banquets = () => {
                 </p>
               </div>
               <div className="w-[20%] text-end">
-                <p className="font-semibold text-textSecondary-900 text-xs lg:text-[15px]">
-                  Actions
-                </p>
+                {!isAdminView && (
+                  <p className="font-semibold text-textSecondary-900 text-xs lg:text-[15px]">
+                    Actions
+                  </p>
+                )}
               </div>
             </div>
 
@@ -153,10 +183,12 @@ const Banquets = () => {
                 </div>
                 <div className="w-[20%] text-end">
                   <span className="text-textSecondary-900 flex justify-end">
-                    <FaTrash
-                      onClick={() => deleteBanquetes(v?.id)}
-                      className="cursor-pointer"
-                    />
+                    {!isAdminView && (
+                      <FaTrash
+                        onClick={() => deleteBanquetes(v?.id)}
+                        className="cursor-pointer"
+                      />
+                    )}
                   </span>
                 </div>
               </div>

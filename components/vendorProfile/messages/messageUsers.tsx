@@ -5,10 +5,11 @@ import useAuth from "@/lib/hooks/useAuth";
 import useChats from "@/lib/hooks/useChats";
 import { handelError, timeFormat } from "@/lib/utils";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 
-const MessageUsers = () => {
+const MessageUsers = ({ admin = false }: any) => {
   const { user } = useAuth();
   const {
     conversations,
@@ -19,6 +20,8 @@ const MessageUsers = () => {
     lastMessage,
   } = useChats();
   const [search, setSearch] = useState<any>("");
+  const pathname = usePathname();
+  const vendorId = admin ? pathname?.split("/")[2]! : null;
 
   const conversationsFn = async () => {
     try {
@@ -84,11 +87,14 @@ const MessageUsers = () => {
                   <Link
                     key={i}
                     href={`${
-                      user?.role === "Vendor"
+                      admin
+                        ? `/admin-view/${vendorId}/inbox`
+                        : user?.role === "Vendor"
                         ? "/vendor/profile/inbox"
                         : "/user/inbox"
                     }/${data?.id}`}>
                     <MessageSender
+                      admin={admin}
                       fevCon={true}
                       img={""}
                       date={timeFormat(data.messages[0]?.createdAt)}
@@ -112,11 +118,14 @@ const MessageUsers = () => {
                 <Link
                   key={i}
                   href={`${
-                    user?.role === "Vendor"
+                    admin
+                      ? `/admin-view/${vendorId}/inbox`
+                      : user?.role === "Vendor"
                       ? "/vendor/profile/inbox"
                       : "/user/inbox"
                   }/${data?.id}`}>
                   <MessageSender
+                    admin={admin}
                     img={""}
                     date={timeFormat(data.messages[0]?.createdAt)}
                     name={currentuser[0]?.user?.name}
@@ -142,6 +151,7 @@ const MessageUsers = () => {
                 return (
                   <Link key={i} href={`/mobilemessage/${data?.id}`}>
                     <MessageSender
+                      admin={admin}
                       img={""}
                       date={timeFormat(data.messages[0]?.createdAt)}
                       name={currentuser[0]?.user?.name}
@@ -163,6 +173,7 @@ const MessageUsers = () => {
               return (
                 <Link key={i} href={`/mobilemessage/${data?.id}`}>
                   <MessageSender
+                    admin={admin}
                     img={""}
                     date={timeFormat(data.messages[0]?.createdAt)}
                     name={currentuser[0]?.user?.name}

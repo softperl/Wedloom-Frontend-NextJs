@@ -1,25 +1,42 @@
-import { getProjects, makeFeatured, removeProjectById } from "@/lib/api";
+import {
+  getProjects,
+  getProjectsAdmin,
+  makeFeatured,
+  removeProjectById,
+} from "@/lib/api";
 import { useProjects } from "@/lib/hooks/useProjects";
 import { cn, handelError } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaTrash } from "react-icons/fa6";
 
 const Projects = () => {
+  const params = useParams();
   const { projects, setProjects, refresh, setRefresh } = useProjects();
   const [featured, setFeatured] = useState<any>();
   const [open, setOpen] = useState(false);
   const [deleteId, setDeleteId] = useState<any>(null);
 
   const getProjectsFn = async () => {
-    try {
-      const { data } = await getProjects();
-      setProjects(data?.projects);
-      setFeatured(data?.featured);
-    } catch (error) {
-      console.log(error);
+    if (params?.vendorId) {
+      try {
+        const { data } = await getProjectsAdmin(params?.vendorId);
+        setProjects(data?.projects);
+        setFeatured(data?.featured);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        const { data } = await getProjects();
+        setProjects(data?.projects);
+        setFeatured(data?.featured);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

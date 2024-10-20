@@ -84,15 +84,6 @@ const calculateProfileCompletion = (profileData: any) => {
   const totalCompletion =
     group1Completion + group2Completion + group3Completion;
 
-  console.log(
-    "group1Completion",
-    group1Completion,
-    "group2Completion",
-    group2Completion,
-    "group3Completion",
-    group3Completion
-  );
-
   return {
     totalCompletion,
     filledFieldsCount: {
@@ -110,12 +101,11 @@ const calculateProfileCompletion = (profileData: any) => {
   };
 };
 
-const InformationContent = ({ data }: any) => {
+const InformationContent = ({ data, admin = false }: any) => {
   const { vendorProfile, vendorInfo, questions } = data;
   const editorRef = useRef<MDXEditorMethods | null>(null);
   const [content, setContent] = useState(data?.vendorInfo?.addInfo || ""); // State to store the editor's content
   const [locationPopUp, setLocationPopUp] = useState(false);
-  const [formData, setFormData] = useState<any>({});
   const [additionalData, setAdditionalData] = useState<any>(
     vendorInfo?.additionalData || {}
   );
@@ -126,7 +116,6 @@ const InformationContent = ({ data }: any) => {
       : [{ number: "" }]
   );
 
-  // console.log(vendorProfile.addInfo);
   const defaultValues = useMemo(
     () => ({
       email: vendorProfile?.email,
@@ -146,9 +135,7 @@ const InformationContent = ({ data }: any) => {
     }),
     [vendorInfo, vendorProfile]
   );
-  console.log("db-additionalData----", additionalData);
 
-  console.log("vendorInfo", vendorInfo);
   const { totalCompletion, filledFieldsCount, totalFieldsCount } =
     calculateProfileCompletion({
       brandName: vendorProfile?.brand,
@@ -216,15 +203,6 @@ const InformationContent = ({ data }: any) => {
     setNumberBox(list);
   };
 
-  const handleChange = (field: any, event: any) => {
-    const value =
-      field.inputType === "File" ? event.target.files[0] : event.target.value;
-    setFormData({
-      ...formData,
-      [field.labelName]: value,
-    });
-  };
-
   //@ts-ignore
   const handleCheckboxChange = (option: any, isChecked: boolean) => {
     let updatedOptions;
@@ -257,22 +235,11 @@ const InformationContent = ({ data }: any) => {
     }
   }, [content]);
 
-  // Function to handle saving the content
-  const handleSave = () => {
-    if (editorRef.current) {
-      // Get the content from the editor instance
-      const markdown = editorRef.current.getMarkdown();
-      setContent(markdown); // Save it to the state
-      console.log(markdown);
-    }
-  };
-
   // Update this function to set the content state
   const handleEditorChange = (markdown: string) => {
     setContent(markdown);
   };
 
-  console.log("vendorProfile", vendorProfile);
   const approvalFn = async () => {
     try {
       await requestApprovalVendor({ userId: vendorInfo?.userId });
@@ -857,22 +824,24 @@ const InformationContent = ({ data }: any) => {
             ))}
           </div>
 
-          <div className="flex gap-5 items-center justify-end pb-5 px-5">
-            {totalCompletion >= 100 ? (
-              <button
-                onClick={approvalFn}
-                type="button"
-                className="py-3 px-4 bg-textPrimary-900 text-[15px] text-white">
-                Approval Request
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className="py-3 px-4 bg-textPrimary-900 text-[15px] text-white">
-                SAVE
-              </button>
-            )}
-          </div>
+          {!admin && (
+            <div className="flex gap-5 items-center justify-end pb-5 px-5">
+              {totalCompletion >= 100 ? (
+                <button
+                  onClick={approvalFn}
+                  type="button"
+                  className="py-3 px-4 bg-textPrimary-900 text-[15px] text-white">
+                  Approval Request
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="py-3 px-4 bg-textPrimary-900 text-[15px] text-white">
+                  SAVE
+                </button>
+              )}
+            </div>
+          )}
         </form>
       </div>
     </div>

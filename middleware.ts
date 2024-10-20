@@ -22,7 +22,7 @@ export default async function middleware(req: NextRequest) {
 
   const roles = { user: "user", vendor: "vendor", admin: "admin" };
   const authRoutes = ["/signin", "/signup", "/vendor-signup"];
-  const sensitiveRoutes = ["/vendor", "/user", "/setup-wedding", "/adminview"];
+  const sensitiveRoutes = ["/vendor", "/user", "/setup-wedding", "/admin-view"];
   const publicRoutes = ["/vendors"];
 
   if (publicRoutes.some((route) => pathname.startsWith(route))) {
@@ -57,7 +57,7 @@ export default async function middleware(req: NextRequest) {
         return NextResponse.next();
       } else if (
         user.role.toLowerCase() === roles.admin &&
-        pathname.startsWith("/adminview")
+        pathname.startsWith("/admin-view")
       ) {
         return NextResponse.next();
       }

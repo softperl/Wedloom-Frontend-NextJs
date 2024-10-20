@@ -5,10 +5,19 @@ import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
 import { FaTrash, FaX } from "react-icons/fa6";
 import Image from "next/image";
-import { createFoodMenu, getFoodMenu, removeFoodMenu } from "@/lib/api";
+import {
+  createFoodMenu,
+  getFoodMenu,
+  getFoodMenuAdmin,
+  removeFoodMenu,
+} from "@/lib/api";
 import toast from "react-hot-toast";
+import { useParams, usePathname } from "next/navigation";
+import useAuth from "@/lib/hooks/useAuth";
 
 const MenuContent = () => {
+  const params = useParams();
+  const { user } = useAuth();
   // States
   const [openPopup, setOpenPopup] = useState(false);
   const [value, setValue] = useState({
@@ -22,6 +31,16 @@ const MenuContent = () => {
   });
   const [refresh, setRefresh] = useState(false);
   const [data, setData] = useState<any>([]);
+
+  const [isAdminView, setIsAdminView] = useState(false);
+  const pathname = usePathname();
+  useEffect(() => {
+    if (pathname.includes("admin-view")) {
+      setIsAdminView(true);
+    } else {
+      setIsAdminView(false);
+    }
+  }, [pathname]);
 
   const formSubmitted = async (e: any) => {
     e.preventDefault();
@@ -54,12 +73,22 @@ const MenuContent = () => {
   };
 
   const getFoodMenuFn = async () => {
-    try {
-      const { data } = await getFoodMenu();
-      setData(data.foodMenu);
-    } catch (error) {
-      console.log(error);
-      handelError(error);
+    if (params?.vendorId) {
+      try {
+        const { data } = await getFoodMenuAdmin(params?.vendorId);
+        setData(data.foodMenu);
+      } catch (error) {
+        console.log(error);
+        handelError(error);
+      }
+    } else {
+      try {
+        const { data } = await getFoodMenu();
+        setData(data.foodMenu);
+      } catch (error) {
+        console.log(error);
+        handelError(error);
+      }
     }
   };
 
@@ -89,23 +118,25 @@ const MenuContent = () => {
       </div>
 
       {/* Image Upload Content */}
-      <div className="px-6 my-8">
-        <Link href={"/vendor/profile/menu/image-upload"}>
-          <div
-            className={`w-full lg:w-56 lg:h-64 h-56 cursor-pointer text-white font-semibold flex justify-center items-center text-center rounded-md`}
-            style={{
-              background: `url("/addNewAlbum.jpg")`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}>
-            <span>
-              <FaPlus className="w-5 h-5 mx-auto" />
-              <p>Add new Menu</p>
-            </span>
-          </div>
-        </Link>
-      </div>
+      {!isAdminView && (
+        <div className="px-6 my-8">
+          <Link href={"/vendor/profile/menu/image-upload"}>
+            <div
+              className={`w-full lg:w-56 lg:h-64 h-56 cursor-pointer text-white font-semibold flex justify-center items-center text-center rounded-md`}
+              style={{
+                background: `url("/addNewAlbum.jpg")`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}>
+              <span>
+                <FaPlus className="w-5 h-5 mx-auto" />
+                <p>Add new Menu</p>
+              </span>
+            </div>
+          </Link>
+        </div>
+      )}
 
       {/* Menu Content */}
       <div>
@@ -114,11 +145,13 @@ const MenuContent = () => {
           <h2 className="text-textSecondary-900 lg:text-lg font-medium">
             Menu
           </h2>
-          <button
-            onClick={() => setOpenPopup(true)}
-            className={`border border-paginationBg-900 py-1 px-2 text-xs lg:text-sm rounded-sm`}>
-            Add Menu
-          </button>
+          {!isAdminView && (
+            <button
+              onClick={() => setOpenPopup(true)}
+              className={`border border-paginationBg-900 py-1 px-2 text-xs lg:text-sm rounded-sm`}>
+              Add Menu
+            </button>
+          )}
         </div>
 
         {/* Menu Content */}
@@ -138,7 +171,7 @@ const MenuContent = () => {
             </div>
 
             <div className="w-3/12 text-end">
-              <p>Actions</p>
+              {!isAdminView && <p>Actions</p>}
             </div>
           </div>
 
@@ -161,10 +194,12 @@ const MenuContent = () => {
 
                 <div className="w-3/12 text-end">
                   <span className="text-textSecondary-900 flex justify-end">
-                    <FaTrash
-                      onClick={() => deleteBanquetes(item?.id)}
-                      className="cursor-pointer"
-                    />
+                    {!isAdminView && (
+                      <FaTrash
+                        onClick={() => deleteBanquetes(item?.id)}
+                        className="cursor-pointer"
+                      />
+                    )}
                   </span>
                 </div>
               </div>
