@@ -200,7 +200,7 @@ const SignUpForm = () => {
             </span>
             <hr className="mt-[-11px]" />
           </div>
-          <OthersLogin />
+          {/* <OthersLogin /> */}
         </div>
       </>
 

@@ -10,7 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 const PopularVenue = () => {
   const data = [
     {
-      img: "https://images.pexels.com/photos/5834134/pexels-photo-5834134.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      img: "/pexels-photo-5834134.jpeg",
       name: "5 Star & Above Hotels",
       links: [
         {
@@ -32,7 +32,7 @@ const PopularVenue = () => {
       ],
     },
     {
-      img: "https://images.pexels.com/photos/5834134/pexels-photo-5834134.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      img: "/pexels-photo-5834134.jpeg",
       name: "5 Star & Above Hotels",
       links: [
         {
@@ -46,7 +46,7 @@ const PopularVenue = () => {
       ],
     },
     {
-      img: "https://images.pexels.com/photos/5834134/pexels-photo-5834134.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      img: "/pexels-photo-5834134.jpeg",
       name: "5 Star & Above Hotels",
       links: [
         {

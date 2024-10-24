@@ -10,19 +10,19 @@ import { Swiper, SwiperSlide } from "swiper/react";
 const PopularSearch = () => {
   const data = [
     {
-      img: "https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg",
+      img: "/mua.webp",
       text: "shdjshd yuhsd",
     },
     {
-      img: "https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg",
+      img: "/mua.webp",
       text: "eusjdksd sd jka",
     },
     {
-      img: "https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg",
+      img: "/mua.webp",
       text: "akslkso wewxc sd",
     },
     {
-      img: "https://image.wedmegood.com/resized/300X/uploads/banner_image/2/mua.jpg",
+      img: "/mua.webp",
       text: "wewxc sdsd",
     },
   ];

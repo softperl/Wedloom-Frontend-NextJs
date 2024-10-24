@@ -113,9 +113,12 @@ export const getAllEventsByUserId = ({
 //Vendor Profile Info
 export const vendorProfileInfo = (formData: any) =>
   API.post(`/vendor/profile-info`, formData);
+export const requestApprovalVendor = (formData: any) =>
+  API.post(`/vendor/request-approval`, formData);
+
 export const createBanquet = (formData: any) =>
   API.post(`/vendor/banquet/new`, formData);
-export const getBanquets = () => API.get("/vendor/get-all-banquet");
+export const getBanquets = () => API.get(`/vendor/get-all-banquet`);
 export const removeBanquet = (banquetId: string) =>
   API.delete(`/vendor/banquet/delete/${banquetId}`);
 
@@ -126,24 +129,24 @@ export const createProject = (formData: any) =>
   API.post("/vendor/project-image/new", formData);
 export const makeFeatured = (projectId: any) =>
   API.post(`/vendor/project-image/featured/${projectId}`);
-export const getProjects = () => API.get("/vendor/project-image/get-all");
+export const getProjects = () => API.get(`/vendor/project-image/get-all`);
 export const removeProjectById = (id: string) =>
   API.delete(`/vendor/project-image/delete/${id}`);
 export const createAlbum = (formData: any) =>
   API.post("/vendor/project-album/new", formData);
-export const getAlbums = () => API.get("/vendor/project-album/get-all");
+export const getAlbums = () => API.get(`/vendor/project-album/get-all`);
 export const removeAlbumById = (id: string) =>
   API.delete(`/vendor/project-album/delete/${id}`);
 export const createVideo = (formData: any) =>
   API.post("/vendor/project-video/new", formData);
-export const getVideos = () => API.get("/vendor/project-video/get-all");
+export const getVideos = () => API.get(`/vendor/project-video/get-all`);
 export const removeVideoById = (id: string) =>
   API.delete(`/vendor/project-video/delete/${id}`);
 
 //Food Menu
 export const createFoodMenu = (formData: any) =>
   API.post("/vendor/food-menu/new", formData);
-export const getFoodMenu = () => API.get("/vendor/food-menu/get-all");
+export const getFoodMenu = () => API.get(`/vendor/food-menu/get-all`);
 export const removeFoodMenu = (menuId: string) =>
   API.delete(`/vendor/food-menu/delete/${menuId}`);
 export const uploadRulesFoodMenu = () =>
@@ -156,7 +159,7 @@ export const createReview = (formData: any) =>
   API.post("/review/new", formData);
 export const replyReview = (formData: any) =>
   API.post("/review/reply", formData);
-export const getReviews = () => API.get("/review/get-all");
+export const getReviews = () => API.get(`/review/get-all`);
 export const getPublicReviews = (vendorId: any) =>
   API.get(`/review/public/get-all/${vendorId}`);
 export const getReviewsDistribution = (vendorId: any) =>
@@ -173,6 +176,8 @@ export const galleryPhotos = ({ profileId }: { profileId: any }) =>
 export const createPackage = (formData: any) =>
   API.post("/vendor/package/new", formData);
 export const getPackage = () => API.get(`/vendor/package/get-all`);
+export const getPublicPackage = (profileId: any) =>
+  API.get(`/vendor/package/${profileId}`);
 export const removePackage = (id: any) =>
   API.delete(`/vendor/package/delete/${id}`);
 
@@ -185,3 +190,20 @@ export const removeFaq = (id: any) => API.delete(`/vendor/faq/delete/${id}`);
 
 //Payment
 export const createPayment = () => API.get(`/payment/create`);
+
+//Admin View Profile
+export const getAdminVendorProfile = (vendorId: any) =>
+  API.get(`/vendor/admin/get-profile-info/${vendorId}`);
+export const getQuestions = () => API.get(`/question/get-all`);
+export const getFoodMenuAdmin = (userId?: any) =>
+  API.get(`/vendor/food-menu/get-all/${userId}`);
+export const getBanquetsAdmin = (userId?: any) =>
+  API.get(`/vendor/get-all-banquet/${userId}`);
+export const getReviewsAdmin = (userId?: any) =>
+  API.get(`/review/get-all/${userId}`);
+export const getProjectsAdmin = (userId?: any) =>
+  API.get(`/vendor/project-image/get-all/${userId}`);
+export const getAlbumsAdmin = (userId?: any) =>
+  API.get(`/vendor/project-album/get-all/${userId}`);
+export const getVideosAdmin = (userId?: any) =>
+  API.get(`/vendor/project-video/get-all/${userId}`);

@@ -152,7 +152,7 @@ const Footer = () => {
                 <Image
                   width={100}
                   height={100}
-                  src="https://logodix.com/logo/2004164.png"
+                  src="/2004164.png"
                   alt=""
                   className="w-44 h-28 cursor-pointer object-contain"
                 />

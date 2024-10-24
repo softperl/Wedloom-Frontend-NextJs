@@ -122,7 +122,7 @@ const UserSettings = () => {
                     <Image
                       width={500}
                       height={500}
-                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/User_icon-cp.png/1200px-User_icon-cp.png"
+                      src="/User_icon-cp.png"
                       alt="blank_avatar"
                       className="w-16 lg:w-24 opacity-50"
                     />

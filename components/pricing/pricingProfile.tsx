@@ -1,30 +1,15 @@
 "use client";
 import PackageDetails from "@/components/pricing/packageDetails";
-import { getPackage } from "@/lib/api";
-import { cn } from "@/lib/utils";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { cn, slugify } from "@/lib/utils";
+import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa6";
 
-const PricingProfile = () => {
-  const params = useParams();
-  const [packages, setPackages] = useState<any>([]);
-  const [segment, setSegment] = useState(false);
+const PricingProfile = ({ packages }: { packages: any }) => {
+  const [openSegment, setOpenSegment] = useState<number | null>(null);
 
-  const getPackageFn = async () => {
-    try {
-      const { data } = await getPackage(params?.profileId);
-      setPackages(data);
-    } catch (error) {
-      console.log(error);
-    }
+  const toggleSegment = (index: number) => {
+    setOpenSegment((prevIndex) => (prevIndex === index ? null : index));
   };
-
-  useEffect(() => {
-    getPackageFn;
-  }, []);
-
-  console.log(packages);
 
   return (
     <>
@@ -44,12 +29,13 @@ const PricingProfile = () => {
             <div className="price_hightlight">
               {/* Segment 1 */}
               {packages?.map((item: any, i: number) => {
+                const isOpen = openSegment === i;
                 return (
                   <>
                     <div
                       key={i}
                       className="photo_package flex items-center justify-between border-b py-3 px-4 cursor-pointer"
-                      onClick={() => setSegment(!segment)}>
+                      onClick={() => toggleSegment(i)}>
                       {/* Price Highlighted */}
                       <div className="w-5/12">
                         <h3 className="text-base lg:text-xl text-textPrimary-900">
@@ -71,13 +57,21 @@ const PricingProfile = () => {
                           <FaChevronDown
                             className={cn(
                               "text-textPrimary-900",
-                              segment && "rotate-180"
+                              isOpen && "rotate-180"
                             )}
                           />
                         </span>
                       </div>
                     </div>
-                    {segment && <PackageDetails />}
+
+                    {isOpen && (
+                      <PackageDetails
+                        services={item?.services}
+                        item={item?.packageName}
+                        lastElem={item?.services?.length}
+                        path={`/checkout/${slugify(item?.packageName)}`}
+                      />
+                    )}
                   </>
                 );
               })}

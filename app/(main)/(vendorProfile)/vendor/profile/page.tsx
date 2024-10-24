@@ -13,7 +13,11 @@ export default async function page() {
       method: "GET",
     });
 
-    if (!vendor && !questionsFn) {
+    const projectsFn = await fetchFn(`/vendor/project-image/get-all`, {
+      method: "GET",
+    });
+
+    if (!vendor && !questionsFn && !projectsFn) {
       notFound();
     }
     let vendorProfile = vendor?.vendorProfile;
@@ -21,7 +25,8 @@ export default async function page() {
     let questions = questionsFn?.questions;
     let total = questionsFn?.total;
     let totalPage = questionsFn?.totalPages;
-    data = { vendorProfile, vendorInfo, questions, total, totalPage };
+    let projects = projectsFn?.projects;
+    data = { vendorProfile, vendorInfo, questions, total, totalPage, projects };
   } catch (error) {
     console.log(error);
     notFound();

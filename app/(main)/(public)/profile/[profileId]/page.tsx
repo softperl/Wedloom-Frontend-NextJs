@@ -27,6 +27,7 @@ export default function Page() {
     try {
       const { data } = await publicVendorProfileById(params?.profileId);
       setData(data?.vendor);
+      console.log("public", data);
     } catch (error) {
       console.log(error);
       handelError(error);
@@ -34,8 +35,6 @@ export default function Page() {
       setIsLoading(false);
     }
   };
-
-  console.log(data);
 
   useEffect(() => {
     publicVendorProfileByIdFn();

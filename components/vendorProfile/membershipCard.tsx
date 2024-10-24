@@ -1,8 +1,10 @@
 import { getAllPlan } from "@/lib/api";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const MembershipCard = ({ planType }: { planType: string }) => {
+  const params = useParams();
   const [plans, setPlans] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 

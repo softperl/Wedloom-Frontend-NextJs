@@ -21,13 +21,13 @@ const UserShortlists = () => {
           price="30,000"
         />
         <ShortListCard
-          image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRd-77vImBRKqKr4LtMAQuUV6rrbJuupkvXfw&usqp=CAU"
+          image="/userlove.jpeg"
           name="Hotel Kashmiri Swag"
           finalize
           price="30,000"
         />
         <ShortListCard
-          image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSp9NgiNp71lSvrOH56HcGWv3Zzlbx11sG8aw&usqp=CAU"
+          image="/userlove.jpeg"
           name="Karachi Grand Venues"
           finalize
           price="30,000"

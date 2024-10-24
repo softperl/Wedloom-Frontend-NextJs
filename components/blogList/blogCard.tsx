@@ -173,7 +173,7 @@ const BlogCard = ({ posts, categories }: any) => {
         </div>
 
         <div className="pagination hidden lg:block">
-          <Pagination />
+          {/* <Pagination pageCount /> */}
         </div>
 
         <div className="load_more block lg:hidden mb-8">

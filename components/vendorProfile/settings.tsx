@@ -56,7 +56,7 @@ const Settings = () => {
                     <Image
                       width={500}
                       height={500}
-                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/User_icon-cp.png/1200px-User_icon-cp.png"
+                      src="/User_icon-cp.png"
                       alt="blank_avatar"
                       className="w-20 lg:w-28 opacity-50"
                     />

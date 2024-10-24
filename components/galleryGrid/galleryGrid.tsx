@@ -1,7 +1,5 @@
 "use client";
 import React from "react";
-// Image Data File Import
-import ImageData from "@/components/data/imageData";
 // Paginatio Components Import
 import Pagination from "@/components/pagination/pagination";
 import Link from "next/link";
@@ -38,7 +36,7 @@ const GalleryGrid = ({ data }: { data: any }) => {
         ))}
       </div>
       {/* Pagination */}
-      <Pagination />
+      {/* <Pagination /> */}
     </div>
   );
 };

@@ -75,8 +75,7 @@ const Navbar = () => {
     setAllCities(!allCities);
   };
 
-  const avatar =
-    "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png";
+  const avatar = "/avater.jpeg";
   return (
     <>
       {/* Desktop Navbar */}
@@ -367,7 +366,7 @@ const Navbar = () => {
                     <div className="relative w-10 h-10">
                       <Image
                         fill
-                        src="https://pickaface.net/gallery/avatar/unr_handsomeboy_180407_1616_z233f.png"
+                        src="/avater.jpeg"
                         alt="avatar"
                         className="w-10 h-10 rounded-full object-cover"
                       />

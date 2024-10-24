@@ -14,8 +14,7 @@ const ContactForm = () => {
             <div
               className="w-full bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg brightness-75"
               style={{
-                backgroundImage:
-                  "url('https://images.pexels.com/photos/5747224/pexels-photo-5747224.jpeg?auto=compress&cs=tinysrgb&w=1600')",
+                backgroundImage: "url('/pexels-photo-5747224.jpeg')",
               }}></div>
 
             <div className="w-full lg:w-7/12 bg-white shadow-lg p-5 rounded-lg lg:rounded-l-none">

@@ -1,8 +1,6 @@
 "use client";
 
 // Third-party imports
-import { EditorState } from "draft-js";
-import { useState } from "react";
 import dynamic from "next/dynamic";
 import type { EditorProps } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";

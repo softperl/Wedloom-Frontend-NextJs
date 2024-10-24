@@ -138,7 +138,7 @@ const WpCardList = ({
             {/* Button */}
 
             <div className="button__div w-full flex justify-end">
-              <Link href="contact">
+              <Link href="">
                 <button className="bg-textPrimary-900 font-medium text-white py-3 px-3 rounded-md text-base hover:bg-btnHover-900 duration-300">
                   Send Message
                 </button>

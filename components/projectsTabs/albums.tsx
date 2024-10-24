@@ -1,14 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createAlbum, getAlbums, removeAlbumById } from "@/lib/api";
+import {
+  createAlbum,
+  getAlbums,
+  getAlbumsAdmin,
+  removeAlbumById,
+} from "@/lib/api";
 import { useProjects } from "@/lib/hooks/useProjects";
 import { cn, handelError } from "@/lib/utils";
-import { set } from "date-fns";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FaImage, FaX } from "react-icons/fa6";
 
 const Albums = () => {
+  const params = useParams();
   const { albums, setAlbums, projects, refresh, setRefresh } = useProjects();
   const [createNew, setCreateNew] = useState(false);
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
@@ -20,12 +26,22 @@ const Albums = () => {
   const [deleteId, setDeleteId] = useState<any>(null);
 
   const getAlbumsFn = async () => {
-    try {
-      const { data } = await getAlbums();
-      setAlbums(data?.albums);
-    } catch (error) {
-      console.log(error);
-      handelError(error);
+    if (params?.vendorId) {
+      try {
+        const { data } = await getAlbumsAdmin(params?.vendorId);
+        setAlbums(data?.albums);
+      } catch (error) {
+        console.log(error);
+        handelError(error);
+      }
+    } else {
+      try {
+        const { data } = await getAlbums();
+        setAlbums(data?.albums);
+      } catch (error) {
+        console.log(error);
+        handelError(error);
+      }
     }
   };
 

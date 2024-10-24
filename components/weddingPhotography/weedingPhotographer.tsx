@@ -1,47 +1,41 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import Path from "@/components/routesPath/path";
-import Link from "next/link";
 import FilterPopup from "@/components/filterPopup/filterPopup";
-import PhotoBudgetCard from "@/components/weddingPhotography/photoBudgetCard";
 import Pagination from "@/components/pagination/pagination";
+import Path from "@/components/routesPath/path";
+import PhotoBudgetCard from "@/components/weddingPhotography/photoBudgetCard";
 import WpCardGrid from "@/components/weddingPhotography/wpCardGrid";
 import WpCardList from "@/components/weddingPhotography/wpCardList";
+import Link from "next/link";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { BiGridAlt } from "react-icons/bi";
-import { FaBarsStaggered, FaMagnifyingGlass, FaShuffle } from "react-icons/fa6";
 import { FaCaretDown, FaDna } from "react-icons/fa";
-import { useParams } from "next/navigation";
-import { handelError } from "@/lib/utils";
-import { is } from "immutable";
-import { vendorsList } from "@/lib/api";
+import { FaBarsStaggered, FaMagnifyingGlass, FaShuffle } from "react-icons/fa6";
 
-const WeedingPhotographer = () => {
+const WeedingPhotographer = ({ data }: { data: any }) => {
   const params = useParams();
-  // All States
-  const [isLoading, setIsLoading] = useState(false);
   const [gridView, setGridView] = useState(true);
   const [listView, setListView] = useState(false);
-  const [vendors, setVendors] = useState<any>();
   const [showFilter, setShowFilter] = useState(false);
-  // Search Filter States
-  const [search, setSearch] = useState("");
-
-  const vendorsListFn = async () => {
-    try {
-      setIsLoading(true);
-      const { data } = await vendorsList();
-      setVendors(data.vendorsList);
-    } catch (error) {
-      console.log(error);
-      handelError(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get("q") || "");
 
   useEffect(() => {
-    vendorsListFn();
-  }, []);
+    const delayDebounceFn = setTimeout(() => {
+      if (search !== searchParams.get("q")) {
+        const params = new URLSearchParams(searchParams.toString());
+        if (search === "") {
+          params.delete("q");
+        } else {
+          params.set("q", search);
+        }
+        router.push(`${window.location.pathname}?${params.toString()}`);
+      }
+    }, 200);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [search, router, searchParams]);
 
   // Function For View
   const gridViewOn = () => {
@@ -59,6 +53,16 @@ const WeedingPhotographer = () => {
     setShowFilter(!showFilter);
   };
 
+  const Heading = () => {
+    if (params?.vendorCity === "all") {
+      return `All ${params?.vendorType}`;
+    }
+    if (params?.vendorType && params?.vendorCity) {
+      return `${params?.vendorType + "s"}
+  ${params?.vendorCity && `in ${params?.vendorCity}`}`;
+    }
+  };
+
   return (
     <section className="lg:py-8 py-0 text-textSecondary-900">
       <div className="wphotographer container mx-auto lg:px-20 px-0">
@@ -70,12 +74,12 @@ const WeedingPhotographer = () => {
           <div className="hidden xl:block">
             <div className="wphotographer__content__header mt-4 mb-12 flex justify-between items-center">
               <div className="w-full">
-                <h5 className="text-xl font-semibold">
-                  Wedding Photographers in Karachi
+                <h5 className="text-xl font-semibold capitalize">
+                  <Heading />
                 </h5>
                 <span className="text-sm">
-                  Showing <strong>2089 results</strong> as per your search
-                  criteria
+                  Showing <strong>{data?.total} results</strong> as per your
+                  search criteria
                 </span>
               </div>
 
@@ -136,8 +140,7 @@ const WeedingPhotographer = () => {
             <div
               className="mobile_banner_content h-[10vh] bg-white flex items-end"
               style={{
-                background:
-                  "url('https://images.pexels.com/photos/2293102/pexels-photo-2293102.jpeg?auto=compress&cs=tinysrgb&w=1600')",
+                background: "url('/pexels-photo-2293102.jpeg')",
                 backgroundPosition: "center",
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
@@ -174,106 +177,112 @@ const WeedingPhotographer = () => {
 
           {/* Desktop Different View Content */}
           <div className="px-4 lg:px-0 pt-4 pb-8 lg:py-0">
-            {isLoading ? (
-              <div>Loading...</div>
-            ) : (
-              gridView && (
-                <div className="grid__view flex flex-wrap">
-                  {vendors
-                    ?.filter((item: any) =>
-                      item?.name?.toLowerCase()?.includes(search)
-                    )
-                    ?.map((item: any, i: number) => {
-                      return (
-                        <WpCardGrid
-                          key={i}
-                          img={
-                            item?.ProjectPhoto[0]?.photo || "/placehoderImg.jpg"
-                          }
-                          category={item?.vendorType}
-                          location={item?.city}
-                          name={item?.brand}
-                          price={"200000000"}
-                          review={item?.averageRating}
-                          tooltip1={"lorem ipsum dolor sit amet"}
-                          tooltip2={
-                            "lorem ipsum dolor sit amet consectetur adipisicing elit"
-                          }
-                          totalReview={item?.vendorReviews?.length}
-                          profileId={item?.id}
-                        />
-                      );
-                    })}
-                </div>
-              )
+            {gridView && (
+              <div className="grid__view flex flex-wrap">
+                {data?.vendorsList?.map((item: any, i: number) => {
+                  return (
+                    <WpCardGrid
+                      key={i}
+                      img={item?.ProjectPhoto[0]?.photo || "/placehoderImg.jpg"}
+                      category={item?.vendorType}
+                      location={item?.city}
+                      name={item?.brand}
+                      price={item?.initialPrice}
+                      review={item?.averageRating}
+                      tooltip1={"lorem ipsum dolor sit amet"}
+                      tooltip2={
+                        "lorem ipsum dolor sit amet consectetur adipisicing elit"
+                      }
+                      totalReview={item?.vendorReviews?.length}
+                      profileId={item?.id}
+                    />
+                  );
+                })}
+              </div>
             )}
 
             {/* Card Container - List View */}
             {listView && (
               <div className="card__view md:flex gap-6">
                 <div className="w-full md:w-9/12">
-                  {vendors
-                    ?.filter((item: any) =>
-                      item?.name?.toLowerCase()?.includes(search)
-                    )
-                    ?.map((item: any, i: number) => {
-                      return (
-                        <WpCardList
-                          key={i}
-                          img={
-                            item?.ProjectPhoto[0]?.photo || "/placehoderImg.jpg"
-                          }
-                          category={item?.vendorType}
-                          location={item?.city}
-                          name={item?.brand}
-                          price={"200000000"}
-                          review={item?.averageRating}
-                          tooltip1={"lorem ipsum dolor sit amet"}
-                          tooltip2={
-                            "lorem ipsum dolor sit amet consectetur adipisicing elit"
-                          }
-                          totalReview={item?.vendorReviews?.length}
-                          profileId={item?.id}
-                        />
-                      );
-                    })}
+                  {data?.vendorsList?.map((item: any, i: number) => {
+                    return (
+                      <WpCardList
+                        key={i}
+                        img={
+                          item?.ProjectPhoto[0]?.photo || "/placehoderImg.jpg"
+                        }
+                        category={item?.vendorType}
+                        location={item?.city}
+                        name={item?.brand}
+                        price={item?.initialPrice}
+                        review={item?.averageRating}
+                        tooltip1={"lorem ipsum dolor sit amet"}
+                        tooltip2={
+                          "lorem ipsum dolor sit amet consectetur adipisicing elit"
+                        }
+                        totalReview={item?.vendorReviews?.length}
+                        profileId={item?.id}
+                      />
+                    );
+                  })}
                 </div>
 
                 {/* Photographer Category */}
-                <div className="cardview__right invisible md:visible md:w-3/12">
-                  <div className="photographer_by_budget">
-                    <PhotoBudgetCard
-                      circle
-                      heading="Photographer by Budget"
-                      image1="https://images.pexels.com/photos/6085682/pexels-photo-6085682.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                      image2="https://images.pexels.com/photos/6544106/pexels-photo-6544106.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                      image3="https://images.pexels.com/photos/6543940/pexels-photo-6543940.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                      image4="https://images.pexels.com/photos/11810879/pexels-photo-11810879.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                      category1="Budget Friendly"
-                      category2="Value For Money"
-                      category3="Premium"
-                      category4="Luxury"
-                    />
+                {data?.total > 0 && (
+                  <div className="cardview__right invisible md:visible md:w-3/12">
+                    <div className="photographer_by_budget">
+                      <PhotoBudgetCard
+                        circle
+                        heading="Photographer by Budget"
+                        image1="/pexels-photo-6085682.jpeg"
+                        image2="/pexels-photo-6085682.jpeg"
+                        image3="/pexels-photo-6085682.jpeg"
+                        image4="/pexels-photo-6085682.jpeg"
+                        category1="Budget Friendly"
+                        category2="Value For Money"
+                        category3="Premium"
+                        category4="Luxury"
+                      />
+                    </div>
+                    <div className="photographer_by_type mt-8">
+                      <PhotoBudgetCard
+                        heading="Photographer by Type"
+                        image1="/pexels-photo-1229414.jpeg"
+                        image2="/pexels-photo-1229414.jpeg"
+                        image3="/pexels-photo-1229414.jpeg"
+                        image4="/pexels-photo-1229414.jpeg"
+                        category1="Pre wedding Photographer"
+                        category2="Vaccinated Photographers"
+                        category3="Top Rated Photographers"
+                        category4="Photographers with deals"
+                      />
+                    </div>
                   </div>
-                  <div className="photographer_by_type mt-8">
-                    <PhotoBudgetCard
-                      heading="Photographer by Type"
-                      image1="https://images.pexels.com/photos/1229414/pexels-photo-1229414.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                      image2="https://images.pexels.com/photos/3872626/pexels-photo-3872626.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                      image3="https://images.pexels.com/photos/8790775/pexels-photo-8790775.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                      image4="https://images.pexels.com/photos/12759473/pexels-photo-12759473.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                      category1="Pre wedding Photographer"
-                      category2="Vaccinated Photographers"
-                      category3="Top Rated Photographers"
-                      category4="Photographers with deals"
-                    />
-                  </div>
-                </div>
+                )}
               </div>
             )}
 
-            {/* Pagination */}
-            <Pagination />
+            {data && data.total === 0 ? (
+              <div className="container mx-auto md:px-20 px-4 text-textSecondary-900">
+                <div className="py-20">No data found</div>
+              </div>
+            ) : (
+              <Pagination
+                pageCount={data?.totalPages}
+                onPageChange={({ selected }) => {
+                  const newPage = selected + 1;
+                  // Update URL with new page number
+                  const newSearchParams = new URLSearchParams(
+                    searchParams.toString()
+                  );
+                  newSearchParams.set("page", newPage.toString());
+                  router.push(`?${newSearchParams.toString()}`, {
+                    scroll: false,
+                  });
+                }}
+              />
+            )}
           </div>
 
           {/* Faq Sections Start */}

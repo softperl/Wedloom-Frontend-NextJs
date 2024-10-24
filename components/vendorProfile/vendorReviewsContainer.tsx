@@ -1,19 +1,31 @@
 "use client";
 import Pagination from "@/components/pagination/pagination";
 import ReviewCardWithoutReply from "@/components/reviewCard/reviewCardWithoutReply";
-import { getReviews } from "@/lib/api";
+import { getReviews, getReviewsAdmin } from "@/lib/api";
 import { formNow, handelError } from "@/lib/utils";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const VendorReviewsContainer = () => {
+  const params = useParams();
   const [reviews, setReviews] = useState<any>([]);
   const getReviewsFn = async () => {
-    try {
-      const { data } = await getReviews();
-      setReviews(data?.reviews);
-    } catch (error) {
-      console.log(error);
-      handelError(error);
+    if (params?.vendorId) {
+      try {
+        const { data } = await getReviewsAdmin(params?.vendorId);
+        setReviews(data?.reviews);
+      } catch (error) {
+        console.log(error);
+        handelError(error);
+      }
+    } else {
+      try {
+        const { data } = await getReviews();
+        setReviews(data?.reviews);
+      } catch (error) {
+        console.log(error);
+        handelError(error);
+      }
     }
   };
 
@@ -44,7 +56,7 @@ const VendorReviewsContainer = () => {
         );
       })}
 
-      <Pagination />
+      {/* <Pagination /> */}
     </div>
   );
 };

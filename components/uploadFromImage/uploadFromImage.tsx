@@ -9,7 +9,7 @@ const UploadFromImage = () => {
         <Link href="/uploadView">
           <Image
             fill
-            src="https://images.pexels.com/photos/3787395/pexels-photo-3787395.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            src="/pexels-photo-1484990.jpeg"
             alt=""
             className="h-24 w-24 cursor-pointer"
           />
@@ -22,7 +22,7 @@ const UploadFromImage = () => {
         <Link href="/uploadView">
           <Image
             fill
-            src="https://images.pexels.com/photos/2058070/pexels-photo-2058070.jpeg?cs=srgb&dl=pexels-sadman-chowdhury-2058070.jpg&fm=jpg"
+            src="/pexels-photo-1484990.jpeg"
             alt=""
             className="h-24 w-24 cursor-pointer"
           />
@@ -35,7 +35,7 @@ const UploadFromImage = () => {
         <Link href="/uploadView">
           <Image
             fill
-            src="https://images.pexels.com/photos/1484990/pexels-photo-1484990.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            src="/pexels-photo-1484990.jpeg"
             alt=""
             className="h-24 w-24 cursor-pointer"
           />
@@ -48,7 +48,7 @@ const UploadFromImage = () => {
         <Link href="/uploadView">
           <Image
             fill
-            src="https://images.pexels.com/photos/11279839/pexels-photo-11279839.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            src="/pexels-photo-11279839.jpeg"
             alt=""
             className="h-24 w-24 cursor-pointer"
           />
@@ -61,7 +61,7 @@ const UploadFromImage = () => {
         <Link href="/uploadView">
           <Image
             fill
-            src="https://images.pexels.com/photos/5747219/pexels-photo-5747219.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            src="/pexels-photo-5747219.jpeg"
             alt=""
             className="h-24 w-24 cursor-pointer"
           />

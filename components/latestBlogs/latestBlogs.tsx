@@ -10,7 +10,7 @@ import { formatDate } from "date-fns/format";
 const LatestBlogs = ({ heading }: { heading: string }) => {
   const data = [
     {
-      img: "https://images.pexels.com/photos/2106687/pexels-photo-2106687.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      img: "/pexels-photo-2106687.jpeg",
       title:
         "12 Amazing New Things To Do To Your Lehenga That Will Make It Super Unique!",
       summary:
@@ -18,7 +18,7 @@ const LatestBlogs = ({ heading }: { heading: string }) => {
       date: "2024-08-21T16:15:06.334Z",
     },
     {
-      img: "https://images.pexels.com/photos/2106687/pexels-photo-2106687.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      img: "/pexels-photo-2106687.jpeg",
       title:
         "12 Amazing New Things To Do To Your Lehenga That Will Make It Super Unique!",
       summary:
@@ -26,7 +26,7 @@ const LatestBlogs = ({ heading }: { heading: string }) => {
       date: "2024-08-21T16:15:06.334Z",
     },
     {
-      img: "https://images.pexels.com/photos/2106687/pexels-photo-2106687.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      img: "/pexels-photo-2106687.jpeg",
       title:
         "12 Amazing New Things To Do To Your Lehenga That Will Make It Super Unique!",
       summary:
@@ -34,7 +34,7 @@ const LatestBlogs = ({ heading }: { heading: string }) => {
       date: "2024-08-21T16:15:06.334Z",
     },
     {
-      img: "https://images.pexels.com/photos/2106687/pexels-photo-2106687.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      img: "/pexels-photo-2106687.jpeg",
       title:
         "12 Amazing New Things To Do To Your Lehenga That Will Make It Super Unique!",
       summary:

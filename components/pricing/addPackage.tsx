@@ -17,7 +17,7 @@ type FormValues = {
   services: { value: string }[];
 };
 
-export const AddPackage = () => {
+export const AddPackage = ({ admin = false }: any) => {
   const { user } = useAuth();
   const [openPopup, setOpenPopup] = useState(false);
   const { refresh, setRefresh } = useUi();
@@ -101,11 +101,13 @@ export const AddPackage = () => {
           <h2 className="text-textSecondary-900 lg:text-lg font-medium">
             Packages
           </h2>
-          <button
-            onClick={() => setOpenPopup(true)}
-            className={`border border-paginationBg-900 py-1 px-2 text-xs lg:text-sm rounded-sm`}>
-            Add Package
-          </button>
+          {!admin && (
+            <button
+              onClick={() => setOpenPopup(true)}
+              className={`border border-paginationBg-900 py-1 px-2 text-xs lg:text-sm rounded-sm`}>
+              Add Package
+            </button>
+          )}
         </div>
 
         <div className="w-full">
@@ -119,9 +121,7 @@ export const AddPackage = () => {
               <p>Price </p>
             </div>
 
-            <div className="w-3/12 text-end">
-              <p>Actions</p>
-            </div>
+            <div className="w-3/12 text-end">{!admin && <p>Actions</p>}</div>
           </div>
 
           {packages?.length > 0 &&
@@ -130,24 +130,22 @@ export const AddPackage = () => {
                 key={i}
                 className="px-4 py-3 border-b border-b-paginationBg-900 font-medium text-textSecondary-900 flex justify-between items-center text-xs lg:text-sm">
                 <div className="w-3/12">
-                  <p>{item.title}</p>
+                  <p>{item.packageName}</p>
                 </div>
 
                 <div className="w-3/12">
-                  <p>{item.menuType}</p>
-                </div>
-
-                <div className="w-3/12">
-                  <p>PKR {NumberWithCommas(item.price)}</p>
+                  <p>PKR {NumberWithCommas(item.packagePrice)}</p>
                 </div>
 
                 <div className="w-3/12 text-end">
-                  <span className="text-textSecondary-900 flex justify-end">
-                    <FaTrash
-                      onClick={() => removePackageFn(item?.id)}
-                      className="cursor-pointer"
-                    />
-                  </span>
+                  {!admin && (
+                    <span className="text-textSecondary-900 flex justify-end">
+                      <FaTrash
+                        onClick={() => removePackageFn(item?.id)}
+                        className="cursor-pointer"
+                      />
+                    </span>
+                  )}
                 </div>
               </div>
             ))}

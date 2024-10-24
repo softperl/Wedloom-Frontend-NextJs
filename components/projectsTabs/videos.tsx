@@ -1,15 +1,22 @@
 "use client";
 
-import { createVideo, getVideos, removeVideoById } from "@/lib/api";
+import {
+  createVideo,
+  getVideos,
+  getVideosAdmin,
+  removeVideoById,
+} from "@/lib/api";
 import { useProjects } from "@/lib/hooks/useProjects";
 import { cn, extractVideoId, handelError, isYouTubeUrl } from "@/lib/utils";
 import { set } from "date-fns";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaX } from "react-icons/fa6";
 
 const Videos = () => {
+  const params = useParams();
   const [data, setData] = useState<any>([]);
   const { refresh, setRefresh } = useProjects();
   const [open, setOpen] = useState(false);
@@ -20,11 +27,20 @@ const Videos = () => {
   const [isValidUrl, setIsValidUrl] = useState(false);
 
   const fetchVideos = async () => {
-    try {
-      const { data } = await getVideos();
-      setData(data?.videos);
-    } catch (error) {
-      console.log(error);
+    if (params?.vendorId) {
+      try {
+        const { data } = await getVideosAdmin(params?.vendorId);
+        setData(data?.videos);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        const { data } = await getVideos();
+        setData(data?.videos);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

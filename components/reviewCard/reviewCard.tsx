@@ -20,10 +20,7 @@ const ReviewCard = ({ image, name, date, rating, feedback, reply }: any) => {
                 <Image
                   width={500}
                   height={500}
-                  src={
-                    image ||
-                    "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png"
-                  }
+                  src={image || "/avater.jpeg"}
                   alt="bride_image"
                   className="w-14 h-14 rounded-full"
                 />
