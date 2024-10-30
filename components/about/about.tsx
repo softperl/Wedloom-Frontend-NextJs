@@ -8,9 +8,9 @@ export const About = ({ about, data }: any) => {
       <div className="about__content  bg-white shadow-md" ref={about}>
         <div className="about__top__content border-b border-paginationBg-900">
           <div className="about__heading px-5 py-4 text-lg lg:text-start text-center lg:text-2xl font-medium text-textBlack-900 border-b border-paginationBg-900">
-            <h5 style={{ fontSize: "22px" }}>
+            {/* <h5 style={{ fontSize: "22px" }}>
               About THE MEMORY CAPTURE - Wedding Photographers
-            </h5>
+            </h5> */}
           </div>
 
           <div className="about__description py-6 px-5">

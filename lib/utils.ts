@@ -10,6 +10,7 @@ import {
   parseISO,
 } from "date-fns";
 import { formatDate } from "date-fns/format";
+import { convertFromRaw } from "draft-js";
 import toast from "react-hot-toast";
 import { twMerge } from "tailwind-merge";
 
@@ -134,4 +135,31 @@ export const formNow = (date: any) => {
     addSuffix: true,
   }).replace(/^about /, "");
   return value;
+};
+
+export const draftJsToMarkdown = (rawContent: any) => {
+  const contentState = convertFromRaw(rawContent);
+  let markdown = "";
+
+  contentState.getBlocksAsArray().forEach((block) => {
+    const text = block.getText();
+    switch (block.getType()) {
+      case "header-one":
+        markdown += `# ${text}\n\n`;
+        break;
+      case "header-two":
+        markdown += `## ${text}\n\n`;
+        break;
+      case "unordered-list-item":
+        markdown += `- ${text}\n`;
+        break;
+      case "ordered-list-item":
+        markdown += `1. ${text}\n`;
+        break;
+      default:
+        markdown += `${text}\n\n`;
+        break;
+    }
+  });
+  return markdown;
 };

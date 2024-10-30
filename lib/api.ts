@@ -68,6 +68,8 @@ export const deletePlan = (id: string) =>
 export const createPlan = (formData: any) =>
   API.post("/site/plans/new", formData);
 export const getSteps = () => API.get("/site/get-all-steps");
+export const getVendorsFeatured = () =>
+  API.get("/site//vendors/get-all-featured");
 
 //Chat
 export const createConversation = (receiverId: any) =>

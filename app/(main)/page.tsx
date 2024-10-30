@@ -16,12 +16,12 @@ export default function page() {
       <Banner />
       <HowItWorks />
       {/* <WedSafe /> */}
-      <Explore />
-      <PopularVenue />
+      {/* <Explore /> */}
+      {/* <PopularVenue /> */}
       <PopularSearch />
       <WeddingCategory />
-      <Inhouse />
-      <Wstories />
+      {/* <Inhouse /> */}
+      {/* <Wstories /> */}
       <GalleryLook />
       <FeatureVendors />
       <LatestBlogs heading="Latest Blogs" />

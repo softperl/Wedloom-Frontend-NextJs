@@ -1,50 +1,31 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 //@ts-ignore
 import { Navigation } from "swiper";
 //@ts-ignore
 import { Swiper, SwiperSlide } from "swiper/react";
 import FvendrosCarousel from "@/components/carousels/fvendrosCarousel";
 import SectionHeader from "@/components/sectionHeader";
+import { getVendorsFeatured } from "@/lib/api";
 
 const FeatureVendors = () => {
-  const data = [
-    {
-      img: "/pexels-photo-2124722.jpeg",
-      title: "Vanity Affair By Anmol",
-      category: "Bridal Makeup",
-      price: "Rs. 26,000",
-      rating: "4.7",
-    },
-    {
-      img: "/pexels-photo-2124722.jpeg",
-      title: "Vanity Affair By Anmol",
-      category: "Bridal Makeup",
-      price: "Rs. 19,000",
-      rating: "5",
-    },
-    {
-      img: "/pexels-photo-2124722.jpeg",
-      title: "Vanity Affair By Anmol",
-      category: "Bridal Makeup",
-      price: "Rs. 14,000",
-      rating: "4.9",
-    },
-    {
-      img: "/pexels-photo-2124722.jpeg",
-      title: "Vanity Affair By Anmol",
-      category: "Bridal Makeup",
-      price: "Rs. 15,000",
-      rating: "4.5",
-    },
-    {
-      img: "/pexels-photo-2124722.jpeg",
-      title: "Vanity Affair By Anmol",
-      category: "Bridal Makeup",
-      price: "Rs. 36,000",
-      rating: "4.9",
-    },
-  ];
+  const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchData = async () => {
+    try {
+      const { data } = await getVendorsFeatured();
+      console.log("data", data);
+      setData(data?.featured);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <section className="lg:py-14">
       <div className="popular_venue container mx-auto md:px-20 px-4 text-white">
@@ -86,11 +67,12 @@ const FeatureVendors = () => {
                 return (
                   <SwiperSlide key={i}>
                     <FvendrosCarousel
-                      img={item?.img}
-                      name={item?.title}
-                      summary={item?.category}
-                      price={item?.price}
-                      rating={item?.rating}
+                      img={item?.ProjectPhoto[0]?.photo}
+                      name={item?.brand}
+                      vendorCity={item?.city}
+                      price={item?.initialPrice}
+                      rating={item?.averageRating}
+                      id={item?.id}
                     />
                   </SwiperSlide>
                 );

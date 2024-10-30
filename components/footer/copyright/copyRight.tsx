@@ -11,12 +11,12 @@ const Copyright = () => {
         <div className="copytight__content flex justify-between items-center">
           <div className="copyright__left flex justify-between lg:justify-start items-center w-full">
             &copy; {new Date().getFullYear()} site name. All Rights Reserved.
-            <span className="lg:ml-8 text-2xl font-bold">Logo Here</span>
+            {/* <span className="lg:ml-8 text-2xl font-bold">Logo Here</span> */}
           </div>
           <div className="copyright__right font-semibold text-xs lg:text-base flex flex-wrap justify-center lg:justify-end items-center w-full">
             <Link href="/terms">Terms & Conditions</Link>
             <span className="mx-2">|</span>
-            <Link href="/policy">Privacy Policy</Link>
+            <Link href="/privacy">Privacy Policy</Link>
           </div>
         </div>
       </div>

@@ -6,34 +6,11 @@ import { Navigation } from "swiper";
 //@ts-ignore
 import { Swiper, SwiperSlide } from "swiper/react";
 import GLookCarousel from "@/components/carousels/gLookCarousel";
+import useUi from "@/lib/hooks/useUi";
 
 const GalleryLook = () => {
-  const data = [
-    {
-      img: "/outfits.avif",
-      text: "Bridal Ware in Lahore",
-    },
-    {
-      img: "/outfits.avif",
-      text: "Lahore",
-    },
-    {
-      img: "/outfits.avif",
-      text: "Bridal Ware",
-    },
-    {
-      img: "/outfits.avif",
-      text: "jdskjd sd",
-    },
-    {
-      img: "/outfits.avif",
-      text: "uiuw sdjsg sgds",
-    },
-    {
-      img: "/outfits.avif",
-      text: "Ware in Lahore",
-    },
-  ];
+  const { vendorCategories } = useUi();
+
   return (
     <section className="lg:py-14">
       <div className="popular_venue container mx-auto md:px-20 px-4">
@@ -78,10 +55,10 @@ const GalleryLook = () => {
                     spaceBetween: 40,
                   },
                 }}>
-                {data?.map((item: any, i: number) => {
+                {vendorCategories?.map((item: any, i: number) => {
                   return (
                     <SwiperSlide key={i}>
-                      <GLookCarousel img={item?.img} text={item?.text} />
+                      <GLookCarousel img={item?.photo} text={item?.name} />
                     </SwiperSlide>
                   );
                 })}
@@ -101,42 +78,13 @@ const GalleryLook = () => {
             loop={false}
             loopFillGroupWithBlank={true}
             className="mySwiper">
-            <SwiperSlide>
-              <GLookCarousel img="/outfits.avif" text="Bridal Ware in Lahore" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <GLookCarousel
-                img="/outfits.avif"
-                text="Bridal Ware in Pakistan"
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <GLookCarousel
-                img="/outfits.avif"
-                text="Bridal Ware in Faisalabad"
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <GLookCarousel img="/mua.webp" text="Bridal Ware in Islamabad" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <GLookCarousel img="/mua.webp" text="Bridal Ware in Karachi" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <GLookCarousel img="/mua.webp" text="Bridal Ware in Multan" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <GLookCarousel img="/mua.webp" text="Bridal Ware in Sukkur" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <GLookCarousel img="/mua.webp" text="Bridal Ware in Okara" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <GLookCarousel img="/mua.webp" text="Bridal Ware in Nawabshah" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <GLookCarousel img="/mua.webp" text="Bridal Ware in Jhelum" />
-            </SwiperSlide>
+            {vendorCategories?.map((item: any, i: number) => {
+              return (
+                <SwiperSlide key={i}>
+                  <GLookCarousel img={item?.photo} text={item?.name} />
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </div>
       </div>

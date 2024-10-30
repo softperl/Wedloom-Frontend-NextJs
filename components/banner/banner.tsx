@@ -76,7 +76,7 @@ const Banner = () => {
     <div className="banner text-white">
       {/* Positoning this we can control the mobile menu and also the postion of banner content */}
       <div className="banner__content relative w-full flex-wrap flex items-center justify-center">
-        <div className="wrapper absolute bottom-14 lg:bottom-0 flex flex-wrap md:items-center flex-col md:px-0 px-6">
+        <div className="wrapper absolute bottom-14 lg:bottom-0 flex flex-wrap md:items-center flex-col md:px-0 px-6 w-full">
           <h1 className="text-3xl md:text-4xl md:mb-3 mb-2 font-semibold">
             Your Wedding, Your Way
           </h1>
@@ -85,7 +85,7 @@ const Banner = () => {
           </h2>
 
           {/* For Desktop Mode City List */}
-          <div className="for_Desktop hidden xl:block">
+          <div className="for_Desktop hidden xl:block w-full max-w-screen-md pb-5">
             <div className="dropdown__container flex my-5 w-full">
               {/* Select Vendor Dropdown */}
               <div className="vendor__container w-5/12" ref={vendorRef}>
@@ -208,7 +208,7 @@ const Banner = () => {
                 </button>
               </div>
             </div>
-            <div className="search__result flex mb-10">
+            {/* <div className="search__result flex mb-10">
               <div className="heading mr-5">
                 <p>Popular Searches: </p>
               </div>
@@ -218,7 +218,7 @@ const Banner = () => {
                   | Wedding Cards in Pakistan
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 

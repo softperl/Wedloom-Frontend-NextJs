@@ -6,7 +6,8 @@ import SectionHeader from "@/components/sectionHeader";
 import useUi from "@/lib/hooks/useUi";
 
 const WeddingCategory = () => {
-  const { vendorCategories } = useUi();
+  const { vendorCategories, cities } = useUi();
+
   return (
     <section className="lg:py-14">
       <div className="container mx-auto md:px-20 px-4">
@@ -19,16 +20,9 @@ const WeddingCategory = () => {
                 key={i}
                 bgColor="#D8DFFC"
                 title={item?.name}
-                subtitle="Banquet Halls, Lawns / Farmhouses, Reso"
-                image="/pexels-photo-6544769.jpeg"
-                leftLink1="View All Venues left"
-                leftLink2="View All Venues left"
-                leftLink3="View All Venues left"
-                leftLink4="View All Venues left"
-                rightLink1="View All Venues right"
-                rightLink2="View All Venues right"
-                rightLink3="View All Venues right"
-                rightLink4="View All Venues right"
+                // subtitle="Banquet Halls, Lawns / Farmhouses, Reso"
+                image={item?.photo}
+                cities={cities}
               />
             );
           })}

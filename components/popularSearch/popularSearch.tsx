@@ -6,26 +6,11 @@ import SectionHeader from "@/components/sectionHeader";
 import { Navigation } from "swiper";
 //@ts-ignore
 import { Swiper, SwiperSlide } from "swiper/react";
+import useUi from "@/lib/hooks/useUi";
 
 const PopularSearch = () => {
-  const data = [
-    {
-      img: "/mua.webp",
-      text: "shdjshd yuhsd",
-    },
-    {
-      img: "/mua.webp",
-      text: "eusjdksd sd jka",
-    },
-    {
-      img: "/mua.webp",
-      text: "akslkso wewxc sd",
-    },
-    {
-      img: "/mua.webp",
-      text: "wewxc sdsd",
-    },
-  ];
+  const { vendorCategories } = useUi();
+
   return (
     <section className="lg:py-14 pt-4">
       <div className="popular_venue container mx-auto md:px-20 px-4">
@@ -70,10 +55,10 @@ const PopularSearch = () => {
                     spaceBetween: 40,
                   },
                 }}>
-                {data?.map((item: any, i: number) => {
+                {vendorCategories?.map((item: any, i: number) => {
                   return (
                     <SwiperSlide key={i}>
-                      <PsearchCarousel img={item?.img} text={item?.text} />
+                      <PsearchCarousel img={item?.photo} text={item?.name} />
                     </SwiperSlide>
                   );
                 })}
@@ -93,10 +78,10 @@ const PopularSearch = () => {
             loop={false}
             loopFillGroupWithBlank={true}
             className="mySwiper">
-            {data?.map((item: any, i: number) => {
+            {vendorCategories?.map((item: any, i: number) => {
               return (
                 <SwiperSlide key={i}>
-                  <PsearchCarousel img={item?.img} text={item?.text} />
+                  <PsearchCarousel img={item?.photo} text={item?.name} />
                 </SwiperSlide>
               );
             })}
