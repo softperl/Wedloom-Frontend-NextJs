@@ -24,6 +24,7 @@ export function Providers({ children, ...props }: any) {
     setAboutData,
     setSocialLinks,
     setMenus,
+    setFooterMenus,
     setCities,
     setVendorCategories,
     setContactInfo,
@@ -40,9 +41,11 @@ export function Providers({ children, ...props }: any) {
   }, [accessToken]);
 
   useEffect(() => {
+    console.log("ma", props.siteData);
     setAboutData(props.siteData?.about);
     setSocialLinks(props.siteData?.socialLink);
     setMenus(props.siteData?.menus);
+    setFooterMenus(props.siteData?.footerMenu);
     setCities(props.siteData?.cities);
     setVendorCategories(props.siteData?.vendorCategories);
     setContactInfo(props.siteData?.contactInfo);
@@ -102,6 +105,7 @@ export function Providers({ children, ...props }: any) {
   return (
     <>
       <Toaster position="bottom-right" />
+
       <audio
         ref={audioRef}
         src={"/notification-sound.mp3"}

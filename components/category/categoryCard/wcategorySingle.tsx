@@ -22,7 +22,7 @@ const WcategorySingle = ({
   const [toggle, setToggle] = useState(false);
 
   return (
-    <div className="md:w-6/12 h-full w-full">
+    <div className="h-full w-full">
       <div
         style={{ backgroundColor: `${bgColor}` }}
         className="wCategory__single__content ">

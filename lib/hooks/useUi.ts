@@ -9,6 +9,8 @@ interface Store {
   setSocialLinks: (val: any) => void;
   menus: any;
   setMenus: (val: any) => void;
+  footerMenus: any;
+  setFooterMenus: (val: any) => void;
   cities: any;
   setCities: (val: any) => void;
   vendorCategories: any;
@@ -30,6 +32,8 @@ const useUi = create<Store>((set) => ({
   setSocialLinks: (val) => set({ socialLinks: val }),
   menus: [],
   setMenus: (val) => set({ menus: val }),
+  footerMenus: [],
+  setFooterMenus: (val) => set({ footerMenus: val }),
   cities: [],
   setCities: (val) => set({ cities: val }),
   vendorCategories: [],

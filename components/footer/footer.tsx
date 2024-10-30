@@ -1,6 +1,7 @@
 "use client";
 import useAuth from "@/lib/hooks/useAuth";
 import useUi from "@/lib/hooks/useUi";
+import { slugify } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -22,8 +23,11 @@ import {
 } from "react-icons/fa6";
 
 const Footer = () => {
-  const { aboutData, socialLinks } = useUi();
+  const { aboutData, socialLinks, footerMenus } = useUi();
   const { user } = useAuth();
+
+  const filterFooter = footerMenus?.map((item: any) => item.menus).flat();
+  console.log("footerMenus", filterFooter);
 
   return (
     <section className={`lg:py-14 py-6 bg-white`}>
@@ -165,29 +169,28 @@ const Footer = () => {
           {/* Footer Bottom */}
 
           <div className="footer__bottom flex gap-8 md:gap-0 justify-between lg:mt-12 my-4 md:flex-nowrap flex-wrap text-center md:text-start">
-            <div className="div1 w-full">
-              <span className="font-semibold text-base mb-8">
-                Start Planning
-              </span>
-              <ul className="flex flex-col gap-2 lg:mt-6 mt-2 lg:text-base text-sm">
-                <li>
-                  <Link href="/">Birdal Wear</Link>
-                </li>
-                <li>
-                  <Link href="/">Wedding Jewellery</Link>
-                </li>
-                <li>
-                  <Link href="/">Makeup and Hair</Link>
-                </li>
-                <li>
-                  <Link href="/">Wedding Decor</Link>
-                </li>
-                <li>
-                  <Link href="/">Search By City</Link>
-                </li>
-              </ul>
-            </div>
-            <div className="div2 w-full">
+            {filterFooter?.map((item: any, i: number) => {
+              return (
+                <div key={i} className="div1 w-full">
+                  <span className="font-semibold text-base mb-8">
+                    {item?.name}
+                  </span>
+                  <ul className="flex flex-col gap-2 lg:mt-6 mt-2 lg:text-base text-sm">
+                    {item?.subMenus?.map((sub: any, id: number) => {
+                      return (
+                        <li key={id}>
+                          <Link href={slugify(sub?.categoryName)}>
+                            {sub?.categoryName}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              );
+            })}
+
+            {/* <div className="div2 w-full">
               <span className="font-semibold text-base mb-8">
                 Wedding Ideas
               </span>
@@ -275,7 +278,7 @@ const Footer = () => {
                   <Link href="/">Makeup and Hair</Link>
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

@@ -15,7 +15,6 @@ const FeatureVendors = () => {
   const fetchData = async () => {
     try {
       const { data } = await getVendorsFeatured();
-      console.log("data", data);
       setData(data?.featured);
     } catch (error) {
       console.log(error);

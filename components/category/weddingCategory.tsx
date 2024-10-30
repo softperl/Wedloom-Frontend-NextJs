@@ -13,7 +13,7 @@ const WeddingCategory = () => {
       <div className="container mx-auto md:px-20 px-4">
         <SectionHeader text="Weeding Category" />
 
-        <div className="flex justify-between flex-wrap md:flex-nowrap gap-3 mt-8">
+        <div className="grid grid-cols-2 gap-3 mt-8">
           {vendorCategories?.map((item: any, i: number) => {
             return (
               <WcategorySingle

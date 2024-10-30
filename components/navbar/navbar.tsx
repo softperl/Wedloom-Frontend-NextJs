@@ -52,8 +52,8 @@ const Navbar = () => {
   const [allCities, setAllCities] = useState(false);
   const profilePopupRef = useRef<any>();
   const [profilePopup, setProfilePopup] = useState(false);
-  const { menus } = useUi();
   const pathname = usePathname();
+  const { menus } = useUi();
 
   const closePopup = (e: any) => {
     if (
@@ -74,6 +74,7 @@ const Navbar = () => {
   const handleAllCities = () => {
     setAllCities(!allCities);
   };
+  const filterNav = menus.map((item: any) => item.menus).flat();
 
   const avatar = "/avater.jpeg";
   return (
@@ -92,37 +93,57 @@ const Navbar = () => {
             </div>
             <div className="navbar__links">
               <ul className="flex gap-9 font-bold">
-                {menus?.map((item: any) => (
-                  <li
-                    key={item.id}
-                    className="submenu"
-                    onMouseEnter={() => setShowPop(true)}
-                    onMouseLeave={() => setShowPop(false)}>
-                    <Link href={item.href}>{item.title}</Link>
-                    {showPop && (
-                      <div className="navbar__popup w-2/4 pr-10 pl-10 pb-10 rounded-md bg-white shadow-md">
-                        <div className="popup__container">
-                          <div className="venuelist flex justify-between mt-5">
-                            <div className="venuelist__items">
-                              <div className="photographer">
-                                {/* First List Item */}
-                                <ul className="mt-1 text-black">
-                                  {item.subMenus?.map((subItem: any) => (
-                                    <li key={subItem.href}>
-                                      <Link href={subItem.href}>
-                                        {subItem.title}
-                                      </Link>
-                                    </li>
-                                  ))}
-                                </ul>
+                {filterNav?.map((item: any, i: number) => {
+                  console.log("item", item);
+
+                  return (
+                    <li
+                      key={i}
+                      className="submenu"
+                      onMouseEnter={() => setShowPop(true)}
+                      onMouseLeave={() => setShowPop(false)}>
+                      <Link href={item?.url}>{item?.name}</Link>
+                      {showPop && (
+                        <div className="navbar__popup w-2/4 pr-10 pl-10 pb-10 rounded-md bg-white shadow-md">
+                          <div className="popup__container">
+                            <div className="venuelist flex justify-between mt-5">
+                              <div className="venuelist__items">
+                                <div className="photographer">
+                                  <ul className="mt-1 text-black flex flex-col gap-8">
+                                    {item.subMenus?.map((subItem: any) => (
+                                      <li key={subItem.href}>
+                                        <Link
+                                          href={subItem.href || ""}
+                                          className="text-textPrimary-900 font-semibold capitalize">
+                                          {subItem.categoryName}
+                                        </Link>
+                                        <ul className="flex flex-col gap-2 mt-2">
+                                          {subItem?.children?.map(
+                                            (child: any, idx: number) => {
+                                              return (
+                                                <li key={idx}>
+                                                  <Link
+                                                    href={child?.url}
+                                                    className="capitalize">
+                                                    {child?.name}
+                                                  </Link>
+                                                </li>
+                                              );
+                                            }
+                                          )}
+                                        </ul>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    )}
-                  </li>
-                ))}
+                      )}
+                    </li>
+                  );
+                })}
 
                 {/* <li
                   className="submenu"

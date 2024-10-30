@@ -17,6 +17,8 @@ const Copyright = () => {
             <Link href="/terms">Terms & Conditions</Link>
             <span className="mx-2">|</span>
             <Link href="/privacy">Privacy Policy</Link>
+            <span className="mx-2">|</span>
+            <Link href="/refund">Refund</Link>
           </div>
         </div>
       </div>
