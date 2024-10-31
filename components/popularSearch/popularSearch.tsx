@@ -28,7 +28,7 @@ const PopularSearch = () => {
                 grabCursor={true}
                 loop={false}
                 loopFillGroupWithBlank={true}
-                className="mySwiper w-full"
+                className="mySwiper w-full h-full"
                 breakpoints={{
                   0: {
                     slidesPerView: 1,
@@ -57,7 +57,7 @@ const PopularSearch = () => {
                 }}>
                 {vendorCategories?.map((item: any, i: number) => {
                   return (
-                    <SwiperSlide key={i}>
+                    <SwiperSlide key={i} className="h-full">
                       <PsearchCarousel img={item?.photo} text={item?.name} />
                     </SwiperSlide>
                   );
