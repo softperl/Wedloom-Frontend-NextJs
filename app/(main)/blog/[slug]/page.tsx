@@ -52,18 +52,20 @@ export default async function page({ params }: { params: { slug: string } }) {
     console.log(error);
     notFound();
   }
+
+  console.log(post);
   return (
     <>
       <Head>
         <title>{post.title}</title>
       </Head>
       <BlogHeader post={post} />
-      <BlogBody />
-      <BlogTags />
+      <BlogBody post={post} />
+      <BlogTags post={post} />
       <BlogExplore />
-      <CommentBox />
+      {/* <CommentBox /> */}
       <Instagram />
-      <LatestBlogs heading="More Blogs" />
+      {/* <LatestBlogs heading="More Blogs" /> */}
     </>
   );
 }

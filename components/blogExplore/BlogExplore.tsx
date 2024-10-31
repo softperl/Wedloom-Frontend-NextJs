@@ -1,13 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BlogExploreCard from "@/components/blogExplore/BlogExploreCard";
 // import { Navigation } from "swiper";
 //@ts-ignore
 import { Swiper, SwiperSlide } from "swiper/react";
 import ExploreHeading from "@/components/exploreHeading";
+import { getCategories } from "@/lib/api";
+import { handelError } from "@/lib/utils";
 
-const BlogExplore = () => {
+const BlogExplore = ({ data }: any) => {
   return (
     <div className="blog_explore bg-bgGrey-900 lg:py-16 pt-8 pb-16">
       <div className="blog_explore_container container mx-auto lg:px-20 px-4">
@@ -18,26 +20,15 @@ const BlogExplore = () => {
         {/* Desktop View */}
         <div className="main_content hidden lg:block">
           <div className="blog_content my-8 flex w-full h-full gap-8 lg:flex-nowrap flex-wrap mb-4">
-            <BlogExploreCard
-              image="/pexels-photo-8393708.jpeg"
-              upperText="Decor"
-              downText="Guide"
-            />
-            <BlogExploreCard
-              image="/pexels-photo-2106687.jpeg"
-              upperText="Real"
-              downText="Wedding"
-            />
-            <BlogExploreCard
-              image="/pexels-photo-2049561.jpeg"
-              upperText="Dress"
-              downText="Guide"
-            />
-            <BlogExploreCard
-              image="/pexels-photo-2218558.jpeg"
-              upperText="Wedding"
-              downText="Ideas"
-            />
+            {data?.categories?.map((item: any, i: number) => {
+              return (
+                <BlogExploreCard
+                  key={i}
+                  image={item?.photo || "/pexels-photo-8393708.jpeg"}
+                  upperText={item?.name}
+                />
+              );
+            })}
           </div>
         </div>
       </div>

@@ -87,7 +87,7 @@ const BlogCard = ({ posts, categories }: any) => {
                   active3
                     ? " bg-textPrimary-900 text-white"
                     : "border-textPrimary-900 border text-black"
-                } py-2 px-6 font-medium rounded-3xl`}
+                } py-2 px-6 font-medium rounded-3xl uppercase`}
                 onClick={() => {
                   filteredItems("category3");
                   clickedCategory3();

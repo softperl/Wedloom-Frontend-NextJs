@@ -41,7 +41,6 @@ export function Providers({ children, ...props }: any) {
   }, [accessToken]);
 
   useEffect(() => {
-    console.log("ma", props.siteData);
     setAboutData(props.siteData?.about);
     setSocialLinks(props.siteData?.socialLink);
     setMenus(props.siteData?.menus);

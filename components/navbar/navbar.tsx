@@ -94,8 +94,6 @@ const Navbar = () => {
             <div className="navbar__links">
               <ul className="flex gap-9 font-bold">
                 {filterNav?.map((item: any, i: number) => {
-                  console.log("item", item);
-
                   return (
                     <li
                       key={i}
