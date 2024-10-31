@@ -1,47 +1,40 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SectionHeader from "@/components/sectionHeader";
 //@ts-ignore
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import WstoriesCarousel from "@/components/carousels/wstoriesCarousel";
 import { formatDate } from "date-fns/format";
+import { handelError } from "@/lib/utils";
+import { getPosts } from "@/lib/api";
 
 const LatestBlogs = ({ heading }: { heading: string }) => {
-  const data = [
-    {
-      img: "/pexels-photo-2106687.jpeg",
-      title:
-        "12 Amazing New Things To Do To Your Lehenga That Will Make It Super Unique!",
-      summary:
-        "Every bride wants to be a unique one- we bet you do too! So rather than running around for a unique lehenga, you could also consider making a few tweaks here and there, as well as adding new things th...",
-      date: "2024-08-21T16:15:06.334Z",
-    },
-    {
-      img: "/pexels-photo-2106687.jpeg",
-      title:
-        "12 Amazing New Things To Do To Your Lehenga That Will Make It Super Unique!",
-      summary:
-        "Every bride wants to be a unique one- we bet you do too! So rather than running around for a unique lehenga, you could also consider making a few tweaks here and there, as well as adding new things th...",
-      date: "2024-08-21T16:15:06.334Z",
-    },
-    {
-      img: "/pexels-photo-2106687.jpeg",
-      title:
-        "12 Amazing New Things To Do To Your Lehenga That Will Make It Super Unique!",
-      summary:
-        "Every bride wants to be a unique one- we bet you do too! So rather than running around for a unique lehenga, you could also consider making a few tweaks here and there, as well as adding new things th...",
-      date: "2024-08-21T16:15:06.334Z",
-    },
-    {
-      img: "/pexels-photo-2106687.jpeg",
-      title:
-        "12 Amazing New Things To Do To Your Lehenga That Will Make It Super Unique!",
-      summary:
-        "Every bride wants to be a unique one- we bet you do too! So rather than running around for a unique lehenga, you could also consider making a few tweaks here and there, as well as adding new things th...",
-      date: "2024-08-21T16:15:06.334Z",
-    },
-  ];
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchPosts = async () => {
+    try {
+      setLoading(true);
+      const { data } = await getPosts({
+        q: "", // Pass search query here if needed
+        page: 1,
+        perPage: 10,
+        sortBy: "date",
+        sortOrder: "desc",
+      });
+      setData(data.posts);
+      console.log("blogs", data.posts);
+    } catch (err: any) {
+      handelError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
   return (
     <section className="lg:py-14">
       <div className="popular_venue container mx-auto lg:px-20 px-4">
@@ -84,10 +77,11 @@ const LatestBlogs = ({ heading }: { heading: string }) => {
                 return (
                   <SwiperSlide key={i}>
                     <WstoriesCarousel
-                      img={item?.img}
+                      img={item?.thumbnail}
                       name={item?.title}
-                      summary={item?.summary}
-                      date={formatDate(item?.date, "d MMMM YYY")}
+                      summary={item?.description}
+                      date={formatDate(item?.createdAt, "d MMMM YYY")}
+                      slug={item?.slug}
                     />
                   </SwiperSlide>
                 );
