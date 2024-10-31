@@ -60,6 +60,8 @@ export const getPosts = ({
   sortOrder?: string;
 }) => API.get(`/blog/post/get-all?q=${q}&page=${page}&perPage=${perPage}`);
 export const getCategories = () => API.get("/blog/category/get-all");
+export const newEmailAlert = (email: any) =>
+  API.post(`/blog/email-alerts/${email}`);
 
 //Site
 export const getAllPlan = () => API.get("/site/plans");

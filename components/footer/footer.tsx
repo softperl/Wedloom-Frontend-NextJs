@@ -1,10 +1,12 @@
 "use client";
+import { newEmailAlert } from "@/lib/api";
 import useAuth from "@/lib/hooks/useAuth";
 import useUi from "@/lib/hooks/useUi";
-import { slugify } from "@/lib/utils";
+import { handelError, slugify } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
 import {
   FaDiscord,
   FaFacebook,
@@ -25,9 +27,20 @@ import {
 const Footer = () => {
   const { aboutData, socialLinks, footerMenus } = useUi();
   const { user } = useAuth();
+  const [email, setEmail] = useState("");
 
   const filterFooter = footerMenus?.map((item: any) => item.menus).flat();
-  console.log("footerMenus", filterFooter);
+
+  const alertFn = async () => {
+    try {
+      await newEmailAlert(email);
+      toast.success("Email sent successfully");
+    } catch (error) {
+      handelError(error);
+    } finally {
+      setEmail("");
+    }
+  };
 
   return (
     <section className={`lg:py-14 py-6 bg-white`}>
@@ -53,11 +66,15 @@ const Footer = () => {
               <div className="email__section flex w-full my-4 justify-center lg:justify-start">
                 <div className=" flex w-10/12 border border-paginationBg-900">
                   <input
-                    type="text"
+                    type="email"
                     placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="outline-none text-textSecondary-900 p-3 border-none w-full"
                   />
-                  <button className="bg-textPrimary-900 p-3 text-white font-semibold">
+                  <button
+                    onClick={alertFn}
+                    className="bg-textPrimary-900 p-3 text-white font-semibold">
                     Submit
                   </button>
                 </div>
